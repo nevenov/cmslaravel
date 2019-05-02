@@ -51,8 +51,17 @@ class AdminUsersController extends Controller
     public function store(UsersReguest $request)
     {
         //
+        if(trim($request->password) == '') {
 
-        $input = $request->all();
+            $input = $request->except('password');
+
+        } else {
+
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+
+        }
+
 
         if($file = $request->file('file')){
 
@@ -65,8 +74,6 @@ class AdminUsersController extends Controller
             $input['photo_id'] = $photo->id;
 
         }
-
-        $input['password'] = bcrypt($request->password);
 
         User::create($input);
 
@@ -119,7 +126,17 @@ class AdminUsersController extends Controller
 
         $user = User::findOrFail($id);
 
-        $input = $request->all();
+        if(trim($request->password) == '') {
+
+            $input = $request->except('password');
+
+        } else {
+
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+
+        }
+
 
         if($file = $request->file('file')){
 
