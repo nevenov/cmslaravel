@@ -5,6 +5,24 @@
 
 @section('content')
 
+    @if(Session::has('deleted_category'))
+
+        <p class="bg-danger">{{session('deleted_category')}}</p>
+
+    @endif
+
+    @if(Session::has('updated_category'))
+
+        <p class="bg-success">{{session('updated_category')}}</p>
+
+    @endif
+
+    @if(Session::has('created_category'))
+
+        <p class="bg-success">{{session('created_category')}}</p>
+
+    @endif
+
 
     <h1>Categories</h1>
 
@@ -48,7 +66,7 @@
             @foreach($categories as $category)
             <tr>
               <th scope="row">{{$category->id}}</th>
-              <td>{{$category->name}}</td>
+              <td><a href="{{route('admin.categories.edit', $category->id)}}">{{$category->name}}</a></td>
               <td>{{$category->created_at ? $category->created_at->diffForHumans() : 'no date'}}</td>
             </tr>
             @endforeach
