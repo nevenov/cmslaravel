@@ -46,7 +46,12 @@ class AdminMediasController extends Controller
 
         $photo = Photo::findOrFail($id);
 
-        unlink(public_path() . $photo->file);
+
+
+        if(file_exists(public_path($photo->file))){
+
+            unlink(public_path() . $photo->file);
+        }
 
         $photo->delete();
 

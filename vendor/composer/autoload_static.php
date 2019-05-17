@@ -278,6 +278,8 @@ class ComposerStaticInit16f5c1a7529f7b87bccbde6be02777cd
     public static $classMap = array (
         'AddingPhotoIdToUsers' => __DIR__ . '/../..' . '/database/migrations/2019_04_30_095446_adding_photo_id_to_users.php',
         'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2019_05_09_134618_create_categories_table.php',
+        'CreateCommentRepliesTable' => __DIR__ . '/../..' . '/database/migrations/2019_05_16_120724_create_comment_replies_table.php',
+        'CreateCommentsTable' => __DIR__ . '/../..' . '/database/migrations/2019_05_16_120653_create_comments_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePhotosTable' => __DIR__ . '/../..' . '/database/migrations/2019_04_30_131753_create_photos_table.php',
         'CreatePostsTable' => __DIR__ . '/../..' . '/database/migrations/2019_05_07_091835_create_posts_table.php',
