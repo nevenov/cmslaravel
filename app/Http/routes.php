@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('/post/{id}', ['as'=>'post.home', 'uses'=>'AdminPostsController@post']);
 
 
+
 Route::group(['middleware'=>'admin'], function(){
 
 
@@ -31,6 +32,7 @@ Route::group(['middleware'=>'admin'], function(){
         return view('admin.index');
 
     });
+
 
     Route::resource('/admin/users', 'AdminUsersController');
 
@@ -49,4 +51,8 @@ Route::group(['middleware'=>'admin'], function(){
 });
 
 
+Route::group(['middleware'=>'auth'], function(){
 
+    Route::post('comment/reply', 'CommentRepliesController@createReply');
+
+});

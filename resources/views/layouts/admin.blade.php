@@ -148,7 +148,7 @@
                             </li>
 
                             <li>
-                                <a href="{{route('admin.comments.index')}}">Comments</a>
+                                <a href="{{route('admin.comments.index')}}">All Comments</a>
                             </li>
 
                         </ul>
