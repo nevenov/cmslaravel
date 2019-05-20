@@ -40,6 +40,7 @@
               <td>{{str_limit($comment->body, 30)}}</td>
               <td>{{$comment->created_at->diffForHumans()}}</td>
               <td><a href="{{route('post.home', $comment->post->id)}}">View Post</a></td>
+              <td><a href="{{route('admin.comment.replies.show', $comment->id)}}">View Replies</a></td>
 
 
               <td>
