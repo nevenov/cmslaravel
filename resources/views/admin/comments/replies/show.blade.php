@@ -32,7 +32,7 @@
                     <td>{{$reply->email}}</td>
                     <td>{{str_limit($reply->body, 30)}}</td>
                     <td>{{$reply->created_at->diffForHumans()}}</td>
-                    <td><a href="{{route('post.home', $reply->comment->post->id)}}">View Post</a></td>
+                    <td><a href="{{route('post.home', $reply->comment->post->slug)}}">View Post</a></td>
 
 
                     <td>
