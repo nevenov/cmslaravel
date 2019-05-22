@@ -12,6 +12,19 @@ class Post extends Model
     use Sluggable;
     use SluggableScopeHelpers;
 
+
+
+    //
+    protected $fillable = [
+
+        'category_id',
+        'photo_id',
+        'user_id',
+        'title',
+        'body'
+
+    ];
+
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -25,17 +38,6 @@ class Post extends Model
             ]
         ];
     }
-
-    //
-    protected $fillable = [
-
-        'category_id',
-        'photo_id',
-        'user_id',
-        'title',
-        'body'
-
-    ];
 
 
     public function user(){
