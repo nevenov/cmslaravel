@@ -32,4 +32,12 @@ class Comment extends Model
 
     }
 
+
+    public function getGravatarAttribute(){
+
+        $hash = md5(strtolower(trim($this->attributes['email'])));
+        return "https://www.gravatar.com/avatar/" . $hash . "?d=mm";
+
+    }
+
 }
