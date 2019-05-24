@@ -325,29 +325,29 @@
 
     </div>
 
-</div>
 
 
 
 
 
 
-<!-- Page Content -->
-<div id="page-wrapper">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header"></h1>
 
-                @yield('content')
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header"></h1>
+
+                    @yield('content')
+                </div>
+                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.col-lg-12 -->
+            <!-- /.row -->
         </div>
-        <!-- /.row -->
+        <!-- /.container-fluid -->
     </div>
-    <!-- /.container-fluid -->
-</div>
-<!-- /#page-wrapper -->
+    <!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->
