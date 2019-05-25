@@ -11,6 +11,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('users')->insert([
+
+            'role_id'=>'2',
+            'is_active'=>'1',
+            'name'=>'Tester',
+            'email'=>'tester@codingfaculty.com',
+            'password'=>bcrypt('123')
+
+
+        ]);
     }
 }
