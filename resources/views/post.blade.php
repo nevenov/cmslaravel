@@ -124,7 +124,7 @@
 
                             <button class="toggle-reply btn btn-primary pull-right">Reply</button>
 
-                            <div class="comment-reply col-sm-9">
+                            <div class="comment-reply col-sm-9" style="display:none;">
 
                                 {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
                                     <div class="form-group">
