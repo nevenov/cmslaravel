@@ -19,30 +19,6 @@ use Symfony\Component\VarDumper\Dumper\CliDumper;
  */
 trait VarDumperTestTrait
 {
-<<<<<<< HEAD
-    public function assertDumpEquals($dump, $data, $message = '')
-    {
-        $this->assertSame(rtrim($dump), $this->getDump($data), $message);
-    }
-
-    public function assertDumpMatchesFormat($dump, $data, $message = '')
-    {
-        $this->assertStringMatchesFormat(rtrim($dump), $this->getDump($data), $message);
-    }
-
-    protected function getDump($data)
-    {
-        $h = fopen('php://memory', 'r+b');
-        $cloner = new VarCloner();
-        $cloner->setMaxItems(-1);
-        $dumper = new CliDumper($h);
-        $dumper->setColors(false);
-        $dumper->dump($cloner->cloneVar($data)->withRefHandles(false));
-        $data = stream_get_contents($h, -1, 0);
-        fclose($h);
-
-        return rtrim($data);
-=======
     public function assertDumpEquals($expected, $data, $filter = 0, $message = '')
     {
         $this->assertSame($this->prepareExpectation($expected, $filter), $this->getDump($data, null, $filter), $message);
@@ -77,6 +53,5 @@ trait VarDumperTestTrait
         }
 
         return rtrim($expected);
->>>>>>> dev
     }
 }

@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,28 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-    'year' => ':count წლის',
-    'y' => ':count წლის',
-    'month' => ':count თვის',
-    'm' => ':count თვის',
-    'week' => ':count კვირის',
-    'w' => ':count კვირის',
-    'day' => ':count დღის',
-    'd' => ':count დღის',
-    'hour' => ':count საათის',
-    'h' => ':count საათის',
-    'minute' => ':count წუთის',
-    'min' => ':count წუთის',
-    'second' => ':count წამის',
-    's' => ':count წამის',
-    'ago' => ':time უკან',
-    'from_now' => ':time შემდეგ',
-    'after' => ':time შემდეგ',
-    'before' => ':time უკან',
-);
-=======
 /**
  * Authors:
  * - Tornike Razmadze
@@ -126,4 +100,3 @@ return [
     'list' => [', ', ' და '],
     'meridiem' => ['დილის', 'საღამოს'],
 ];
->>>>>>> dev

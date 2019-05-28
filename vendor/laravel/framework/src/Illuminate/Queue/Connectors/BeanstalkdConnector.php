@@ -2,14 +2,8 @@
 
 namespace Illuminate\Queue\Connectors;
 
-<<<<<<< HEAD
-use Pheanstalk\Pheanstalk;
-use Illuminate\Support\Arr;
-use Pheanstalk\PheanstalkInterface;
-=======
 use Pheanstalk\Connection;
 use Pheanstalk\Pheanstalk;
->>>>>>> dev
 use Illuminate\Queue\BeanstalkdQueue;
 
 class BeanstalkdConnector implements ConnectorInterface
@@ -22,12 +16,6 @@ class BeanstalkdConnector implements ConnectorInterface
      */
     public function connect(array $config)
     {
-<<<<<<< HEAD
-        $pheanstalk = new Pheanstalk($config['host'], Arr::get($config, 'port', PheanstalkInterface::DEFAULT_PORT));
-
-        return new BeanstalkdQueue(
-            $pheanstalk, $config['queue'], Arr::get($config, 'ttr', Pheanstalk::DEFAULT_TTR)
-=======
         return new BeanstalkdQueue(
             $this->pheanstalk($config),
             $config['queue'],
@@ -48,7 +36,6 @@ class BeanstalkdConnector implements ConnectorInterface
             $config['host'],
             $config['port'] ?? Pheanstalk::DEFAULT_PORT,
             $config['timeout'] ?? Connection::DEFAULT_CONNECT_TIMEOUT
->>>>>>> dev
         );
     }
 }

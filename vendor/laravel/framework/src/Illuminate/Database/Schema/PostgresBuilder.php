@@ -12,15 +12,6 @@ class PostgresBuilder extends Builder
      */
     public function hasTable($table)
     {
-<<<<<<< HEAD
-        $sql = $this->grammar->compileTableExists();
-
-        $schema = $this->connection->getConfig('schema');
-
-        $table = $this->connection->getTablePrefix().$table;
-
-        return count($this->connection->select($sql, [$schema, $table])) > 0;
-=======
         [$schema, $table] = $this->parseSchemaAndTable($table);
 
         $table = $this->connection->getTablePrefix().$table;
@@ -180,6 +171,5 @@ class PostgresBuilder extends Builder
         }
 
         return [$schema ?: 'public', implode('.', $table)];
->>>>>>> dev
     }
 }

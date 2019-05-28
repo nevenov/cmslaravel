@@ -11,19 +11,6 @@
 
 namespace Symfony\Component\HttpKernel\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\HttpKernel;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-
-class TestHttpKernel extends HttpKernel implements ControllerResolverInterface
-{
-    public function __construct()
-    {
-        parent::__construct(new EventDispatcher(), $this);
-=======
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,25 +23,16 @@ class TestHttpKernel extends HttpKernel implements ControllerResolverInterface, 
     public function __construct()
     {
         parent::__construct(new EventDispatcher(), $this, null, $this);
->>>>>>> dev
     }
 
     public function getController(Request $request)
     {
-<<<<<<< HEAD
-        return array($this, 'callController');
-=======
         return [$this, 'callController'];
->>>>>>> dev
     }
 
     public function getArguments(Request $request, $controller)
     {
-<<<<<<< HEAD
-        return array($request);
-=======
         return [$request];
->>>>>>> dev
     }
 
     public function callController(Request $request)

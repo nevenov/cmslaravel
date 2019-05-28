@@ -2,11 +2,7 @@
 
 namespace Illuminate\Mail\Transport;
 
-<<<<<<< HEAD
-use Swift_Mime_Message;
-=======
 use Swift_Mime_SimpleMessage;
->>>>>>> dev
 use GuzzleHttp\ClientInterface;
 
 class SparkPostTransport extends Transport
@@ -26,11 +22,7 @@ class SparkPostTransport extends Transport
     protected $key;
 
     /**
-<<<<<<< HEAD
-     * Transmission options.
-=======
      * The SparkPost transmission options.
->>>>>>> dev
      *
      * @var array
      */
@@ -54,11 +46,7 @@ class SparkPostTransport extends Transport
     /**
      * {@inheritdoc}
      */
-<<<<<<< HEAD
-    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
-=======
     public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
->>>>>>> dev
     {
         $this->beforeSendPerformed($message);
 
@@ -66,33 +54,15 @@ class SparkPostTransport extends Transport
 
         $message->setBcc([]);
 
-<<<<<<< HEAD
-        $options = [
-            'headers' => [
-                'Authorization' => $this->key,
-            ],
-            'json' => [
-=======
         $response = $this->client->request('POST', $this->getEndpoint(), [
             'headers' => [
                 'Authorization' => $this->key,
             ],
             'json' => array_merge([
->>>>>>> dev
                 'recipients' => $recipients,
                 'content' => [
                     'email_rfc822' => $message->toString(),
                 ],
-<<<<<<< HEAD
-            ],
-        ];
-
-        if ($this->options) {
-            $options['json']['options'] = $this->options;
-        }
-
-        return $this->client->post('https://api.sparkpost.com/api/v1/transmissions', $options);
-=======
             ], $this->options),
         ]);
 
@@ -103,7 +73,6 @@ class SparkPostTransport extends Transport
         $this->sendPerformed($message);
 
         return $this->numberOfRecipients($message);
->>>>>>> dev
     }
 
     /**
@@ -111,31 +80,6 @@ class SparkPostTransport extends Transport
      *
      * Note that SparkPost still respects CC, BCC headers in raw message itself.
      *
-<<<<<<< HEAD
-     * @param  \Swift_Mime_Message $message
-     * @return array
-     */
-    protected function getRecipients(Swift_Mime_Message $message)
-    {
-        $to = [];
-
-        if ($message->getTo()) {
-            $to = array_merge($to, array_keys($message->getTo()));
-        }
-
-        if ($message->getCc()) {
-            $to = array_merge($to, array_keys($message->getCc()));
-        }
-
-        if ($message->getBcc()) {
-            $to = array_merge($to, array_keys($message->getBcc()));
-        }
-
-        $recipients = array_map(function ($address) {
-            return compact('address');
-        }, $to);
-
-=======
      * @param  \Swift_Mime_SimpleMessage $message
      * @return array
      */
@@ -155,13 +99,10 @@ class SparkPostTransport extends Transport
             $recipients[] = ['address' => compact('name', 'email')];
         }
 
->>>>>>> dev
         return $recipients;
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Get the transmission ID from the response.
      *
      * @param  \GuzzleHttp\Psr7\Response  $response
@@ -175,7 +116,6 @@ class SparkPostTransport extends Transport
     }
 
     /**
->>>>>>> dev
      * Get the API key being used by the transport.
      *
      * @return string
@@ -195,8 +135,6 @@ class SparkPostTransport extends Transport
     {
         return $this->key = $key;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get the SparkPost API endpoint.
@@ -228,5 +166,4 @@ class SparkPostTransport extends Transport
     {
         return $this->options = $options;
     }
->>>>>>> dev
 }

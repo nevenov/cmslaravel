@@ -3,13 +3,8 @@
 namespace Illuminate\Mail\Transport;
 
 use Swift_Transport;
-<<<<<<< HEAD
-use Swift_Mime_Message;
-use Swift_Events_SendEvent;
-=======
 use Swift_Events_SendEvent;
 use Swift_Mime_SimpleMessage;
->>>>>>> dev
 use Swift_Events_EventListener;
 
 abstract class Transport implements Swift_Transport
@@ -46,8 +41,6 @@ abstract class Transport implements Swift_Transport
     }
 
     /**
-<<<<<<< HEAD
-=======
      * {@inheritdoc}
      */
     public function ping()
@@ -56,7 +49,6 @@ abstract class Transport implements Swift_Transport
     }
 
     /**
->>>>>>> dev
      * Register a plug-in with the transport.
      *
      * @param  \Swift_Events_EventListener  $plugin
@@ -70,17 +62,10 @@ abstract class Transport implements Swift_Transport
     /**
      * Iterate through registered plugins and execute plugins' methods.
      *
-<<<<<<< HEAD
-     * @param  \Swift_Mime_Message  $message
-     * @return void
-     */
-    protected function beforeSendPerformed(Swift_Mime_Message $message)
-=======
      * @param  \Swift_Mime_SimpleMessage  $message
      * @return void
      */
     protected function beforeSendPerformed(Swift_Mime_SimpleMessage $message)
->>>>>>> dev
     {
         $event = new Swift_Events_SendEvent($this, $message);
 
@@ -90,8 +75,6 @@ abstract class Transport implements Swift_Transport
             }
         }
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Iterate through registered plugins and execute plugins' methods.
@@ -122,5 +105,4 @@ abstract class Transport implements Swift_Transport
             (array) $message->getTo(), (array) $message->getCc(), (array) $message->getBcc()
         ));
     }
->>>>>>> dev
 }

@@ -1,10 +1,6 @@
 <?php
 /*
-<<<<<<< HEAD
- * This file is part of the Comparator package.
-=======
  * This file is part of sebastian/comparator.
->>>>>>> dev
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -29,23 +25,14 @@ class DoubleComparator extends NumericComparator
     /**
      * Returns whether the comparator can compare two values.
      *
-<<<<<<< HEAD
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual   The second value to compare
-=======
      * @param mixed $expected The first value to compare
      * @param mixed $actual   The second value to compare
      *
->>>>>>> dev
      * @return bool
      */
     public function accepts($expected, $actual)
     {
-<<<<<<< HEAD
-        return (is_double($expected) || is_double($actual)) && is_numeric($expected) && is_numeric($actual);
-=======
         return (\is_float($expected) || \is_float($actual)) && \is_numeric($expected) && \is_numeric($actual);
->>>>>>> dev
     }
 
     /**

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-{"name":"argument_name","is_required":false,"is_array":true,"description":"argument description","default":[]}
-=======
 {
     "name": "argument_name",
     "is_required": false,
@@ -8,4 +5,3 @@
     "description": "argument description",
     "default": []
 }
->>>>>>> dev

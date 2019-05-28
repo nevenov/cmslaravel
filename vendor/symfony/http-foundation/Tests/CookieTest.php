@@ -11,10 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\HttpFoundation\Cookie;
 
 /**
@@ -25,23 +22,6 @@ use Symfony\Component\HttpFoundation\Cookie;
  *
  * @group time-sensitive
  */
-<<<<<<< HEAD
-class CookieTest extends \PHPUnit_Framework_TestCase
-{
-    public function invalidNames()
-    {
-        return array(
-            array(''),
-            array(',MyName'),
-            array(';MyName'),
-            array(' MyName'),
-            array("\tMyName"),
-            array("\rMyName"),
-            array("\nMyName"),
-            array("\013MyName"),
-            array("\014MyName"),
-        );
-=======
 class CookieTest extends TestCase
 {
     public function invalidNames()
@@ -57,7 +37,6 @@ class CookieTest extends TestCase
             ["\013MyName"],
             ["\014MyName"],
         ];
->>>>>>> dev
     }
 
     /**
@@ -66,11 +45,7 @@ class CookieTest extends TestCase
      */
     public function testInstantiationThrowsExceptionIfCookieNameContainsInvalidCharacters($name)
     {
-<<<<<<< HEAD
-        new Cookie($name);
-=======
         Cookie::create($name);
->>>>>>> dev
     }
 
     /**
@@ -78,9 +53,6 @@ class CookieTest extends TestCase
      */
     public function testInvalidExpiration()
     {
-<<<<<<< HEAD
-        $cookie = new Cookie('MyCookie', 'foo', 'bar');
-=======
         Cookie::create('MyCookie', 'foo', 'bar');
     }
 
@@ -89,39 +61,25 @@ class CookieTest extends TestCase
         $cookie = Cookie::create('foo', 'bar', -100);
 
         $this->assertSame(0, $cookie->getExpiresTime());
->>>>>>> dev
     }
 
     public function testGetValue()
     {
         $value = 'MyValue';
-<<<<<<< HEAD
-        $cookie = new Cookie('MyCookie', $value);
-=======
         $cookie = Cookie::create('MyCookie', $value);
->>>>>>> dev
 
         $this->assertSame($value, $cookie->getValue(), '->getValue() returns the proper value');
     }
 
     public function testGetPath()
     {
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar');
-=======
         $cookie = Cookie::create('foo', 'bar');
->>>>>>> dev
 
         $this->assertSame('/', $cookie->getPath(), '->getPath() returns / as the default path');
     }
 
     public function testGetExpiresTime()
     {
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar', 3600);
-
-        $this->assertEquals(3600, $cookie->getExpiresTime(), '->getExpiresTime() returns the expire date');
-=======
         $cookie = Cookie::create('foo', 'bar');
 
         $this->assertEquals(0, $cookie->getExpiresTime(), '->getExpiresTime() returns the default expire date');
@@ -136,35 +94,20 @@ class CookieTest extends TestCase
         $cookie = Cookie::create('foo', 'bar', 3600.9);
 
         $this->assertSame(3600, $cookie->getExpiresTime(), '->getExpiresTime() returns the expire date as an integer');
->>>>>>> dev
     }
 
     public function testConstructorWithDateTime()
     {
         $expire = new \DateTime();
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar', $expire);
-=======
         $cookie = Cookie::create('foo', 'bar', $expire);
->>>>>>> dev
 
         $this->assertEquals($expire->format('U'), $cookie->getExpiresTime(), '->getExpiresTime() returns the expire date');
     }
 
-<<<<<<< HEAD
-    /**
-     * @requires PHP 5.5
-     */
-    public function testConstructorWithDateTimeImmutable()
-    {
-        $expire = new \DateTimeImmutable();
-        $cookie = new Cookie('foo', 'bar', $expire);
-=======
     public function testConstructorWithDateTimeImmutable()
     {
         $expire = new \DateTimeImmutable();
         $cookie = Cookie::create('foo', 'bar', $expire);
->>>>>>> dev
 
         $this->assertEquals($expire->format('U'), $cookie->getExpiresTime(), '->getExpiresTime() returns the expire date');
     }
@@ -172,11 +115,7 @@ class CookieTest extends TestCase
     public function testGetExpiresTimeWithStringValue()
     {
         $value = '+1 day';
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar', $value);
-=======
         $cookie = Cookie::create('foo', 'bar', $value);
->>>>>>> dev
         $expire = strtotime($value);
 
         $this->assertEquals($expire, $cookie->getExpiresTime(), '->getExpiresTime() returns the expire date', 1);
@@ -184,55 +123,34 @@ class CookieTest extends TestCase
 
     public function testGetDomain()
     {
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar', 3600, '/', '.myfoodomain.com');
-=======
         $cookie = Cookie::create('foo', 'bar', 0, '/', '.myfoodomain.com');
->>>>>>> dev
 
         $this->assertEquals('.myfoodomain.com', $cookie->getDomain(), '->getDomain() returns the domain name on which the cookie is valid');
     }
 
     public function testIsSecure()
     {
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar', 3600, '/', '.myfoodomain.com', true);
-=======
         $cookie = Cookie::create('foo', 'bar', 0, '/', '.myfoodomain.com', true);
->>>>>>> dev
 
         $this->assertTrue($cookie->isSecure(), '->isSecure() returns whether the cookie is transmitted over HTTPS');
     }
 
     public function testIsHttpOnly()
     {
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar', 3600, '/', '.myfoodomain.com', false, true);
-=======
         $cookie = Cookie::create('foo', 'bar', 0, '/', '.myfoodomain.com', false, true);
->>>>>>> dev
 
         $this->assertTrue($cookie->isHttpOnly(), '->isHttpOnly() returns whether the cookie is only transmitted over HTTP');
     }
 
     public function testCookieIsNotCleared()
     {
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar', time() + 3600 * 24);
-=======
         $cookie = Cookie::create('foo', 'bar', time() + 3600 * 24);
->>>>>>> dev
 
         $this->assertFalse($cookie->isCleared(), '->isCleared() returns false if the cookie did not expire yet');
     }
 
     public function testCookieIsCleared()
     {
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar', time() - 20);
-
-        $this->assertTrue($cookie->isCleared(), '->isCleared() returns true if the cookie has expired');
-=======
         $cookie = Cookie::create('foo', 'bar', time() - 20);
 
         $this->assertTrue($cookie->isCleared(), '->isCleared() returns true if the cookie has expired');
@@ -248,21 +166,10 @@ class CookieTest extends TestCase
         $cookie = Cookie::create('foo', 'bar', -1);
 
         $this->assertFalse($cookie->isCleared());
->>>>>>> dev
     }
 
     public function testToString()
     {
-<<<<<<< HEAD
-        $cookie = new Cookie('foo', 'bar', strtotime('Fri, 20-May-2011 15:25:52 GMT'), '/', '.myfoodomain.com', true);
-        $this->assertEquals('foo=bar; expires=Fri, 20-May-2011 15:25:52 GMT; path=/; domain=.myfoodomain.com; secure; httponly', $cookie->__toString(), '->__toString() returns string representation of the cookie');
-
-        $cookie = new Cookie('foo', null, 1, '/admin/', '.myfoodomain.com');
-        $this->assertEquals('foo=deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; path=/admin/; domain=.myfoodomain.com; httponly', $cookie->__toString(), '->__toString() returns string representation of a cleared cookie if value is NULL');
-
-        $cookie = new Cookie('foo', 'bar', 0, '/', '');
-        $this->assertEquals('foo=bar; path=/; httponly', $cookie->__toString());
-=======
         $cookie = Cookie::create('foo', 'bar', $expire = strtotime('Fri, 20-May-2011 15:25:52 GMT'), '/', '.myfoodomain.com', true, true, false, null);
         $this->assertEquals('foo=bar; expires=Fri, 20-May-2011 15:25:52 GMT; Max-Age=0; path=/; domain=.myfoodomain.com; secure; httponly', (string) $cookie, '->__toString() returns string representation of the cookie');
 
@@ -342,6 +249,5 @@ class CookieTest extends TestCase
         $cookie->setSecureDefault(false);
 
         $this->assertFalse($cookie->isSecure());
->>>>>>> dev
     }
 }

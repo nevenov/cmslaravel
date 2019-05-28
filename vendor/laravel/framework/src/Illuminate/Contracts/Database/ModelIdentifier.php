@@ -21,8 +21,6 @@ class ModelIdentifier
     public $id;
 
     /**
-<<<<<<< HEAD
-=======
      * The relationships loaded on the model.
      *
      * @var array
@@ -37,19 +35,10 @@ class ModelIdentifier
     public $connection;
 
     /**
->>>>>>> dev
      * Create a new model identifier.
      *
      * @param  string  $class
      * @param  mixed  $id
-<<<<<<< HEAD
-     * @return void
-     */
-    public function __construct($class, $id)
-    {
-        $this->id = $id;
-        $this->class = $class;
-=======
      * @param  array  $relations
      * @param  mixed  $connection
      * @return void
@@ -60,6 +49,5 @@ class ModelIdentifier
         $this->class = $class;
         $this->relations = $relations;
         $this->connection = $connection;
->>>>>>> dev
     }
 }

@@ -20,11 +20,6 @@ interface HelperInterface
 {
     /**
      * Sets the helper set associated with this helper.
-<<<<<<< HEAD
-     *
-     * @param HelperSet $helperSet A HelperSet instance
-=======
->>>>>>> dev
      */
     public function setHelperSet(HelperSet $helperSet = null);
 

@@ -2,14 +2,6 @@
 
 namespace Illuminate\Database\Eloquent;
 
-<<<<<<< HEAD
-use Closure;
-use Faker\Generator as Faker;
-use InvalidArgumentException;
-
-class FactoryBuilder
-{
-=======
 use Faker\Generator as Faker;
 use InvalidArgumentException;
 use Illuminate\Support\Traits\Macroable;
@@ -18,7 +10,6 @@ class FactoryBuilder
 {
     use Macroable;
 
->>>>>>> dev
     /**
      * The model definitions in the container.
      *
@@ -41,13 +32,6 @@ class FactoryBuilder
     protected $name = 'default';
 
     /**
-<<<<<<< HEAD
-     * The number of models to build.
-     *
-     * @var int
-     */
-    protected $amount = 1;
-=======
      * The database connection on which the model instance should be persisted.
      *
      * @var string
@@ -81,7 +65,6 @@ class FactoryBuilder
      * @var array
      */
     protected $activeStates = [];
->>>>>>> dev
 
     /**
      * The Faker instance for the builder.
@@ -91,8 +74,6 @@ class FactoryBuilder
     protected $faker;
 
     /**
-<<<<<<< HEAD
-=======
      * The number of models to build.
      *
      * @var int|null
@@ -100,18 +81,11 @@ class FactoryBuilder
     protected $amount = null;
 
     /**
->>>>>>> dev
      * Create an new builder instance.
      *
      * @param  string  $class
      * @param  string  $name
      * @param  array  $definitions
-<<<<<<< HEAD
-     * @param  \Faker\Generator  $faker
-     * @return void
-     */
-    public function __construct($class, $name, array $definitions, Faker $faker)
-=======
      * @param  array  $states
      * @param  array  $afterMaking
      * @param  array  $afterCreating
@@ -120,19 +94,14 @@ class FactoryBuilder
      */
     public function __construct($class, $name, array $definitions, array $states,
                                 array $afterMaking, array $afterCreating, Faker $faker)
->>>>>>> dev
     {
         $this->name = $name;
         $this->class = $class;
         $this->faker = $faker;
-<<<<<<< HEAD
-        $this->definitions = $definitions;
-=======
         $this->states = $states;
         $this->definitions = $definitions;
         $this->afterMaking = $afterMaking;
         $this->afterCreating = $afterCreating;
->>>>>>> dev
     }
 
     /**
@@ -149,8 +118,6 @@ class FactoryBuilder
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Set the state to be applied to the model.
      *
      * @param  string  $state
@@ -201,7 +168,6 @@ class FactoryBuilder
     }
 
     /**
->>>>>>> dev
      * Create a collection of models and persist them to the database.
      *
      * @param  array  $attributes
@@ -211,14 +177,6 @@ class FactoryBuilder
     {
         $results = $this->make($attributes);
 
-<<<<<<< HEAD
-        if ($this->amount === 1) {
-            $results->save();
-        } else {
-            foreach ($results as $result) {
-                $result->save();
-            }
-=======
         if ($results instanceof Model) {
             $this->store(collect([$results]));
 
@@ -227,15 +185,12 @@ class FactoryBuilder
             $this->store($results);
 
             $this->callAfterCreating($results);
->>>>>>> dev
         }
 
         return $results;
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Set the connection name on the results and store them.
      *
      * @param  \Illuminate\Support\Collection  $results
@@ -253,7 +208,6 @@ class FactoryBuilder
     }
 
     /**
->>>>>>> dev
      * Create a collection of models.
      *
      * @param  array  $attributes
@@ -261,51 +215,6 @@ class FactoryBuilder
      */
     public function make(array $attributes = [])
     {
-<<<<<<< HEAD
-        if ($this->amount === 1) {
-            return $this->makeInstance($attributes);
-        } else {
-            $results = [];
-
-            for ($i = 0; $i < $this->amount; $i++) {
-                $results[] = $this->makeInstance($attributes);
-            }
-
-            return new Collection($results);
-        }
-    }
-
-    /**
-     * Make an instance of the model with the given attributes.
-     *
-     * @param  array  $attributes
-     * @return \Illuminate\Database\Eloquent\Model
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function makeInstance(array $attributes = [])
-    {
-        return Model::unguarded(function () use ($attributes) {
-            if (! isset($this->definitions[$this->class][$this->name])) {
-                throw new InvalidArgumentException("Unable to locate factory with name [{$this->name}] [{$this->class}].");
-            }
-
-            $definition = call_user_func(
-                $this->definitions[$this->class][$this->name],
-                $this->faker, $attributes
-            );
-
-            $evaluated = $this->callClosureAttributes(
-                array_merge($definition, $attributes)
-            );
-
-            return new $this->class($evaluated);
-        });
-    }
-
-    /**
-     * Evaluate any Closure attributes on the attribute array.
-=======
         if ($this->amount === null) {
             return tap($this->makeInstance($attributes), function ($instance) {
                 $this->callAfterMaking(collect([$instance]));
@@ -443,18 +352,10 @@ class FactoryBuilder
 
     /**
      * Expand all attributes to their underlying values.
->>>>>>> dev
      *
      * @param  array  $attributes
      * @return array
      */
-<<<<<<< HEAD
-    protected function callClosureAttributes(array $attributes)
-    {
-        foreach ($attributes as &$attribute) {
-            $attribute = $attribute instanceof Closure
-                            ? $attribute($attributes) : $attribute;
-=======
     protected function expandAttributes(array $attributes)
     {
         foreach ($attributes as &$attribute) {
@@ -469,13 +370,10 @@ class FactoryBuilder
             if ($attribute instanceof Model) {
                 $attribute = $attribute->getKey();
             }
->>>>>>> dev
         }
 
         return $attributes;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Run after making callbacks on a collection of models.
@@ -547,5 +445,4 @@ class FactoryBuilder
         return isset($this->afterMaking[$this->class][$state]) ||
                isset($this->afterCreating[$this->class][$state]);
     }
->>>>>>> dev
 }

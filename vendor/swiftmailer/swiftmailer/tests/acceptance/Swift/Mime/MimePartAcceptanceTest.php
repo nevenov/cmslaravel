@@ -1,25 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit_Framework_TestCase
-{
-    private $_contentEncoder;
-    private $_cache;
-    private $_grammar;
-    private $_headers;
-
-    protected function setUp()
-    {
-        $this->_cache = new Swift_KeyCache_ArrayKeyCache(
-            new Swift_KeyCache_SimpleKeyCacheInputStream()
-            );
-        $factory = new Swift_CharacterReaderFactory_SimpleCharacterReaderFactory();
-        $this->_contentEncoder = new Swift_Mime_ContentEncoder_QpContentEncoder(
-            new Swift_CharacterStream_ArrayCharacterStream($factory, 'utf-8'),
-            new Swift_StreamFilters_ByteArrayReplacementFilter(
-                array(array(0x0D, 0x0A), array(0x0D), array(0x0A)),
-                array(array(0x0A), array(0x0A), array(0x0D, 0x0A))
-=======
 use Egulias\EmailValidator\EmailValidator;
 
 class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit\Framework\TestCase
@@ -40,7 +20,6 @@ class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit\Framework\TestCase
             new Swift_StreamFilters_ByteArrayReplacementFilter(
                 [[0x0D, 0x0A], [0x0D], [0x0A]],
                 [[0x0A], [0x0A], [0x0D, 0x0A]]
->>>>>>> dev
                 )
             );
 
@@ -50,26 +29,16 @@ class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit\Framework\TestCase
         $paramEncoder = new Swift_Encoder_Rfc2231Encoder(
             new Swift_CharacterStream_ArrayCharacterStream($factory, 'utf-8')
             );
-<<<<<<< HEAD
-        $this->_grammar = new Swift_Mime_Grammar();
-        $this->_headers = new Swift_Mime_SimpleHeaderSet(
-            new Swift_Mime_SimpleHeaderFactory($headerEncoder, $paramEncoder, $this->_grammar)
-=======
         $this->emailValidator = new EmailValidator();
         $this->idGenerator = new Swift_Mime_IdGenerator('example.com');
         $this->headers = new Swift_Mime_SimpleHeaderSet(
             new Swift_Mime_SimpleHeaderFactory($headerEncoder, $paramEncoder, $this->emailValidator)
->>>>>>> dev
             );
     }
 
     public function testCharsetIsSetInHeader()
     {
-<<<<<<< HEAD
-        $part = $this->_createMimePart();
-=======
         $part = $this->createMimePart();
->>>>>>> dev
         $part->setContentType('text/plain');
         $part->setCharset('utf-8');
         $part->setBody('foobar');
@@ -84,11 +53,7 @@ class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit\Framework\TestCase
 
     public function testFormatIsSetInHeaders()
     {
-<<<<<<< HEAD
-        $part = $this->_createMimePart();
-=======
         $part = $this->createMimePart();
->>>>>>> dev
         $part->setContentType('text/plain');
         $part->setFormat('flowed');
         $part->setBody('> foobar');
@@ -103,11 +68,7 @@ class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit\Framework\TestCase
 
     public function testDelSpIsSetInHeaders()
     {
-<<<<<<< HEAD
-        $part = $this->_createMimePart();
-=======
         $part = $this->createMimePart();
->>>>>>> dev
         $part->setContentType('text/plain');
         $part->setDelSp(true);
         $part->setBody('foobar');
@@ -122,11 +83,7 @@ class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit\Framework\TestCase
 
     public function testAll3ParamsInHeaders()
     {
-<<<<<<< HEAD
-        $part = $this->_createMimePart();
-=======
         $part = $this->createMimePart();
->>>>>>> dev
         $part->setContentType('text/plain');
         $part->setCharset('utf-8');
         $part->setFormat('fixed');
@@ -143,11 +100,7 @@ class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit\Framework\TestCase
 
     public function testBodyIsCanonicalized()
     {
-<<<<<<< HEAD
-        $part = $this->_createMimePart();
-=======
         $part = $this->createMimePart();
->>>>>>> dev
         $part->setContentType('text/plain');
         $part->setCharset('utf-8');
         $part->setBody("foobar\r\rtest\ning\r");
@@ -163,16 +116,6 @@ class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit\Framework\TestCase
             );
     }
 
-<<<<<<< HEAD
-    protected function _createMimePart()
-    {
-        $entity = new Swift_Mime_MimePart(
-            $this->_headers,
-            $this->_contentEncoder,
-            $this->_cache,
-            $this->_grammar
-            );
-=======
     protected function createMimePart()
     {
         $entity = new Swift_Mime_MimePart(
@@ -181,7 +124,6 @@ class Swift_Mime_MimePartAcceptanceTest extends \PHPUnit\Framework\TestCase
             $this->cache,
             $this->idGenerator
         );
->>>>>>> dev
 
         return $entity;
     }

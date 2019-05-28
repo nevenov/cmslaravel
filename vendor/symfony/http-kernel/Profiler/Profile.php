@@ -25,11 +25,7 @@ class Profile
     /**
      * @var DataCollectorInterface[]
      */
-<<<<<<< HEAD
-    private $collectors = array();
-=======
     private $collectors = [];
->>>>>>> dev
 
     private $ip;
     private $method;
@@ -45,20 +41,9 @@ class Profile
     /**
      * @var Profile[]
      */
-<<<<<<< HEAD
-    private $children = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $token The token
-     */
-    public function __construct($token)
-=======
     private $children = [];
 
     public function __construct(string $token)
->>>>>>> dev
     {
         $this->token = $token;
     }
@@ -85,15 +70,8 @@ class Profile
 
     /**
      * Sets the parent token.
-<<<<<<< HEAD
-     *
-     * @param Profile $parent The parent Profile
-     */
-    public function setParent(Profile $parent)
-=======
      */
     public function setParent(self $parent)
->>>>>>> dev
     {
         $this->parent = $parent;
     }
@@ -101,11 +79,7 @@ class Profile
     /**
      * Returns the parent profile.
      *
-<<<<<<< HEAD
-     * @return Profile The parent profile
-=======
      * @return self
->>>>>>> dev
      */
     public function getParent()
     {
@@ -115,11 +89,7 @@ class Profile
     /**
      * Returns the parent token.
      *
-<<<<<<< HEAD
-     * @return null|string The parent token
-=======
      * @return string|null The parent token
->>>>>>> dev
      */
     public function getParentToken()
     {
@@ -179,11 +149,7 @@ class Profile
     /**
      * Returns the time.
      *
-<<<<<<< HEAD
-     * @return string The time
-=======
      * @return int The time
->>>>>>> dev
      */
     public function getTime()
     {
@@ -194,12 +160,9 @@ class Profile
         return $this->time;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @param int $time The time
      */
->>>>>>> dev
     public function setTime($time)
     {
         $this->time = $time;
@@ -224,11 +187,7 @@ class Profile
     /**
      * Finds children profilers.
      *
-<<<<<<< HEAD
-     * @return Profile[] An array of Profile
-=======
      * @return self[]
->>>>>>> dev
      */
     public function getChildren()
     {
@@ -238,19 +197,11 @@ class Profile
     /**
      * Sets children profiler.
      *
-<<<<<<< HEAD
-     * @param Profile[] $children An array of Profile
-     */
-    public function setChildren(array $children)
-    {
-        $this->children = array();
-=======
      * @param Profile[] $children
      */
     public function setChildren(array $children)
     {
         $this->children = [];
->>>>>>> dev
         foreach ($children as $child) {
             $this->addChild($child);
         }
@@ -258,22 +209,13 @@ class Profile
 
     /**
      * Adds the child token.
-<<<<<<< HEAD
-     *
-     * @param Profile $child The child Profile
-     */
-    public function addChild(Profile $child)
-=======
      */
     public function addChild(self $child)
->>>>>>> dev
     {
         $this->children[] = $child;
         $child->setParent($this);
     }
 
-<<<<<<< HEAD
-=======
     public function getChildByToken(string $token): ?self
     {
         foreach ($this->children as $child) {
@@ -285,7 +227,6 @@ class Profile
         return null;
     }
 
->>>>>>> dev
     /**
      * Gets a Collector by name.
      *
@@ -321,11 +262,7 @@ class Profile
      */
     public function setCollectors(array $collectors)
     {
-<<<<<<< HEAD
-        $this->collectors = array();
-=======
         $this->collectors = [];
->>>>>>> dev
         foreach ($collectors as $collector) {
             $this->addCollector($collector);
         }
@@ -333,11 +270,6 @@ class Profile
 
     /**
      * Adds a Collector.
-<<<<<<< HEAD
-     *
-     * @param DataCollectorInterface $collector A DataCollectorInterface instance
-=======
->>>>>>> dev
      */
     public function addCollector(DataCollectorInterface $collector)
     {
@@ -358,10 +290,6 @@ class Profile
 
     public function __sleep()
     {
-<<<<<<< HEAD
-        return array('token', 'parent', 'children', 'collectors', 'ip', 'method', 'url', 'time');
-=======
         return ['token', 'parent', 'children', 'collectors', 'ip', 'method', 'url', 'time', 'statusCode'];
->>>>>>> dev
     }
 }

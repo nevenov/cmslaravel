@@ -3,14 +3,11 @@
 namespace Illuminate\Support\Facades;
 
 /**
-<<<<<<< HEAD
-=======
  * @method static \Illuminate\Contracts\Validation\Validator make(array $data, array $rules, array $messages = [], array $customAttributes = [])
  * @method static void extend(string $rule, \Closure|string $extension, string $message = null)
  * @method static void extendImplicit(string $rule, \Closure|string $extension, string $message = null)
  * @method static void replacer(string $rule, \Closure|string $replacer)
  *
->>>>>>> dev
  * @see \Illuminate\Validation\Factory
  */
 class Validator extends Facade

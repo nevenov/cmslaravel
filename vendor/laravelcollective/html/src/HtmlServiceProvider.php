@@ -2,12 +2,6 @@
 
 namespace Collective\Html;
 
-<<<<<<< HEAD
-use Illuminate\Support\ServiceProvider;
-
-class HtmlServiceProvider extends ServiceProvider
-{
-=======
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -22,7 +16,6 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected $directives = ['entities','decode','script','style','image','favicon','link','secureLink','linkAsset','linkSecureAsset','linkRoute','linkAction','mailto','email','ol','ul','dl','meta','tag','open','model','close','token','label','input','text','password','hidden','email','tel','number','date','datetime','datetimeLocal','time','url','file','textarea','select','selectRange','selectYear','selectMonth','getSelectOption','checkbox','radio','reset','image','color','submit','button','old'
     ];
->>>>>>> dev
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -42,15 +35,10 @@ class HtmlServiceProvider extends ServiceProvider
 
         $this->registerFormBuilder();
 
-<<<<<<< HEAD
-        $this->app->alias('html', 'Collective\Html\HtmlBuilder');
-        $this->app->alias('form', 'Collective\Html\FormBuilder');
-=======
         $this->app->alias('html', HtmlBuilder::class);
         $this->app->alias('form', FormBuilder::class);
 
         $this->registerBladeDirectives();
->>>>>>> dev
     }
 
     /**
@@ -73,19 +61,13 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerFormBuilder()
     {
         $this->app->singleton('form', function ($app) {
-<<<<<<< HEAD
-            $form = new FormBuilder($app['html'], $app['url'], $app['view'], $app['session.store']->getToken(), $app['request']);
-=======
             $form = new FormBuilder($app['html'], $app['url'], $app['view'], $app['session.store']->token(), $app['request']);
->>>>>>> dev
 
             return $form->setSessionStore($app['session.store']);
         });
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Register Blade directives.
      *
      * @return void
@@ -114,17 +96,12 @@ class HtmlServiceProvider extends ServiceProvider
     }
 
     /**
->>>>>>> dev
      * Get the services provided by the provider.
      *
      * @return array
      */
     public function provides()
     {
-<<<<<<< HEAD
-        return ['html', 'form', 'Collective\Html\HtmlBuilder', 'Collective\Html\FormBuilder'];
-=======
         return ['html', 'form', HtmlBuilder::class, FormBuilder::class];
->>>>>>> dev
     }
 }

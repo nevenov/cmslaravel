@@ -2,10 +2,7 @@
 
 namespace Illuminate\Support\Facades;
 
-<<<<<<< HEAD
-=======
 use Closure;
->>>>>>> dev
 use Mockery;
 use RuntimeException;
 use Mockery\MockInterface;
@@ -27,18 +24,6 @@ abstract class Facade
     protected static $resolvedInstance;
 
     /**
-<<<<<<< HEAD
-     * Hotswap the underlying instance behind the facade.
-     *
-     * @param  mixed  $instance
-     * @return void
-     */
-    public static function swap($instance)
-    {
-        static::$resolvedInstance[static::getFacadeAccessor()] = $instance;
-
-        static::$app->instance(static::getFacadeAccessor(), $instance);
-=======
      * Run a Closure when the facade has been resolved.
      *
      * @param  \Closure  $callback
@@ -65,58 +50,27 @@ abstract class Facade
                 static::swap($spy);
             });
         }
->>>>>>> dev
     }
 
     /**
      * Initiate a mock expectation on the facade.
      *
-<<<<<<< HEAD
-     * @param  mixed
-=======
->>>>>>> dev
      * @return \Mockery\Expectation
      */
     public static function shouldReceive()
     {
         $name = static::getFacadeAccessor();
 
-<<<<<<< HEAD
-        if (static::isMock()) {
-            $mock = static::$resolvedInstance[$name];
-        } else {
-            $mock = static::createFreshMockInstance($name);
-        }
-
-        return call_user_func_array([$mock, 'shouldReceive'], func_get_args());
-=======
         $mock = static::isMock()
                     ? static::$resolvedInstance[$name]
                     : static::createFreshMockInstance();
 
         return $mock->shouldReceive(...func_get_args());
->>>>>>> dev
     }
 
     /**
      * Create a fresh mock instance for the given class.
      *
-<<<<<<< HEAD
-     * @param  string  $name
-     * @return \Mockery\Expectation
-     */
-    protected static function createFreshMockInstance($name)
-    {
-        static::$resolvedInstance[$name] = $mock = static::createMockByName($name);
-
-        $mock->shouldAllowMockingProtectedMethods();
-
-        if (isset(static::$app)) {
-            static::$app->instance($name, $mock);
-        }
-
-        return $mock;
-=======
      * @return \Mockery\Expectation
      */
     protected static function createFreshMockInstance()
@@ -126,26 +80,16 @@ abstract class Facade
 
             $mock->shouldAllowMockingProtectedMethods();
         });
->>>>>>> dev
     }
 
     /**
      * Create a fresh mock instance for the given class.
      *
-<<<<<<< HEAD
-     * @param  string  $name
-     * @return \Mockery\Expectation
-     */
-    protected static function createMockByName($name)
-    {
-        $class = static::getMockableClass($name);
-=======
      * @return \Mockery\MockInterface
      */
     protected static function createMock()
     {
         $class = static::getMockableClass();
->>>>>>> dev
 
         return $class ? Mockery::mock($class) : Mockery::mock();
     }
@@ -159,12 +103,8 @@ abstract class Facade
     {
         $name = static::getFacadeAccessor();
 
-<<<<<<< HEAD
-        return isset(static::$resolvedInstance[$name]) && static::$resolvedInstance[$name] instanceof MockInterface;
-=======
         return isset(static::$resolvedInstance[$name]) &&
                static::$resolvedInstance[$name] instanceof MockInterface;
->>>>>>> dev
     }
 
     /**
@@ -180,8 +120,6 @@ abstract class Facade
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Hotswap the underlying instance behind the facade.
      *
      * @param  mixed  $instance
@@ -197,7 +135,6 @@ abstract class Facade
     }
 
     /**
->>>>>>> dev
      * Get the root object behind the facade.
      *
      * @return mixed
@@ -222,11 +159,7 @@ abstract class Facade
     /**
      * Resolve the facade root instance from the container.
      *
-<<<<<<< HEAD
-     * @param  string|object  $name
-=======
      * @param  object|string  $name
->>>>>>> dev
      * @return mixed
      */
     protected static function resolveFacadeInstance($name)
@@ -301,23 +234,6 @@ abstract class Facade
             throw new RuntimeException('A facade root has not been set.');
         }
 
-<<<<<<< HEAD
-        switch (count($args)) {
-            case 0:
-                return $instance->$method();
-            case 1:
-                return $instance->$method($args[0]);
-            case 2:
-                return $instance->$method($args[0], $args[1]);
-            case 3:
-                return $instance->$method($args[0], $args[1], $args[2]);
-            case 4:
-                return $instance->$method($args[0], $args[1], $args[2], $args[3]);
-            default:
-                return call_user_func_array([$instance, $method], $args);
-        }
-=======
         return $instance->$method(...$args);
->>>>>>> dev
     }
 }

@@ -2,14 +2,9 @@
 
 namespace Illuminate\Foundation\Support\Providers;
 
-<<<<<<< HEAD
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
-=======
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Events\DiscoverEvents;
->>>>>>> dev
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -30,16 +25,6 @@ class EventServiceProvider extends ServiceProvider
     /**
      * Register the application's event listeners.
      *
-<<<<<<< HEAD
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
-     * @return void
-     */
-    public function boot(DispatcherContract $events)
-    {
-        foreach ($this->listens() as $event => $listeners) {
-            foreach ($listeners as $listener) {
-                $events->listen($event, $listener);
-=======
      * @return void
      */
     public function boot()
@@ -52,37 +37,15 @@ class EventServiceProvider extends ServiceProvider
         foreach ($events as $event => $listeners) {
             foreach (array_unique($listeners) as $listener) {
                 Event::listen($event, $listener);
->>>>>>> dev
             }
         }
 
         foreach ($this->subscribe as $subscriber) {
-<<<<<<< HEAD
-            $events->subscribe($subscriber);
-=======
             Event::subscribe($subscriber);
->>>>>>> dev
         }
     }
 
     /**
-<<<<<<< HEAD
-     * {@inheritdoc}
-     */
-    public function register()
-    {
-        //
-    }
-
-    /**
-     * Get the events and handlers.
-     *
-     * @return array
-     */
-    public function listens()
-    {
-        return $this->listen;
-=======
      * Get the events and handlers.
      *
      * @return array
@@ -147,6 +110,5 @@ class EventServiceProvider extends ServiceProvider
         return [
             $this->app->path('Listeners'),
         ];
->>>>>>> dev
     }
 }

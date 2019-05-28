@@ -11,11 +11,7 @@ class Hub implements HubContract
     /**
      * The container implementation.
      *
-<<<<<<< HEAD
-     * @var \Illuminate\Contracts\Container\Container
-=======
      * @var \Illuminate\Contracts\Container\Container|null
->>>>>>> dev
      */
     protected $container;
 
@@ -29,17 +25,10 @@ class Hub implements HubContract
     /**
      * Create a new Hub instance.
      *
-<<<<<<< HEAD
-     * @param  \Illuminate\Contracts\Container\Container  $container
-     * @return void
-     */
-    public function __construct(Container $container)
-=======
      * @param  \Illuminate\Contracts\Container\Container|null  $container
      * @return void
      */
     public function __construct(Container $container = null)
->>>>>>> dev
     {
         $this->container = $container;
     }

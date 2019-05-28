@@ -2,14 +2,10 @@
 
 namespace Illuminate\Database\Schema\Grammars;
 
-<<<<<<< HEAD
-use Illuminate\Support\Fluent;
-=======
 use RuntimeException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Fluent;
 use Doctrine\DBAL\Schema\Index;
->>>>>>> dev
 use Illuminate\Database\Connection;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -45,15 +41,9 @@ class SQLiteGrammar extends Grammar
      * @param  string  $table
      * @return string
      */
-<<<<<<< HEAD
-    public function compileColumnExists($table)
-    {
-        return 'pragma table_info('.str_replace('.', '__', $table).')';
-=======
     public function compileColumnListing($table)
     {
         return 'pragma table_info('.$this->wrap(str_replace('.', '__', $table)).')';
->>>>>>> dev
     }
 
     /**
@@ -65,22 +55,6 @@ class SQLiteGrammar extends Grammar
      */
     public function compileCreate(Blueprint $blueprint, Fluent $command)
     {
-<<<<<<< HEAD
-        $columns = implode(', ', $this->getColumns($blueprint));
-
-        $sql = $blueprint->temporary ? 'create temporary' : 'create';
-
-        $sql .= ' table '.$this->wrapTable($blueprint)." ($columns";
-
-        // SQLite forces primary keys to be added when the table is initially created
-        // so we will need to check for a primary key commands and add the columns
-        // to the table's declaration here so they can be created on the tables.
-        $sql .= (string) $this->addForeignKeys($blueprint);
-
-        $sql .= (string) $this->addPrimaryKeys($blueprint);
-
-        return $sql.')';
-=======
         return sprintf('%s table %s (%s%s%s)',
             $blueprint->temporary ? 'create temporary' : 'create',
             $this->wrapTable($blueprint),
@@ -88,7 +62,6 @@ class SQLiteGrammar extends Grammar
             (string) $this->addForeignKeys($blueprint),
             (string) $this->addPrimaryKeys($blueprint)
         );
->>>>>>> dev
     }
 
     /**
@@ -99,37 +72,18 @@ class SQLiteGrammar extends Grammar
      */
     protected function addForeignKeys(Blueprint $blueprint)
     {
-<<<<<<< HEAD
-        $sql = '';
-
-        $foreigns = $this->getCommandsByName($blueprint, 'foreign');
-
-        // Once we have all the foreign key commands for the table creation statement
-        // we'll loop through each of them and add them to the create table SQL we
-        // are building, since SQLite needs foreign keys on the tables creation.
-        foreach ($foreigns as $foreign) {
-=======
         $foreigns = $this->getCommandsByName($blueprint, 'foreign');
 
         return collect($foreigns)->reduce(function ($sql, $foreign) {
             // Once we have all the foreign key commands for the table creation statement
             // we'll loop through each of them and add them to the create table SQL we
             // are building, since SQLite needs foreign keys on the tables creation.
->>>>>>> dev
             $sql .= $this->getForeignKey($foreign);
 
             if (! is_null($foreign->onDelete)) {
                 $sql .= " on delete {$foreign->onDelete}";
             }
 
-<<<<<<< HEAD
-            if (! is_null($foreign->onUpdate)) {
-                $sql .= " on update {$foreign->onUpdate}";
-            }
-        }
-
-        return $sql;
-=======
             // If this foreign key specifies the action to be taken on update we will add
             // that to the statement here. We'll append it to this SQL and then return
             // the SQL so we can keep adding any other foreign constraints onto this.
@@ -139,7 +93,6 @@ class SQLiteGrammar extends Grammar
 
             return $sql;
         }, '');
->>>>>>> dev
     }
 
     /**
@@ -150,18 +103,6 @@ class SQLiteGrammar extends Grammar
      */
     protected function getForeignKey($foreign)
     {
-<<<<<<< HEAD
-        $on = $this->wrapTable($foreign->on);
-
-        // We need to columnize the columns that the foreign key is being defined for
-        // so that it is a properly formatted list. Once we have done this, we can
-        // return the foreign key SQL declaration to the calling method for use.
-        $columns = $this->columnize($foreign->columns);
-
-        $onColumns = $this->columnize((array) $foreign->references);
-
-        return ", foreign key($columns) references $on($onColumns)";
-=======
         // We need to columnize the columns that the foreign key is being defined for
         // so that it is a properly formatted list. Once we have done this, we can
         // return the foreign key SQL declaration to the calling method for use.
@@ -170,7 +111,6 @@ class SQLiteGrammar extends Grammar
             $this->wrapTable($foreign->on),
             $this->columnize((array) $foreign->references)
         );
->>>>>>> dev
     }
 
     /**
@@ -181,17 +121,8 @@ class SQLiteGrammar extends Grammar
      */
     protected function addPrimaryKeys(Blueprint $blueprint)
     {
-<<<<<<< HEAD
-        $primary = $this->getCommandByName($blueprint, 'primary');
-
-        if (! is_null($primary)) {
-            $columns = $this->columnize($primary->columns);
-
-            return ", primary key ({$columns})";
-=======
         if (! is_null($primary = $this->getCommandByName($blueprint, 'primary'))) {
             return ", primary key ({$this->columnize($primary->columns)})";
->>>>>>> dev
         }
     }
 
@@ -204,25 +135,11 @@ class SQLiteGrammar extends Grammar
      */
     public function compileAdd(Blueprint $blueprint, Fluent $command)
     {
-<<<<<<< HEAD
-        $table = $this->wrapTable($blueprint);
-
-        $columns = $this->prefixArray('add column', $this->getColumns($blueprint));
-
-        $statements = [];
-
-        foreach ($columns as $column) {
-            $statements[] = 'alter table '.$table.' '.$column;
-        }
-
-        return $statements;
-=======
         $columns = $this->prefixArray('add column', $this->getColumns($blueprint));
 
         return collect($columns)->map(function ($column) use ($blueprint) {
             return 'alter table '.$this->wrapTable($blueprint).' '.$column;
         })->all();
->>>>>>> dev
     }
 
     /**
@@ -234,21 +151,11 @@ class SQLiteGrammar extends Grammar
      */
     public function compileUnique(Blueprint $blueprint, Fluent $command)
     {
-<<<<<<< HEAD
-        $columns = $this->columnize($command->columns);
-
-        $table = $this->wrapTable($blueprint);
-
-        $index = $this->wrap($command->index);
-
-        return "create unique index {$index} on {$table} ({$columns})";
-=======
         return sprintf('create unique index %s on %s (%s)',
             $this->wrap($command->index),
             $this->wrapTable($blueprint),
             $this->columnize($command->columns)
         );
->>>>>>> dev
     }
 
     /**
@@ -260,15 +167,6 @@ class SQLiteGrammar extends Grammar
      */
     public function compileIndex(Blueprint $blueprint, Fluent $command)
     {
-<<<<<<< HEAD
-        $columns = $this->columnize($command->columns);
-
-        $table = $this->wrapTable($blueprint);
-
-        $index = $this->wrap($command->index);
-
-        return "create index {$index} on {$table} ({$columns})";
-=======
         return sprintf('create index %s on %s (%s)',
             $this->wrap($command->index),
             $this->wrapTable($blueprint),
@@ -287,7 +185,6 @@ class SQLiteGrammar extends Grammar
     public function compileSpatialIndex(Blueprint $blueprint, Fluent $command)
     {
         throw new RuntimeException('The database driver in use does not support spatial indexes.');
->>>>>>> dev
     }
 
     /**
@@ -327,8 +224,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Compile the SQL needed to drop all tables.
      *
      * @return string
@@ -359,7 +254,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
->>>>>>> dev
      * Compile a drop column command.
      *
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
@@ -369,16 +263,6 @@ class SQLiteGrammar extends Grammar
      */
     public function compileDropColumn(Blueprint $blueprint, Fluent $command, Connection $connection)
     {
-<<<<<<< HEAD
-        $schema = $connection->getDoctrineSchemaManager();
-
-        $tableDiff = $this->getDoctrineTableDiff($blueprint, $schema);
-
-        foreach ($command->columns as $name) {
-            $column = $connection->getDoctrineColumn($blueprint->getTable(), $name);
-
-            $tableDiff->removedColumns[$name] = $column;
-=======
         $tableDiff = $this->getDoctrineTableDiff(
             $blueprint, $schema = $connection->getDoctrineSchemaManager()
         );
@@ -387,7 +271,6 @@ class SQLiteGrammar extends Grammar
             $tableDiff->removedColumns[$name] = $connection->getDoctrineColumn(
                 $this->getTablePrefix().$blueprint->getTable(), $name
             );
->>>>>>> dev
         }
 
         return (array) $schema->getDatabasePlatform()->getAlterTableSQL($tableDiff);
@@ -422,8 +305,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Compile a drop spatial index command.
      *
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
@@ -437,7 +318,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
->>>>>>> dev
      * Compile a rename table command.
      *
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
@@ -452,8 +332,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Compile a rename index command.
      *
      * @param  \Illuminate\Database\Schema\Blueprint $blueprint
@@ -487,7 +365,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
->>>>>>> dev
      * Compile the command to enable foreign key constraints.
      *
      * @return string
@@ -508,8 +385,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Compile the SQL needed to enable a writable schema.
      *
      * @return string
@@ -530,7 +405,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
->>>>>>> dev
      * Create the column definition for a char type.
      *
      * @param  \Illuminate\Support\Fluent  $column
@@ -685,26 +559,18 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
-<<<<<<< HEAD
-     * Create the column definition for an enum type.
-=======
      * Create the column definition for an enumeration type.
->>>>>>> dev
      *
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
     protected function typeEnum(Fluent $column)
     {
-<<<<<<< HEAD
-        return 'varchar';
-=======
         return sprintf(
             'varchar check ("%s" in (%s))',
             $column->name,
             $this->quoteString($column->allowed)
         );
->>>>>>> dev
     }
 
     /**
@@ -748,19 +614,11 @@ class SQLiteGrammar extends Grammar
      */
     protected function typeDateTime(Fluent $column)
     {
-<<<<<<< HEAD
-        return 'datetime';
-    }
-
-    /**
-     * Create the column definition for a date-time type.
-=======
         return $this->typeTimestamp($column);
     }
 
     /**
      * Create the column definition for a date-time (with time zone) type.
->>>>>>> dev
      *
      * Note: "SQLite does not have a storage class set aside for storing dates and/or times."
      * @link https://www.sqlite.org/datatype3.html
@@ -770,11 +628,7 @@ class SQLiteGrammar extends Grammar
      */
     protected function typeDateTimeTz(Fluent $column)
     {
-<<<<<<< HEAD
-        return 'datetime';
-=======
         return $this->typeDateTime($column);
->>>>>>> dev
     }
 
     /**
@@ -789,22 +643,14 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
-<<<<<<< HEAD
-     * Create the column definition for a time type.
-=======
      * Create the column definition for a time (with time zone) type.
->>>>>>> dev
      *
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
     protected function typeTimeTz(Fluent $column)
     {
-<<<<<<< HEAD
-        return 'time';
-=======
         return $this->typeTime($column);
->>>>>>> dev
     }
 
     /**
@@ -815,36 +661,17 @@ class SQLiteGrammar extends Grammar
      */
     protected function typeTimestamp(Fluent $column)
     {
-<<<<<<< HEAD
-        if ($column->useCurrent) {
-            return 'datetime default CURRENT_TIMESTAMP';
-        }
-
-        return 'datetime';
-    }
-
-    /**
-     * Create the column definition for a timestamp type.
-=======
         return $column->useCurrent ? 'datetime default CURRENT_TIMESTAMP' : 'datetime';
     }
 
     /**
      * Create the column definition for a timestamp (with time zone) type.
->>>>>>> dev
      *
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
     protected function typeTimestampTz(Fluent $column)
     {
-<<<<<<< HEAD
-        if ($column->useCurrent) {
-            return 'datetime default CURRENT_TIMESTAMP';
-        }
-
-        return 'datetime';
-=======
         return $this->typeTimestamp($column);
     }
 
@@ -857,7 +684,6 @@ class SQLiteGrammar extends Grammar
     protected function typeYear(Fluent $column)
     {
         return $this->typeInteger($column);
->>>>>>> dev
     }
 
     /**
@@ -905,8 +731,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Create the column definition for a spatial Geometry type.
      *
      * @param  \Illuminate\Support\Fluent  $column
@@ -995,7 +819,6 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
->>>>>>> dev
      * Get the SQL for a nullable column modifier.
      *
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint

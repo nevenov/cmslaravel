@@ -3,10 +3,7 @@
 namespace Collective\Html;
 
 use BadMethodCallException;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Arr;
->>>>>>> dev
 use Illuminate\Support\HtmlString;
 
 trait Componentable
@@ -85,11 +82,7 @@ trait Componentable
                 $default = null;
             }
 
-<<<<<<< HEAD
-            $data[$variable] = array_get($arguments, $i, $default);
-=======
             $data[$variable] = Arr::get($arguments, $i, $default);
->>>>>>> dev
 
             $i++;
         }

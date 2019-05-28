@@ -2,15 +2,6 @@
 
 namespace DummyNamespace;
 
-<<<<<<< HEAD
-use DummyRootNamespaceEvents\Event;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-
-class DummyClass extends Event
-{
-    use SerializesModels;
-=======
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -22,7 +13,6 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class DummyClass
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
->>>>>>> dev
 
     /**
      * Create a new event instance.
@@ -35,15 +25,6 @@ class DummyClass
     }
 
     /**
-<<<<<<< HEAD
-     * Get the channels the event should be broadcast on.
-     *
-     * @return array
-     */
-    public function broadcastOn()
-    {
-        return [];
-=======
      * Get the channels the event should broadcast on.
      *
      * @return \Illuminate\Broadcasting\Channel|array
@@ -51,6 +32,5 @@ class DummyClass
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');
->>>>>>> dev
     }
 }

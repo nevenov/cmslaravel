@@ -4,12 +4,6 @@ namespace Illuminate\Foundation\Support\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-<<<<<<< HEAD
-use Illuminate\Contracts\Routing\UrlGenerator;
-
-class RouteServiceProvider extends ServiceProvider
-{
-=======
 use Illuminate\Support\Traits\ForwardsCalls;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
@@ -20,7 +14,6 @@ class RouteServiceProvider extends ServiceProvider
 {
     use ForwardsCalls;
 
->>>>>>> dev
     /**
      * The controller namespace for the application.
      *
@@ -31,16 +24,6 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-<<<<<<< HEAD
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
-     */
-    public function boot(Router $router)
-    {
-        $this->setRootControllerNamespace();
-
-        if ($this->app->routesAreCached()) {
-=======
      * @return void
      */
     public function boot()
@@ -48,19 +31,13 @@ class RouteServiceProvider extends ServiceProvider
         $this->setRootControllerNamespace();
 
         if ($this->routesAreCached()) {
->>>>>>> dev
             $this->loadCachedRoutes();
         } else {
             $this->loadRoutes();
 
-<<<<<<< HEAD
-            $this->app->booted(function () use ($router) {
-                $router->getRoutes()->refreshNameLookups();
-=======
             $this->app->booted(function () {
                 $this->app['router']->getRoutes()->refreshNameLookups();
                 $this->app['router']->getRoutes()->refreshActionLookups();
->>>>>>> dev
             });
         }
     }
@@ -72,13 +49,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function setRootControllerNamespace()
     {
-<<<<<<< HEAD
-        if (is_null($this->namespace)) {
-            return;
-        }
-
-        $this->app[UrlGenerator::class]->setRootControllerNamespace($this->namespace);
-=======
         if (! is_null($this->namespace)) {
             $this->app[UrlGenerator::class]->setRootControllerNamespace($this->namespace);
         }
@@ -92,7 +62,6 @@ class RouteServiceProvider extends ServiceProvider
     protected function routesAreCached()
     {
         return $this->app->routesAreCached();
->>>>>>> dev
     }
 
     /**
@@ -114,42 +83,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function loadRoutes()
     {
-<<<<<<< HEAD
-        $this->app->call([$this, 'map']);
-    }
-
-    /**
-     * Load the standard routes file for the application.
-     *
-     * @param  string  $path
-     * @return mixed
-     */
-    protected function loadRoutesFrom($path)
-    {
-        $router = $this->app->make(Router::class);
-
-        if (is_null($this->namespace)) {
-            return require $path;
-        }
-
-        $router->group(['namespace' => $this->namespace], function (Router $router) use ($path) {
-            require $path;
-        });
-    }
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-=======
         if (method_exists($this, 'map')) {
             $this->app->call([$this, 'map']);
         }
->>>>>>> dev
     }
 
     /**
@@ -161,12 +97,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function __call($method, $parameters)
     {
-<<<<<<< HEAD
-        return call_user_func_array([$this->app->make(Router::class), $method], $parameters);
-=======
         return $this->forwardCallTo(
             $this->app->make(Router::class), $method, $parameters
         );
->>>>>>> dev
     }
 }

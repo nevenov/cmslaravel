@@ -47,11 +47,7 @@ class InstallCommand extends Command
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-=======
     public function handle()
->>>>>>> dev
     {
         $this->repository->setSource($this->input->getOption('database'));
 
@@ -68,11 +64,7 @@ class InstallCommand extends Command
     protected function getOptions()
     {
         return [
-<<<<<<< HEAD
-            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
-=======
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use'],
->>>>>>> dev
         ];
     }
 }

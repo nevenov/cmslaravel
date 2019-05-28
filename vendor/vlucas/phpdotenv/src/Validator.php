@@ -2,10 +2,6 @@
 
 namespace Dotenv;
 
-<<<<<<< HEAD
-use Dotenv\Exception\InvalidCallbackException;
-=======
->>>>>>> dev
 use Dotenv\Exception\ValidationException;
 
 /**
@@ -18,11 +14,7 @@ class Validator
     /**
      * The variables to validate.
      *
-<<<<<<< HEAD
-     * @var array
-=======
      * @var string[]
->>>>>>> dev
      */
     protected $variables;
 
@@ -36,17 +28,11 @@ class Validator
     /**
      * Create a new validator instance.
      *
-<<<<<<< HEAD
-     * @param array          $variables
-     * @param \Dotenv\Loader $loader
-     *
-=======
      * @param string[]       $variables
      * @param \Dotenv\Loader $loader
      *
      * @throws \Dotenv\Exception\ValidationException
      *
->>>>>>> dev
      * @return void
      */
     public function __construct(array $variables, Loader $loader)
@@ -65,11 +51,8 @@ class Validator
     /**
      * Assert that each variable is not empty.
      *
-<<<<<<< HEAD
-=======
      * @throws \Dotenv\Exception\ValidationException
      *
->>>>>>> dev
      * @return \Dotenv\Validator
      */
     public function notEmpty()
@@ -85,11 +68,8 @@ class Validator
     /**
      * Assert that each specified variable is an integer.
      *
-<<<<<<< HEAD
-=======
      * @throws \Dotenv\Exception\ValidationException
      *
->>>>>>> dev
      * @return \Dotenv\Validator
      */
     public function isInteger()
@@ -105,11 +85,8 @@ class Validator
     /**
      * Assert that each specified variable is a boolean.
      *
-<<<<<<< HEAD
-=======
      * @throws \Dotenv\Exception\ValidationException
      *
->>>>>>> dev
      * @return \Dotenv\Validator
      */
     public function isBoolean()
@@ -120,11 +97,7 @@ class Validator
                     return false;
                 }
 
-<<<<<<< HEAD
-                return (filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) !== NULL);
-=======
                 return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) !== null;
->>>>>>> dev
             },
             'is not a boolean'
         );
@@ -135,26 +108,17 @@ class Validator
      *
      * @param string[] $choices
      *
-<<<<<<< HEAD
-=======
      * @throws \Dotenv\Exception\ValidationException
      *
->>>>>>> dev
      * @return \Dotenv\Validator
      */
     public function allowedValues(array $choices)
     {
         return $this->assertCallback(
             function ($value) use ($choices) {
-<<<<<<< HEAD
-                return in_array($value, $choices);
-            },
-            'is not an allowed value'
-=======
                 return in_array($value, $choices, true);
             },
             sprintf('is not one of [%s]', implode(', ', $choices))
->>>>>>> dev
         );
     }
 
@@ -164,30 +128,6 @@ class Validator
      * @param callable $callback
      * @param string   $message
      *
-<<<<<<< HEAD
-     * @throws \Dotenv\Exception\InvalidCallbackException|\Dotenv\Exception\ValidationException
-     *
-     * @return \Dotenv\Validator
-     */
-    protected function assertCallback($callback, $message = 'failed callback assertion')
-    {
-        if (!is_callable($callback)) {
-            throw new InvalidCallbackException('The provided callback must be callable.');
-        }
-
-        $variablesFailingAssertion = array();
-        foreach ($this->variables as $variableName) {
-            $variableValue = $this->loader->getEnvironmentVariable($variableName);
-            if (call_user_func($callback, $variableValue) === false) {
-                $variablesFailingAssertion[] = $variableName." $message";
-            }
-        }
-
-        if (count($variablesFailingAssertion) > 0) {
-            throw new ValidationException(sprintf(
-                'One or more environment variables failed assertions: %s.',
-                implode(', ', $variablesFailingAssertion)
-=======
      * @throws \Dotenv\Exception\ValidationException
      *
      * @return \Dotenv\Validator
@@ -206,7 +146,6 @@ class Validator
             throw new ValidationException(sprintf(
                 'One or more environment variables failed assertions: %s.',
                 implode(', ', $failing)
->>>>>>> dev
             ));
         }
 

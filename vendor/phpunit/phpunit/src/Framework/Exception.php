@@ -7,12 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-=======
 namespace PHPUnit\Framework;
 
 use PHPUnit\Util\Filter;
->>>>>>> dev
 
 /**
  * Base class for all PHPUnit Framework exceptions.
@@ -33,33 +30,20 @@ use PHPUnit\Util\Filter;
  * the parent would break the intended encapsulation of process isolation.
  *
  * @see http://fabien.potencier.org/article/9/php-serialization-stack-traces-and-exceptions
-<<<<<<< HEAD
- * @since Class available since Release 3.4.0
- */
-class PHPUnit_Framework_Exception extends RuntimeException implements PHPUnit_Exception
-=======
  */
 class Exception extends \RuntimeException implements \PHPUnit\Exception
->>>>>>> dev
 {
     /**
      * @var array
      */
     protected $serializableTrace;
 
-<<<<<<< HEAD
-    public function __construct($message = '', $code = 0, Exception $previous = null)
-=======
     public function __construct($message = '', $code = 0, \Exception $previous = null)
->>>>>>> dev
     {
         parent::__construct($message, $code, $previous);
 
         $this->serializableTrace = $this->getTrace();
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
         foreach ($this->serializableTrace as $i => $call) {
             unset($this->serializableTrace[$i]['args']);
         }
@@ -80,15 +64,9 @@ class Exception extends \RuntimeException implements \PHPUnit\Exception
      */
     public function __toString()
     {
-<<<<<<< HEAD
-        $string = PHPUnit_Framework_TestFailure::exceptionToString($this);
-
-        if ($trace = PHPUnit_Util_Filter::getFilteredStacktrace($this)) {
-=======
         $string = TestFailure::exceptionToString($this);
 
         if ($trace = Filter::getFilteredStacktrace($this)) {
->>>>>>> dev
             $string .= "\n" . $trace;
         }
 
@@ -97,10 +75,6 @@ class Exception extends \RuntimeException implements \PHPUnit\Exception
 
     public function __sleep()
     {
-<<<<<<< HEAD
-        return array_keys(get_object_vars($this));
-=======
         return \array_keys(\get_object_vars($this));
->>>>>>> dev
     }
 }

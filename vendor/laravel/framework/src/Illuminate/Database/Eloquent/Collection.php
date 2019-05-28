@@ -4,12 +4,9 @@ namespace Illuminate\Database\Eloquent;
 
 use LogicException;
 use Illuminate\Support\Arr;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Queue\QueueableEntity;
->>>>>>> dev
 use Illuminate\Contracts\Queue\QueueableCollection;
 use Illuminate\Support\Collection as BaseCollection;
 
@@ -20,11 +17,7 @@ class Collection extends BaseCollection implements QueueableCollection
      *
      * @param  mixed  $key
      * @param  mixed  $default
-<<<<<<< HEAD
-     * @return \Illuminate\Database\Eloquent\Model
-=======
      * @return \Illuminate\Database\Eloquent\Model|static
->>>>>>> dev
      */
     public function find($key, $default = null)
     {
@@ -32,9 +25,6 @@ class Collection extends BaseCollection implements QueueableCollection
             $key = $key->getKey();
         }
 
-<<<<<<< HEAD
-        return Arr::first($this->items, function ($itemKey, $model) use ($key) {
-=======
         if ($key instanceof Arrayable) {
             $key = $key->toArray();
         }
@@ -48,7 +38,6 @@ class Collection extends BaseCollection implements QueueableCollection
         }
 
         return Arr::first($this->items, function ($model) use ($key) {
->>>>>>> dev
             return $model->getKey() == $key;
         }, $default);
     }
@@ -56,29 +45,17 @@ class Collection extends BaseCollection implements QueueableCollection
     /**
      * Load a set of relationships onto the collection.
      *
-<<<<<<< HEAD
-     * @param  mixed  $relations
-=======
      * @param  array|string  $relations
->>>>>>> dev
      * @return $this
      */
     public function load($relations)
     {
-<<<<<<< HEAD
-        if (count($this->items) > 0) {
-=======
         if ($this->isNotEmpty()) {
->>>>>>> dev
             if (is_string($relations)) {
                 $relations = func_get_args();
             }
 
-<<<<<<< HEAD
-            $query = $this->first()->newQuery()->with($relations);
-=======
             $query = $this->first()->newQueryWithoutRelationships()->with($relations);
->>>>>>> dev
 
             $this->items = $query->eagerLoadRelations($this->items);
         }
@@ -87,16 +64,6 @@ class Collection extends BaseCollection implements QueueableCollection
     }
 
     /**
-<<<<<<< HEAD
-     * Add an item to the collection.
-     *
-     * @param  mixed  $item
-     * @return $this
-     */
-    public function add($item)
-    {
-        $this->items[] = $item;
-=======
      * Load a set of relationship counts onto the collection.
      *
      * @param  array|string  $relations
@@ -218,7 +185,6 @@ class Collection extends BaseCollection implements QueueableCollection
             ->each(function ($models, $className) use ($relations) {
                 static::make($models)->load($relations[$className] ?? []);
             });
->>>>>>> dev
 
         return $this;
     }
@@ -227,25 +193,6 @@ class Collection extends BaseCollection implements QueueableCollection
      * Determine if a key exists in the collection.
      *
      * @param  mixed  $key
-<<<<<<< HEAD
-     * @param  mixed  $value
-     * @return bool
-     */
-    public function contains($key, $value = null)
-    {
-        if (func_num_args() == 2) {
-            return parent::contains($key, $value);
-        }
-
-        if ($this->useAsCallable($key)) {
-            return parent::contains($key);
-        }
-
-        $key = $key instanceof Model ? $key->getKey() : $key;
-
-        return parent::contains(function ($k, $m) use ($key) {
-            return $m->getKey() == $key;
-=======
      * @param  mixed  $operator
      * @param  mixed  $value
      * @return bool
@@ -264,7 +211,6 @@ class Collection extends BaseCollection implements QueueableCollection
 
         return parent::contains(function ($model) use ($key) {
             return $model->getKey() == $key;
->>>>>>> dev
         });
     }
 
@@ -275,13 +221,8 @@ class Collection extends BaseCollection implements QueueableCollection
      */
     public function modelKeys()
     {
-<<<<<<< HEAD
-        return array_map(function ($m) {
-            return $m->getKey();
-=======
         return array_map(function ($model) {
             return $model->getKey();
->>>>>>> dev
         }, $this->items);
     }
 
@@ -303,8 +244,6 @@ class Collection extends BaseCollection implements QueueableCollection
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Run a map over each of the items.
      *
      * @param  callable  $callback
@@ -346,7 +285,6 @@ class Collection extends BaseCollection implements QueueableCollection
     }
 
     /**
->>>>>>> dev
      * Diff the collection with the given items.
      *
      * @param  \ArrayAccess|array  $items
@@ -392,14 +330,6 @@ class Collection extends BaseCollection implements QueueableCollection
      * Return only unique items from the collection.
      *
      * @param  string|callable|null  $key
-<<<<<<< HEAD
-     * @return static
-     */
-    public function unique($key = null)
-    {
-        if (! is_null($key)) {
-            return parent::unique($key);
-=======
      * @param  bool  $strict
      * @return static|\Illuminate\Support\Collection
      */
@@ -407,7 +337,6 @@ class Collection extends BaseCollection implements QueueableCollection
     {
         if (! is_null($key)) {
             return parent::unique($key, $strict);
->>>>>>> dev
         }
 
         return new static(array_values($this->getDictionary()));
@@ -421,13 +350,10 @@ class Collection extends BaseCollection implements QueueableCollection
      */
     public function only($keys)
     {
-<<<<<<< HEAD
-=======
         if (is_null($keys)) {
             return new static($this->items);
         }
 
->>>>>>> dev
         $dictionary = Arr::only($this->getDictionary(), $keys);
 
         return new static(array_values($dictionary));
@@ -454,13 +380,7 @@ class Collection extends BaseCollection implements QueueableCollection
      */
     public function makeHidden($attributes)
     {
-<<<<<<< HEAD
-        return $this->each(function ($model) use ($attributes) {
-            $model->addHidden($attributes);
-        });
-=======
         return $this->each->addHidden($attributes);
->>>>>>> dev
     }
 
     /**
@@ -471,26 +391,7 @@ class Collection extends BaseCollection implements QueueableCollection
      */
     public function makeVisible($attributes)
     {
-<<<<<<< HEAD
-        return $this->each(function ($model) use ($attributes) {
-            $model->makeVisible($attributes);
-        });
-    }
-
-    /**
-     * Make the given, typically hidden, attributes visible across the entire collection.
-     *
-     * @param  array|string  $attributes
-     * @return $this
-     *
-     * @deprecated since version 5.2. Use the "makeVisible" method directly.
-     */
-    public function withHidden($attributes)
-    {
-        return $this->makeVisible($attributes);
-=======
         return $this->each->makeVisible($attributes);
->>>>>>> dev
     }
 
     /**
@@ -581,15 +482,6 @@ class Collection extends BaseCollection implements QueueableCollection
     }
 
     /**
-<<<<<<< HEAD
-     * Get the type of the entities being queued.
-     *
-     * @return string|null
-     */
-    public function getQueueableClass()
-    {
-        if ($this->count() === 0) {
-=======
      * Pad collection to the specified length with a value.
      *
      * @param  int  $size
@@ -624,7 +516,6 @@ class Collection extends BaseCollection implements QueueableCollection
     public function getQueueableClass()
     {
         if ($this->isEmpty()) {
->>>>>>> dev
             return;
         }
 
@@ -646,19 +537,6 @@ class Collection extends BaseCollection implements QueueableCollection
      */
     public function getQueueableIds()
     {
-<<<<<<< HEAD
-        return $this->modelKeys();
-    }
-
-    /**
-     * Get a base Support collection instance from this collection.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function toBase()
-    {
-        return new BaseCollection($this->items);
-=======
         if ($this->isEmpty()) {
             return [];
         }
@@ -700,6 +578,5 @@ class Collection extends BaseCollection implements QueueableCollection
         });
 
         return $connection;
->>>>>>> dev
     }
 }

@@ -10,11 +10,6 @@
 
 /**
  * A book.
-<<<<<<< HEAD
- *
- * @since      Class available since Release 3.6.0
-=======
->>>>>>> dev
  */
 class Book
 {

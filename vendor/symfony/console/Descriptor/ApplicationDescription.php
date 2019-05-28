@@ -24,21 +24,9 @@ class ApplicationDescription
 {
     const GLOBAL_NAMESPACE = '_global';
 
-<<<<<<< HEAD
-    /**
-     * @var Application
-     */
-    private $application;
-
-    /**
-     * @var null|string
-     */
-    private $namespace;
-=======
     private $application;
     private $namespace;
     private $showHidden;
->>>>>>> dev
 
     /**
      * @var array
@@ -55,24 +43,11 @@ class ApplicationDescription
      */
     private $aliases;
 
-<<<<<<< HEAD
-    /**
-     * Constructor.
-     *
-     * @param Application $application
-     * @param string|null $namespace
-     */
-    public function __construct(Application $application, $namespace = null)
-    {
-        $this->application = $application;
-        $this->namespace = $namespace;
-=======
     public function __construct(Application $application, string $namespace = null, bool $showHidden = false)
     {
         $this->application = $application;
         $this->namespace = $namespace;
         $this->showHidden = $showHidden;
->>>>>>> dev
     }
 
     /**
@@ -117,18 +92,6 @@ class ApplicationDescription
 
     private function inspectApplication()
     {
-<<<<<<< HEAD
-        $this->commands = array();
-        $this->namespaces = array();
-
-        $all = $this->application->all($this->namespace ? $this->application->findNamespace($this->namespace) : null);
-        foreach ($this->sortCommands($all) as $namespace => $commands) {
-            $names = array();
-
-            /** @var Command $command */
-            foreach ($commands as $name => $command) {
-                if (!$command->getName()) {
-=======
         $this->commands = [];
         $this->namespaces = [];
 
@@ -139,7 +102,6 @@ class ApplicationDescription
             /** @var Command $command */
             foreach ($commands as $name => $command) {
                 if (!$command->getName() || (!$this->showHidden && $command->isHidden())) {
->>>>>>> dev
                     continue;
                 }
 
@@ -152,21 +114,6 @@ class ApplicationDescription
                 $names[] = $name;
             }
 
-<<<<<<< HEAD
-            $this->namespaces[$namespace] = array('id' => $namespace, 'commands' => $names);
-        }
-    }
-
-    /**
-     * @param array $commands
-     *
-     * @return array
-     */
-    private function sortCommands(array $commands)
-    {
-        $namespacedCommands = array();
-        $globalCommands = array();
-=======
             $this->namespaces[$namespace] = ['id' => $namespace, 'commands' => $names];
         }
     }
@@ -175,7 +122,6 @@ class ApplicationDescription
     {
         $namespacedCommands = [];
         $globalCommands = [];
->>>>>>> dev
         foreach ($commands as $name => $command) {
             $key = $this->application->extractNamespace($name, 1);
             if (!$key) {

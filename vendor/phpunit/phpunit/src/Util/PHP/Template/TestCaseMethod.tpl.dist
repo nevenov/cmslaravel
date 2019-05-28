@@ -1,10 +1,7 @@
 <?php
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 
->>>>>>> dev
 if (!defined('STDOUT')) {
     // php://stdout does not obey output buffering. Any output would break
     // unserialization of child process results in the parent process.
@@ -34,19 +31,11 @@ function __phpunit_run_isolated_test()
         require_once '{filename}';
     }
 
-<<<<<<< HEAD
-    $result = new PHPUnit_Framework_TestResult;
-
-    if ({collectCodeCoverageInformation}) {
-        $result->setCodeCoverage(
-            new PHP_CodeCoverage(
-=======
     $result = new PHPUnit\Framework\TestResult;
 
     if ({collectCodeCoverageInformation}) {
         $result->setCodeCoverage(
             new CodeCoverage(
->>>>>>> dev
                 null,
                 unserialize('{codeCoverageFilter}')
             )
@@ -55,17 +44,11 @@ function __phpunit_run_isolated_test()
 
     $result->beStrictAboutTestsThatDoNotTestAnything({isStrictAboutTestsThatDoNotTestAnything});
     $result->beStrictAboutOutputDuringTests({isStrictAboutOutputDuringTests});
-<<<<<<< HEAD
-    $result->beStrictAboutTestSize({isStrictAboutTestSize});
-    $result->beStrictAboutTodoAnnotatedTests({isStrictAboutTodoAnnotatedTests});
-
-=======
     $result->enforceTimeLimit({enforcesTimeLimit});
     $result->beStrictAboutTodoAnnotatedTests({isStrictAboutTodoAnnotatedTests});
     $result->beStrictAboutResourceUsageDuringSmallTests({isStrictAboutResourceUsageDuringSmallTests});
 
     /** @var TestCase $test */
->>>>>>> dev
     $test = new {className}('{methodName}', unserialize('{data}'), '{dataName}');
     $test->setDependencyInput(unserialize('{dependencyInput}'));
     $test->setInIsolation(TRUE);
@@ -80,14 +63,11 @@ function __phpunit_run_isolated_test()
     @rewind(STDOUT); /* @ as not every STDOUT target stream is rewindable */
     if ($stdout = stream_get_contents(STDOUT)) {
         $output = $stdout . $output;
-<<<<<<< HEAD
-=======
         $streamMetaData = stream_get_meta_data(STDOUT);
         if (!empty($streamMetaData['stream_type']) && 'STDIO' === $streamMetaData['stream_type']) {
             @ftruncate(STDOUT, 0);
             @rewind(STDOUT);
         }
->>>>>>> dev
     }
 
     print serialize(
@@ -103,11 +83,7 @@ function __phpunit_run_isolated_test()
 $configurationFilePath = '{configurationFilePath}';
 
 if ('' !== $configurationFilePath) {
-<<<<<<< HEAD
-    $configuration = PHPUnit_Util_Configuration::getInstance($configurationFilePath);
-=======
     $configuration = PHPUnit\Util\Configuration::getInstance($configurationFilePath);
->>>>>>> dev
     $configuration->handlePHPConfiguration();
     unset($configuration);
 }
@@ -117,11 +93,7 @@ function __phpunit_error_handler($errno, $errstr, $errfile, $errline, $errcontex
    return true;
 }
 
-<<<<<<< HEAD
-set_error_handler("__phpunit_error_handler");
-=======
 set_error_handler('__phpunit_error_handler');
->>>>>>> dev
 
 {constants}
 {included_files}

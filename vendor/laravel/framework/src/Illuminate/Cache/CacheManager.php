@@ -5,11 +5,6 @@ namespace Illuminate\Cache;
 use Closure;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
-<<<<<<< HEAD
-use Illuminate\Contracts\Cache\Store;
-use Illuminate\Contracts\Cache\Factory as FactoryContract;
-
-=======
 use Aws\DynamoDb\DynamoDbClient;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Contracts\Cache\Factory as FactoryContract;
@@ -18,17 +13,12 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 /**
  * @mixin \Illuminate\Contracts\Cache\Repository
  */
->>>>>>> dev
 class CacheManager implements FactoryContract
 {
     /**
      * The application instance.
      *
-<<<<<<< HEAD
-     * @var \Illuminate\Foundation\Application
-=======
      * @var \Illuminate\Contracts\Foundation\Application
->>>>>>> dev
      */
     protected $app;
 
@@ -49,11 +39,7 @@ class CacheManager implements FactoryContract
     /**
      * Create a new Cache manager instance.
      *
-<<<<<<< HEAD
-     * @param  \Illuminate\Foundation\Application  $app
-=======
      * @param  \Illuminate\Contracts\Foundation\Application  $app
->>>>>>> dev
      * @return void
      */
     public function __construct($app)
@@ -62,17 +48,10 @@ class CacheManager implements FactoryContract
     }
 
     /**
-<<<<<<< HEAD
-     * Get a cache store instance by name.
-     *
-     * @param  string|null  $name
-     * @return mixed
-=======
      * Get a cache store instance by name, wrapped in a repository.
      *
      * @param  string|null  $name
      * @return \Illuminate\Contracts\Cache\Repository
->>>>>>> dev
      */
     public function store($name = null)
     {
@@ -84,13 +63,8 @@ class CacheManager implements FactoryContract
     /**
      * Get a cache driver instance.
      *
-<<<<<<< HEAD
-     * @param  string  $driver
-     * @return mixed
-=======
      * @param  string|null  $driver
      * @return \Illuminate\Contracts\Cache\Repository
->>>>>>> dev
      */
     public function driver($driver = null)
     {
@@ -105,11 +79,7 @@ class CacheManager implements FactoryContract
      */
     protected function get($name)
     {
-<<<<<<< HEAD
-        return isset($this->stores[$name]) ? $this->stores[$name] : $this->resolve($name);
-=======
         return $this->stores[$name] ?? $this->resolve($name);
->>>>>>> dev
     }
 
     /**
@@ -156,11 +126,7 @@ class CacheManager implements FactoryContract
      * Create an instance of the APC cache driver.
      *
      * @param  array  $config
-<<<<<<< HEAD
-     * @return \Illuminate\Cache\ApcStore
-=======
      * @return \Illuminate\Cache\Repository
->>>>>>> dev
      */
     protected function createApcDriver(array $config)
     {
@@ -172,11 +138,7 @@ class CacheManager implements FactoryContract
     /**
      * Create an instance of the array cache driver.
      *
-<<<<<<< HEAD
-     * @return \Illuminate\Cache\ArrayStore
-=======
      * @return \Illuminate\Cache\Repository
->>>>>>> dev
      */
     protected function createArrayDriver()
     {
@@ -187,11 +149,7 @@ class CacheManager implements FactoryContract
      * Create an instance of the file cache driver.
      *
      * @param  array  $config
-<<<<<<< HEAD
-     * @return \Illuminate\Cache\FileStore
-=======
      * @return \Illuminate\Cache\Repository
->>>>>>> dev
      */
     protected function createFileDriver(array $config)
     {
@@ -202,26 +160,18 @@ class CacheManager implements FactoryContract
      * Create an instance of the Memcached cache driver.
      *
      * @param  array  $config
-<<<<<<< HEAD
-     * @return \Illuminate\Cache\MemcachedStore
-=======
      * @return \Illuminate\Cache\Repository
->>>>>>> dev
      */
     protected function createMemcachedDriver(array $config)
     {
         $prefix = $this->getPrefix($config);
 
-<<<<<<< HEAD
-        $memcached = $this->app['memcached.connector']->connect($config['servers']);
-=======
         $memcached = $this->app['memcached.connector']->connect(
             $config['servers'],
             $config['persistent_id'] ?? null,
             $config['options'] ?? [],
             array_filter($config['sasl'] ?? [])
         );
->>>>>>> dev
 
         return $this->repository(new MemcachedStore($memcached, $prefix));
     }
@@ -229,11 +179,7 @@ class CacheManager implements FactoryContract
     /**
      * Create an instance of the Null cache driver.
      *
-<<<<<<< HEAD
-     * @return \Illuminate\Cache\NullStore
-=======
      * @return \Illuminate\Cache\Repository
->>>>>>> dev
      */
     protected function createNullDriver()
     {
@@ -244,21 +190,13 @@ class CacheManager implements FactoryContract
      * Create an instance of the Redis cache driver.
      *
      * @param  array  $config
-<<<<<<< HEAD
-     * @return \Illuminate\Cache\RedisStore
-=======
      * @return \Illuminate\Cache\Repository
->>>>>>> dev
      */
     protected function createRedisDriver(array $config)
     {
         $redis = $this->app['redis'];
 
-<<<<<<< HEAD
-        $connection = Arr::get($config, 'connection', 'default');
-=======
         $connection = $config['connection'] ?? 'default';
->>>>>>> dev
 
         return $this->repository(new RedisStore($redis, $this->getPrefix($config), $connection));
     }
@@ -267,17 +205,6 @@ class CacheManager implements FactoryContract
      * Create an instance of the database cache driver.
      *
      * @param  array  $config
-<<<<<<< HEAD
-     * @return \Illuminate\Cache\DatabaseStore
-     */
-    protected function createDatabaseDriver(array $config)
-    {
-        $connection = $this->app['db']->connection(Arr::get($config, 'connection'));
-
-        return $this->repository(
-            new DatabaseStore(
-                $connection, $this->app['encrypter'], $config['table'], $this->getPrefix($config)
-=======
      * @return \Illuminate\Cache\Repository
      */
     protected function createDatabaseDriver(array $config)
@@ -318,7 +245,6 @@ class CacheManager implements FactoryContract
                 $config['attributes']['value'] ?? 'value',
                 $config['attributes']['expiration'] ?? 'expires_at',
                 $this->getPrefix($config)
->>>>>>> dev
             )
         );
     }
@@ -333,15 +259,9 @@ class CacheManager implements FactoryContract
     {
         $repository = new Repository($store);
 
-<<<<<<< HEAD
-        if ($this->app->bound('Illuminate\Contracts\Events\Dispatcher')) {
-            $repository->setEventDispatcher(
-                $this->app['Illuminate\Contracts\Events\Dispatcher']
-=======
         if ($this->app->bound(DispatcherContract::class)) {
             $repository->setEventDispatcher(
                 $this->app[DispatcherContract::class]
->>>>>>> dev
             );
         }
 
@@ -356,11 +276,7 @@ class CacheManager implements FactoryContract
      */
     protected function getPrefix(array $config)
     {
-<<<<<<< HEAD
-        return Arr::get($config, 'prefix') ?: $this->app['config']['cache.prefix'];
-=======
         return $config['prefix'] ?? $this->app['config']['cache.prefix'];
->>>>>>> dev
     }
 
     /**
@@ -396,11 +312,6 @@ class CacheManager implements FactoryContract
     }
 
     /**
-<<<<<<< HEAD
-     * Register a custom driver creator Closure.
-     *
-     * @param  string    $driver
-=======
      * Unset the given driver instances.
      *
      * @param  array|string|null  $name
@@ -423,17 +334,12 @@ class CacheManager implements FactoryContract
      * Register a custom driver creator Closure.
      *
      * @param  string  $driver
->>>>>>> dev
      * @param  \Closure  $callback
      * @return $this
      */
     public function extend($driver, Closure $callback)
     {
-<<<<<<< HEAD
-        $this->customCreators[$driver] = $callback;
-=======
         $this->customCreators[$driver] = $callback->bindTo($this, $this);
->>>>>>> dev
 
         return $this;
     }
@@ -442,19 +348,11 @@ class CacheManager implements FactoryContract
      * Dynamically call the default driver instance.
      *
      * @param  string  $method
-<<<<<<< HEAD
-     * @param  array   $parameters
-=======
      * @param  array  $parameters
->>>>>>> dev
      * @return mixed
      */
     public function __call($method, $parameters)
     {
-<<<<<<< HEAD
-        return call_user_func_array([$this->store(), $method], $parameters);
-=======
         return $this->store()->$method(...$parameters);
->>>>>>> dev
     }
 }

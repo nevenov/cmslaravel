@@ -16,11 +16,7 @@ interface Factory
      * Get the evaluated view contents for the given path.
      *
      * @param  string  $path
-<<<<<<< HEAD
-     * @param  array  $data
-=======
      * @param  \Illuminate\Contracts\Support\Arrayable|array  $data
->>>>>>> dev
      * @param  array  $mergeData
      * @return \Illuminate\Contracts\View\View
      */
@@ -30,11 +26,7 @@ interface Factory
      * Get the evaluated view contents for the given view.
      *
      * @param  string  $view
-<<<<<<< HEAD
-     * @param  array  $data
-=======
      * @param  \Illuminate\Contracts\Support\Arrayable|array  $data
->>>>>>> dev
      * @param  array  $mergeData
      * @return \Illuminate\Contracts\View\View
      */
@@ -54,16 +46,9 @@ interface Factory
      *
      * @param  array|string  $views
      * @param  \Closure|string  $callback
-<<<<<<< HEAD
-     * @param  int|null  $priority
-     * @return array
-     */
-    public function composer($views, $callback, $priority = null);
-=======
      * @return array
      */
     public function composer($views, $callback);
->>>>>>> dev
 
     /**
      * Register a view creator event.
@@ -79,11 +64,6 @@ interface Factory
      *
      * @param  string  $namespace
      * @param  string|array  $hints
-<<<<<<< HEAD
-     * @return void
-     */
-    public function addNamespace($namespace, $hints);
-=======
      * @return $this
      */
     public function addNamespace($namespace, $hints);
@@ -96,5 +76,4 @@ interface Factory
      * @return $this
      */
     public function replaceNamespace($namespace, $hints);
->>>>>>> dev
 }

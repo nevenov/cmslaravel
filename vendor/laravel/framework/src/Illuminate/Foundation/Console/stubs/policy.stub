@@ -2,11 +2,8 @@
 
 namespace DummyNamespace;
 
-<<<<<<< HEAD
-=======
 use NamespacedDummyUserModel;
 use NamespacedDummyModel;
->>>>>>> dev
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DummyClass
@@ -14,13 +11,6 @@ class DummyClass
     use HandlesAuthorization;
 
     /**
-<<<<<<< HEAD
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
-=======
      * Determine whether the user can view the DocDummyModel.
      *
      * @param  \NamespacedDummyUserModel  $user
@@ -87,7 +77,6 @@ class DummyClass
      * @return mixed
      */
     public function forceDelete(DummyUser $user, DummyModel $dummyModel)
->>>>>>> dev
     {
         //
     }

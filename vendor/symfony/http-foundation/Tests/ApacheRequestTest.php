@@ -11,16 +11,10 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\ApacheRequest;
-
-class ApacheRequestTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ApacheRequest;
 
 class ApacheRequestTest extends TestCase
->>>>>>> dev
 {
     /**
      * @dataProvider provideServerVars
@@ -37,66 +31,6 @@ class ApacheRequestTest extends TestCase
 
     public function provideServerVars()
     {
-<<<<<<< HEAD
-        return array(
-            array(
-                array(
-                    'REQUEST_URI' => '/foo/app_dev.php/bar',
-                    'SCRIPT_NAME' => '/foo/app_dev.php',
-                    'PATH_INFO' => '/bar',
-                ),
-                '/foo/app_dev.php/bar',
-                '/foo/app_dev.php',
-                '/bar',
-            ),
-            array(
-                array(
-                    'REQUEST_URI' => '/foo/bar',
-                    'SCRIPT_NAME' => '/foo/app_dev.php',
-                ),
-                '/foo/bar',
-                '/foo',
-                '/bar',
-            ),
-            array(
-                array(
-                    'REQUEST_URI' => '/app_dev.php/foo/bar',
-                    'SCRIPT_NAME' => '/app_dev.php',
-                    'PATH_INFO' => '/foo/bar',
-                ),
-                '/app_dev.php/foo/bar',
-                '/app_dev.php',
-                '/foo/bar',
-            ),
-            array(
-                array(
-                    'REQUEST_URI' => '/foo/bar',
-                    'SCRIPT_NAME' => '/app_dev.php',
-                ),
-                '/foo/bar',
-                '',
-                '/foo/bar',
-            ),
-            array(
-                array(
-                    'REQUEST_URI' => '/app_dev.php',
-                    'SCRIPT_NAME' => '/app_dev.php',
-                ),
-                '/app_dev.php',
-                '/app_dev.php',
-                '/',
-            ),
-            array(
-                array(
-                    'REQUEST_URI' => '/',
-                    'SCRIPT_NAME' => '/app_dev.php',
-                ),
-                '/',
-                '',
-                '/',
-            ),
-        );
-=======
         return [
             [
                 [
@@ -155,6 +89,5 @@ class ApacheRequestTest extends TestCase
                 '/',
             ],
         ];
->>>>>>> dev
     }
 }

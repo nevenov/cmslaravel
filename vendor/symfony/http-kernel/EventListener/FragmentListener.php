@@ -11,21 +11,12 @@
 
 namespace Symfony\Component\HttpKernel\EventListener;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\UriSigner;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-=======
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\UriSigner;
->>>>>>> dev
 
 /**
  * Handles content fragments represented by special URIs.
@@ -44,19 +35,10 @@ class FragmentListener implements EventSubscriberInterface
     private $fragmentPath;
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-     * @param UriSigner $signer       A UriSigner instance
-     * @param string    $fragmentPath The path that triggers this listener
-     */
-    public function __construct(UriSigner $signer, $fragmentPath = '/_fragment')
-=======
      * @param UriSigner $signer       A UriSigner instance
      * @param string    $fragmentPath The path that triggers this listener
      */
     public function __construct(UriSigner $signer, string $fragmentPath = '/_fragment')
->>>>>>> dev
     {
         $this->signer = $signer;
         $this->fragmentPath = $fragmentPath;
@@ -65,13 +47,7 @@ class FragmentListener implements EventSubscriberInterface
     /**
      * Fixes request attributes when the path is '/_fragment'.
      *
-<<<<<<< HEAD
-     * @param GetResponseEvent $event A GetResponseEvent instance
-     *
-     * @throws AccessDeniedHttpException if the request does not come from a trusted IP.
-=======
      * @throws AccessDeniedHttpException if the request does not come from a trusted IP
->>>>>>> dev
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
@@ -94,22 +70,14 @@ class FragmentListener implements EventSubscriberInterface
 
         parse_str($request->query->get('_path', ''), $attributes);
         $request->attributes->add($attributes);
-<<<<<<< HEAD
-        $request->attributes->set('_route_params', array_replace($request->attributes->get('_route_params', array()), $attributes));
-=======
         $request->attributes->set('_route_params', array_replace($request->attributes->get('_route_params', []), $attributes));
->>>>>>> dev
         $request->query->remove('_path');
     }
 
     protected function validateRequest(Request $request)
     {
         // is the Request safe?
-<<<<<<< HEAD
-        if (!$request->isMethodSafe()) {
-=======
         if (!$request->isMethodSafe(false)) {
->>>>>>> dev
             throw new AccessDeniedHttpException();
         }
 
@@ -124,14 +92,8 @@ class FragmentListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-<<<<<<< HEAD
-        return array(
-            KernelEvents::REQUEST => array(array('onKernelRequest', 48)),
-        );
-=======
         return [
             KernelEvents::REQUEST => [['onKernelRequest', 48]],
         ];
->>>>>>> dev
     }
 }

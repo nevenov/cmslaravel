@@ -9,9 +9,5 @@ interface ValidatesWhenResolved
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function validate();
-=======
     public function validateResolved();
->>>>>>> dev
 }

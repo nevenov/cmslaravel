@@ -12,9 +12,6 @@ interface UrlGenerator
     public function current();
 
     /**
-<<<<<<< HEAD
-     * Generate a absolute URL to the given path.
-=======
      * Get the URL for the previous request.
      *
      * @param  mixed  $fallback
@@ -24,7 +21,6 @@ interface UrlGenerator
 
     /**
      * Generate an absolute URL to the given path.
->>>>>>> dev
      *
      * @param  string  $path
      * @param  mixed  $extra
@@ -43,11 +39,7 @@ interface UrlGenerator
     public function secure($path, $parameters = []);
 
     /**
-<<<<<<< HEAD
-     * Generate a URL to an application asset.
-=======
      * Generate the URL to an application asset.
->>>>>>> dev
      *
      * @param  string  $path
      * @param  bool    $secure
@@ -70,11 +62,7 @@ interface UrlGenerator
     /**
      * Get the URL to a controller action.
      *
-<<<<<<< HEAD
-     * @param  string  $action
-=======
      * @param  string|array  $action
->>>>>>> dev
      * @param  mixed $parameters
      * @param  bool $absolute
      * @return string

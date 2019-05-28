@@ -4,13 +4,8 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
 {
     public function testEachTransportIsUsedInTurn()
     {
-<<<<<<< HEAD
-        $message1 = $this->getMockery('Swift_Mime_Message');
-        $message2 = $this->getMockery('Swift_Mime_Message');
-=======
         $message1 = $this->getMockery('Swift_Mime_SimpleMessage');
         $message2 = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
         $connectionState1 = false;
@@ -67,11 +62,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
            ->never()
            ->with($message1, \Mockery::any());
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
         $this->assertEquals(1, $transport->send($message1));
         $this->assertEquals(1, $transport->send($message2));
@@ -79,17 +70,10 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
 
     public function testTransportsAreReusedInRotatingFashion()
     {
-<<<<<<< HEAD
-        $message1 = $this->getMockery('Swift_Mime_Message');
-        $message2 = $this->getMockery('Swift_Mime_Message');
-        $message3 = $this->getMockery('Swift_Mime_Message');
-        $message4 = $this->getMockery('Swift_Mime_Message');
-=======
         $message1 = $this->getMockery('Swift_Mime_SimpleMessage');
         $message2 = $this->getMockery('Swift_Mime_SimpleMessage');
         $message3 = $this->getMockery('Swift_Mime_SimpleMessage');
         $message4 = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
         $connectionState1 = false;
@@ -170,11 +154,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
            ->never()
            ->with($message3, \Mockery::any());
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
 
         $this->assertEquals(1, $transport->send($message1));
@@ -187,11 +167,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
     {
         $e = new Swift_TransportException('b0rken');
 
-<<<<<<< HEAD
-        $message = $this->getMockery('Swift_Mime_Message');
-=======
         $message = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
         $connectionState1 = false;
@@ -242,22 +218,14 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
                $testCase->fail();
            });
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
         $this->assertEquals(1, $transport->send($message));
     }
 
     public function testMessageIsTriedOnNextTransportIfZeroReturned()
     {
-<<<<<<< HEAD
-        $message = $this->getMockery('Swift_Mime_Message');
-=======
         $message = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
         $connectionState1 = false;
@@ -309,22 +277,14 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
                return 0;
            });
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
         $this->assertEquals(1, $transport->send($message));
     }
 
     public function testZeroIsReturnedIfAllTransportsReturnZero()
     {
-<<<<<<< HEAD
-        $message = $this->getMockery('Swift_Mime_Message');
-=======
         $message = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
         $connectionState1 = false;
@@ -376,11 +336,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
                return 1;
            });
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
         $this->assertEquals(0, $transport->send($message));
     }
@@ -389,17 +345,10 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
     {
         $e = new Swift_TransportException('maur b0rken');
 
-<<<<<<< HEAD
-        $message1 = $this->getMockery('Swift_Mime_Message');
-        $message2 = $this->getMockery('Swift_Mime_Message');
-        $message3 = $this->getMockery('Swift_Mime_Message');
-        $message4 = $this->getMockery('Swift_Mime_Message');
-=======
         $message1 = $this->getMockery('Swift_Mime_SimpleMessage');
         $message2 = $this->getMockery('Swift_Mime_SimpleMessage');
         $message3 = $this->getMockery('Swift_Mime_SimpleMessage');
         $message4 = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
         $connectionState1 = false;
@@ -459,11 +408,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
                $testCase->fail();
            });
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
         $this->assertEquals(1, $transport->send($message1));
         $this->assertEquals(1, $transport->send($message2));
@@ -475,11 +420,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
     {
         $e = new Swift_TransportException('b0rken');
 
-<<<<<<< HEAD
-        $message = $this->getMockery('Swift_Mime_Message');
-=======
         $message = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
         $connectionState1 = false;
@@ -527,11 +468,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
                }
            });
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
         try {
             $transport->send($message);
@@ -573,11 +510,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
                }
            });
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
         $transport->stop();
     }
@@ -586,11 +519,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
     {
         $e = new Swift_TransportException('b0rken');
 
-<<<<<<< HEAD
-        $message = $this->getMockery('Swift_Mime_Message');
-=======
         $message = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
         $connectionState1 = false;
@@ -638,11 +567,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
                }
            });
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
         $this->assertTrue($transport->isStarted());
         try {
@@ -657,13 +582,8 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
     {
         $e = new Swift_TransportException('b0rken');
 
-<<<<<<< HEAD
-        $message1 = $this->getMockery('Swift_Mime_Message');
-        $message2 = $this->getMockery('Swift_Mime_Message');
-=======
         $message1 = $this->getMockery('Swift_Mime_SimpleMessage');
         $message2 = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
         $connectionState1 = false;
@@ -723,11 +643,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
            ->never()
            ->with($message2, \Mockery::any());
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-=======
         $transport = $this->getTransport([$t1, $t2]);
->>>>>>> dev
         $transport->start();
         $this->assertTrue($transport->isStarted());
         try {
@@ -744,17 +660,10 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
 
     public function testFailureReferenceIsPassedToDelegates()
     {
-<<<<<<< HEAD
-        $failures = array();
-        $testCase = $this;
-
-        $message = $this->getMockery('Swift_Mime_Message');
-=======
         $failures = [];
         $testCase = $this;
 
         $message = $this->getMockery('Swift_Mime_SimpleMessage');
->>>>>>> dev
         $t1 = $this->getMockery('Swift_Transport');
         $connectionState = false;
 
@@ -781,22 +690,14 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
                }
            });
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1));
-=======
         $transport = $this->getTransport([$t1]);
->>>>>>> dev
         $transport->start();
         $transport->send($message, $failures);
     }
 
     public function testRegisterPluginDelegatesToLoadedTransports()
     {
-<<<<<<< HEAD
-        $plugin = $this->_createPlugin();
-=======
         $plugin = $this->createPlugin();
->>>>>>> dev
 
         $t1 = $this->getMockery('Swift_Transport');
         $t2 = $this->getMockery('Swift_Transport');
@@ -808,12 +709,6 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
            ->once()
            ->with($plugin);
 
-<<<<<<< HEAD
-        $transport = $this->_getTransport(array($t1, $t2));
-        $transport->registerPlugin($plugin);
-    }
-
-=======
         $transport = $this->getTransport([$t1, $t2]);
         $transport->registerPlugin($plugin);
     }
@@ -907,7 +802,6 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
         $this->assertFalse($transport->ping());
     }
 
->>>>>>> dev
     /**
      * Adapted from Yay_Matchers_ReferenceMatcher.
      */
@@ -921,11 +815,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
         }
 
         $copy = $ref2;
-<<<<<<< HEAD
-        $randomString = uniqid('yay');
-=======
         $randomString = uniqid('yay', true);
->>>>>>> dev
         $ref2 = $randomString;
         $isRef = ($ref1 === $ref2);
         $ref2 = $copy;
@@ -933,11 +823,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
         return $isRef;
     }
 
-<<<<<<< HEAD
-    private function _getTransport(array $transports)
-=======
     private function getTransport(array $transports)
->>>>>>> dev
     {
         $transport = new Swift_Transport_LoadBalancedTransport();
         $transport->setTransports($transports);
@@ -945,11 +831,7 @@ class Swift_Transport_LoadBalancedTransportTest extends \SwiftMailerTestCase
         return $transport;
     }
 
-<<<<<<< HEAD
-    private function _createPlugin()
-=======
     private function createPlugin()
->>>>>>> dev
     {
         return $this->getMockery('Swift_Events_EventListener');
     }

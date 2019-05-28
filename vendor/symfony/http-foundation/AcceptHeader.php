@@ -24,11 +24,7 @@ class AcceptHeader
     /**
      * @var AcceptHeaderItem[]
      */
-<<<<<<< HEAD
-    private $items = array();
-=======
     private $items = [];
->>>>>>> dev
 
     /**
      * @var bool
@@ -36,11 +32,6 @@ class AcceptHeader
     private $sorted = true;
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-=======
->>>>>>> dev
      * @param AcceptHeaderItem[] $items
      */
     public function __construct(array $items)
@@ -55,24 +46,12 @@ class AcceptHeader
      *
      * @param string $headerValue
      *
-<<<<<<< HEAD
-     * @return AcceptHeader
-=======
      * @return self
->>>>>>> dev
      */
     public static function fromString($headerValue)
     {
         $index = 0;
 
-<<<<<<< HEAD
-        return new self(array_map(function ($itemValue) use (&$index) {
-            $item = AcceptHeaderItem::fromString($itemValue);
-            $item->setIndex($index++);
-
-            return $item;
-        }, preg_split('/\s*(?:,*("[^"]+"),*|,*(\'[^\']+\'),*|,+)\s*/', $headerValue, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)));
-=======
         $parts = HeaderUtils::split((string) $headerValue, ',;=');
 
         return new self(array_map(function ($subParts) use (&$index) {
@@ -84,7 +63,6 @@ class AcceptHeader
 
             return $item;
         }, $parts));
->>>>>>> dev
     }
 
     /**
@@ -118,23 +96,13 @@ class AcceptHeader
      */
     public function get($value)
     {
-<<<<<<< HEAD
-        return isset($this->items[$value]) ? $this->items[$value] : null;
-=======
         return $this->items[$value] ?? $this->items[explode('/', $value)[0].'/*'] ?? $this->items['*/*'] ?? $this->items['*'] ?? null;
->>>>>>> dev
     }
 
     /**
      * Adds an item.
      *
-<<<<<<< HEAD
-     * @param AcceptHeaderItem $item
-     *
-     * @return AcceptHeader
-=======
      * @return $this
->>>>>>> dev
      */
     public function add(AcceptHeaderItem $item)
     {
@@ -161,11 +129,7 @@ class AcceptHeader
      *
      * @param string $pattern
      *
-<<<<<<< HEAD
-     * @return AcceptHeader
-=======
      * @return self
->>>>>>> dev
      */
     public function filter($pattern)
     {
@@ -192,11 +156,7 @@ class AcceptHeader
     private function sort()
     {
         if (!$this->sorted) {
-<<<<<<< HEAD
-            uasort($this->items, function ($a, $b) {
-=======
             uasort($this->items, function (AcceptHeaderItem $a, AcceptHeaderItem $b) {
->>>>>>> dev
                 $qA = $a->getQuality();
                 $qB = $b->getQuality();
 

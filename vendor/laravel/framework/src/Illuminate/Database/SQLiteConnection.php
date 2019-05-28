@@ -2,10 +2,7 @@
 
 namespace Illuminate\Database;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Database\Schema\SQLiteBuilder;
->>>>>>> dev
 use Illuminate\Database\Query\Processors\SQLiteProcessor;
 use Doctrine\DBAL\Driver\PDOSqlite\Driver as DoctrineDriver;
 use Illuminate\Database\Query\Grammars\SQLiteGrammar as QueryGrammar;
@@ -14,8 +11,6 @@ use Illuminate\Database\Schema\Grammars\SQLiteGrammar as SchemaGrammar;
 class SQLiteConnection extends Connection
 {
     /**
-<<<<<<< HEAD
-=======
      * Create a new database connection instance.
      *
      * @param  \PDO|\Closure     $pdo
@@ -40,7 +35,6 @@ class SQLiteConnection extends Connection
     }
 
     /**
->>>>>>> dev
      * Get the default query grammar instance.
      *
      * @return \Illuminate\Database\Query\Grammars\SQLiteGrammar
@@ -51,8 +45,6 @@ class SQLiteConnection extends Connection
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Get a schema builder instance for the connection.
      *
      * @return \Illuminate\Database\Schema\SQLiteBuilder
@@ -67,7 +59,6 @@ class SQLiteConnection extends Connection
     }
 
     /**
->>>>>>> dev
      * Get the default schema grammar instance.
      *
      * @return \Illuminate\Database\Schema\Grammars\SQLiteGrammar
@@ -96,8 +87,6 @@ class SQLiteConnection extends Connection
     {
         return new DoctrineDriver;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get the database connection foreign key constraints configuration option.
@@ -108,5 +97,4 @@ class SQLiteConnection extends Connection
     {
         return $this->getConfig('foreign_key_constraints');
     }
->>>>>>> dev
 }

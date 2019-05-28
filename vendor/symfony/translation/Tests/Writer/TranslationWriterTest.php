@@ -11,45 +11,28 @@
 
 namespace Symfony\Component\Translation\Tests\Writer;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\Translation\Dumper\DumperInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Writer\TranslationWriter;
 
-<<<<<<< HEAD
-class TranslationWriterTest extends \PHPUnit_Framework_TestCase
-{
-    public function testWriteTranslations()
-    {
-        $dumper = $this->getMock('Symfony\Component\Translation\Dumper\DumperInterface');
-=======
 class TranslationWriterTest extends TestCase
 {
     public function testWrite()
     {
         $dumper = $this->getMockBuilder('Symfony\Component\Translation\Dumper\DumperInterface')->getMock();
->>>>>>> dev
         $dumper
             ->expects($this->once())
             ->method('dump');
 
         $writer = new TranslationWriter();
         $writer->addDumper('test', $dumper);
-<<<<<<< HEAD
-        $writer->writeTranslations(new MessageCatalogue(array()), 'test');
-    }
-
-=======
         $writer->write(new MessageCatalogue('en'), 'test');
     }
 
     /**
      * @group legacy
      */
->>>>>>> dev
     public function testDisableBackup()
     {
         $nonBackupDumper = new NonBackupDumper();
@@ -66,11 +49,7 @@ class TranslationWriterTest extends TestCase
 
 class NonBackupDumper implements DumperInterface
 {
-<<<<<<< HEAD
-    public function dump(MessageCatalogue $messages, $options = array())
-=======
     public function dump(MessageCatalogue $messages, $options = [])
->>>>>>> dev
     {
     }
 }
@@ -79,11 +58,7 @@ class BackupDumper implements DumperInterface
 {
     public $backup = true;
 
-<<<<<<< HEAD
-    public function dump(MessageCatalogue $messages, $options = array())
-=======
     public function dump(MessageCatalogue $messages, $options = [])
->>>>>>> dev
     {
     }
 

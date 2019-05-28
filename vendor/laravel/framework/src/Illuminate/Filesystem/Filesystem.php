@@ -99,8 +99,6 @@ class Filesystem
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Get the MD5 hash of the file at the given path.
      *
      * @param  string  $path
@@ -112,17 +110,12 @@ class Filesystem
     }
 
     /**
->>>>>>> dev
      * Write the contents of a file.
      *
      * @param  string  $path
      * @param  string  $contents
      * @param  bool  $lock
-<<<<<<< HEAD
-     * @return int
-=======
      * @return int|bool
->>>>>>> dev
      */
     public function put($path, $contents, $lock = false)
     {
@@ -130,8 +123,6 @@ class Filesystem
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Write the contents of a file, replacing it atomically if it already exists.
      *
      * @param  string  $path
@@ -156,7 +147,6 @@ class Filesystem
     }
 
     /**
->>>>>>> dev
      * Prepend to a file.
      *
      * @param  string  $path
@@ -185,8 +175,6 @@ class Filesystem
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Get or set UNIX mode of a file or directory.
      *
      * @param  string  $path
@@ -203,7 +191,6 @@ class Filesystem
     }
 
     /**
->>>>>>> dev
      * Delete the file at a given path.
      *
      * @param  string|array  $paths
@@ -253,8 +240,6 @@ class Filesystem
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Create a hard link to the target file or directory.
      *
      * @param  string  $target
@@ -273,7 +258,6 @@ class Filesystem
     }
 
     /**
->>>>>>> dev
      * Extract the file name from a file path.
      *
      * @param  string  $path
@@ -373,8 +357,6 @@ class Filesystem
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Determine if the given path is readable.
      *
      * @param  string  $path
@@ -386,7 +368,6 @@ class Filesystem
     }
 
     /**
->>>>>>> dev
      * Determine if the given path is writable.
      *
      * @param  string  $path
@@ -424,24 +405,6 @@ class Filesystem
      * Get an array of all files in a directory.
      *
      * @param  string  $directory
-<<<<<<< HEAD
-     * @return array
-     */
-    public function files($directory)
-    {
-        $glob = glob($directory.'/*');
-
-        if ($glob === false) {
-            return [];
-        }
-
-        // To get the appropriate files, we'll simply glob the directory and filter
-        // out any "files" that are not truly files so we do not end up with any
-        // directories in our list, but only true files within the directory.
-        return array_filter($glob, function ($file) {
-            return filetype($file) == 'file';
-        });
-=======
      * @param  bool  $hidden
      * @return \Symfony\Component\Finder\SplFileInfo[]
      */
@@ -451,7 +414,6 @@ class Filesystem
             Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory)->depth(0)->sortByName(),
             false
         );
->>>>>>> dev
     }
 
     /**
@@ -459,13 +421,6 @@ class Filesystem
      *
      * @param  string  $directory
      * @param  bool  $hidden
-<<<<<<< HEAD
-     * @return array
-     */
-    public function allFiles($directory, $hidden = false)
-    {
-        return iterator_to_array(Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory), false);
-=======
      * @return \Symfony\Component\Finder\SplFileInfo[]
      */
     public function allFiles($directory, $hidden = false)
@@ -474,7 +429,6 @@ class Filesystem
             Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory)->sortByName(),
             false
         );
->>>>>>> dev
     }
 
     /**
@@ -487,11 +441,7 @@ class Filesystem
     {
         $directories = [];
 
-<<<<<<< HEAD
-        foreach (Finder::create()->in($directory)->directories()->depth(0) as $dir) {
-=======
         foreach (Finder::create()->in($directory)->directories()->depth(0)->sortByName() as $dir) {
->>>>>>> dev
             $directories[] = $dir->getPathname();
         }
 
@@ -526,15 +476,8 @@ class Filesystem
      */
     public function moveDirectory($from, $to, $overwrite = false)
     {
-<<<<<<< HEAD
-        if ($overwrite && $this->isDirectory($to)) {
-            if (! $this->deleteDirectory($to)) {
-                return false;
-            }
-=======
         if ($overwrite && $this->isDirectory($to) && ! $this->deleteDirectory($to)) {
             return false;
->>>>>>> dev
         }
 
         return @rename($from, $to) === true;
@@ -633,8 +576,6 @@ class Filesystem
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Remove all of the directories within a given directory.
      *
      * @param  string  $directory
@@ -656,7 +597,6 @@ class Filesystem
     }
 
     /**
->>>>>>> dev
      * Empty the specified directory of all files and folders.
      *
      * @param  string  $directory

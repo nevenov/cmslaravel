@@ -2,11 +2,8 @@
 
 namespace Illuminate\Database;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
->>>>>>> dev
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
 
@@ -27,27 +24,6 @@ abstract class Seeder
     protected $command;
 
     /**
-<<<<<<< HEAD
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    abstract public function run();
-
-    /**
-     * Seed the given connection from the given path.
-     *
-     * @param  string  $class
-     * @return void
-     */
-    public function call($class)
-    {
-        $this->resolve($class)->run();
-
-        if (isset($this->command)) {
-            $this->command->getOutput()->writeln("<info>Seeded:</info> $class");
-        }
-=======
      * Seed the given connection from the given path.
      *
      * @param  array|string  $class
@@ -78,7 +54,6 @@ abstract class Seeder
     public function callSilent($class)
     {
         $this->call($class, true);
->>>>>>> dev
     }
 
     /**
@@ -129,8 +104,6 @@ abstract class Seeder
 
         return $this;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Run the database seeds.
@@ -149,5 +122,4 @@ abstract class Seeder
                     ? $this->container->call([$this, 'run'])
                     : $this->run();
     }
->>>>>>> dev
 }

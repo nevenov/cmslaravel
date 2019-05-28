@@ -13,13 +13,8 @@ namespace Symfony\Component\HttpFoundation\File;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
-use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
-=======
 use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
->>>>>>> dev
 
 /**
  * A file in the file system.
@@ -36,11 +31,7 @@ class File extends \SplFileInfo
      *
      * @throws FileNotFoundException If the given path is not a file
      */
-<<<<<<< HEAD
-    public function __construct($path, $checkPath = true)
-=======
     public function __construct(string $path, bool $checkPath = true)
->>>>>>> dev
     {
         if ($checkPath && !is_file($path)) {
             throw new FileNotFoundException($path);
@@ -94,11 +85,7 @@ class File extends \SplFileInfo
      * @param string $directory The destination folder
      * @param string $name      The new file name
      *
-<<<<<<< HEAD
-     * @return File A File object representing the new file
-=======
      * @return self A File object representing the new file
->>>>>>> dev
      *
      * @throws FileException if the target file could not be created
      */
@@ -106,17 +93,11 @@ class File extends \SplFileInfo
     {
         $target = $this->getTargetFile($directory, $name);
 
-<<<<<<< HEAD
-        if (!@rename($this->getPathname(), $target)) {
-            $error = error_get_last();
-            throw new FileException(sprintf('Could not move the file "%s" to "%s" (%s)', $this->getPathname(), $target, strip_tags($error['message'])));
-=======
         set_error_handler(function ($type, $msg) use (&$error) { $error = $msg; });
         $renamed = rename($this->getPathname(), $target);
         restore_error_handler();
         if (!$renamed) {
             throw new FileException(sprintf('Could not move the file "%s" to "%s" (%s)', $this->getPathname(), $target, strip_tags($error)));
->>>>>>> dev
         }
 
         @chmod($target, 0666 & ~umask());
@@ -134,11 +115,7 @@ class File extends \SplFileInfo
             throw new FileException(sprintf('Unable to write in the "%s" directory', $directory));
         }
 
-<<<<<<< HEAD
-        $target = rtrim($directory, '/\\').DIRECTORY_SEPARATOR.(null === $name ? $this->getBasename() : $this->getName($name));
-=======
         $target = rtrim($directory, '/\\').\DIRECTORY_SEPARATOR.(null === $name ? $this->getBasename() : $this->getName($name));
->>>>>>> dev
 
         return new self($target, false);
     }

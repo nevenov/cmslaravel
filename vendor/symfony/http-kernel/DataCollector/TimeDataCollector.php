@@ -14,10 +14,7 @@ namespace Symfony\Component\HttpKernel\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Stopwatch\Stopwatch;
->>>>>>> dev
 
 /**
  * TimeDataCollector.
@@ -29,11 +26,7 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
     protected $kernel;
     protected $stopwatch;
 
-<<<<<<< HEAD
-    public function __construct(KernelInterface $kernel = null, $stopwatch = null)
-=======
     public function __construct(KernelInterface $kernel = null, Stopwatch $stopwatch = null)
->>>>>>> dev
     {
         $this->kernel = $kernel;
         $this->stopwatch = $stopwatch;
@@ -47,16 +40,6 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
         if (null !== $this->kernel) {
             $startTime = $this->kernel->getStartTime();
         } else {
-<<<<<<< HEAD
-            $startTime = $request->server->get('REQUEST_TIME_FLOAT', $request->server->get('REQUEST_TIME'));
-        }
-
-        $this->data = array(
-            'token' => $response->headers->get('X-Debug-Token'),
-            'start_time' => $startTime * 1000,
-            'events' => array(),
-        );
-=======
             $startTime = $request->server->get('REQUEST_TIME_FLOAT');
         }
 
@@ -78,7 +61,6 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
         if (null !== $this->stopwatch) {
             $this->stopwatch->reset();
         }
->>>>>>> dev
     }
 
     /**
@@ -159,8 +141,6 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
     }
 
     /**
-<<<<<<< HEAD
-=======
      * @return bool whether or not the stopwatch component is installed
      */
     public function isStopwatchInstalled()
@@ -169,7 +149,6 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
     }
 
     /**
->>>>>>> dev
      * {@inheritdoc}
      */
     public function getName()

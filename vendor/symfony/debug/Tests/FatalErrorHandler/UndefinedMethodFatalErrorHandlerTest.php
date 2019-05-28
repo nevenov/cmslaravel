@@ -11,18 +11,11 @@
 
 namespace Symfony\Component\Debug\Tests\FatalErrorHandler;
 
-<<<<<<< HEAD
-use Symfony\Component\Debug\Exception\FatalErrorException;
-use Symfony\Component\Debug\FatalErrorHandler\UndefinedMethodFatalErrorHandler;
-
-class UndefinedMethodFatalErrorHandlerTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\Debug\FatalErrorHandler\UndefinedMethodFatalErrorHandler;
 
 class UndefinedMethodFatalErrorHandlerTest extends TestCase
->>>>>>> dev
 {
     /**
      * @dataProvider provideUndefinedMethodData
@@ -41,59 +34,31 @@ class UndefinedMethodFatalErrorHandlerTest extends TestCase
 
     public function provideUndefinedMethodData()
     {
-<<<<<<< HEAD
-        return array(
-            array(
-                array(
-=======
         return [
             [
                 [
->>>>>>> dev
                     'type' => 1,
                     'line' => 12,
                     'file' => 'foo.php',
                     'message' => 'Call to undefined method SplObjectStorage::what()',
-<<<<<<< HEAD
-                ),
-                'Attempted to call an undefined method named "what" of class "SplObjectStorage".',
-            ),
-            array(
-                array(
-=======
                 ],
                 'Attempted to call an undefined method named "what" of class "SplObjectStorage".',
             ],
             [
                 [
->>>>>>> dev
                     'type' => 1,
                     'line' => 12,
                     'file' => 'foo.php',
                     'message' => 'Call to undefined method SplObjectStorage::walid()',
-<<<<<<< HEAD
-                ),
-                "Attempted to call an undefined method named \"walid\" of class \"SplObjectStorage\".\nDid you mean to call \"valid\"?",
-            ),
-            array(
-                array(
-=======
                 ],
                 "Attempted to call an undefined method named \"walid\" of class \"SplObjectStorage\".\nDid you mean to call \"valid\"?",
             ],
             [
                 [
->>>>>>> dev
                     'type' => 1,
                     'line' => 12,
                     'file' => 'foo.php',
                     'message' => 'Call to undefined method SplObjectStorage::offsetFet()',
-<<<<<<< HEAD
-                ),
-                "Attempted to call an undefined method named \"offsetFet\" of class \"SplObjectStorage\".\nDid you mean to call e.g. \"offsetGet\", \"offsetSet\" or \"offsetUnset\"?",
-            ),
-        );
-=======
                 ],
                 "Attempted to call an undefined method named \"offsetFet\" of class \"SplObjectStorage\".\nDid you mean to call e.g. \"offsetGet\", \"offsetSet\" or \"offsetUnset\"?",
             ],
@@ -107,6 +72,5 @@ class UndefinedMethodFatalErrorHandlerTest extends TestCase
                 'Attempted to call an undefined method named "test" of class "class@anonymous".',
             ],
         ];
->>>>>>> dev
     }
 }

@@ -14,11 +14,7 @@ class FooSubnamespaced1Command extends Command
         $this
             ->setName('foo:bar:baz')
             ->setDescription('The foo:bar:baz command')
-<<<<<<< HEAD
-            ->setAliases(array('foobarbaz'))
-=======
             ->setAliases(['foobarbaz'])
->>>>>>> dev
         ;
     }
 

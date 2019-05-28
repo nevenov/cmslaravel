@@ -11,18 +11,11 @@
 
 namespace Symfony\Component\Translation\Tests\Loader;
 
-<<<<<<< HEAD
-use Symfony\Component\Translation\Loader\PoFileLoader;
-use Symfony\Component\Config\Resource\FileResource;
-
-class PoFileLoaderTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Translation\Loader\PoFileLoader;
 
 class PoFileLoaderTest extends TestCase
->>>>>>> dev
 {
     public function testLoad()
     {
@@ -30,15 +23,9 @@ class PoFileLoaderTest extends TestCase
         $resource = __DIR__.'/../fixtures/resources.po';
         $catalogue = $loader->load($resource, 'en', 'domain1');
 
-<<<<<<< HEAD
-        $this->assertEquals(array('foo' => 'bar'), $catalogue->all('domain1'));
-        $this->assertEquals('en', $catalogue->getLocale());
-        $this->assertEquals(array(new FileResource($resource)), $catalogue->getResources());
-=======
         $this->assertEquals(['foo' => 'bar', 'bar' => 'foo'], $catalogue->all('domain1'));
         $this->assertEquals('en', $catalogue->getLocale());
         $this->assertEquals([new FileResource($resource)], $catalogue->getResources());
->>>>>>> dev
     }
 
     public function testLoadPlurals()
@@ -47,15 +34,9 @@ class PoFileLoaderTest extends TestCase
         $resource = __DIR__.'/../fixtures/plurals.po';
         $catalogue = $loader->load($resource, 'en', 'domain1');
 
-<<<<<<< HEAD
-        $this->assertEquals(array('foo' => 'bar', 'foos' => 'bar|bars'), $catalogue->all('domain1'));
-        $this->assertEquals('en', $catalogue->getLocale());
-        $this->assertEquals(array(new FileResource($resource)), $catalogue->getResources());
-=======
         $this->assertEquals(['foo' => 'bar', 'foos' => 'bar|bars'], $catalogue->all('domain1'));
         $this->assertEquals('en', $catalogue->getLocale());
         $this->assertEquals([new FileResource($resource)], $catalogue->getResources());
->>>>>>> dev
     }
 
     public function testLoadDoesNothingIfEmpty()
@@ -64,15 +45,9 @@ class PoFileLoaderTest extends TestCase
         $resource = __DIR__.'/../fixtures/empty.po';
         $catalogue = $loader->load($resource, 'en', 'domain1');
 
-<<<<<<< HEAD
-        $this->assertEquals(array(), $catalogue->all('domain1'));
-        $this->assertEquals('en', $catalogue->getLocale());
-        $this->assertEquals(array(new FileResource($resource)), $catalogue->getResources());
-=======
         $this->assertEquals([], $catalogue->all('domain1'));
         $this->assertEquals('en', $catalogue->getLocale());
         $this->assertEquals([new FileResource($resource)], $catalogue->getResources());
->>>>>>> dev
     }
 
     /**
@@ -91,15 +66,9 @@ class PoFileLoaderTest extends TestCase
         $resource = __DIR__.'/../fixtures/empty-translation.po';
         $catalogue = $loader->load($resource, 'en', 'domain1');
 
-<<<<<<< HEAD
-        $this->assertEquals(array('foo' => ''), $catalogue->all('domain1'));
-        $this->assertEquals('en', $catalogue->getLocale());
-        $this->assertEquals(array(new FileResource($resource)), $catalogue->getResources());
-=======
         $this->assertEquals(['foo' => ''], $catalogue->all('domain1'));
         $this->assertEquals('en', $catalogue->getLocale());
         $this->assertEquals([new FileResource($resource)], $catalogue->getResources());
->>>>>>> dev
     }
 
     public function testEscapedId()

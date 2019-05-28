@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,22 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-    'year' => ':count 년',
-    'y' => ':count 년',
-    'month' => ':count 개월',
-    'm' => ':count 개월',
-    'week' => ':count 주일',
-    'w' => ':count 주일',
-    'day' => ':count 일',
-    'd' => ':count 일',
-    'hour' => ':count 시간',
-    'h' => ':count 시간',
-    'minute' => ':count 분',
-    'min' => ':count 분',
-    'second' => ':count 초',
-=======
 /**
  * Authors:
  * - Kunal Marwaha
@@ -54,15 +34,11 @@ return [
     'minute' => '{1}1분|]1,Inf[:count분',
     'min' => ':count 분',
     'second' => '{1}몇 초|]1,Inf[:count초',
->>>>>>> dev
     's' => ':count 초',
     'ago' => ':time 전',
     'from_now' => ':time 후',
     'after' => ':time 이후',
     'before' => ':time 이전',
-<<<<<<< HEAD
-);
-=======
     'formats' => [
         'LT' => 'A h:mm',
         'LTS' => 'A h:mm:ss',
@@ -102,4 +78,3 @@ return [
     'weekdays_min' => ['일', '월', '화', '수', '목', '금', '토'],
     'list' => ' ',
 ];
->>>>>>> dev

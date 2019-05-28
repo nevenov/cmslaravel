@@ -1,10 +1,4 @@
 <?php
-<<<<<<< HEAD
-class MultiDependencyTest extends PHPUnit_Framework_TestCase
-{
-    public function testOne()
-    {
-=======
 use PHPUnit\Framework\TestCase;
 
 class MultiDependencyTest extends TestCase
@@ -13,17 +7,13 @@ class MultiDependencyTest extends TestCase
     {
         $this->assertTrue(true);
 
->>>>>>> dev
         return 'foo';
     }
 
     public function testTwo()
     {
-<<<<<<< HEAD
-=======
         $this->assertTrue(true);
 
->>>>>>> dev
         return 'bar';
     }
 

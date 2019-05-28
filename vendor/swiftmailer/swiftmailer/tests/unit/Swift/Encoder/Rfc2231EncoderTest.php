@@ -2,11 +2,7 @@
 
 class Swift_Encoder_Rfc2231EncoderTest extends \SwiftMailerTestCase
 {
-<<<<<<< HEAD
-    private $_rfc2045Token = '/^[\x21\x23-\x27\x2A\x2B\x2D\x2E\x30-\x39\x41-\x5A\x5E-\x7E]+$/D';
-=======
     private $rfc2045Token = '/^[\x21\x23-\x27\x2A\x2B\x2D\x2E\x30-\x39\x41-\x5A\x5E-\x7E]+$/D';
->>>>>>> dev
 
     /* --
     This algorithm is described in RFC 2231, but is barely touched upon except
@@ -43,11 +39,7 @@ class Swift_Encoder_Rfc2231EncoderTest extends \SwiftMailerTestCase
         $encoded = $encoder->encodeString($string);
 
         foreach (explode("\r\n", $encoded) as $line) {
-<<<<<<< HEAD
-            $this->assertRegExp($this->_rfc2045Token, $line,
-=======
             $this->assertRegExp($this->rfc2045Token, $line,
->>>>>>> dev
                 '%s: Encoder should always return a valid RFC 2045 token.');
         }
     }
@@ -77,11 +69,7 @@ class Swift_Encoder_Rfc2231EncoderTest extends \SwiftMailerTestCase
         $encoded = $encoder->encodeString($string);
 
         foreach (explode("\r\n", $encoded) as $line) {
-<<<<<<< HEAD
-            $this->assertRegExp($this->_rfc2045Token, $line,
-=======
             $this->assertRegExp($this->rfc2045Token, $line,
->>>>>>> dev
                 '%s: Encoder should always return a valid RFC 2045 token.');
         }
     }

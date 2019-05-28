@@ -10,20 +10,11 @@
 
 /**
  * An author.
-<<<<<<< HEAD
- *
- * @since      Class available since Release 3.6.0
-=======
->>>>>>> dev
  */
 class Author
 {
     // the order of properties is important for testing the cycle!
-<<<<<<< HEAD
-    public $books = array();
-=======
     public $books = [];
->>>>>>> dev
 
     private $name = '';
 

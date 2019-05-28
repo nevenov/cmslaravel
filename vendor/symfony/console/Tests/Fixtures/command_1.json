@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-{"name":"descriptor:command1","usage":["descriptor:command1", "alias1", "alias2"],"description":"command 1 description","help":"command 1 help","definition":{"arguments":[],"options":[]}}
-=======
 {
     "name": "descriptor:command1",
     "hidden": false,
@@ -16,4 +13,3 @@
         "options": []
     }
 }
->>>>>>> dev

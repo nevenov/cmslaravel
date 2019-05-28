@@ -12,31 +12,12 @@
 namespace Symfony\Component\HttpFoundation\Session\Storage\Proxy;
 
 /**
-<<<<<<< HEAD
- * SessionHandler proxy.
- *
- * @author Drak <drak@zikula.org>
- */
-class SessionHandlerProxy extends AbstractProxy implements \SessionHandlerInterface
-{
-    /**
-     * @var \SessionHandlerInterface
-     */
-    protected $handler;
-
-    /**
-     * Constructor.
-     *
-     * @param \SessionHandlerInterface $handler
-     */
-=======
  * @author Drak <drak@zikula.org>
  */
 class SessionHandlerProxy extends AbstractProxy implements \SessionHandlerInterface, \SessionUpdateTimestampHandlerInterface
 {
     protected $handler;
 
->>>>>>> dev
     public function __construct(\SessionHandlerInterface $handler)
     {
         $this->handler = $handler;
@@ -44,8 +25,6 @@ class SessionHandlerProxy extends AbstractProxy implements \SessionHandlerInterf
         $this->saveHandlerName = $this->wrapper ? ini_get('session.save_handler') : 'user';
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @return \SessionHandlerInterface
      */
@@ -54,7 +33,6 @@ class SessionHandlerProxy extends AbstractProxy implements \SessionHandlerInterf
         return $this->handler;
     }
 
->>>>>>> dev
     // \SessionHandlerInterface
 
     /**
@@ -104,8 +82,6 @@ class SessionHandlerProxy extends AbstractProxy implements \SessionHandlerInterf
     {
         return (bool) $this->handler->gc($maxlifetime);
     }
-<<<<<<< HEAD
-=======
 
     /**
      * {@inheritdoc}
@@ -122,5 +98,4 @@ class SessionHandlerProxy extends AbstractProxy implements \SessionHandlerInterf
     {
         return $this->handler instanceof \SessionUpdateTimestampHandlerInterface ? $this->handler->updateTimestamp($sessionId, $data) : $this->write($sessionId, $data);
     }
->>>>>>> dev
 }

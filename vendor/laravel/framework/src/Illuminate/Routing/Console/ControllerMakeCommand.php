@@ -2,11 +2,8 @@
 
 namespace Illuminate\Routing\Console;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Str;
 use InvalidArgumentException;
->>>>>>> dev
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -40,13 +37,6 @@ class ControllerMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-<<<<<<< HEAD
-        if ($this->option('resource')) {
-            return __DIR__.'/stubs/controller.stub';
-        }
-
-        return __DIR__.'/stubs/controller.plain.stub';
-=======
         $stub = null;
 
         if ($this->option('parent')) {
@@ -68,7 +58,6 @@ class ControllerMakeCommand extends GeneratorCommand
         $stub = $stub ?? '/stubs/controller.plain.stub';
 
         return __DIR__.$stub;
->>>>>>> dev
     }
 
     /**
@@ -83,16 +72,6 @@ class ControllerMakeCommand extends GeneratorCommand
     }
 
     /**
-<<<<<<< HEAD
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['resource', null, InputOption::VALUE_NONE, 'Generate a resource controller class.'],
-=======
      * Build the class with the given name.
      *
      * Remove the base controller import if we are already in base namespace.
@@ -140,25 +119,10 @@ class ControllerMakeCommand extends GeneratorCommand
             'ParentDummyFullModelClass' => $parentModelClass,
             'ParentDummyModelClass' => class_basename($parentModelClass),
             'ParentDummyModelVariable' => lcfirst(class_basename($parentModelClass)),
->>>>>>> dev
         ];
     }
 
     /**
-<<<<<<< HEAD
-     * Build the class with the given name.
-     *
-     * Remove the base controller import if we are already in base namespace.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function buildClass($name)
-    {
-        $namespace = $this->getNamespace($name);
-
-        return str_replace("use $namespace\Controller;\n", '', parent::buildClass($name));
-=======
      * Build the model replacement values.
      *
      * @param  array  $replace
@@ -218,6 +182,5 @@ class ControllerMakeCommand extends GeneratorCommand
             ['parent', 'p', InputOption::VALUE_OPTIONAL, 'Generate a nested resource controller class.'],
             ['api', null, InputOption::VALUE_NONE, 'Exclude the create and edit methods from the controller.'],
         ];
->>>>>>> dev
     }
 }

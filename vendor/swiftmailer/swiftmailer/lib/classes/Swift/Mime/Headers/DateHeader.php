@@ -16,31 +16,6 @@
 class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
 {
     /**
-<<<<<<< HEAD
-     * The UNIX timestamp value of this Header.
-     *
-     * @var int
-     */
-    private $_timestamp;
-
-    /**
-     * Creates a new DateHeader with $name and $timestamp.
-     *
-     * Example:
-     * <code>
-     * <?php
-     * $header = new Swift_Mime_Headers_DateHeader('Date', time());
-     * ?>
-     * </code>
-     *
-     * @param string             $name    of Header
-     * @param Swift_Mime_Grammar $grammar
-     */
-    public function __construct($name, Swift_Mime_Grammar $grammar)
-    {
-        $this->setFieldName($name);
-        parent::__construct($grammar);
-=======
      * Date-time value of this Header.
      *
      * @var DateTimeImmutable
@@ -55,7 +30,6 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
     public function __construct($name)
     {
         $this->setFieldName($name);
->>>>>>> dev
     }
 
     /**
@@ -74,59 +48,16 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
     /**
      * Set the model for the field body.
      *
-<<<<<<< HEAD
-     * This method takes a UNIX timestamp.
-     *
-     * @param int $model
-     */
-    public function setFieldBodyModel($model)
-    {
-        $this->setTimestamp($model);
-=======
      * @param DateTimeInterface $model
      */
     public function setFieldBodyModel($model)
     {
         $this->setDateTime($model);
->>>>>>> dev
     }
 
     /**
      * Get the model for the field body.
      *
-<<<<<<< HEAD
-     * This method returns a UNIX timestamp.
-     *
-     * @return mixed
-     */
-    public function getFieldBodyModel()
-    {
-        return $this->getTimestamp();
-    }
-
-    /**
-     * Get the UNIX timestamp of the Date in this Header.
-     *
-     * @return int
-     */
-    public function getTimestamp()
-    {
-        return $this->_timestamp;
-    }
-
-    /**
-     * Set the UNIX timestamp of the Date in this Header.
-     *
-     * @param int $timestamp
-     */
-    public function setTimestamp($timestamp)
-    {
-        if (null !== $timestamp) {
-            $timestamp = (int) $timestamp;
-        }
-        $this->clearCachedValueIf($this->_timestamp != $timestamp);
-        $this->_timestamp = $timestamp;
-=======
      * @return DateTimeImmutable
      */
     public function getFieldBodyModel()
@@ -157,7 +88,6 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
             $dateTime = $immutable->setTimezone($dateTime->getTimezone());
         }
         $this->dateTime = $dateTime;
->>>>>>> dev
     }
 
     /**
@@ -173,13 +103,8 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
     public function getFieldBody()
     {
         if (!$this->getCachedValue()) {
-<<<<<<< HEAD
-            if (isset($this->_timestamp)) {
-                $this->setCachedValue(date('r', $this->_timestamp));
-=======
             if (isset($this->dateTime)) {
                 $this->setCachedValue($this->dateTime->format(DateTime::RFC2822));
->>>>>>> dev
             }
         }
 

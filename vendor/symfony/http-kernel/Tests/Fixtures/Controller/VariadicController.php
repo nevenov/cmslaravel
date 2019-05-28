@@ -1,7 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-=======
 /*
  * This file is part of the Symfony package.
  *
@@ -11,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
->>>>>>> dev
 namespace Symfony\Component\HttpKernel\Tests\Fixtures\Controller;
 
 class VariadicController

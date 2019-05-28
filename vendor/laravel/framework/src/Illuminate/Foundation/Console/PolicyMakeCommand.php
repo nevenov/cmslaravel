@@ -2,13 +2,9 @@
 
 namespace Illuminate\Foundation\Console;
 
-<<<<<<< HEAD
-use Illuminate\Console\GeneratorCommand;
-=======
 use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
->>>>>>> dev
 
 class PolicyMakeCommand extends GeneratorCommand
 {
@@ -34,8 +30,6 @@ class PolicyMakeCommand extends GeneratorCommand
     protected $type = 'Policy';
 
     /**
-<<<<<<< HEAD
-=======
      * Build the class with the given name.
      *
      * @param  string  $name
@@ -114,20 +108,15 @@ class PolicyMakeCommand extends GeneratorCommand
     }
 
     /**
->>>>>>> dev
      * Get the stub file for the generator.
      *
      * @return string
      */
     protected function getStub()
     {
-<<<<<<< HEAD
-        return __DIR__.'/stubs/policy.stub';
-=======
         return $this->option('model')
                     ? __DIR__.'/stubs/policy.stub'
                     : __DIR__.'/stubs/policy.plain.stub';
->>>>>>> dev
     }
 
     /**
@@ -140,8 +129,6 @@ class PolicyMakeCommand extends GeneratorCommand
     {
         return $rootNamespace.'\Policies';
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get the console command arguments.
@@ -154,5 +141,4 @@ class PolicyMakeCommand extends GeneratorCommand
             ['model', 'm', InputOption::VALUE_OPTIONAL, 'The model that the policy applies to'],
         ];
     }
->>>>>>> dev
 }

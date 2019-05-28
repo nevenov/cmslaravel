@@ -7,13 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-
-/**
- * @since Class available since Release 3.6.0
- */
-class PHPUnit_Framework_Constraint_Count extends PHPUnit_Framework_Constraint
-=======
 namespace PHPUnit\Framework\Constraint;
 
 use Countable;
@@ -23,7 +16,6 @@ use IteratorAggregate;
 use Traversable;
 
 class Count extends Constraint
->>>>>>> dev
 {
     /**
      * @var int
@@ -53,28 +45,6 @@ class Count extends Constraint
     }
 
     /**
-<<<<<<< HEAD
-     * @param mixed $other
-     *
-     * @return bool
-     */
-    protected function getCountOf($other)
-    {
-        if ($other instanceof Countable || is_array($other)) {
-            return count($other);
-        } elseif ($other instanceof Traversable) {
-            if ($other instanceof IteratorAggregate) {
-                $iterator = $other->getIterator();
-            } else {
-                $iterator = $other;
-            }
-
-            $key   = $iterator->key();
-            $count = iterator_count($iterator);
-
-            // manually rewind $iterator to previous key, since iterator_count
-            // moves pointer
-=======
      * @param \Countable|\Traversable|array $other
      *
      * @return int|null
@@ -105,7 +75,6 @@ class Count extends Constraint
 
             // Manually rewind $iterator to previous key, since iterator_count
             // moves pointer.
->>>>>>> dev
             if ($key !== null) {
                 $iterator->rewind();
                 while ($iterator->valid() && $key !== $iterator->key()) {
@@ -118,9 +87,6 @@ class Count extends Constraint
     }
 
     /**
-<<<<<<< HEAD
-     * Returns the description of the failure
-=======
      * Returns the total number of iterations from a generator.
      * This will fully exhaust the generator.
      *
@@ -139,7 +105,6 @@ class Count extends Constraint
 
     /**
      * Returns the description of the failure.
->>>>>>> dev
      *
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
@@ -150,11 +115,7 @@ class Count extends Constraint
      */
     protected function failureDescription($other)
     {
-<<<<<<< HEAD
-        return sprintf(
-=======
         return \sprintf(
->>>>>>> dev
             'actual size %d matches expected size %d',
             $this->getCountOf($other),
             $this->expectedCount
@@ -166,11 +127,7 @@ class Count extends Constraint
      */
     public function toString()
     {
-<<<<<<< HEAD
-        return sprintf(
-=======
         return \sprintf(
->>>>>>> dev
             'count matches %d',
             $this->expectedCount
         );

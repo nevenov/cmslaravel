@@ -3,8 +3,6 @@
 namespace Illuminate\Support\Facades;
 
 /**
-<<<<<<< HEAD
-=======
  * @method static bool exists(string $path)
  * @method static string get(string $path, bool $lock = false)
  * @method static string sharedGet(string $path)
@@ -41,7 +39,6 @@ namespace Illuminate\Support\Facades;
  * @method static bool deleteDirectory(string $directory, bool $preserve = false)
  * @method static bool cleanDirectory(string $directory)
  *
->>>>>>> dev
  * @see \Illuminate\Filesystem\Filesystem
  */
 class File extends Facade

@@ -22,20 +22,6 @@ class RedisTaggedCache extends TaggedCache
      *
      * @param  string  $key
      * @param  mixed   $value
-<<<<<<< HEAD
-     * @param  \DateTime|int  $minutes
-     * @return void
-     */
-    public function put($key, $value, $minutes = null)
-    {
-        $this->pushStandardKeys($this->tags->getNamespace(), $key);
-
-        parent::put($key, $value, $minutes);
-    }
-
-    /**
-     * Store an item in the cache indefinitely.
-=======
      * @param  \DateTimeInterface|\DateInterval|int|null  $ttl
      * @return bool
      */
@@ -66,14 +52,11 @@ class RedisTaggedCache extends TaggedCache
 
     /**
      * Decrement the value of an item in the cache.
->>>>>>> dev
      *
      * @param  string  $key
      * @param  mixed   $value
      * @return void
      */
-<<<<<<< HEAD
-=======
     public function decrement($key, $value = 1)
     {
         $this->pushStandardKeys($this->tags->getNamespace(), $key);
@@ -88,37 +71,24 @@ class RedisTaggedCache extends TaggedCache
      * @param  mixed   $value
      * @return bool
      */
->>>>>>> dev
     public function forever($key, $value)
     {
         $this->pushForeverKeys($this->tags->getNamespace(), $key);
 
-<<<<<<< HEAD
-        parent::forever($key, $value);
-=======
         return parent::forever($key, $value);
->>>>>>> dev
     }
 
     /**
      * Remove all items from the cache.
      *
-<<<<<<< HEAD
-     * @return void
-=======
      * @return bool
->>>>>>> dev
      */
     public function flush()
     {
         $this->deleteForeverKeys();
         $this->deleteStandardKeys();
 
-<<<<<<< HEAD
-        parent::flush();
-=======
         return parent::flush();
->>>>>>> dev
     }
 
     /**
@@ -155,11 +125,7 @@ class RedisTaggedCache extends TaggedCache
      */
     protected function pushKeys($namespace, $key, $reference)
     {
-<<<<<<< HEAD
-        $fullKey = $this->getPrefix().sha1($namespace).':'.$key;
-=======
         $fullKey = $this->store->getPrefix().sha1($namespace).':'.$key;
->>>>>>> dev
 
         foreach (explode('|', $namespace) as $segment) {
             $this->store->connection()->sadd($this->referenceKey($segment, $reference), $fullKey);
@@ -212,13 +178,9 @@ class RedisTaggedCache extends TaggedCache
         $values = array_unique($this->store->connection()->smembers($referenceKey));
 
         if (count($values) > 0) {
-<<<<<<< HEAD
-            call_user_func_array([$this->store->connection(), 'del'], $values);
-=======
             foreach (array_chunk($values, 1000) as $valuesChunk) {
                 call_user_func_array([$this->store->connection(), 'del'], $valuesChunk);
             }
->>>>>>> dev
         }
     }
 
@@ -231,10 +193,6 @@ class RedisTaggedCache extends TaggedCache
      */
     protected function referenceKey($segment, $suffix)
     {
-<<<<<<< HEAD
-        return $this->getPrefix().$segment.':'.$suffix;
-=======
         return $this->store->getPrefix().$segment.':'.$suffix;
->>>>>>> dev
     }
 }

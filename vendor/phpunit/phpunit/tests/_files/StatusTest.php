@@ -1,14 +1,10 @@
 <?php
-<<<<<<< HEAD
-class StatusTest extends PHPUnit_Framework_TestCase
-=======
 namespace vendor\project;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Warning;
 
 class StatusTest extends TestCase
->>>>>>> dev
 {
     public function testSuccess()
     {
@@ -22,11 +18,7 @@ class StatusTest extends TestCase
 
     public function testError()
     {
-<<<<<<< HEAD
-        throw new \Exception;
-=======
         throw new \RuntimeException;
->>>>>>> dev
     }
 
     public function testIncomplete()
@@ -42,12 +34,9 @@ class StatusTest extends TestCase
     public function testRisky()
     {
     }
-<<<<<<< HEAD
-=======
 
     public function testWarning()
     {
         throw new Warning;
     }
->>>>>>> dev
 }

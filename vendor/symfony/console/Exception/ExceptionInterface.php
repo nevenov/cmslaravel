@@ -16,10 +16,6 @@ namespace Symfony\Component\Console\Exception;
  *
  * @author Jérôme Tamarelle <jerome@tamarelle.net>
  */
-<<<<<<< HEAD
-interface ExceptionInterface
-=======
 interface ExceptionInterface extends \Throwable
->>>>>>> dev
 {
 }

@@ -2,19 +2,11 @@
 
 namespace Illuminate\Cache;
 
-<<<<<<< HEAD
-use Illuminate\Contracts\Cache\Store;
-
-class ArrayStore extends TaggableStore implements Store
-{
-    use RetrievesMultipleKeys;
-=======
 use Illuminate\Support\InteractsWithTime;
 
 class ArrayStore extends TaggableStore
 {
     use InteractsWithTime, RetrievesMultipleKeys;
->>>>>>> dev
 
     /**
      * The array of stored values.
@@ -31,24 +23,6 @@ class ArrayStore extends TaggableStore
      */
     public function get($key)
     {
-<<<<<<< HEAD
-        if (array_key_exists($key, $this->storage)) {
-            return $this->storage[$key];
-        }
-    }
-
-    /**
-     * Store an item in the cache for a given number of minutes.
-     *
-     * @param  string  $key
-     * @param  mixed   $value
-     * @param  int     $minutes
-     * @return void
-     */
-    public function put($key, $value, $minutes)
-    {
-        $this->storage[$key] = $value;
-=======
         if (! isset($this->storage[$key])) {
             return;
         }
@@ -82,7 +56,6 @@ class ArrayStore extends TaggableStore
         ];
 
         return true;
->>>>>>> dev
     }
 
     /**
@@ -94,11 +67,6 @@ class ArrayStore extends TaggableStore
      */
     public function increment($key, $value = 1)
     {
-<<<<<<< HEAD
-        $this->storage[$key] = ((int) $this->storage[$key]) + $value;
-
-        return $this->storage[$key];
-=======
         if (! isset($this->storage[$key])) {
             $this->forever($key, $value);
 
@@ -108,7 +76,6 @@ class ArrayStore extends TaggableStore
         $this->storage[$key]['value'] = ((int) $this->storage[$key]['value']) + $value;
 
         return $this->storage[$key]['value'];
->>>>>>> dev
     }
 
     /**
@@ -128,19 +95,11 @@ class ArrayStore extends TaggableStore
      *
      * @param  string  $key
      * @param  mixed   $value
-<<<<<<< HEAD
-     * @return void
-     */
-    public function forever($key, $value)
-    {
-        $this->put($key, $value, 0);
-=======
      * @return bool
      */
     public function forever($key, $value)
     {
         return $this->put($key, $value, 0);
->>>>>>> dev
     }
 
     /**
@@ -159,20 +118,13 @@ class ArrayStore extends TaggableStore
     /**
      * Remove all items from the cache.
      *
-<<<<<<< HEAD
-     * @return void
-=======
      * @return bool
->>>>>>> dev
      */
     public function flush()
     {
         $this->storage = [];
-<<<<<<< HEAD
-=======
 
         return true;
->>>>>>> dev
     }
 
     /**
@@ -184,8 +136,6 @@ class ArrayStore extends TaggableStore
     {
         return '';
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get the expiration time of the key.
@@ -208,5 +158,4 @@ class ArrayStore extends TaggableStore
     {
         return $seconds > 0 ? $this->availableAt($seconds) : 0;
     }
->>>>>>> dev
 }

@@ -2,12 +2,6 @@
 
 namespace Illuminate\Database\Eloquent\Relations;
 
-<<<<<<< HEAD
-use Illuminate\Database\Eloquent\Collection;
-
-class MorphOne extends MorphOneOrMany
-{
-=======
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Concerns\SupportsDefaultModels;
@@ -16,7 +10,6 @@ class MorphOne extends MorphOneOrMany
 {
     use SupportsDefaultModels;
 
->>>>>>> dev
     /**
      * Get the results of the relationship.
      *
@@ -24,15 +17,11 @@ class MorphOne extends MorphOneOrMany
      */
     public function getResults()
     {
-<<<<<<< HEAD
-        return $this->query->first();
-=======
         if (is_null($this->getParentKey())) {
             return $this->getDefaultFor($this->parent);
         }
 
         return $this->query->first() ?: $this->getDefaultFor($this->parent);
->>>>>>> dev
     }
 
     /**
@@ -45,11 +34,7 @@ class MorphOne extends MorphOneOrMany
     public function initRelation(array $models, $relation)
     {
         foreach ($models as $model) {
-<<<<<<< HEAD
-            $model->setRelation($relation, null);
-=======
             $model->setRelation($relation, $this->getDefaultFor($model));
->>>>>>> dev
         }
 
         return $models;
@@ -67,8 +52,6 @@ class MorphOne extends MorphOneOrMany
     {
         return $this->matchOne($models, $results, $relation);
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Make a new related instance for the given model.
@@ -82,5 +65,4 @@ class MorphOne extends MorphOneOrMany
                     ->setAttribute($this->getForeignKeyName(), $parent->{$this->localKey})
                     ->setAttribute($this->getMorphType(), $this->morphClass);
     }
->>>>>>> dev
 }

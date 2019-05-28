@@ -11,19 +11,11 @@
 /**
  * Handles Quoted Printable (QP) Transfer Encoding in Swift Mailer.
  *
-<<<<<<< HEAD
- * @author Chris Corbyn
- */
-class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder implements Swift_Mime_ContentEncoder
-{
-    protected $_dotEscape;
-=======
  * @author     Chris Corbyn
  */
 class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder implements Swift_Mime_ContentEncoder
 {
     protected $dotEscape;
->>>>>>> dev
 
     /**
      * Creates a new QpContentEncoder for the given CharacterStream.
@@ -34,44 +26,26 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
      */
     public function __construct(Swift_CharacterStream $charStream, Swift_StreamFilter $filter = null, $dotEscape = false)
     {
-<<<<<<< HEAD
-        $this->_dotEscape = $dotEscape;
-=======
         $this->dotEscape = $dotEscape;
->>>>>>> dev
         parent::__construct($charStream, $filter);
     }
 
     public function __sleep()
     {
-<<<<<<< HEAD
-        return array('_charStream', '_filter', '_dotEscape');
-=======
         return ['charStream', 'filter', 'dotEscape'];
->>>>>>> dev
     }
 
     protected function getSafeMapShareId()
     {
-<<<<<<< HEAD
-        return get_class($this).($this->_dotEscape ? '.dotEscape' : '');
-=======
         return get_class($this).($this->dotEscape ? '.dotEscape' : '');
->>>>>>> dev
     }
 
     protected function initSafeMap()
     {
         parent::initSafeMap();
-<<<<<<< HEAD
-        if ($this->_dotEscape) {
-            /* Encode . as =2e for buggy remote servers */
-            unset($this->_safeMap[0x2e]);
-=======
         if ($this->dotEscape) {
             /* Encode . as =2e for buggy remote servers */
             unset($this->safeMap[0x2e]);
->>>>>>> dev
         }
     }
 
@@ -95,27 +69,13 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
 
         $thisLineLength = $maxLineLength - $firstLineOffset;
 
-<<<<<<< HEAD
-        $this->_charStream->flushContents();
-        $this->_charStream->importByteStream($os);
-=======
         $this->charStream->flushContents();
         $this->charStream->importByteStream($os);
->>>>>>> dev
 
         $currentLine = '';
         $prepend = '';
         $size = $lineLen = 0;
 
-<<<<<<< HEAD
-        while (false !== $bytes = $this->_nextSequence()) {
-            // If we're filtering the input
-            if (isset($this->_filter)) {
-                // If we can't filter because we need more bytes
-                while ($this->_filter->shouldBuffer($bytes)) {
-                    // Then collect bytes into the buffer
-                    if (false === $moreBytes = $this->_nextSequence(1)) {
-=======
         while (false !== $bytes = $this->nextSequence()) {
             // If we're filtering the input
             if (isset($this->filter)) {
@@ -123,7 +83,6 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
                 while ($this->filter->shouldBuffer($bytes)) {
                     // Then collect bytes into the buffer
                     if (false === $moreBytes = $this->nextSequence(1)) {
->>>>>>> dev
                         break;
                     }
 
@@ -132,18 +91,6 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
                     }
                 }
                 // And filter them
-<<<<<<< HEAD
-                $bytes = $this->_filter->filter($bytes);
-            }
-
-            $enc = $this->_encodeByteSequence($bytes, $size);
-
-            $i = strpos($enc, '=0D=0A');
-            $newLineLength = $lineLen + ($i === false ? $size : $i);
-
-            if ($currentLine && $newLineLength >= $thisLineLength) {
-                $is->write($prepend.$this->_standardize($currentLine));
-=======
                 $bytes = $this->filter->filter($bytes);
             }
 
@@ -154,7 +101,6 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
 
             if ($currentLine && $newLineLength >= $thisLineLength) {
                 $is->write($prepend.$this->standardize($currentLine));
->>>>>>> dev
                 $currentLine = '';
                 $prepend = "=\r\n";
                 $thisLineLength = $maxLineLength;
@@ -163,11 +109,7 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
 
             $currentLine .= $enc;
 
-<<<<<<< HEAD
-            if ($i === false) {
-=======
             if (false === $i) {
->>>>>>> dev
                 $lineLen += $size;
             } else {
                 // 6 is the length of '=0D=0A'.
@@ -175,11 +117,7 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
             }
         }
         if (strlen($currentLine)) {
-<<<<<<< HEAD
-            $is->write($prepend.$this->_standardize($currentLine));
-=======
             $is->write($prepend.$this->standardize($currentLine));
->>>>>>> dev
         }
     }
 

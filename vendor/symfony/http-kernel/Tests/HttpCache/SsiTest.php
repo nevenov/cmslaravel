@@ -11,19 +11,12 @@
 
 namespace Symfony\Component\HttpKernel\Tests\HttpCache;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpCache\Ssi;
 
-<<<<<<< HEAD
-class SsiTest extends \PHPUnit_Framework_TestCase
-=======
 class SsiTest extends TestCase
->>>>>>> dev
 {
     public function testHasSurrogateSsiCapability()
     {
@@ -47,17 +40,10 @@ class SsiTest extends TestCase
 
         $request = Request::create('/');
         $ssi->addSurrogateCapability($request);
-<<<<<<< HEAD
-        $this->assertEquals('symfony2="SSI/1.0"', $request->headers->get('Surrogate-Capability'));
-
-        $ssi->addSurrogateCapability($request);
-        $this->assertEquals('symfony2="SSI/1.0", symfony2="SSI/1.0"', $request->headers->get('Surrogate-Capability'));
-=======
         $this->assertEquals('symfony="SSI/1.0"', $request->headers->get('Surrogate-Capability'));
 
         $ssi->addSurrogateCapability($request);
         $this->assertEquals('symfony="SSI/1.0", symfony="SSI/1.0"', $request->headers->get('Surrogate-Capability'));
->>>>>>> dev
     }
 
     public function testAddSurrogateControl()
@@ -201,36 +187,21 @@ class SsiTest extends TestCase
         $response1 = new Response('foo');
         $response1->setStatusCode(404);
         $response2 = new Response('bar');
-<<<<<<< HEAD
-        $cache = $this->getCache(Request::create('/'), array($response1, $response2));
-=======
         $cache = $this->getCache(Request::create('/'), [$response1, $response2]);
->>>>>>> dev
         $this->assertEquals('bar', $ssi->handle($cache, '/', '/alt', false));
     }
 
     protected function getCache($request, $response)
     {
-<<<<<<< HEAD
-        $cache = $this->getMock('Symfony\Component\HttpKernel\HttpCache\HttpCache', array('getRequest', 'handle'), array(), '', false);
-=======
         $cache = $this->getMockBuilder('Symfony\Component\HttpKernel\HttpCache\HttpCache')->setMethods(['getRequest', 'handle'])->disableOriginalConstructor()->getMock();
->>>>>>> dev
         $cache->expects($this->any())
               ->method('getRequest')
               ->will($this->returnValue($request))
         ;
-<<<<<<< HEAD
-        if (is_array($response)) {
-            $cache->expects($this->any())
-                  ->method('handle')
-                  ->will(call_user_func_array(array($this, 'onConsecutiveCalls'), $response))
-=======
         if (\is_array($response)) {
             $cache->expects($this->any())
                   ->method('handle')
                   ->will($this->onConsecutiveCalls(...$response))
->>>>>>> dev
             ;
         } else {
             $cache->expects($this->any())

@@ -1,12 +1,8 @@
 <?php
 
-<<<<<<< HEAD
-class Swift_Bug650Test extends \PHPUnit_Framework_TestCase
-=======
 use Egulias\EmailValidator\EmailValidator;
 
 class Swift_Bug650Test extends \PHPUnit\Framework\TestCase
->>>>>>> dev
 {
     /**
      * @dataProvider encodingDataProvider
@@ -19,36 +15,18 @@ class Swift_Bug650Test extends \PHPUnit\Framework\TestCase
         $factory = new Swift_CharacterReaderFactory_SimpleCharacterReaderFactory();
         $charStream = new Swift_CharacterStream_NgCharacterStream($factory, 'utf-8');
         $encoder = new Swift_Mime_HeaderEncoder_QpHeaderEncoder($charStream);
-<<<<<<< HEAD
-        $header = new Swift_Mime_Headers_MailboxHeader('To', $encoder, new Swift_Mime_Grammar());
-        $header->setCharset('utf-8');
-
-        $header->setNameAddresses(array(
-            'test@example.com' => $name,
-        ));
-=======
         $header = new Swift_Mime_Headers_MailboxHeader('To', $encoder, new EmailValidator());
         $header->setCharset('utf-8');
 
         $header->setNameAddresses([
             'test@example.com' => $name,
         ]);
->>>>>>> dev
 
         $this->assertSame('To: '.$expectedEncodedName." <test@example.com>\r\n", $header->toString());
     }
 
     public function encodingDataProvider()
     {
-<<<<<<< HEAD
-        return array(
-            array('this is " a test ö', 'this is =?utf-8?Q?=22?= a test =?utf-8?Q?=C3=B6?='),
-            array(': this is a test ö', '=?utf-8?Q?=3A?= this is a test =?utf-8?Q?=C3=B6?='),
-            array('( test ö', '=?utf-8?Q?=28?= test =?utf-8?Q?=C3=B6?='),
-            array('[ test ö', '=?utf-8?Q?=5B?= test =?utf-8?Q?=C3=B6?='),
-            array('@ test ö)', '=?utf-8?Q?=40?= test =?utf-8?Q?=C3=B6=29?='),
-        );
-=======
         return [
             ['this is " a test ö', 'this is =?utf-8?Q?=22?= a test =?utf-8?Q?=C3=B6?='],
             [': this is a test ö', '=?utf-8?Q?=3A?= this is a test =?utf-8?Q?=C3=B6?='],
@@ -56,6 +34,5 @@ class Swift_Bug650Test extends \PHPUnit\Framework\TestCase
             ['[ test ö', '=?utf-8?Q?=5B?= test =?utf-8?Q?=C3=B6?='],
             ['@ test ö)', '=?utf-8?Q?=40?= test =?utf-8?Q?=C3=B6=29?='],
         ];
->>>>>>> dev
     }
 }

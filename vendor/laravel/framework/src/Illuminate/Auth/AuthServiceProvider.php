@@ -17,19 +17,10 @@ class AuthServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerAuthenticator();
-<<<<<<< HEAD
-
-        $this->registerUserResolver();
-
-        $this->registerAccessGate();
-
-        $this->registerRequestRebindHandler();
-=======
         $this->registerUserResolver();
         $this->registerAccessGate();
         $this->registerRequestRebindHandler();
         $this->registerEventRebindHandler();
->>>>>>> dev
     }
 
     /**
@@ -82,11 +73,7 @@ class AuthServiceProvider extends ServiceProvider
     }
 
     /**
-<<<<<<< HEAD
-     * Register a resolver for the authenticated user.
-=======
      * Handle the re-binding of the request binding.
->>>>>>> dev
      *
      * @return void
      */
@@ -98,8 +85,6 @@ class AuthServiceProvider extends ServiceProvider
             });
         });
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Handle the re-binding of the event dispatcher binding.
@@ -118,5 +103,4 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
     }
->>>>>>> dev
 }

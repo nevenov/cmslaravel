@@ -11,13 +11,8 @@
 
 namespace Symfony\Component\HttpFoundation\File\MimeType;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
-=======
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
->>>>>>> dev
 
 /**
  * Guesses the mime type of a file.

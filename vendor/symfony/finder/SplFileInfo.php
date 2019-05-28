@@ -22,20 +22,11 @@ class SplFileInfo extends \SplFileInfo
     private $relativePathname;
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-=======
->>>>>>> dev
      * @param string $file             The file name
      * @param string $relativePath     The relative path
      * @param string $relativePathname The relative path name
      */
-<<<<<<< HEAD
-    public function __construct($file, $relativePath, $relativePathname)
-=======
     public function __construct(string $file, string $relativePath, string $relativePathname)
->>>>>>> dev
     {
         parent::__construct($file);
         $this->relativePath = $relativePath;
@@ -75,20 +66,11 @@ class SplFileInfo extends \SplFileInfo
      */
     public function getContents()
     {
-<<<<<<< HEAD
-        $level = error_reporting(0);
-        $content = file_get_contents($this->getPathname());
-        error_reporting($level);
-        if (false === $content) {
-            $error = error_get_last();
-            throw new \RuntimeException($error['message']);
-=======
         set_error_handler(function ($type, $msg) use (&$error) { $error = $msg; });
         $content = file_get_contents($this->getPathname());
         restore_error_handler();
         if (false === $content) {
             throw new \RuntimeException($error);
->>>>>>> dev
         }
 
         return $content;

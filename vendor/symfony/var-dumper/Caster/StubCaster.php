@@ -28,11 +28,6 @@ class StubCaster
             $stub->value = $c->value;
             $stub->handle = $c->handle;
             $stub->cut = $c->cut;
-<<<<<<< HEAD
-
-            return array();
-        }
-=======
             $stub->attr = $c->attr;
 
             if (Stub::TYPE_REF === $c->type && !$c->class && \is_string($c->value) && !preg_match('//u', $c->value)) {
@@ -44,7 +39,6 @@ class StubCaster
         }
 
         return $a;
->>>>>>> dev
     }
 
     public static function castCutArray(CutArrayStub $c, array $a, Stub $stub, $isNested)
@@ -55,15 +49,9 @@ class StubCaster
     public static function cutInternals($obj, array $a, Stub $stub, $isNested)
     {
         if ($isNested) {
-<<<<<<< HEAD
-            $stub->cut += count($a);
-
-            return array();
-=======
             $stub->cut += \count($a);
 
             return [];
->>>>>>> dev
         }
 
         return $a;
@@ -72,17 +60,6 @@ class StubCaster
     public static function castEnum(EnumStub $c, array $a, Stub $stub, $isNested)
     {
         if ($isNested) {
-<<<<<<< HEAD
-            $stub->class = '';
-            $stub->handle = 0;
-            $stub->value = null;
-
-            $a = array();
-
-            if ($c->value) {
-                foreach (array_keys($c->value) as $k) {
-                    $keys[] = Caster::PREFIX_VIRTUAL.$k;
-=======
             $stub->class = $c->dumpKeys ? '' : null;
             $stub->handle = 0;
             $stub->value = null;
@@ -94,7 +71,6 @@ class StubCaster
             if ($c->value) {
                 foreach (array_keys($c->value) as $k) {
                     $keys[] = !isset($k[0]) || "\0" !== $k[0] ? Caster::PREFIX_VIRTUAL.$k : $k;
->>>>>>> dev
                 }
                 // Preserve references with array_combine()
                 $a = array_combine($keys, $c->value);

@@ -2,19 +2,11 @@
 
 namespace Illuminate\Database\Console\Migrations;
 
-<<<<<<< HEAD
-use Illuminate\Console\Command;
-=======
->>>>>>> dev
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Database\Migrations\Migrator;
 use Symfony\Component\Console\Input\InputOption;
 
-<<<<<<< HEAD
-class RollbackCommand extends Command
-=======
 class RollbackCommand extends BaseCommand
->>>>>>> dev
 {
     use ConfirmableTrait;
 
@@ -57,30 +49,12 @@ class RollbackCommand extends BaseCommand
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-=======
     public function handle()
->>>>>>> dev
     {
         if (! $this->confirmToProceed()) {
             return;
         }
 
-<<<<<<< HEAD
-        $this->migrator->setConnection($this->input->getOption('database'));
-
-        $pretend = $this->input->getOption('pretend');
-
-        $this->migrator->rollback($pretend);
-
-        // Once the migrator has run we will grab the note output and send it out to
-        // the console screen, since the migrator itself functions without having
-        // any instances of the OutputInterface contract passed into the class.
-        foreach ($this->migrator->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
-=======
         $this->migrator->setConnection($this->option('database'));
 
         $this->migrator->setOutput($this->output)->rollback(
@@ -89,7 +63,6 @@ class RollbackCommand extends BaseCommand
                 'step' => (int) $this->option('step'),
             ]
         );
->>>>>>> dev
     }
 
     /**
@@ -100,13 +73,6 @@ class RollbackCommand extends BaseCommand
     protected function getOptions()
     {
         return [
-<<<<<<< HEAD
-            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
-
-            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
-
-            ['pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'],
-=======
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use'],
 
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production'],
@@ -118,7 +84,6 @@ class RollbackCommand extends BaseCommand
             ['pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run'],
 
             ['step', null, InputOption::VALUE_OPTIONAL, 'The number of migrations to be reverted'],
->>>>>>> dev
         ];
     }
 }

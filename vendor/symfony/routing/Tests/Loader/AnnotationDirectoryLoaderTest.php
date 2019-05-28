@@ -11,13 +11,8 @@
 
 namespace Symfony\Component\Routing\Tests\Loader;
 
-<<<<<<< HEAD
-use Symfony\Component\Routing\Loader\AnnotationDirectoryLoader;
-use Symfony\Component\Config\FileLocator;
-=======
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\AnnotationDirectoryLoader;
->>>>>>> dev
 
 class AnnotationDirectoryLoaderTest extends AbstractAnnotationLoaderTest
 {
@@ -34,18 +29,11 @@ class AnnotationDirectoryLoaderTest extends AbstractAnnotationLoaderTest
 
     public function testLoad()
     {
-<<<<<<< HEAD
-        $this->reader->expects($this->exactly(2))->method('getClassAnnotation');
-=======
         $this->reader->expects($this->exactly(3))->method('getClassAnnotation');
->>>>>>> dev
 
         $this->reader
             ->expects($this->any())
             ->method('getMethodAnnotations')
-<<<<<<< HEAD
-            ->will($this->returnValue(array()))
-=======
             ->will($this->returnValue([]))
         ;
 
@@ -76,7 +64,6 @@ class AnnotationDirectoryLoaderTest extends AbstractAnnotationLoaderTest
             ->expects($this->any())
             ->method('getClassAnnotations')
             ->will($this->returnValue([]))
->>>>>>> dev
         ;
 
         $this->loader->load(__DIR__.'/../Fixtures/AnnotatedClasses');
@@ -92,8 +79,6 @@ class AnnotationDirectoryLoaderTest extends AbstractAnnotationLoaderTest
         $this->assertTrue($this->loader->supports($fixturesDir, 'annotation'), '->supports() checks the resource type if specified');
         $this->assertFalse($this->loader->supports($fixturesDir, 'foo'), '->supports() checks the resource type if specified');
     }
-<<<<<<< HEAD
-=======
 
     public function testItSupportsAnyAnnotation()
     {
@@ -121,5 +106,4 @@ class AnnotationDirectoryLoaderTest extends AbstractAnnotationLoaderTest
                 return \in_array($class->getName(), $classes);
             }));
     }
->>>>>>> dev
 }

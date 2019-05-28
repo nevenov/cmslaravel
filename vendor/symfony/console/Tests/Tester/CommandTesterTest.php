@@ -11,14 +11,6 @@
 
 namespace Symfony\Component\Console\Tests\Tester;
 
-<<<<<<< HEAD
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Output\Output;
-use Symfony\Component\Console\Tester\CommandTester;
-
-class CommandTesterTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
@@ -31,7 +23,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class CommandTesterTest extends TestCase
->>>>>>> dev
 {
     protected $command;
     protected $tester;
@@ -44,11 +35,7 @@ class CommandTesterTest extends TestCase
         $this->command->setCode(function ($input, $output) { $output->writeln('foo'); });
 
         $this->tester = new CommandTester($this->command);
-<<<<<<< HEAD
-        $this->tester->execute(array('foo' => 'bar'), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
-=======
         $this->tester->execute(['foo' => 'bar'], ['interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE]);
->>>>>>> dev
     }
 
     protected function tearDown()
@@ -98,9 +85,6 @@ class CommandTesterTest extends TestCase
         $tester = new CommandTester($application->find('foo'));
 
         // check that there is no need to pass the command name here
-<<<<<<< HEAD
-        $this->assertEquals(0, $tester->execute(array()));
-=======
         $this->assertEquals(0, $tester->execute([]));
     }
 
@@ -247,6 +231,5 @@ class CommandTesterTest extends TestCase
         );
 
         $this->assertSame('foo', $tester->getErrorOutput());
->>>>>>> dev
     }
 }

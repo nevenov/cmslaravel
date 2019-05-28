@@ -2,11 +2,7 @@
 
 namespace Illuminate\Mail\Transport;
 
-<<<<<<< HEAD
-use Swift_Mime_Message;
-=======
 use Swift_Mime_SimpleMessage;
->>>>>>> dev
 use GuzzleHttp\ClientInterface;
 
 class MandrillTransport extends Transport
@@ -34,38 +30,13 @@ class MandrillTransport extends Transport
      */
     public function __construct(ClientInterface $client, $key)
     {
-<<<<<<< HEAD
-        $this->client = $client;
-        $this->key = $key;
-=======
         $this->key = $key;
         $this->client = $client;
->>>>>>> dev
     }
 
     /**
      * {@inheritdoc}
      */
-<<<<<<< HEAD
-    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
-    {
-        $this->beforeSendPerformed($message);
-
-        $data = [
-            'key' => $this->key,
-            'to' => $this->getToAddresses($message),
-            'raw_message' => $message->toString(),
-            'async' => false,
-        ];
-
-        if (version_compare(ClientInterface::VERSION, '6') === 1) {
-            $options = ['form_params' => $data];
-        } else {
-            $options = ['body' => $data];
-        }
-
-        return $this->client->post('https://mandrillapp.com/api/1.0/messages/send-raw.json', $options);
-=======
     public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
     {
         $this->beforeSendPerformed($message);
@@ -82,7 +53,6 @@ class MandrillTransport extends Transport
         $this->sendPerformed($message);
 
         return $this->numberOfRecipients($message);
->>>>>>> dev
     }
 
     /**
@@ -90,17 +60,10 @@ class MandrillTransport extends Transport
      *
      * Note that Mandrill still respects CC, BCC headers in raw message itself.
      *
-<<<<<<< HEAD
-     * @param  \Swift_Mime_Message $message
-     * @return array
-     */
-    protected function getToAddresses(Swift_Mime_Message $message)
-=======
      * @param  \Swift_Mime_SimpleMessage $message
      * @return array
      */
     protected function getTo(Swift_Mime_SimpleMessage $message)
->>>>>>> dev
     {
         $to = [];
 

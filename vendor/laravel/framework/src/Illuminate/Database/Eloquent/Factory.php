@@ -9,8 +9,6 @@ use Symfony\Component\Finder\Finder;
 class Factory implements ArrayAccess
 {
     /**
-<<<<<<< HEAD
-=======
      * The model definitions in the container.
      *
      * @var array
@@ -39,7 +37,6 @@ class Factory implements ArrayAccess
     protected $afterCreating = [];
 
     /**
->>>>>>> dev
      * The Faker instance for the builder.
      *
      * @var \Faker\Generator
@@ -58,16 +55,6 @@ class Factory implements ArrayAccess
     }
 
     /**
-<<<<<<< HEAD
-     * The model definitions in the container.
-     *
-     * @var array
-     */
-    protected $definitions = [];
-
-    /**
-=======
->>>>>>> dev
      * Create a new factory container.
      *
      * @param  \Faker\Generator  $faker
@@ -87,11 +74,7 @@ class Factory implements ArrayAccess
      * @param  string  $class
      * @param  string  $name
      * @param  callable  $attributes
-<<<<<<< HEAD
-     * @return void
-=======
      * @return $this
->>>>>>> dev
      */
     public function defineAs($class, $name, callable $attributes)
     {
@@ -104,17 +87,11 @@ class Factory implements ArrayAccess
      * @param  string  $class
      * @param  callable  $attributes
      * @param  string  $name
-<<<<<<< HEAD
-     * @return void
-=======
      * @return $this
->>>>>>> dev
      */
     public function define($class, callable $attributes, $name = 'default')
     {
         $this->definitions[$class][$name] = $attributes;
-<<<<<<< HEAD
-=======
 
         return $this;
     }
@@ -188,7 +165,6 @@ class Factory implements ArrayAccess
     public function afterCreatingState($class, $state, callable $callback)
     {
         return $this->afterCreating($class, $callback, $state);
->>>>>>> dev
     }
 
     /**
@@ -217,28 +193,6 @@ class Factory implements ArrayAccess
     }
 
     /**
-<<<<<<< HEAD
-     * Load factories from path.
-     *
-     * @param  string  $path
-     * @return $this
-     */
-    public function load($path)
-    {
-        $factory = $this;
-
-        if (is_dir($path)) {
-            foreach (Finder::create()->files()->in($path) as $file) {
-                require $file->getRealPath();
-            }
-        }
-
-        return $factory;
-    }
-
-    /**
-=======
->>>>>>> dev
      * Create an instance of the given model.
      *
      * @param  string  $class
@@ -286,15 +240,9 @@ class Factory implements ArrayAccess
      */
     public function raw($class, array $attributes = [], $name = 'default')
     {
-<<<<<<< HEAD
-        $raw = call_user_func($this->definitions[$class][$name], $this->faker);
-
-        return array_merge($raw, $attributes);
-=======
         return array_merge(
             call_user_func($this->definitions[$class][$name], $this->faker), $attributes
         );
->>>>>>> dev
     }
 
     /**
@@ -306,9 +254,6 @@ class Factory implements ArrayAccess
      */
     public function of($class, $name = 'default')
     {
-<<<<<<< HEAD
-        return new FactoryBuilder($class, $name, $this->definitions, $this->faker);
-=======
         return new FactoryBuilder(
             $class, $name, $this->definitions, $this->states,
             $this->afterMaking, $this->afterCreating, $this->faker
@@ -332,7 +277,6 @@ class Factory implements ArrayAccess
         }
 
         return $factory;
->>>>>>> dev
     }
 
     /**
@@ -366,11 +310,7 @@ class Factory implements ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-<<<<<<< HEAD
-        return $this->define($offset, $value);
-=======
         $this->define($offset, $value);
->>>>>>> dev
     }
 
     /**

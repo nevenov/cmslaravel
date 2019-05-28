@@ -9,13 +9,9 @@ trait ConfirmableTrait
     /**
      * Confirm before proceeding with the action.
      *
-<<<<<<< HEAD
-     * @param  string    $warning
-=======
      * This method only asks for confirmation in production.
      *
      * @param  string  $warning
->>>>>>> dev
      * @param  \Closure|bool|null  $callback
      * @return bool
      */
@@ -30,14 +26,7 @@ trait ConfirmableTrait
                 return true;
             }
 
-<<<<<<< HEAD
-            $this->comment(str_repeat('*', strlen($warning) + 12));
-            $this->comment('*     '.$warning.'     *');
-            $this->comment(str_repeat('*', strlen($warning) + 12));
-            $this->output->writeln('');
-=======
             $this->alert($warning);
->>>>>>> dev
 
             $confirmed = $this->confirm('Do you really wish to run this command?');
 
@@ -59,11 +48,7 @@ trait ConfirmableTrait
     protected function getDefaultConfirmCallback()
     {
         return function () {
-<<<<<<< HEAD
-            return $this->getLaravel()->environment() == 'production';
-=======
             return $this->getLaravel()->environment() === 'production';
->>>>>>> dev
         };
     }
 }

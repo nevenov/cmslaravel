@@ -30,11 +30,7 @@ class ExcludeDirectoryFilterIteratorTest extends RealIteratorTestCase
 
     public function getAcceptData()
     {
-<<<<<<< HEAD
-        $foo = array(
-=======
         $foo = [
->>>>>>> dev
             '.bar',
             '.foo',
             '.foo/.bar',
@@ -45,11 +41,6 @@ class ExcludeDirectoryFilterIteratorTest extends RealIteratorTestCase
             'toto',
             'toto/.git',
             'foo bar',
-<<<<<<< HEAD
-        );
-
-        $fo = array(
-=======
             'qux',
             'qux/baz_100_1.py',
             'qux/baz_1_2.py',
@@ -62,7 +53,6 @@ class ExcludeDirectoryFilterIteratorTest extends RealIteratorTestCase
         ];
 
         $fo = [
->>>>>>> dev
             '.bar',
             '.foo',
             '.foo/.bar',
@@ -75,14 +65,6 @@ class ExcludeDirectoryFilterIteratorTest extends RealIteratorTestCase
             'toto',
             'toto/.git',
             'foo bar',
-<<<<<<< HEAD
-        );
-
-        return array(
-            array(array('foo'), $this->toAbsolute($foo)),
-            array(array('fo'), $this->toAbsolute($fo)),
-        );
-=======
             'qux',
             'qux/baz_100_1.py',
             'qux/baz_1_2.py',
@@ -121,6 +103,5 @@ class ExcludeDirectoryFilterIteratorTest extends RealIteratorTestCase
             [['fo'], $this->toAbsolute($fo)],
             [['toto/'], $this->toAbsolute($toto)],
         ];
->>>>>>> dev
     }
 }

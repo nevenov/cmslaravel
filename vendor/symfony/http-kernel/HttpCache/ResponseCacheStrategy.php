@@ -5,13 +5,6 @@
  *
  * (c) Fabien Potencier <fabien@symfony.com>
  *
-<<<<<<< HEAD
- * This code is partially based on the Rack-Cache library by Ryan Tomayko,
- * which is released under the MIT license.
- * (based on commit 02d2b48d75bcb63cf1c0c7149c077ad256542801)
- *
-=======
->>>>>>> dev
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -31,13 +24,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ResponseCacheStrategy implements ResponseCacheStrategyInterface
 {
-<<<<<<< HEAD
-    private $cacheable = true;
-    private $embeddedResponses = 0;
-    private $ttls = array();
-    private $maxAges = array();
-    private $isNotCacheableResponseEmbedded = false;
-=======
     /**
      * Cache-Control headers that are sent to the final response if they appear in ANY of the responses.
      */
@@ -66,28 +52,12 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
         's-maxage' => null,
         'expires' => null,
     ];
->>>>>>> dev
 
     /**
      * {@inheritdoc}
      */
     public function add(Response $response)
     {
-<<<<<<< HEAD
-        if ($response->isValidateable()) {
-            $this->cacheable = false;
-        } else {
-            $maxAge = $response->getMaxAge();
-            $this->ttls[] = $response->getTtl();
-            $this->maxAges[] = $maxAge;
-
-            if (null === $maxAge) {
-                $this->isNotCacheableResponseEmbedded = true;
-            }
-        }
-
-        ++$this->embeddedResponses;
-=======
         ++$this->embeddedResponses;
 
         foreach (self::$overrideDirectives as $directive) {
@@ -117,7 +87,6 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
         $expires = $response->getExpires();
         $expires = null !== $expires ? $expires->format('U') - $response->getDate()->format('U') : null;
         $this->storeRelativeAgeDirective('expires', $expires >= 0 ? $expires : null, 0);
->>>>>>> dev
     }
 
     /**
@@ -130,19 +99,6 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
             return;
         }
 
-<<<<<<< HEAD
-        // Remove validation related headers in order to avoid browsers using
-        // their own cache, because some of the response content comes from
-        // at least one embedded response (which likely has a different caching strategy).
-        if ($response->isValidateable()) {
-            $response->setEtag(null);
-            $response->setLastModified(null);
-            $this->cacheable = false;
-        }
-
-        if (!$this->cacheable) {
-            $response->headers->set('Cache-Control', 'no-cache, must-revalidate');
-=======
         // Remove validation related headers of the master response,
         // because some of the response content comes from at least
         // one embedded response (which likely has a different caching strategy).
@@ -161,23 +117,10 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
             } else {
                 $response->headers->set('Cache-Control', 'no-cache, must-revalidate');
             }
->>>>>>> dev
 
             return;
         }
 
-<<<<<<< HEAD
-        $this->ttls[] = $response->getTtl();
-        $this->maxAges[] = $response->getMaxAge();
-
-        if ($this->isNotCacheableResponseEmbedded) {
-            $response->headers->removeCacheControlDirective('s-maxage');
-        } elseif (null !== $maxAge = min($this->maxAges)) {
-            $response->setSharedMaxAge($maxAge);
-            $response->headers->set('Age', $maxAge - min($this->ttls));
-        }
-        $response->setMaxAge(0);
-=======
         $flags = array_filter($this->flagDirectives);
 
         if (isset($flags['must-revalidate'])) {
@@ -275,6 +218,5 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
             $value -= $age;
             $this->ageDirectives[$directive] = null !== $this->ageDirectives[$directive] ? min($this->ageDirectives[$directive], $value) : $value;
         }
->>>>>>> dev
     }
 }

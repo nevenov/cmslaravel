@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-class Swift_MessageTest extends \PHPUnit_Framework_TestCase
-=======
 class Swift_MessageTest extends \PHPUnit\Framework\TestCase
->>>>>>> dev
 {
     public function testCloning()
     {
@@ -12,13 +8,9 @@ class Swift_MessageTest extends \PHPUnit\Framework\TestCase
         $message2 = new Swift_Message('subj', 'body', 'ctype');
         $message1_clone = clone $message1;
 
-<<<<<<< HEAD
-        $this->_recursiveObjectCloningCheck($message1, $message2, $message1_clone);
-=======
         $this->recursiveObjectCloningCheck($message1, $message2, $message1_clone);
         // the test above will fail if the two messages are not identical
         $this->addToAssertionCount(1);
->>>>>>> dev
     }
 
     public function testCloningWithSigners()
@@ -31,23 +23,15 @@ class Swift_MessageTest extends \PHPUnit\Framework\TestCase
         $message2->attachSigner($signer);
         $message1_clone = clone $message1;
 
-<<<<<<< HEAD
-        $this->_recursiveObjectCloningCheck($message1, $message2, $message1_clone);
-=======
         $this->recursiveObjectCloningCheck($message1, $message2, $message1_clone);
         // the test above will fail if the two messages are not identical
         $this->addToAssertionCount(1);
->>>>>>> dev
     }
 
     public function testBodySwap()
     {
         $message1 = new Swift_Message('Test');
-<<<<<<< HEAD
-        $html = Swift_MimePart::newInstance('<html></html>', 'text/html');
-=======
         $html = new Swift_MimePart('<html></html>', 'text/html');
->>>>>>> dev
         $html->getHeaders()->addTextHeader('X-Test-Remove', 'Test-Value');
         $html->getHeaders()->addTextHeader('X-Test-Alter', 'Test-Value');
         $message1->attach($html);
@@ -74,11 +58,7 @@ class Swift_MessageTest extends \PHPUnit\Framework\TestCase
         $this->assertNotEquals($id_1, $id_2, 'Message Ids are the same');
     }
 
-<<<<<<< HEAD
-    protected function _recursiveObjectCloningCheck($obj1, $obj2, $obj1_clone)
-=======
     protected function recursiveObjectCloningCheck($obj1, $obj2, $obj1_clone)
->>>>>>> dev
     {
         $obj1_properties = (array) $obj1;
         $obj2_properties = (array) $obj2;
@@ -106,30 +86,18 @@ class Swift_MessageTest extends \PHPUnit\Framework\TestCase
                     );
                 }
                 // recurse
-<<<<<<< HEAD
-                $this->_recursiveObjectCloningCheck($obj1_value, $obj2_value, $obj1_clone_value);
-=======
                 $this->recursiveObjectCloningCheck($obj1_value, $obj2_value, $obj1_clone_value);
->>>>>>> dev
             } elseif (is_array($value)) {
                 $obj1_value = $obj1_properties[$property];
                 $obj2_value = $obj2_properties[$property];
                 $obj1_clone_value = $obj1_clone_properties[$property];
 
-<<<<<<< HEAD
-                return $this->_recursiveArrayCloningCheck($obj1_value, $obj2_value, $obj1_clone_value);
-=======
                 return $this->recursiveArrayCloningCheck($obj1_value, $obj2_value, $obj1_clone_value);
->>>>>>> dev
             }
         }
     }
 
-<<<<<<< HEAD
-    protected function _recursiveArrayCloningCheck($array1, $array2, $array1_clone)
-=======
     protected function recursiveArrayCloningCheck($array1, $array2, $array1_clone)
->>>>>>> dev
     {
         foreach ($array1 as $key => $value) {
             if (is_object($value)) {
@@ -152,21 +120,13 @@ class Swift_MessageTest extends \PHPUnit\Framework\TestCase
                     );
                 }
                 // recurse
-<<<<<<< HEAD
-                $this->_recursiveObjectCloningCheck($arr1_value, $arr2_value, $arr1_clone_value);
-=======
                 $this->recursiveObjectCloningCheck($arr1_value, $arr2_value, $arr1_clone_value);
->>>>>>> dev
             } elseif (is_array($value)) {
                 $arr1_value = $array1[$key];
                 $arr2_value = $array2[$key];
                 $arr1_clone_value = $array1_clone[$key];
 
-<<<<<<< HEAD
-                return $this->_recursiveArrayCloningCheck($arr1_value, $arr2_value, $arr1_clone_value);
-=======
                 return $this->recursiveArrayCloningCheck($arr1_value, $arr2_value, $arr1_clone_value);
->>>>>>> dev
             }
         }
     }

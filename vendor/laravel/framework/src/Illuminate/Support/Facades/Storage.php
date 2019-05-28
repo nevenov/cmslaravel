@@ -2,22 +2,16 @@
 
 namespace Illuminate\Support\Facades;
 
-<<<<<<< HEAD
-/**
-=======
 use Illuminate\Filesystem\Filesystem;
 
 /**
  * @method static \Illuminate\Contracts\Filesystem\Filesystem disk(string $name = null)
  *
->>>>>>> dev
  * @see \Illuminate\Filesystem\FilesystemManager
  */
 class Storage extends Facade
 {
     /**
-<<<<<<< HEAD
-=======
      * Replace the given disk with a local testing disk.
      *
      * @param  string|null  $disk
@@ -55,7 +49,6 @@ class Storage extends Facade
     }
 
     /**
->>>>>>> dev
      * Get the registered name of the component.
      *
      * @return string

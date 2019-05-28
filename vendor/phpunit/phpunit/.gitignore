@@ -1,27 +1,14 @@
 /.ant_targets
 /.idea
-<<<<<<< HEAD
-=======
 /.php_cs
 /.php_cs.cache
 /.phpunit.result.cache
->>>>>>> dev
 /build/documentation
 /build/logfiles
 /build/phar
 /build/phpdox
 /build/*.phar
 /build/*.phar.asc
-<<<<<<< HEAD
-/tests/TextUI/*.diff
-/tests/TextUI/*.exp
-/tests/TextUI/*.log
-/tests/TextUI/*.out
-/tests/TextUI/*.php
-/cache.properties
-/composer.lock
-/vendor
-=======
 /build/binary-phar-autoload.php
 /cache.properties
 /composer.lock
@@ -32,4 +19,3 @@
 /tests/end-to-end/*.php
 /vendor
 
->>>>>>> dev

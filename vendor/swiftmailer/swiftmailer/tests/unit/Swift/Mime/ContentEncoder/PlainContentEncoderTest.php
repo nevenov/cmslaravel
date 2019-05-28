@@ -4,27 +4,16 @@ class Swift_Mime_ContentEncoder_PlainContentEncoderTest extends \SwiftMailerTest
 {
     public function testNameCanBeSpecifiedInConstructor()
     {
-<<<<<<< HEAD
-        $encoder = $this->_getEncoder('7bit');
-        $this->assertEquals('7bit', $encoder->getName());
-
-        $encoder = $this->_getEncoder('8bit');
-=======
         $encoder = $this->getEncoder('7bit');
         $this->assertEquals('7bit', $encoder->getName());
 
         $encoder = $this->getEncoder('8bit');
->>>>>>> dev
         $this->assertEquals('8bit', $encoder->getName());
     }
 
     public function testNoOctetsAreModifiedInString()
     {
-<<<<<<< HEAD
-        $encoder = $this->_getEncoder('7bit');
-=======
         $encoder = $this->getEncoder('7bit');
->>>>>>> dev
         foreach (range(0x00, 0xFF) as $octet) {
             $byte = pack('C', $octet);
             $this->assertIdenticalBinary($byte, $encoder->encodeString($byte));
@@ -33,21 +22,12 @@ class Swift_Mime_ContentEncoder_PlainContentEncoderTest extends \SwiftMailerTest
 
     public function testNoOctetsAreModifiedInByteStream()
     {
-<<<<<<< HEAD
-        $encoder = $this->_getEncoder('7bit');
-        foreach (range(0x00, 0xFF) as $octet) {
-            $byte = pack('C', $octet);
-
-            $os = $this->_createOutputByteStream();
-            $is = $this->_createInputByteStream();
-=======
         $encoder = $this->getEncoder('7bit');
         foreach (range(0x00, 0xFF) as $octet) {
             $byte = pack('C', $octet);
 
             $os = $this->createOutputByteStream();
             $is = $this->createInputByteStream();
->>>>>>> dev
             $collection = new Swift_StreamCollector();
 
             $is->shouldReceive('write')
@@ -67,15 +47,9 @@ class Swift_Mime_ContentEncoder_PlainContentEncoderTest extends \SwiftMailerTest
 
     public function testLineLengthCanBeSpecified()
     {
-<<<<<<< HEAD
-        $encoder = $this->_getEncoder('7bit');
-
-        $chars = array();
-=======
         $encoder = $this->getEncoder('7bit');
 
         $chars = [];
->>>>>>> dev
         for ($i = 0; $i < 50; ++$i) {
             $chars[] = 'a';
         }
@@ -91,17 +65,10 @@ class Swift_Mime_ContentEncoder_PlainContentEncoderTest extends \SwiftMailerTest
 
     public function testLineLengthCanBeSpecifiedInByteStream()
     {
-<<<<<<< HEAD
-        $encoder = $this->_getEncoder('7bit');
-
-        $os = $this->_createOutputByteStream();
-        $is = $this->_createInputByteStream();
-=======
         $encoder = $this->getEncoder('7bit');
 
         $os = $this->createOutputByteStream();
         $is = $this->createInputByteStream();
->>>>>>> dev
         $collection = new Swift_StreamCollector();
 
         $is->shouldReceive('write')
@@ -127,11 +94,7 @@ class Swift_Mime_ContentEncoder_PlainContentEncoderTest extends \SwiftMailerTest
 
     public function testencodeStringGeneratesCorrectCrlf()
     {
-<<<<<<< HEAD
-        $encoder = $this->_getEncoder('7bit', true);
-=======
         $encoder = $this->getEncoder('7bit', true);
->>>>>>> dev
         $this->assertEquals("a\r\nb", $encoder->encodeString("a\rb"),
             '%s: Line endings should be standardized'
             );
@@ -151,15 +114,6 @@ class Swift_Mime_ContentEncoder_PlainContentEncoderTest extends \SwiftMailerTest
 
     public function crlfProvider()
     {
-<<<<<<< HEAD
-        return array(
-            array("\r", "a\r\nb"),
-            array("\n", "a\r\nb"),
-            array("\n\r", "a\r\n\r\nb"),
-            array("\n\n", "a\r\n\r\nb"),
-            array("\r\r", "a\r\n\r\nb"),
-        );
-=======
         return [
             ["\r", "a\r\nb"],
             ["\n", "a\r\nb"],
@@ -167,7 +121,6 @@ class Swift_Mime_ContentEncoder_PlainContentEncoderTest extends \SwiftMailerTest
             ["\n\n", "a\r\n\r\nb"],
             ["\r\r", "a\r\n\r\nb"],
         ];
->>>>>>> dev
     }
 
     /**
@@ -175,17 +128,10 @@ class Swift_Mime_ContentEncoder_PlainContentEncoderTest extends \SwiftMailerTest
      */
     public function testCanonicEncodeByteStreamGeneratesCorrectCrlf($test, $expected)
     {
-<<<<<<< HEAD
-        $encoder = $this->_getEncoder('7bit', true);
-
-        $os = $this->_createOutputByteStream();
-        $is = $this->_createInputByteStream();
-=======
         $encoder = $this->getEncoder('7bit', true);
 
         $os = $this->createOutputByteStream();
         $is = $this->createInputByteStream();
->>>>>>> dev
         $collection = new Swift_StreamCollector();
 
         $is->shouldReceive('write')
@@ -208,29 +154,17 @@ class Swift_Mime_ContentEncoder_PlainContentEncoderTest extends \SwiftMailerTest
         $this->assertEquals($expected, $collection->content);
     }
 
-<<<<<<< HEAD
-    private function _getEncoder($name, $canonical = false)
-=======
     private function getEncoder($name, $canonical = false)
->>>>>>> dev
     {
         return new Swift_Mime_ContentEncoder_PlainContentEncoder($name, $canonical);
     }
 
-<<<<<<< HEAD
-    private function _createOutputByteStream($stub = false)
-=======
     private function createOutputByteStream($stub = false)
->>>>>>> dev
     {
         return $this->getMockery('Swift_OutputByteStream')->shouldIgnoreMissing();
     }
 
-<<<<<<< HEAD
-    private function _createInputByteStream($stub = false)
-=======
     private function createInputByteStream($stub = false)
->>>>>>> dev
     {
         return $this->getMockery('Swift_InputByteStream')->shouldIgnoreMissing();
     }

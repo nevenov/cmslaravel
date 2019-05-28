@@ -78,11 +78,7 @@ class HtmlBuilder
     {
         $attributes['src'] = $this->url->asset($url, $secure);
 
-<<<<<<< HEAD
-        return $this->toHtmlString('<script' . $this->attributes($attributes) . '></script>' . PHP_EOL);
-=======
         return $this->toHtmlString('<script' . $this->attributes($attributes) . '></script>');
->>>>>>> dev
     }
 
     /**
@@ -98,19 +94,11 @@ class HtmlBuilder
     {
         $defaults = ['media' => 'all', 'type' => 'text/css', 'rel' => 'stylesheet'];
 
-<<<<<<< HEAD
-        $attributes = $attributes + $defaults;
-
-        $attributes['href'] = $this->url->asset($url, $secure);
-
-        return $this->toHtmlString('<link' . $this->attributes($attributes) . '>' . PHP_EOL);
-=======
         $attributes = array_merge($defaults, $attributes);
 
         $attributes['href'] = $this->url->asset($url, $secure);
 
         return $this->toHtmlString('<link' . $this->attributes($attributes) . '>');
->>>>>>> dev
     }
 
     /**
@@ -144,19 +132,11 @@ class HtmlBuilder
     {
         $defaults = ['rel' => 'shortcut icon', 'type' => 'image/x-icon'];
 
-<<<<<<< HEAD
-        $attributes = $attributes + $defaults;
-
-        $attributes['href'] = $this->url->asset($url, $secure);
-
-        return $this->toHtmlString('<link' . $this->attributes($attributes) . '>' . PHP_EOL);
-=======
         $attributes = array_merge($attributes, $defaults);
 
         $attributes['href'] = $this->url->asset($url, $secure);
 
         return $this->toHtmlString('<link' . $this->attributes($attributes) . '>');
->>>>>>> dev
     }
 
     /**
@@ -182,11 +162,7 @@ class HtmlBuilder
             $title = $this->entities($title);
         }
 
-<<<<<<< HEAD
-        return $this->toHtmlString('<a href="' . $url . '"' . $this->attributes($attributes) . '>' . $title . '</a>');
-=======
         return $this->toHtmlString('<a href="' . $this->entities($url) . '"' . $this->attributes($attributes) . '>' . $title . '</a>');
->>>>>>> dev
     }
 
     /**
@@ -312,11 +288,7 @@ class HtmlBuilder
     {
         return str_repeat('&nbsp;', $num);
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> dev
     /**
      * Generate an ordered list of items.
      *
@@ -385,11 +357,7 @@ class HtmlBuilder
     {
         $html = '';
 
-<<<<<<< HEAD
-        if (count($list) == 0) {
-=======
         if (count($list) === 0) {
->>>>>>> dev
             return $html;
         }
 
@@ -419,11 +387,7 @@ class HtmlBuilder
         if (is_array($value)) {
             return $this->nestedListing($key, $type, $value);
         } else {
-<<<<<<< HEAD
-            return '<li>' . e($value) . '</li>';
-=======
             return '<li>' . e($value, false) . '</li>';
->>>>>>> dev
         }
     }
 
@@ -487,14 +451,6 @@ class HtmlBuilder
         }
 
         // Treat boolean attributes as HTML properties
-<<<<<<< HEAD
-        if (is_bool($value) && $key != 'value') {
-            return $value ? $key : '';
-        }
-
-        if (! is_null($value)) {
-            return $key . '="' . e($value) . '"';
-=======
         if (is_bool($value) && $key !== 'value') {
             return $value ? $key : '';
         }
@@ -505,7 +461,6 @@ class HtmlBuilder
 
         if (! is_null($value)) {
             return $key . '="' . e($value, false) . '"';
->>>>>>> dev
         }
     }
 
@@ -560,11 +515,7 @@ class HtmlBuilder
 
         $attributes = array_merge($defaults, $attributes);
 
-<<<<<<< HEAD
-        return $this->toHtmlString('<meta' . $this->attributes($attributes) . '>' . PHP_EOL);
-=======
         return $this->toHtmlString('<meta' . $this->attributes($attributes) . '>');
->>>>>>> dev
     }
 
     /**
@@ -578,13 +529,8 @@ class HtmlBuilder
      */
     public function tag($tag, $content, array $attributes = [])
     {
-<<<<<<< HEAD
-        $content = is_array($content) ? implode(PHP_EOL, $content) : $content;
-        return $this->toHtmlString('<' . $tag . $this->attributes($attributes) . '>' . PHP_EOL . $this->toHtmlString($content) . PHP_EOL . '</' . $tag . '>' . PHP_EOL);
-=======
         $content = is_array($content) ? implode('', $content) : $content;
         return $this->toHtmlString('<' . $tag . $this->attributes($attributes) . '>' . $this->toHtmlString($content) . '</' . $tag . '>');
->>>>>>> dev
     }
 
     /**

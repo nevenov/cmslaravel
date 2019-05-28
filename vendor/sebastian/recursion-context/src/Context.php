@@ -92,11 +92,6 @@ final class Context
             return $key;
         }
 
-<<<<<<< HEAD
-        $this->arrays[] = &$array;
-
-        return count($this->arrays) - 1;
-=======
         $key            = count($this->arrays);
         $this->arrays[] = &$array;
 
@@ -118,7 +113,6 @@ final class Context
         }
 
         return $key;
->>>>>>> dev
     }
 
     /**
@@ -142,28 +136,9 @@ final class Context
      */
     private function containsArray(array &$array)
     {
-<<<<<<< HEAD
-        $keys = array_keys($this->arrays, $array, true);
-        $hash = '_Key_' . microtime(true);
-
-        foreach ($keys as $key) {
-            $this->arrays[$key][$hash] = $hash;
-
-            if (isset($array[$hash]) && $array[$hash] === $hash) {
-                unset($this->arrays[$key][$hash]);
-
-                return $key;
-            }
-
-            unset($this->arrays[$key][$hash]);
-        }
-
-        return false;
-=======
         $end = array_slice($array, -2);
 
         return isset($end[1]) && $end[1] === $this->objects ? $end[0] : false;
->>>>>>> dev
     }
 
     /**
@@ -179,8 +154,6 @@ final class Context
 
         return false;
     }
-<<<<<<< HEAD
-=======
 
     public function __destruct()
     {
@@ -191,5 +164,4 @@ final class Context
             }
         }
     }
->>>>>>> dev
 }

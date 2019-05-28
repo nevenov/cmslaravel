@@ -1,8 +1,6 @@
 CHANGELOG
 =========
 
-<<<<<<< HEAD
-=======
 4.2.0
 -----
 
@@ -33,7 +31,6 @@ CHANGELOG
  * added `AbstractCloner::setMinDepth()` function to ensure minimum tree depth
  * deprecated `MongoCaster`
 
->>>>>>> dev
 2.7.0
 -----
 

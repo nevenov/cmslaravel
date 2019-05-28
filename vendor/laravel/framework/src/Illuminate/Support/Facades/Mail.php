@@ -2,10 +2,6 @@
 
 namespace Illuminate\Support\Facades;
 
-<<<<<<< HEAD
-/**
- * @see \Illuminate\Mail\Mailer
-=======
 use Illuminate\Support\Testing\Fakes\MailFake;
 
 /**
@@ -29,13 +25,10 @@ use Illuminate\Support\Testing\Fakes\MailFake;
  *
  * @see \Illuminate\Mail\Mailer
  * @see \Illuminate\Support\Testing\Fakes\MailFake
->>>>>>> dev
  */
 class Mail extends Facade
 {
     /**
-<<<<<<< HEAD
-=======
      * Replace the bound instance with a fake.
      *
      * @return \Illuminate\Support\Testing\Fakes\MailFake
@@ -48,7 +41,6 @@ class Mail extends Facade
     }
 
     /**
->>>>>>> dev
      * Get the registered name of the component.
      *
      * @return string

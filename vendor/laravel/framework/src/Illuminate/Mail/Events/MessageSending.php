@@ -12,15 +12,6 @@ class MessageSending
     public $message;
 
     /**
-<<<<<<< HEAD
-     * Create a new event instance.
-     *
-     * @param  \Swift_Message  $message
-     * @return void
-     */
-    public function __construct($message)
-    {
-=======
      * The message data.
      *
      * @var array
@@ -37,7 +28,6 @@ class MessageSending
     public function __construct($message, $data = [])
     {
         $this->data = $data;
->>>>>>> dev
         $this->message = $message;
     }
 }

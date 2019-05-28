@@ -8,12 +8,9 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-=======
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 
->>>>>>> dev
 /**
  * A Path Header in Swift Mailer, such a Return-Path.
  *
@@ -26,9 +23,6 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
      *
      * @var string
      */
-<<<<<<< HEAD
-    private $_address;
-=======
     private $address;
 
     /**
@@ -39,20 +33,10 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
     private $emailValidator;
 
     private $addressEncoder;
->>>>>>> dev
 
     /**
      * Creates a new PathHeader with the given $name.
      *
-<<<<<<< HEAD
-     * @param string             $name
-     * @param Swift_Mime_Grammar $grammar
-     */
-    public function __construct($name, Swift_Mime_Grammar $grammar)
-    {
-        $this->setFieldName($name);
-        parent::__construct($grammar);
-=======
      * @param string $name
      */
     public function __construct($name, EmailValidator $emailValidator, Swift_AddressEncoder $addressEncoder = null)
@@ -60,7 +44,6 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
         $this->setFieldName($name);
         $this->emailValidator = $emailValidator;
         $this->addressEncoder = $addressEncoder ?? new Swift_AddressEncoder_IdnAddressEncoder();
->>>>>>> dev
     }
 
     /**
@@ -110,21 +93,12 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
     public function setAddress($address)
     {
         if (null === $address) {
-<<<<<<< HEAD
-            $this->_address = null;
-        } elseif ('' == $address) {
-            $this->_address = '';
-        } else {
-            $this->_assertValidAddress($address);
-            $this->_address = $address;
-=======
             $this->address = null;
         } elseif ('' == $address) {
             $this->address = '';
         } else {
             $this->assertValidAddress($address);
             $this->address = $address;
->>>>>>> dev
         }
         $this->setCachedValue(null);
     }
@@ -138,11 +112,7 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
      */
     public function getAddress()
     {
-<<<<<<< HEAD
-        return $this->_address;
-=======
         return $this->address;
->>>>>>> dev
     }
 
     /**
@@ -158,14 +128,9 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
     public function getFieldBody()
     {
         if (!$this->getCachedValue()) {
-<<<<<<< HEAD
-            if (isset($this->_address)) {
-                $this->setCachedValue('<'.$this->_address.'>');
-=======
             if (isset($this->address)) {
                 $address = $this->addressEncoder->encodeString($this->address);
                 $this->setCachedValue('<'.$address.'>');
->>>>>>> dev
             }
         }
 
@@ -179,22 +144,12 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
      *
      * @throws Swift_RfcComplianceException If address is invalid
      */
-<<<<<<< HEAD
-    private function _assertValidAddress($address)
-    {
-        if (!preg_match('/^'.$this->getGrammar()->getDefinition('addr-spec').'$/D',
-            $address)) {
-            throw new Swift_RfcComplianceException(
-                'Address set in PathHeader does not comply with addr-spec of RFC 2822.'
-                );
-=======
     private function assertValidAddress($address)
     {
         if (!$this->emailValidator->isValid($address, new RFCValidation())) {
             throw new Swift_RfcComplianceException(
                 'Address set in PathHeader does not comply with addr-spec of RFC 2822.'
             );
->>>>>>> dev
         }
     }
 }

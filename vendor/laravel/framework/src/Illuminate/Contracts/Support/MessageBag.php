@@ -2,11 +2,7 @@
 
 namespace Illuminate\Contracts\Support;
 
-<<<<<<< HEAD
-interface MessageBag
-=======
 interface MessageBag extends Arrayable
->>>>>>> dev
 {
     /**
      * Get the keys present in the message bag.
@@ -35,17 +31,10 @@ interface MessageBag extends Arrayable
     /**
      * Determine if messages exist for a given key.
      *
-<<<<<<< HEAD
-     * @param  string  $key
-     * @return bool
-     */
-    public function has($key = null);
-=======
      * @param  string|array  $key
      * @return bool
      */
     public function has($key);
->>>>>>> dev
 
     /**
      * Get the first message from the bag for a given key.
@@ -74,8 +63,6 @@ interface MessageBag extends Arrayable
     public function all($format = null);
 
     /**
-<<<<<<< HEAD
-=======
      * Get the raw messages in the container.
      *
      * @return array
@@ -83,7 +70,6 @@ interface MessageBag extends Arrayable
     public function getMessages();
 
     /**
->>>>>>> dev
      * Get the default message format.
      *
      * @return string
@@ -106,20 +92,6 @@ interface MessageBag extends Arrayable
     public function isEmpty();
 
     /**
-<<<<<<< HEAD
-     * Get the number of messages in the container.
-     *
-     * @return int
-     */
-    public function count();
-
-    /**
-     * Get the instance as an array.
-     *
-     * @return array
-     */
-    public function toArray();
-=======
      * Determine if the message bag has any messages.
      *
      * @return bool
@@ -132,5 +104,4 @@ interface MessageBag extends Arrayable
      * @return int
      */
     public function count();
->>>>>>> dev
 }

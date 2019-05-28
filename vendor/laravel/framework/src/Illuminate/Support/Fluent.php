@@ -10,26 +10,16 @@ use Illuminate\Contracts\Support\Arrayable;
 class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
 {
     /**
-<<<<<<< HEAD
-     * All of the attributes set on the container.
-=======
      * All of the attributes set on the fluent instance.
->>>>>>> dev
      *
      * @var array
      */
     protected $attributes = [];
 
     /**
-<<<<<<< HEAD
-     * Create a new fluent container instance.
-     *
-     * @param  array|object    $attributes
-=======
      * Create a new fluent instance.
      *
      * @param  array|object  $attributes
->>>>>>> dev
      * @return void
      */
     public function __construct($attributes = [])
@@ -40,11 +30,7 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     }
 
     /**
-<<<<<<< HEAD
-     * Get an attribute from the container.
-=======
      * Get an attribute from the fluent instance.
->>>>>>> dev
      *
      * @param  string  $key
      * @param  mixed   $default
@@ -60,11 +46,7 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     }
 
     /**
-<<<<<<< HEAD
-     * Get the attributes from the container.
-=======
      * Get the attributes from the fluent instance.
->>>>>>> dev
      *
      * @return array
      */
@@ -74,11 +56,7 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     }
 
     /**
-<<<<<<< HEAD
-     * Convert the Fluent instance to an array.
-=======
      * Convert the fluent instance to an array.
->>>>>>> dev
      *
      * @return array
      */
@@ -98,11 +76,7 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     }
 
     /**
-<<<<<<< HEAD
-     * Convert the Fluent instance to JSON.
-=======
      * Convert the fluent instance to JSON.
->>>>>>> dev
      *
      * @param  int  $options
      * @return string
@@ -120,11 +94,7 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      */
     public function offsetExists($offset)
     {
-<<<<<<< HEAD
-        return isset($this->{$offset});
-=======
         return isset($this->attributes[$offset]);
->>>>>>> dev
     }
 
     /**
@@ -135,11 +105,7 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      */
     public function offsetGet($offset)
     {
-<<<<<<< HEAD
-        return $this->{$offset};
-=======
         return $this->get($offset);
->>>>>>> dev
     }
 
     /**
@@ -151,11 +117,7 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      */
     public function offsetSet($offset, $value)
     {
-<<<<<<< HEAD
-        $this->{$offset} = $value;
-=======
         $this->attributes[$offset] = $value;
->>>>>>> dev
     }
 
     /**
@@ -166,19 +128,11 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      */
     public function offsetUnset($offset)
     {
-<<<<<<< HEAD
-        unset($this->{$offset});
-    }
-
-    /**
-     * Handle dynamic calls to the container to set attributes.
-=======
         unset($this->attributes[$offset]);
     }
 
     /**
      * Handle dynamic calls to the fluent instance to set attributes.
->>>>>>> dev
      *
      * @param  string  $method
      * @param  array   $parameters
@@ -211,11 +165,7 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      */
     public function __set($key, $value)
     {
-<<<<<<< HEAD
-        $this->attributes[$key] = $value;
-=======
         $this->offsetSet($key, $value);
->>>>>>> dev
     }
 
     /**
@@ -226,11 +176,7 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      */
     public function __isset($key)
     {
-<<<<<<< HEAD
-        return isset($this->attributes[$key]);
-=======
         return $this->offsetExists($key);
->>>>>>> dev
     }
 
     /**
@@ -241,10 +187,6 @@ class Fluent implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      */
     public function __unset($key)
     {
-<<<<<<< HEAD
-        unset($this->attributes[$key]);
-=======
         $this->offsetUnset($key);
->>>>>>> dev
     }
 }

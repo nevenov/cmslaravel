@@ -11,15 +11,11 @@
 
 namespace Symfony\Component\HttpKernel\DataCollector;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\DataCollector\Util\ValueExporter;
-=======
 use Symfony\Component\VarDumper\Caster\CutStub;
 use Symfony\Component\VarDumper\Cloner\ClonerInterface;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\VarDumper\Cloner\Stub;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
->>>>>>> dev
 
 /**
  * DataCollector.
@@ -31,18 +27,6 @@ use Symfony\Component\VarDumper\Cloner\VarCloner;
  */
 abstract class DataCollector implements DataCollectorInterface, \Serializable
 {
-<<<<<<< HEAD
-    protected $data = array();
-
-    /**
-     * @var ValueExporter
-     */
-    private $valueExporter;
-
-    public function serialize()
-    {
-        return serialize($this->data);
-=======
     protected $data = [];
 
     /**
@@ -56,30 +40,10 @@ abstract class DataCollector implements DataCollectorInterface, \Serializable
         $isCalledFromOverridingMethod = isset($trace[1]['function'], $trace[1]['object']) && 'serialize' === $trace[1]['function'] && $this === $trace[1]['object'];
 
         return $isCalledFromOverridingMethod ? $this->data : serialize($this->data);
->>>>>>> dev
     }
 
     public function unserialize($data)
     {
-<<<<<<< HEAD
-        $this->data = unserialize($data);
-    }
-
-    /**
-     * Converts a PHP variable to a string.
-     *
-     * @param mixed $var A PHP variable
-     *
-     * @return string The string representation of the variable
-     */
-    protected function varToString($var)
-    {
-        if (null === $this->valueExporter) {
-            $this->valueExporter = new ValueExporter();
-        }
-
-        return $this->valueExporter->exportValue($var);
-=======
         $this->data = \is_array($data) ? $data : unserialize($data);
     }
 
@@ -128,6 +92,5 @@ abstract class DataCollector implements DataCollectorInterface, \Serializable
                 return $a;
             },
         ];
->>>>>>> dev
     }
 }

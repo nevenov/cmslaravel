@@ -11,12 +11,6 @@
 
 namespace Symfony\Component\Console\Tests\Output;
 
-<<<<<<< HEAD
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Console\Output\OutputInterface;
-
-class NullOutputTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Output\NullOutput;
@@ -24,7 +18,6 @@ use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class NullOutputTest extends TestCase
->>>>>>> dev
 {
     public function testConstructor()
     {
@@ -46,8 +39,6 @@ class NullOutputTest extends TestCase
         $output->setVerbosity(OutputInterface::VERBOSITY_VERBOSE);
         $this->assertSame(OutputInterface::VERBOSITY_QUIET, $output->getVerbosity(), '->getVerbosity() always returns VERBOSITY_QUIET for NullOutput');
     }
-<<<<<<< HEAD
-=======
 
     public function testSetFormatter()
     {
@@ -94,5 +85,4 @@ class NullOutputTest extends TestCase
         $output = new NullOutput();
         $this->assertFalse($output->isDebug());
     }
->>>>>>> dev
 }

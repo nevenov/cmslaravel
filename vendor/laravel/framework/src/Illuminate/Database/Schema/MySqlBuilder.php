@@ -12,21 +12,11 @@ class MySqlBuilder extends Builder
      */
     public function hasTable($table)
     {
-<<<<<<< HEAD
-        $sql = $this->grammar->compileTableExists();
-
-        $database = $this->connection->getDatabaseName();
-
-        $table = $this->connection->getTablePrefix().$table;
-
-        return count($this->connection->select($sql, [$database, $table])) > 0;
-=======
         $table = $this->connection->getTablePrefix().$table;
 
         return count($this->connection->select(
             $this->grammar->compileTableExists(), [$this->connection->getDatabaseName(), $table]
         )) > 0;
->>>>>>> dev
     }
 
     /**
@@ -37,18 +27,6 @@ class MySqlBuilder extends Builder
      */
     public function getColumnListing($table)
     {
-<<<<<<< HEAD
-        $sql = $this->grammar->compileColumnExists();
-
-        $database = $this->connection->getDatabaseName();
-
-        $table = $this->connection->getTablePrefix().$table;
-
-        $results = $this->connection->select($sql, [$database, $table]);
-
-        return $this->connection->getPostProcessor()->processColumnListing($results);
-    }
-=======
         $table = $this->connection->getTablePrefix().$table;
 
         $results = $this->connection->select(
@@ -133,5 +111,4 @@ class MySqlBuilder extends Builder
             $this->grammar->compileGetAllViews()
         );
     }
->>>>>>> dev
 }

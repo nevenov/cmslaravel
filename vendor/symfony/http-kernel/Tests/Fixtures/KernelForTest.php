@@ -11,13 +11,8 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Fixtures;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
-=======
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
->>>>>>> dev
 
 class KernelForTest extends Kernel
 {
@@ -28,11 +23,7 @@ class KernelForTest extends Kernel
 
     public function registerBundles()
     {
-<<<<<<< HEAD
-        return array();
-=======
         return [];
->>>>>>> dev
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
@@ -43,8 +34,6 @@ class KernelForTest extends Kernel
     {
         return $this->booted;
     }
-<<<<<<< HEAD
-=======
 
     public function getCacheDir()
     {
@@ -55,5 +44,4 @@ class KernelForTest extends Kernel
     {
         return $this->getProjectDir().'/Tests/Fixtures/logs';
     }
->>>>>>> dev
 }

@@ -2,12 +2,9 @@
 
 namespace Illuminate\Foundation\Testing\Concerns;
 
-<<<<<<< HEAD
-=======
 use Closure;
 use Mockery;
 
->>>>>>> dev
 trait InteractsWithContainer
 {
     /**
@@ -17,8 +14,6 @@ trait InteractsWithContainer
      * @param  object  $instance
      * @return object
      */
-<<<<<<< HEAD
-=======
     protected function swap($abstract, $instance)
     {
         return $this->instance($abstract, $instance);
@@ -31,15 +26,12 @@ trait InteractsWithContainer
      * @param  object  $instance
      * @return object
      */
->>>>>>> dev
     protected function instance($abstract, $instance)
     {
         $this->app->instance($abstract, $instance);
 
         return $instance;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Mock an instance of an object in the container.
@@ -64,5 +56,4 @@ trait InteractsWithContainer
     {
         return $this->instance($abstract, Mockery::spy(...array_filter(func_get_args())));
     }
->>>>>>> dev
 }

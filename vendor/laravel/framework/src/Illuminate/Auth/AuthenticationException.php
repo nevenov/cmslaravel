@@ -7,13 +7,6 @@ use Exception;
 class AuthenticationException extends Exception
 {
     /**
-<<<<<<< HEAD
-     * The guard instance.
-     *
-     * @var \Illuminate\Contracts\Auth\Guard
-     */
-    protected $guard;
-=======
      * All of the guards that were checked.
      *
      * @var array
@@ -26,30 +19,10 @@ class AuthenticationException extends Exception
      * @var string
      */
     protected $redirectTo;
->>>>>>> dev
 
     /**
      * Create a new authentication exception.
      *
-<<<<<<< HEAD
-     * @param \Illuminate\Contracts\Auth\Guard|null  $guard
-     */
-    public function __construct($guard = null)
-    {
-        $this->guard = $guard;
-
-        parent::__construct('Unauthenticated.');
-    }
-
-    /**
-     * Get the guard instance.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard|null
-     */
-    public function guard()
-    {
-        return $this->guard;
-=======
      * @param  string  $message
      * @param  array  $guards
      * @param  string|null  $redirectTo
@@ -81,6 +54,5 @@ class AuthenticationException extends Exception
     public function redirectTo()
     {
         return $this->redirectTo;
->>>>>>> dev
     }
 }

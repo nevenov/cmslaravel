@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,23 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-    'year' => ':count jaar',
-    'y' => ':count jaar',
-    'month' => ':count maand|:count maanden',
-    'm' => ':count maand|:count maanden',
-    'week' => ':count week|:count weken',
-    'w' => ':count week|:count weken',
-    'day' => ':count dag|:count dagen',
-    'd' => ':count dag|:count dagen',
-    'hour' => ':count uur',
-    'h' => ':count uur',
-    'minute' => ':count minuut|:count minuten',
-    'min' => ':count minuut|:count minuten',
-    'second' => ':count seconde|:count seconden',
-    's' => ':count seconde|:count seconden',
-=======
 /**
  * Authors:
  * - Roy
@@ -76,7 +55,6 @@ return [
     'second' => ':count seconde|:count seconden',
     'a_second' => 'een paar seconden|:count seconden',
     's' => ':counts',
->>>>>>> dev
     'ago' => ':time geleden',
     'from_now' => 'over :time',
     'after' => ':time later',
@@ -86,9 +64,6 @@ return [
     'diff_tomorrow' => 'morgen',
     'diff_after_tomorrow' => 'overmorgen',
     'diff_before_yesterday' => 'eergisteren',
-<<<<<<< HEAD
-);
-=======
     'period_recurrences' => ':count keer',
     'period_interval' => function ($interval) {
         /** @var string $output */
@@ -132,4 +107,3 @@ return [
     'list' => [', ', ' en '],
     'meridiem' => ['\'s ochtends', '\'s middags'],
 ];
->>>>>>> dev

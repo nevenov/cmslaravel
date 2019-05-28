@@ -4,10 +4,7 @@ namespace Illuminate\Foundation\Console;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-<<<<<<< HEAD
-=======
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
->>>>>>> dev
 
 class EventGenerateCommand extends Command
 {
@@ -30,29 +27,6 @@ class EventGenerateCommand extends Command
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-    {
-        $provider = $this->laravel->getProvider(
-            'Illuminate\Foundation\Support\Providers\EventServiceProvider'
-        );
-
-        foreach ($provider->listens() as $event => $listeners) {
-            if (! Str::contains($event, '\\')) {
-                continue;
-            }
-
-            $this->callSilent('make:event', ['name' => $event]);
-
-            foreach ($listeners as $listener) {
-                $listener = preg_replace('/@.+$/', '', $listener);
-
-                $this->callSilent('make:listener', ['name' => $listener, '--event' => $event]);
-            }
-        }
-
-        $this->info('Events and listeners generated successfully!');
-=======
     public function handle()
     {
         $providers = $this->laravel->getProviders(EventServiceProvider::class);
@@ -100,6 +74,5 @@ class EventGenerateCommand extends Command
                 ['name' => $listener, '--event' => $event]
             ));
         }
->>>>>>> dev
     }
 }

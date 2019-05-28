@@ -5,11 +5,7 @@ namespace Illuminate\Contracts\Routing;
 interface ResponseFactory
 {
     /**
-<<<<<<< HEAD
-     * Return a new response from the application.
-=======
      * Create a new response instance.
->>>>>>> dev
      *
      * @param  string  $content
      * @param  int  $status
@@ -19,9 +15,6 @@ interface ResponseFactory
     public function make($content = '', $status = 200, array $headers = []);
 
     /**
-<<<<<<< HEAD
-     * Return a new view response from the application.
-=======
      * Create a new "no content" response.
      *
      * @param  int  $status
@@ -32,7 +25,6 @@ interface ResponseFactory
 
     /**
      * Create a new response for a given view.
->>>>>>> dev
      *
      * @param  string  $view
      * @param  array  $data
@@ -43,15 +35,9 @@ interface ResponseFactory
     public function view($view, $data = [], $status = 200, array $headers = []);
 
     /**
-<<<<<<< HEAD
-     * Return a new JSON response from the application.
-     *
-     * @param  string|array  $data
-=======
      * Create a new JSON response instance.
      *
      * @param  string|array|object  $data
->>>>>>> dev
      * @param  int  $status
      * @param  array  $headers
      * @param  int  $options
@@ -60,17 +46,10 @@ interface ResponseFactory
     public function json($data = [], $status = 200, array $headers = [], $options = 0);
 
     /**
-<<<<<<< HEAD
-     * Return a new JSONP response from the application.
-     *
-     * @param  string  $callback
-     * @param  string|array  $data
-=======
      * Create a new JSONP response instance.
      *
      * @param  string  $callback
      * @param  string|array|object  $data
->>>>>>> dev
      * @param  int  $status
      * @param  array  $headers
      * @param  int  $options
@@ -79,11 +58,7 @@ interface ResponseFactory
     public function jsonp($callback, $data = [], $status = 200, array $headers = [], $options = 0);
 
     /**
-<<<<<<< HEAD
-     * Return a new streamed response from the application.
-=======
      * Create a new streamed response instance.
->>>>>>> dev
      *
      * @param  \Closure  $callback
      * @param  int  $status
@@ -93,12 +68,6 @@ interface ResponseFactory
     public function stream($callback, $status = 200, array $headers = []);
 
     /**
-<<<<<<< HEAD
-     * Create a new file download response.
-     *
-     * @param  \SplFileInfo|string  $file
-     * @param  string  $name
-=======
      * Create a new streamed response instance as a file download.
      *
      * @param  \Closure  $callback
@@ -114,7 +83,6 @@ interface ResponseFactory
      *
      * @param  \SplFileInfo|string  $file
      * @param  string|null  $name
->>>>>>> dev
      * @param  array  $headers
      * @param  string|null  $disposition
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
@@ -122,8 +90,6 @@ interface ResponseFactory
     public function download($file, $name = null, array $headers = [], $disposition = 'attachment');
 
     /**
-<<<<<<< HEAD
-=======
      * Return the raw contents of a binary file.
      *
      * @param  \SplFileInfo|string  $file
@@ -133,7 +99,6 @@ interface ResponseFactory
     public function file($file, array $headers = []);
 
     /**
->>>>>>> dev
      * Create a new redirect response to the given path.
      *
      * @param  string  $path

@@ -11,21 +11,12 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Bundle;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionNotValidBundle\ExtensionNotValidBundle;
-use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionPresentBundle\ExtensionPresentBundle;
-use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionAbsentBundle\ExtensionAbsentBundle;
-use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionPresentBundle\Command\FooCommand;
-
-class BundleTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionNotValidBundle\ExtensionNotValidBundle;
 use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionPresentBundle\ExtensionPresentBundle;
 
 class BundleTest extends TestCase
->>>>>>> dev
 {
     public function testGetContainerExtension()
     {
@@ -37,23 +28,6 @@ class BundleTest extends TestCase
         );
     }
 
-<<<<<<< HEAD
-    public function testRegisterCommands()
-    {
-        $cmd = new FooCommand();
-        $app = $this->getMock('Symfony\Component\Console\Application');
-        $app->expects($this->once())->method('add')->with($this->equalTo($cmd));
-
-        $bundle = new ExtensionPresentBundle();
-        $bundle->registerCommands($app);
-
-        $bundle2 = new ExtensionAbsentBundle();
-
-        $this->assertNull($bundle2->registerCommands($app));
-    }
-
-=======
->>>>>>> dev
     /**
      * @expectedException \LogicException
      * @expectedExceptionMessage must implement Symfony\Component\DependencyInjection\Extension\ExtensionInterface
@@ -63,8 +37,6 @@ class BundleTest extends TestCase
         $bundle = new ExtensionNotValidBundle();
         $bundle->getContainerExtension();
     }
-<<<<<<< HEAD
-=======
 
     public function testBundleNameIsGuessedFromClass()
     {
@@ -94,5 +66,4 @@ class NamedBundle extends Bundle
 
 class GuessedNameBundle extends Bundle
 {
->>>>>>> dev
 }

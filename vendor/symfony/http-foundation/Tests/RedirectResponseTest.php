@@ -11,16 +11,10 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\RedirectResponse;
-
-class RedirectResponseTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class RedirectResponseTest extends TestCase
->>>>>>> dev
 {
     public function testGenerateMetaRedirect()
     {
@@ -28,11 +22,7 @@ class RedirectResponseTest extends TestCase
 
         $this->assertEquals(1, preg_match(
             '#<meta http-equiv="refresh" content="\d+;url=foo\.bar" />#',
-<<<<<<< HEAD
-            preg_replace(array('/\s+/', '/\'/'), array(' ', '"'), $response->getContent())
-=======
             preg_replace(['/\s+/', '/\'/'], [' ', '"'], $response->getContent())
->>>>>>> dev
         ));
     }
 
@@ -91,8 +81,6 @@ class RedirectResponseTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
         $this->assertEquals(301, $response->getStatusCode());
     }
-<<<<<<< HEAD
-=======
 
     public function testCacheHeaders()
     {
@@ -106,5 +94,4 @@ class RedirectResponseTest extends TestCase
         $response = new RedirectResponse('foo.bar', 302);
         $this->assertTrue($response->headers->hasCacheControlDirective('no-cache'));
     }
->>>>>>> dev
 }

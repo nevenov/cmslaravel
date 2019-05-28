@@ -11,29 +11,18 @@
 
 namespace Symfony\Component\VarDumper\Tests\Caster;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\VarDumper\Caster\Caster;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-<<<<<<< HEAD
-class CasterTest extends \PHPUnit_Framework_TestCase
-{
-    use VarDumperTestTrait;
-
-    private $referenceArray = array(
-=======
 class CasterTest extends TestCase
 {
     use VarDumperTestTrait;
 
     private $referenceArray = [
->>>>>>> dev
         'null' => null,
         'empty' => false,
         'public' => 'pub',
@@ -41,11 +30,7 @@ class CasterTest extends TestCase
         "\0+\0dynamic" => 'dyn',
         "\0*\0protected" => 'prot',
         "\0Foo\0private" => 'priv',
-<<<<<<< HEAD
-    );
-=======
     ];
->>>>>>> dev
 
     /**
      * @dataProvider provideFilter
@@ -63,69 +48,6 @@ class CasterTest extends TestCase
 
     public function provideFilter()
     {
-<<<<<<< HEAD
-        return array(
-            array(
-                0,
-                array(),
-            ),
-            array(
-                Caster::EXCLUDE_PUBLIC,
-                array(
-                    'null' => null,
-                    'empty' => false,
-                    'public' => 'pub',
-                ),
-            ),
-            array(
-                Caster::EXCLUDE_NULL,
-                array(
-                    'null' => null,
-                ),
-            ),
-            array(
-                Caster::EXCLUDE_EMPTY,
-                array(
-                    'null' => null,
-                    'empty' => false,
-                ),
-            ),
-            array(
-                Caster::EXCLUDE_VIRTUAL,
-                array(
-                    "\0~\0virtual" => 'virt',
-                ),
-            ),
-            array(
-                Caster::EXCLUDE_DYNAMIC,
-                array(
-                    "\0+\0dynamic" => 'dyn',
-                ),
-            ),
-            array(
-                Caster::EXCLUDE_PROTECTED,
-                array(
-                    "\0*\0protected" => 'prot',
-                ),
-            ),
-            array(
-                Caster::EXCLUDE_PRIVATE,
-                array(
-                    "\0Foo\0private" => 'priv',
-                ),
-            ),
-            array(
-                Caster::EXCLUDE_VERBOSE,
-                array(
-                    'public' => 'pub',
-                    "\0*\0protected" => 'prot',
-                ),
-                array('public', "\0*\0protected"),
-            ),
-            array(
-                Caster::EXCLUDE_NOT_IMPORTANT,
-                array(
-=======
         return [
             [
                 0,
@@ -187,32 +109,11 @@ class CasterTest extends TestCase
             [
                 Caster::EXCLUDE_NOT_IMPORTANT,
                 [
->>>>>>> dev
                     'null' => null,
                     'empty' => false,
                     "\0~\0virtual" => 'virt',
                     "\0+\0dynamic" => 'dyn',
                     "\0Foo\0private" => 'priv',
-<<<<<<< HEAD
-                ),
-                array('public', "\0*\0protected"),
-            ),
-            array(
-                Caster::EXCLUDE_VIRTUAL | Caster::EXCLUDE_DYNAMIC,
-                array(
-                    "\0~\0virtual" => 'virt',
-                    "\0+\0dynamic" => 'dyn',
-                ),
-            ),
-            array(
-                Caster::EXCLUDE_NOT_IMPORTANT | Caster::EXCLUDE_VERBOSE,
-                $this->referenceArray,
-                array('public', "\0*\0protected"),
-            ),
-            array(
-                Caster::EXCLUDE_NOT_IMPORTANT | Caster::EXCLUDE_EMPTY,
-                array(
-=======
                 ],
                 ['public', "\0*\0protected"],
             ],
@@ -231,31 +132,12 @@ class CasterTest extends TestCase
             [
                 Caster::EXCLUDE_NOT_IMPORTANT | Caster::EXCLUDE_EMPTY,
                 [
->>>>>>> dev
                     'null' => null,
                     'empty' => false,
                     "\0~\0virtual" => 'virt',
                     "\0+\0dynamic" => 'dyn',
                     "\0*\0protected" => 'prot',
                     "\0Foo\0private" => 'priv',
-<<<<<<< HEAD
-                ),
-                array('public', 'empty'),
-            ),
-            array(
-                Caster::EXCLUDE_VERBOSE | Caster::EXCLUDE_EMPTY | Caster::EXCLUDE_STRICT,
-                array(
-                    'empty' => false,
-                ),
-                array('public', 'empty'),
-            ),
-        );
-    }
-
-    /**
-     * @requires PHP 7.0
-     */
-=======
                 ],
                 ['public', 'empty'],
             ],
@@ -269,7 +151,6 @@ class CasterTest extends TestCase
         ];
     }
 
->>>>>>> dev
     public function testAnonymousClass()
     {
         $c = eval('return new class extends stdClass { private $foo = "foo"; };');

@@ -11,16 +11,6 @@
 
 namespace Symfony\Component\Routing\Tests\Loader;
 
-<<<<<<< HEAD
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Routing\Loader\PhpFileLoader;
-
-class PhpFileLoaderTest extends \PHPUnit_Framework_TestCase
-{
-    public function testSupports()
-    {
-        $loader = new PhpFileLoader($this->getMock('Symfony\Component\Config\FileLocator'));
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
@@ -33,7 +23,6 @@ class PhpFileLoaderTest extends TestCase
     public function testSupports()
     {
         $loader = new PhpFileLoader($this->getMockBuilder('Symfony\Component\Config\FileLocator')->getMock());
->>>>>>> dev
 
         $this->assertTrue($loader->supports('foo.php'), '->supports() returns true if the resource is loadable');
         $this->assertFalse($loader->supports('foo.foo'), '->supports() returns true if the resource is loadable');
@@ -44,11 +33,7 @@ class PhpFileLoaderTest extends TestCase
 
     public function testLoadWithRoute()
     {
-<<<<<<< HEAD
-        $loader = new PhpFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-=======
         $loader = new PhpFileLoader(new FileLocator([__DIR__.'/../Fixtures']));
->>>>>>> dev
         $routeCollection = $loader->load('validpattern.php');
         $routes = $routeCollection->all();
 
@@ -60,23 +45,14 @@ class PhpFileLoaderTest extends TestCase
             $this->assertSame('MyBlogBundle:Blog:show', $route->getDefault('_controller'));
             $this->assertSame('{locale}.example.com', $route->getHost());
             $this->assertSame('RouteCompiler', $route->getOption('compiler_class'));
-<<<<<<< HEAD
-            $this->assertEquals(array('GET', 'POST', 'PUT', 'OPTIONS'), $route->getMethods());
-            $this->assertEquals(array('https'), $route->getSchemes());
-=======
             $this->assertEquals(['GET', 'POST', 'PUT', 'OPTIONS'], $route->getMethods());
             $this->assertEquals(['https'], $route->getSchemes());
->>>>>>> dev
         }
     }
 
     public function testLoadWithImport()
     {
-<<<<<<< HEAD
-        $loader = new PhpFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-=======
         $loader = new PhpFileLoader(new FileLocator([__DIR__.'/../Fixtures']));
->>>>>>> dev
         $routeCollection = $loader->load('validresource.php');
         $routes = $routeCollection->all();
 
@@ -88,23 +64,14 @@ class PhpFileLoaderTest extends TestCase
             $this->assertSame('MyBlogBundle:Blog:show', $route->getDefault('_controller'));
             $this->assertSame('{locale}.example.com', $route->getHost());
             $this->assertSame('RouteCompiler', $route->getOption('compiler_class'));
-<<<<<<< HEAD
-            $this->assertEquals(array('GET', 'POST', 'PUT', 'OPTIONS'), $route->getMethods());
-            $this->assertEquals(array('https'), $route->getSchemes());
-=======
             $this->assertEquals(['GET', 'POST', 'PUT', 'OPTIONS'], $route->getMethods());
             $this->assertEquals(['https'], $route->getSchemes());
->>>>>>> dev
         }
     }
 
     public function testThatDefiningVariableInConfigFileHasNoSideEffects()
     {
-<<<<<<< HEAD
-        $locator = new FileLocator(array(__DIR__.'/../Fixtures'));
-=======
         $locator = new FileLocator([__DIR__.'/../Fixtures']);
->>>>>>> dev
         $loader = new PhpFileLoader($locator);
         $routeCollection = $loader->load('with_define_path_variable.php');
         $resources = $routeCollection->getResources();
@@ -116,8 +83,6 @@ class PhpFileLoaderTest extends TestCase
             (string) $fileResource
         );
     }
-<<<<<<< HEAD
-=======
 
     public function testRoutingConfigurator()
     {
@@ -201,5 +166,4 @@ class PhpFileLoaderTest extends TestCase
 
         $this->assertEquals($expectedCollection, $routeCollection);
     }
->>>>>>> dev
 }

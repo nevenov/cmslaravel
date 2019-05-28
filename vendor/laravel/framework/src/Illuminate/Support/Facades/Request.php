@@ -3,8 +3,6 @@
 namespace Illuminate\Support\Facades;
 
 /**
-<<<<<<< HEAD
-=======
  * @method static \Illuminate\Http\Request instance()
  * @method static string method()
  * @method static string root()
@@ -44,7 +42,6 @@ namespace Illuminate\Support\Facades;
  * @method static void offsetSet(string $offset, $value)
  * @method static void offsetUnset(string $offset)
  *
->>>>>>> dev
  * @see \Illuminate\Http\Request
  */
 class Request extends Facade

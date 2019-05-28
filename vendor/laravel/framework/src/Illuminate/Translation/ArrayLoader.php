@@ -2,13 +2,9 @@
 
 namespace Illuminate\Translation;
 
-<<<<<<< HEAD
-class ArrayLoader implements LoaderInterface
-=======
 use Illuminate\Contracts\Translation\Loader;
 
 class ArrayLoader implements Loader
->>>>>>> dev
 {
     /**
      * All of the translation messages.
@@ -29,15 +25,7 @@ class ArrayLoader implements Loader
     {
         $namespace = $namespace ?: '*';
 
-<<<<<<< HEAD
-        if (isset($this->messages[$namespace][$locale][$group])) {
-            return $this->messages[$namespace][$locale][$group];
-        }
-
-        return [];
-=======
         return $this->messages[$namespace][$locale][$group] ?? [];
->>>>>>> dev
     }
 
     /**
@@ -53,8 +41,6 @@ class ArrayLoader implements Loader
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Add a new JSON path to the loader.
      *
      * @param  string  $path
@@ -66,7 +52,6 @@ class ArrayLoader implements Loader
     }
 
     /**
->>>>>>> dev
      * Add messages to the loader.
      *
      * @param  string  $locale
@@ -83,8 +68,6 @@ class ArrayLoader implements Loader
 
         return $this;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get an array of all the registered namespaces.
@@ -95,5 +78,4 @@ class ArrayLoader implements Loader
     {
         return [];
     }
->>>>>>> dev
 }

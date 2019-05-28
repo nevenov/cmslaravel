@@ -7,15 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-
-/**
- * Constraint that accepts any input value.
- *
- * @since Class available since Release 3.0.0
- */
-class PHPUnit_Framework_Constraint_IsAnything extends PHPUnit_Framework_Constraint
-=======
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\ExpectationFailedException;
@@ -24,7 +15,6 @@ use PHPUnit\Framework\ExpectationFailedException;
  * Constraint that accepts any input value.
  */
 class IsAnything extends Constraint
->>>>>>> dev
 {
     /**
      * Evaluates the constraint for parameter $other
@@ -42,11 +32,7 @@ class IsAnything extends Constraint
      *
      * @return mixed
      *
-<<<<<<< HEAD
-     * @throws PHPUnit_Framework_ExpectationFailedException
-=======
      * @throws ExpectationFailedException
->>>>>>> dev
      */
     public function evaluate($other, $description = '', $returnResult = false)
     {
@@ -67,11 +53,6 @@ class IsAnything extends Constraint
      * Counts the number of constraint elements.
      *
      * @return int
-<<<<<<< HEAD
-     *
-     * @since  Method available since Release 3.5.0
-=======
->>>>>>> dev
      */
     public function count()
     {

@@ -28,11 +28,6 @@ class CompiledRoute implements \Serializable
     private $hostTokens;
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-=======
->>>>>>> dev
      * @param string      $staticPrefix  The static prefix of the compiled route
      * @param string      $regex         The regular expression to use to match this route
      * @param array       $tokens        An array of tokens to use to generate URL for this route
@@ -42,15 +37,9 @@ class CompiledRoute implements \Serializable
      * @param array       $hostVariables An array of host variables
      * @param array       $variables     An array of variables (variables defined in the path and in the host patterns)
      */
-<<<<<<< HEAD
-    public function __construct($staticPrefix, $regex, array $tokens, array $pathVariables, $hostRegex = null, array $hostTokens = array(), array $hostVariables = array(), array $variables = array())
-    {
-        $this->staticPrefix = (string) $staticPrefix;
-=======
     public function __construct(string $staticPrefix, string $regex, array $tokens, array $pathVariables, string $hostRegex = null, array $hostTokens = [], array $hostVariables = [], array $variables = [])
     {
         $this->staticPrefix = $staticPrefix;
->>>>>>> dev
         $this->regex = $regex;
         $this->tokens = $tokens;
         $this->pathVariables = $pathVariables;
@@ -65,11 +54,7 @@ class CompiledRoute implements \Serializable
      */
     public function serialize()
     {
-<<<<<<< HEAD
-        return serialize(array(
-=======
         return serialize([
->>>>>>> dev
             'vars' => $this->variables,
             'path_prefix' => $this->staticPrefix,
             'path_regex' => $this->regex,
@@ -78,11 +63,7 @@ class CompiledRoute implements \Serializable
             'host_regex' => $this->hostRegex,
             'host_tokens' => $this->hostTokens,
             'host_vars' => $this->hostVariables,
-<<<<<<< HEAD
-        ));
-=======
         ]);
->>>>>>> dev
     }
 
     /**
@@ -90,12 +71,8 @@ class CompiledRoute implements \Serializable
      */
     public function unserialize($serialized)
     {
-<<<<<<< HEAD
-        $data = unserialize($serialized);
-=======
         $data = unserialize($serialized, ['allowed_classes' => false]);
 
->>>>>>> dev
         $this->variables = $data['vars'];
         $this->staticPrefix = $data['path_prefix'];
         $this->regex = $data['path_regex'];

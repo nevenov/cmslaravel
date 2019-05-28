@@ -3,10 +3,7 @@
 namespace Illuminate\Database\Eloquent;
 
 use RuntimeException;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Arr;
->>>>>>> dev
 
 class ModelNotFoundException extends RuntimeException
 {
@@ -18,18 +15,6 @@ class ModelNotFoundException extends RuntimeException
     protected $model;
 
     /**
-<<<<<<< HEAD
-     * Set the affected Eloquent model.
-     *
-     * @param  string   $model
-     * @return $this
-     */
-    public function setModel($model)
-    {
-        $this->model = $model;
-
-        $this->message = "No query results for model [{$model}].";
-=======
      * The affected model IDs.
      *
      * @var int|array
@@ -55,7 +40,6 @@ class ModelNotFoundException extends RuntimeException
         } else {
             $this->message .= '.';
         }
->>>>>>> dev
 
         return $this;
     }
@@ -69,8 +53,6 @@ class ModelNotFoundException extends RuntimeException
     {
         return $this->model;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get the affected Eloquent model IDs.
@@ -81,5 +63,4 @@ class ModelNotFoundException extends RuntimeException
     {
         return $this->ids;
     }
->>>>>>> dev
 }

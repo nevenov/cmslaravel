@@ -15,19 +15,6 @@ namespace Symfony\Component\HttpKernel\CacheWarmer;
  * Aggregates several cache warmers into a single one.
  *
  * @author Fabien Potencier <fabien@symfony.com>
-<<<<<<< HEAD
- */
-class CacheWarmerAggregate implements CacheWarmerInterface
-{
-    protected $warmers = array();
-    protected $optionalsEnabled = false;
-
-    public function __construct(array $warmers = array())
-    {
-        foreach ($warmers as $warmer) {
-            $this->add($warmer);
-        }
-=======
  *
  * @final
  */
@@ -44,7 +31,6 @@ class CacheWarmerAggregate implements CacheWarmerInterface
         $this->warmers = $warmers;
         $this->debug = $debug;
         $this->deprecationLogsFilepath = $deprecationLogsFilepath;
->>>>>>> dev
     }
 
     public function enableOptionalWarmers()
@@ -52,14 +38,11 @@ class CacheWarmerAggregate implements CacheWarmerInterface
         $this->optionalsEnabled = true;
     }
 
-<<<<<<< HEAD
-=======
     public function enableOnlyOptionalWarmers()
     {
         $this->onlyOptionalsEnabled = $this->optionalsEnabled = true;
     }
 
->>>>>>> dev
     /**
      * Warms up the cache.
      *
@@ -67,14 +50,6 @@ class CacheWarmerAggregate implements CacheWarmerInterface
      */
     public function warmUp($cacheDir)
     {
-<<<<<<< HEAD
-        foreach ($this->warmers as $warmer) {
-            if (!$this->optionalsEnabled && $warmer->isOptional()) {
-                continue;
-            }
-
-            $warmer->warmUp($cacheDir);
-=======
         if ($this->debug) {
             $collectedLogs = [];
             $previousHandler = \defined('PHPUNIT_COMPOSER_INSTALL');
@@ -131,7 +106,6 @@ class CacheWarmerAggregate implements CacheWarmerInterface
 
                 file_put_contents($this->deprecationLogsFilepath, serialize(array_values($collectedLogs)));
             }
->>>>>>> dev
         }
     }
 
@@ -144,20 +118,4 @@ class CacheWarmerAggregate implements CacheWarmerInterface
     {
         return false;
     }
-<<<<<<< HEAD
-
-    public function setWarmers(array $warmers)
-    {
-        $this->warmers = array();
-        foreach ($warmers as $warmer) {
-            $this->add($warmer);
-        }
-    }
-
-    public function add(CacheWarmerInterface $warmer)
-    {
-        $this->warmers[] = $warmer;
-    }
-=======
->>>>>>> dev
 }

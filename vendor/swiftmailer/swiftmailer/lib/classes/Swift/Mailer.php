@@ -16,30 +16,6 @@
 class Swift_Mailer
 {
     /** The Transport used to send messages */
-<<<<<<< HEAD
-    private $_transport;
-
-    /**
-     * Create a new Mailer using $transport for delivery.
-     *
-     * @param Swift_Transport $transport
-     */
-    public function __construct(Swift_Transport $transport)
-    {
-        $this->_transport = $transport;
-    }
-
-    /**
-     * Create a new Mailer instance.
-     *
-     * @param Swift_Transport $transport
-     *
-     * @return self
-     */
-    public static function newInstance(Swift_Transport $transport)
-    {
-        return new self($transport);
-=======
     private $transport;
 
     /**
@@ -48,7 +24,6 @@ class Swift_Mailer
     public function __construct(Swift_Transport $transport)
     {
         $this->transport = $transport;
->>>>>>> dev
     }
 
     /**
@@ -77,19 +52,6 @@ class Swift_Mailer
      * The return value is the number of recipients who were accepted for
      * delivery.
      *
-<<<<<<< HEAD
-     * @param Swift_Mime_Message $message
-     * @param array              $failedRecipients An array of failures by-reference
-     *
-     * @return int The number of successful recipients. Can be 0 which indicates failure
-     */
-    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
-    {
-        $failedRecipients = (array) $failedRecipients;
-
-        if (!$this->_transport->isStarted()) {
-            $this->_transport->start();
-=======
      * @param array $failedRecipients An array of failures by-reference
      *
      * @return int The number of successful recipients. Can be 0 which indicates failure
@@ -101,17 +63,12 @@ class Swift_Mailer
         // FIXME: to be removed in 7.0 (as transport must now start itself on send)
         if (!$this->transport->isStarted()) {
             $this->transport->start();
->>>>>>> dev
         }
 
         $sent = 0;
 
         try {
-<<<<<<< HEAD
-            $sent = $this->_transport->send($message, $failedRecipients);
-=======
             $sent = $this->transport->send($message, $failedRecipients);
->>>>>>> dev
         } catch (Swift_RfcComplianceException $e) {
             foreach ($message->getTo() as $address => $name) {
                 $failedRecipients[] = $address;
@@ -123,19 +80,10 @@ class Swift_Mailer
 
     /**
      * Register a plugin using a known unique key (e.g. myPlugin).
-<<<<<<< HEAD
-     *
-     * @param Swift_Events_EventListener $plugin
-     */
-    public function registerPlugin(Swift_Events_EventListener $plugin)
-    {
-        $this->_transport->registerPlugin($plugin);
-=======
      */
     public function registerPlugin(Swift_Events_EventListener $plugin)
     {
         $this->transport->registerPlugin($plugin);
->>>>>>> dev
     }
 
     /**
@@ -145,10 +93,6 @@ class Swift_Mailer
      */
     public function getTransport()
     {
-<<<<<<< HEAD
-        return $this->_transport;
-=======
         return $this->transport;
->>>>>>> dev
     }
 }

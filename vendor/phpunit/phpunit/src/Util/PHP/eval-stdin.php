@@ -1,8 +1,4 @@
 <?php
-<<<<<<< HEAD
-
-eval('?>' . file_get_contents('php://stdin'));
-=======
 /*
  * This file is part of PHPUnit.
  *
@@ -12,4 +8,3 @@ eval('?>' . file_get_contents('php://stdin'));
  * file that was distributed with this source code.
  */
 eval('?>' . \file_get_contents('php://stdin'));
->>>>>>> dev

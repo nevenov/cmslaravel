@@ -29,15 +29,9 @@ class Swift_Mime_HeaderEncoder_QpHeaderEncoder extends Swift_Encoder_QpEncoder i
     {
         foreach (array_merge(
             range(0x61, 0x7A), range(0x41, 0x5A),
-<<<<<<< HEAD
-            range(0x30, 0x39), array(0x20, 0x21, 0x2A, 0x2B, 0x2D, 0x2F)
-        ) as $byte) {
-            $this->_safeMap[$byte] = chr($byte);
-=======
             range(0x30, 0x39), [0x20, 0x21, 0x2A, 0x2B, 0x2D, 0x2F]
         ) as $byte) {
             $this->safeMap[$byte] = chr($byte);
->>>>>>> dev
         }
     }
 
@@ -64,11 +58,7 @@ class Swift_Mime_HeaderEncoder_QpHeaderEncoder extends Swift_Encoder_QpEncoder i
      */
     public function encodeString($string, $firstLineOffset = 0, $maxLineLength = 0)
     {
-<<<<<<< HEAD
-        return str_replace(array(' ', '=20', "=\r\n"), array('_', '_', "\r\n"),
-=======
         return str_replace([' ', '=20', "=\r\n"], ['_', '_', "\r\n"],
->>>>>>> dev
             parent::encodeString($string, $firstLineOffset, $maxLineLength)
         );
     }

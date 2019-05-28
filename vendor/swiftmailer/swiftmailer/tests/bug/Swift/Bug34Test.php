@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-class Swift_Bug34Test extends \PHPUnit_Framework_TestCase
-=======
 class Swift_Bug34Test extends \PHPUnit\Framework\TestCase
->>>>>>> dev
 {
     protected function setUp()
     {
@@ -13,33 +9,16 @@ class Swift_Bug34Test extends \PHPUnit\Framework\TestCase
 
     public function testEmbeddedFilesWithMultipartDataCreateMultipartRelatedContentAsAnAlternative()
     {
-<<<<<<< HEAD
-        $message = Swift_Message::newInstance();
-=======
         $message = new Swift_Message();
->>>>>>> dev
         $message->setCharset('utf-8');
         $message->setSubject('test subject');
         $message->addPart('plain part', 'text/plain');
 
-<<<<<<< HEAD
-        $image = Swift_Image::newInstance('<image data>', 'image.gif', 'image/gif');
-=======
         $image = new Swift_Image('<image data>', 'image.gif', 'image/gif');
->>>>>>> dev
         $cid = $message->embed($image);
 
         $message->setBody('<img src="'.$cid.'" />', 'text/html');
 
-<<<<<<< HEAD
-        $message->setTo(array('user@domain.tld' => 'User'));
-
-        $message->setFrom(array('other@domain.tld' => 'Other'));
-        $message->setSender(array('other@domain.tld' => 'Other'));
-
-        $id = $message->getId();
-        $date = preg_quote(date('r', $message->getDate()), '~');
-=======
         $message->setTo(['user@domain.tld' => 'User']);
 
         $message->setFrom(['other@domain.tld' => 'Other']);
@@ -47,7 +26,6 @@ class Swift_Bug34Test extends \PHPUnit\Framework\TestCase
 
         $id = $message->getId();
         $date = preg_quote($message->getDate()->format('r'), '~');
->>>>>>> dev
         $boundary = $message->getBoundary();
         $cidVal = $image->getId();
 

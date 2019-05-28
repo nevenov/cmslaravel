@@ -4,10 +4,6 @@ namespace Illuminate\Database\Eloquent\Relations;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-<<<<<<< HEAD
-use Illuminate\Database\Query\Expression;
-=======
->>>>>>> dev
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -15,9 +11,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class HasManyThrough extends Relation
 {
     /**
-<<<<<<< HEAD
-     * The distance parent model instance.
-=======
      * The "through" parent model instance.
      *
      * @var \Illuminate\Database\Eloquent\Model
@@ -26,7 +19,6 @@ class HasManyThrough extends Relation
 
     /**
      * The far parent model instance.
->>>>>>> dev
      *
      * @var \Illuminate\Database\Eloquent\Model
      */
@@ -54,8 +46,6 @@ class HasManyThrough extends Relation
     protected $localKey;
 
     /**
-<<<<<<< HEAD
-=======
      * The local key on the intermediary model.
      *
      * @var string
@@ -70,20 +60,10 @@ class HasManyThrough extends Relation
     protected static $selfJoinCount = 0;
 
     /**
->>>>>>> dev
      * Create a new has many through relationship instance.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  \Illuminate\Database\Eloquent\Model  $farParent
-<<<<<<< HEAD
-     * @param  \Illuminate\Database\Eloquent\Model  $parent
-     * @param  string  $firstKey
-     * @param  string  $secondKey
-     * @param  string  $localKey
-     * @return void
-     */
-    public function __construct(Builder $query, Model $farParent, Model $parent, $firstKey, $secondKey, $localKey)
-=======
      * @param  \Illuminate\Database\Eloquent\Model  $throughParent
      * @param  string  $firstKey
      * @param  string  $secondKey
@@ -92,21 +72,15 @@ class HasManyThrough extends Relation
      * @return void
      */
     public function __construct(Builder $query, Model $farParent, Model $throughParent, $firstKey, $secondKey, $localKey, $secondLocalKey)
->>>>>>> dev
     {
         $this->localKey = $localKey;
         $this->firstKey = $firstKey;
         $this->secondKey = $secondKey;
         $this->farParent = $farParent;
-<<<<<<< HEAD
-
-        parent::__construct($query, $parent);
-=======
         $this->throughParent = $throughParent;
         $this->secondLocalKey = $secondLocalKey;
 
         parent::__construct($query, $throughParent);
->>>>>>> dev
     }
 
     /**
@@ -116,76 +90,16 @@ class HasManyThrough extends Relation
      */
     public function addConstraints()
     {
-<<<<<<< HEAD
-        $parentTable = $this->parent->getTable();
-
-        $localValue = $this->farParent[$this->localKey];
-
-        $this->setJoin();
-
-        if (static::$constraints) {
-            $this->query->where($parentTable.'.'.$this->firstKey, '=', $localValue);
-=======
         $localValue = $this->farParent[$this->localKey];
 
         $this->performJoin();
 
         if (static::$constraints) {
             $this->query->where($this->getQualifiedFirstKeyName(), '=', $localValue);
->>>>>>> dev
         }
     }
 
     /**
-<<<<<<< HEAD
-     * Add the constraints for a relationship query.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  \Illuminate\Database\Eloquent\Builder  $parent
-     * @param  array|mixed  $columns
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function getRelationQuery(Builder $query, Builder $parent, $columns = ['*'])
-    {
-        $parentTable = $this->parent->getTable();
-
-        $this->setJoin($query);
-
-        $query->select($columns);
-
-        $key = $this->wrap($parentTable.'.'.$this->firstKey);
-
-        return $query->where($this->getHasCompareKey(), '=', new Expression($key));
-    }
-
-    /**
-     * Set the join clause on the query.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder|null  $query
-     * @return void
-     */
-    protected function setJoin(Builder $query = null)
-    {
-        $query = $query ?: $this->query;
-
-        $foreignKey = $this->related->getTable().'.'.$this->secondKey;
-
-        $query->join($this->parent->getTable(), $this->getQualifiedParentKeyName(), '=', $foreignKey);
-
-        if ($this->parentSoftDeletes()) {
-            $query->whereNull($this->parent->getQualifiedDeletedAtColumn());
-        }
-    }
-
-    /**
-     * Determine whether close parent of the relation uses Soft Deletes.
-     *
-     * @return bool
-     */
-    public function parentSoftDeletes()
-    {
-        return in_array(SoftDeletes::class, class_uses_recursive(get_class($this->parent)));
-=======
      * Set the join clause on the query.
      *
      * @param  \Illuminate\Database\Eloquent\Builder|null  $query
@@ -222,7 +136,6 @@ class HasManyThrough extends Relation
     public function throughParentSoftDeletes()
     {
         return in_array(SoftDeletes::class, class_uses_recursive($this->throughParent));
->>>>>>> dev
     }
 
     /**
@@ -233,17 +146,11 @@ class HasManyThrough extends Relation
      */
     public function addEagerConstraints(array $models)
     {
-<<<<<<< HEAD
-        $table = $this->parent->getTable();
-
-        $this->query->whereIn($table.'.'.$this->firstKey, $this->getKeys($models));
-=======
         $whereIn = $this->whereInMethod($this->farParent, $this->localKey);
 
         $this->query->{$whereIn}(
             $this->getQualifiedFirstKeyName(), $this->getKeys($models, $this->localKey)
         );
->>>>>>> dev
     }
 
     /**
@@ -278,19 +185,10 @@ class HasManyThrough extends Relation
         // link them up with their children using the keyed dictionary to make the
         // matching very convenient and easy work. Then we'll just return them.
         foreach ($models as $model) {
-<<<<<<< HEAD
-            $key = $model->getKey();
-
-            if (isset($dictionary[$key])) {
-                $value = $this->related->newCollection($dictionary[$key]);
-
-                $model->setRelation($relation, $value);
-=======
             if (isset($dictionary[$key = $model->getAttribute($this->localKey)])) {
                 $model->setRelation(
                     $relation, $this->related->newCollection($dictionary[$key])
                 );
->>>>>>> dev
             }
         }
 
@@ -307,35 +205,17 @@ class HasManyThrough extends Relation
     {
         $dictionary = [];
 
-<<<<<<< HEAD
-        $foreign = $this->firstKey;
-
-=======
->>>>>>> dev
         // First we will create a dictionary of models keyed by the foreign key of the
         // relationship as this will allow us to quickly access all of the related
         // models without having to do nested looping which will be quite slow.
         foreach ($results as $result) {
-<<<<<<< HEAD
-            $dictionary[$result->{$foreign}][] = $result;
-=======
             $dictionary[$result->laravel_through_key][] = $result;
->>>>>>> dev
         }
 
         return $dictionary;
     }
 
     /**
-<<<<<<< HEAD
-     * Get the results of the relationship.
-     *
-     * @return mixed
-     */
-    public function getResults()
-    {
-        return $this->get();
-=======
      * Get the first related model record matching the attributes or instantiate it.
      *
      * @param  array  $attributes
@@ -364,7 +244,6 @@ class HasManyThrough extends Relation
         $instance->fill($values)->save();
 
         return $instance;
->>>>>>> dev
     }
 
     /**
@@ -394,11 +273,7 @@ class HasManyThrough extends Relation
             return $model;
         }
 
-<<<<<<< HEAD
-        throw (new ModelNotFoundException)->setModel(get_class($this->parent));
-=======
         throw (new ModelNotFoundException)->setModel(get_class($this->related));
->>>>>>> dev
     }
 
     /**
@@ -414,15 +289,9 @@ class HasManyThrough extends Relation
             return $this->findMany($id, $columns);
         }
 
-<<<<<<< HEAD
-        $this->where($this->getRelated()->getQualifiedKeyName(), '=', $id);
-
-        return $this->first($columns);
-=======
         return $this->where(
             $this->getRelated()->getQualifiedKeyName(), '=', $id
         )->first($columns);
->>>>>>> dev
     }
 
     /**
@@ -438,15 +307,9 @@ class HasManyThrough extends Relation
             return $this->getRelated()->newCollection();
         }
 
-<<<<<<< HEAD
-        $this->whereIn($this->getRelated()->getQualifiedKeyName(), $ids);
-
-        return $this->get($columns);
-=======
         return $this->whereIn(
             $this->getRelated()->getQualifiedKeyName(), $ids
         )->get($columns);
->>>>>>> dev
     }
 
     /**
@@ -463,20 +326,13 @@ class HasManyThrough extends Relation
         $result = $this->find($id, $columns);
 
         if (is_array($id)) {
-<<<<<<< HEAD
-            if (count($result) == count(array_unique($id))) {
-=======
             if (count($result) === count(array_unique($id))) {
->>>>>>> dev
                 return $result;
             }
         } elseif (! is_null($result)) {
             return $result;
         }
 
-<<<<<<< HEAD
-        throw (new ModelNotFoundException)->setModel(get_class($this->parent));
-=======
         throw (new ModelNotFoundException)->setModel(get_class($this->related), $id);
     }
 
@@ -490,7 +346,6 @@ class HasManyThrough extends Relation
         return ! is_null($this->farParent->{$this->localKey})
                 ? $this->get()
                 : $this->related->newCollection();
->>>>>>> dev
     }
 
     /**
@@ -501,22 +356,9 @@ class HasManyThrough extends Relation
      */
     public function get($columns = ['*'])
     {
-<<<<<<< HEAD
-        // First we'll add the proper select columns onto the query so it is run with
-        // the proper columns. Then, we will get the results and hydrate out pivot
-        // models with the result of those columns as a separate model relation.
-        $columns = $this->query->getQuery()->columns ? [] : $columns;
-
-        $select = $this->getSelectColumns($columns);
-
-        $builder = $this->query->applyScopes();
-
-        $models = $builder->addSelect($select)->getModels();
-=======
         $builder = $this->prepareQueryBuilder($columns);
 
         $models = $builder->getModels();
->>>>>>> dev
 
         // If we actually found models we will also eager load any relationships that
         // have been specified as needing to be eager loaded. This will solve the
@@ -529,8 +371,6 @@ class HasManyThrough extends Relation
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Get a paginator for the "select" statement.
      *
      * @param  int  $perPage
@@ -563,66 +403,17 @@ class HasManyThrough extends Relation
     }
 
     /**
->>>>>>> dev
      * Set the select clause for the relation query.
      *
      * @param  array  $columns
      * @return array
      */
-<<<<<<< HEAD
-    protected function getSelectColumns(array $columns = ['*'])
-=======
     protected function shouldSelect(array $columns = ['*'])
->>>>>>> dev
     {
         if ($columns == ['*']) {
             $columns = [$this->related->getTable().'.*'];
         }
 
-<<<<<<< HEAD
-        return array_merge($columns, [$this->parent->getTable().'.'.$this->firstKey]);
-    }
-
-    /**
-     * Get a paginator for the "select" statement.
-     *
-     * @param  int  $perPage
-     * @param  array  $columns
-     * @param  string  $pageName
-     * @param  int  $page
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
-    {
-        $this->query->addSelect($this->getSelectColumns($columns));
-
-        return $this->query->paginate($perPage, $columns, $pageName, $page);
-    }
-
-    /**
-     * Paginate the given query into a simple paginator.
-     *
-     * @param  int  $perPage
-     * @param  array  $columns
-     * @param  string  $pageName
-     * @return \Illuminate\Contracts\Pagination\Paginator
-     */
-    public function simplePaginate($perPage = null, $columns = ['*'], $pageName = 'page')
-    {
-        $this->query->addSelect($this->getSelectColumns($columns));
-
-        return $this->query->simplePaginate($perPage, $columns, $pageName);
-    }
-
-    /**
-     * Get the key for comparing against the parent key in "has" query.
-     *
-     * @return string
-     */
-    public function getHasCompareKey()
-    {
-        return $this->farParent->getQualifiedKeyName();
-=======
         return array_merge($columns, [$this->getQualifiedFirstKeyName().' as laravel_through_key']);
     }
 
@@ -780,7 +571,6 @@ class HasManyThrough extends Relation
     public function getRelationCountHash()
     {
         return 'laravel_reserved_'.static::$selfJoinCount++;
->>>>>>> dev
     }
 
     /**
@@ -788,11 +578,6 @@ class HasManyThrough extends Relation
      *
      * @return string
      */
-<<<<<<< HEAD
-    public function getForeignKey()
-    {
-        return $this->related->getTable().'.'.$this->secondKey;
-=======
     public function getQualifiedFarKeyName()
     {
         return $this->getQualifiedForeignKeyName();
@@ -806,7 +591,6 @@ class HasManyThrough extends Relation
     public function getFirstKeyName()
     {
         return $this->firstKey;
->>>>>>> dev
     }
 
     /**
@@ -814,11 +598,6 @@ class HasManyThrough extends Relation
      *
      * @return string
      */
-<<<<<<< HEAD
-    public function getThroughKey()
-    {
-        return $this->parent->getTable().'.'.$this->firstKey;
-=======
     public function getQualifiedFirstKeyName()
     {
         return $this->throughParent->qualifyColumn($this->firstKey);
@@ -872,6 +651,5 @@ class HasManyThrough extends Relation
     public function getSecondLocalKeyName()
     {
         return $this->secondLocalKey;
->>>>>>> dev
     }
 }

@@ -3,19 +3,13 @@
 namespace Illuminate\Routing;
 
 use Illuminate\Http\RedirectResponse;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Traits\Macroable;
->>>>>>> dev
 use Illuminate\Session\Store as SessionStore;
 
 class Redirector
 {
-<<<<<<< HEAD
-=======
     use Macroable;
 
->>>>>>> dev
     /**
      * The URL generator instance.
      *
@@ -57,22 +51,12 @@ class Redirector
      *
      * @param  int    $status
      * @param  array  $headers
-<<<<<<< HEAD
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function back($status = 302, $headers = [])
-    {
-        $back = $this->generator->previous();
-
-        return $this->createRedirect($back, $status, $headers);
-=======
      * @param  mixed  $fallback
      * @return \Illuminate\Http\RedirectResponse
      */
     public function back($status = 302, $headers = [], $fallback = false)
     {
         return $this->createRedirect($this->generator->previous($fallback), $status, $headers);
->>>>>>> dev
     }
 
     /**
@@ -98,9 +82,6 @@ class Redirector
      */
     public function guest($path, $status = 302, $headers = [], $secure = null)
     {
-<<<<<<< HEAD
-        $this->session->put('url.intended', $this->generator->full());
-=======
         $request = $this->generator->getRequest();
 
         $intended = $request->method() === 'GET' && $request->route() && ! $request->expectsJson()
@@ -110,7 +91,6 @@ class Redirector
         if ($intended) {
             $this->setIntendedUrl($intended);
         }
->>>>>>> dev
 
         return $this->to($path, $status, $headers, $secure);
     }
@@ -132,8 +112,6 @@ class Redirector
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Set the intended url.
      *
      * @param  string  $url
@@ -145,7 +123,6 @@ class Redirector
     }
 
     /**
->>>>>>> dev
      * Create a new redirect response to the given path.
      *
      * @param  string  $path
@@ -156,13 +133,7 @@ class Redirector
      */
     public function to($path, $status = 302, $headers = [], $secure = null)
     {
-<<<<<<< HEAD
-        $path = $this->generator->to($path, [], $secure);
-
-        return $this->createRedirect($path, $status, $headers);
-=======
         return $this->createRedirect($this->generator->to($path, [], $secure), $status, $headers);
->>>>>>> dev
     }
 
     /**
@@ -195,49 +166,28 @@ class Redirector
      * Create a new redirect response to a named route.
      *
      * @param  string  $route
-<<<<<<< HEAD
-     * @param  array   $parameters
-=======
      * @param  mixed   $parameters
->>>>>>> dev
      * @param  int     $status
      * @param  array   $headers
      * @return \Illuminate\Http\RedirectResponse
      */
     public function route($route, $parameters = [], $status = 302, $headers = [])
     {
-<<<<<<< HEAD
-        $path = $this->generator->route($route, $parameters);
-
-        return $this->to($path, $status, $headers);
-=======
         return $this->to($this->generator->route($route, $parameters), $status, $headers);
->>>>>>> dev
     }
 
     /**
      * Create a new redirect response to a controller action.
      *
-<<<<<<< HEAD
-     * @param  string  $action
-     * @param  array   $parameters
-=======
      * @param  string|array  $action
      * @param  mixed   $parameters
->>>>>>> dev
      * @param  int     $status
      * @param  array   $headers
      * @return \Illuminate\Http\RedirectResponse
      */
     public function action($action, $parameters = [], $status = 302, $headers = [])
     {
-<<<<<<< HEAD
-        $path = $this->generator->action($action, $parameters);
-
-        return $this->to($path, $status, $headers);
-=======
         return $this->to($this->generator->action($action, $parameters), $status, $headers);
->>>>>>> dev
     }
 
     /**
@@ -250,17 +200,6 @@ class Redirector
      */
     protected function createRedirect($path, $status, $headers)
     {
-<<<<<<< HEAD
-        $redirect = new RedirectResponse($path, $status, $headers);
-
-        if (isset($this->session)) {
-            $redirect->setSession($this->session);
-        }
-
-        $redirect->setRequest($this->generator->getRequest());
-
-        return $redirect;
-=======
         return tap(new RedirectResponse($path, $status, $headers), function ($redirect) {
             if (isset($this->session)) {
                 $redirect->setSession($this->session);
@@ -268,7 +207,6 @@ class Redirector
 
             $redirect->setRequest($this->generator->getRequest());
         });
->>>>>>> dev
     }
 
     /**

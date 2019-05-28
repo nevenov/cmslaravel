@@ -11,13 +11,6 @@
 
 namespace Symfony\Component\Console\Tests\Tester;
 
-<<<<<<< HEAD
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Output\Output;
-use Symfony\Component\Console\Tester\ApplicationTester;
-
-class ApplicationTesterTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -26,7 +19,6 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Tester\ApplicationTester;
 
 class ApplicationTesterTest extends TestCase
->>>>>>> dev
 {
     protected $application;
     protected $tester;
@@ -37,13 +29,6 @@ class ApplicationTesterTest extends TestCase
         $this->application->setAutoExit(false);
         $this->application->register('foo')
             ->addArgument('foo')
-<<<<<<< HEAD
-            ->setCode(function ($input, $output) { $output->writeln('foo'); })
-        ;
-
-        $this->tester = new ApplicationTester($this->application);
-        $this->tester->run(array('command' => 'foo', 'foo' => 'bar'), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
-=======
             ->setCode(function ($input, $output) {
                 $output->writeln('foo');
             })
@@ -51,7 +36,6 @@ class ApplicationTesterTest extends TestCase
 
         $this->tester = new ApplicationTester($this->application);
         $this->tester->run(['command' => 'foo', 'foo' => 'bar'], ['interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE]);
->>>>>>> dev
     }
 
     protected function tearDown()
@@ -83,8 +67,6 @@ class ApplicationTesterTest extends TestCase
         $this->assertEquals('foo'.PHP_EOL, $this->tester->getDisplay(), '->getDisplay() returns the display of the last execution');
     }
 
-<<<<<<< HEAD
-=======
     public function testSetInputs()
     {
         $application = new Application();
@@ -104,13 +86,10 @@ class ApplicationTesterTest extends TestCase
         $this->assertEquals('Q1Q2Q3', $tester->getDisplay(true));
     }
 
->>>>>>> dev
     public function testGetStatusCode()
     {
         $this->assertSame(0, $this->tester->getStatusCode(), '->getStatusCode() returns the status code');
     }
-<<<<<<< HEAD
-=======
 
     public function testErrorOutput()
     {
@@ -131,5 +110,4 @@ class ApplicationTesterTest extends TestCase
 
         $this->assertSame('foo', $tester->getErrorOutput());
     }
->>>>>>> dev
 }

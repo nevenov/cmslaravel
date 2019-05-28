@@ -9,16 +9,9 @@ interface Dispatcher
      *
      * @param  string|array  $events
      * @param  mixed  $listener
-<<<<<<< HEAD
-     * @param  int  $priority
-     * @return void
-     */
-    public function listen($events, $listener, $priority = 0);
-=======
      * @return void
      */
     public function listen($events, $listener);
->>>>>>> dev
 
     /**
      * Determine if a given event has listeners.
@@ -29,18 +22,6 @@ interface Dispatcher
     public function hasListeners($eventName);
 
     /**
-<<<<<<< HEAD
-     * Register an event and payload to be fired later.
-     *
-     * @param  string  $event
-     * @param  array  $payload
-     * @return void
-     */
-    public function push($event, $payload = []);
-
-    /**
-=======
->>>>>>> dev
      * Register an event subscriber with the dispatcher.
      *
      * @param  object|string  $subscriber
@@ -49,52 +30,22 @@ interface Dispatcher
     public function subscribe($subscriber);
 
     /**
-<<<<<<< HEAD
-     * Fire an event until the first non-null response is returned.
-     *
-     * @param  string  $event
-     * @param  array  $payload
-     * @return mixed
-=======
      * Dispatch an event until the first non-null response is returned.
      *
      * @param  string|object  $event
      * @param  mixed  $payload
      * @return array|null
->>>>>>> dev
      */
     public function until($event, $payload = []);
 
     /**
-<<<<<<< HEAD
-     * Flush a set of pushed events.
-     *
-     * @param  string  $event
-     * @return void
-     */
-    public function flush($event);
-
-    /**
-     * Fire an event and call the listeners.
-=======
      * Dispatch an event and call the listeners.
->>>>>>> dev
      *
      * @param  string|object  $event
      * @param  mixed  $payload
      * @param  bool  $halt
      * @return array|null
      */
-<<<<<<< HEAD
-    public function fire($event, $payload = [], $halt = false);
-
-    /**
-     * Get the event that is currently firing.
-     *
-     * @return string
-     */
-    public function firing();
-=======
     public function dispatch($event, $payload = [], $halt = false);
 
     /**
@@ -113,7 +64,6 @@ interface Dispatcher
      * @return void
      */
     public function flush($event);
->>>>>>> dev
 
     /**
      * Remove a set of listeners from the dispatcher.

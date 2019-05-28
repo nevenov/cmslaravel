@@ -1,21 +1,6 @@
 <?php
 
 /* foo.twig */
-<<<<<<< HEAD
-class __TwigTemplate_VarDumperFixture_u75a09 extends Twig_Template
-{
-    public function __construct(Twig_Environment $env)
-    {
-        parent::__construct($env);
-
-        $this->parent = false;
-
-        $this->blocks = array(
-        );
-    }
-
-    protected function doDisplay(array $context, array $blocks = array())
-=======
 class __TwigTemplate_VarDumperFixture_u75a09 extends Twig\Template
 {
     private $path;
@@ -31,7 +16,6 @@ class __TwigTemplate_VarDumperFixture_u75a09 extends Twig\Template
     }
 
     protected function doDisplay(array $context, array $blocks = [])
->>>>>>> dev
     {
         // line 2
         throw new \Exception('Foobar');
@@ -44,14 +28,6 @@ class __TwigTemplate_VarDumperFixture_u75a09 extends Twig\Template
 
     public function getDebugInfo()
     {
-<<<<<<< HEAD
-        return array (19 => 2);
-    }
-}
-/*   foo bar*/
-/*     twig source*/
-/* */
-=======
         return [20 => 1, 21 => 2];
     }
 
@@ -60,4 +36,3 @@ class __TwigTemplate_VarDumperFixture_u75a09 extends Twig\Template
         return new Twig\Source("   foo bar\n     twig source\n\n", 'foo.twig', $this->path ?: __FILE__);
     }
 }
->>>>>>> dev

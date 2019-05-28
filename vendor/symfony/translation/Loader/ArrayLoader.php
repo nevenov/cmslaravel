@@ -36,11 +36,7 @@ class ArrayLoader implements LoaderInterface
      * Flattens an nested array of translations.
      *
      * The scheme used is:
-<<<<<<< HEAD
-     *   'key' => array('key2' => array('key3' => 'value'))
-=======
      *   'key' => ['key2' => ['key3' => 'value']]
->>>>>>> dev
      * Becomes:
      *   'key.key2.key3' => 'value'
      *
@@ -56,11 +52,7 @@ class ArrayLoader implements LoaderInterface
             $subnode = &$messages;
         }
         foreach ($subnode as $key => $value) {
-<<<<<<< HEAD
-            if (is_array($value)) {
-=======
             if (\is_array($value)) {
->>>>>>> dev
                 $nodePath = $path ? $path.'.'.$key : $key;
                 $this->flatten($messages, $value, $nodePath);
                 if (null === $path) {

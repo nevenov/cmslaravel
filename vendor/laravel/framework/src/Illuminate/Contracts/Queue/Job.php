@@ -5,8 +5,6 @@ namespace Illuminate\Contracts\Queue;
 interface Job
 {
     /**
-<<<<<<< HEAD
-=======
      * Get the job identifier.
      *
      * @return string
@@ -21,7 +19,6 @@ interface Job
     public function payload();
 
     /**
->>>>>>> dev
      * Fire the job.
      *
      * @return void
@@ -29,28 +26,6 @@ interface Job
     public function fire();
 
     /**
-<<<<<<< HEAD
-     * Delete the job from the queue.
-     *
-     * @return void
-     */
-    public function delete();
-
-    /**
-     * Determine if the job has been deleted.
-     *
-     * @return bool
-     */
-    public function isDeleted();
-
-    /**
-     * Release the job back into the queue.
-     *
-     * @param  int   $delay
-     * @return void
-     */
-    public function release($delay = 0);
-=======
      * Release the job back into the queue.
      *
      * Accepts a delay specified in seconds.
@@ -80,7 +55,6 @@ interface Job
      * @return bool
      */
     public function isDeleted();
->>>>>>> dev
 
     /**
      * Determine if the job has been deleted or released.
@@ -97,8 +71,6 @@ interface Job
     public function attempts();
 
     /**
-<<<<<<< HEAD
-=======
      * Determine if the job has been marked as a failure.
      *
      * @return bool
@@ -142,7 +114,6 @@ interface Job
     public function timeoutAt();
 
     /**
->>>>>>> dev
      * Get the name of the queued job class.
      *
      * @return string
@@ -150,13 +121,6 @@ interface Job
     public function getName();
 
     /**
-<<<<<<< HEAD
-     * Call the failed method on the job instance.
-     *
-     * @return void
-     */
-    public function failed();
-=======
      * Get the resolved name of the queued job class.
      *
      * Resolves the name of "wrapped" jobs such as class-based handlers.
@@ -171,7 +135,6 @@ interface Job
      * @return string
      */
     public function getConnectionName();
->>>>>>> dev
 
     /**
      * Get the name of the queue the job belongs to.
@@ -180,19 +143,10 @@ interface Job
      */
     public function getQueue();
 
-<<<<<<< HEAD
-     /**
-      * Get the raw body string for the job.
-      *
-      * @return string
-      */
-     public function getRawBody();
-=======
     /**
      * Get the raw body string for the job.
      *
      * @return string
      */
     public function getRawBody();
->>>>>>> dev
 }

@@ -2,11 +2,8 @@
 
 namespace Illuminate\Foundation\Testing;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Contracts\Console\Kernel;
 
->>>>>>> dev
 trait DatabaseMigrations
 {
     /**
@@ -16,12 +13,6 @@ trait DatabaseMigrations
      */
     public function runDatabaseMigrations()
     {
-<<<<<<< HEAD
-        $this->artisan('migrate');
-
-        $this->beforeApplicationDestroyed(function () {
-            $this->artisan('migrate:rollback');
-=======
         $this->artisan('migrate:fresh');
 
         $this->app[Kernel::class]->setArtisan(null);
@@ -30,7 +21,6 @@ trait DatabaseMigrations
             $this->artisan('migrate:rollback');
 
             RefreshDatabaseState::$migrated = false;
->>>>>>> dev
         });
     }
 }

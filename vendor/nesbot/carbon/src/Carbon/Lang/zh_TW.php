@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,12 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-    'year' => ':count年',
-    'y' => ':count年',
-    'month' => ':count月',
-=======
 /**
  * Authors:
  * - Adam
@@ -38,7 +28,6 @@ return [
     'year' => ':count年',
     'y' => ':count年',
     'month' => ':count個月',
->>>>>>> dev
     'm' => ':count月',
     'week' => ':count週',
     'w' => ':count週',
@@ -49,14 +38,6 @@ return [
     'minute' => ':count分鐘',
     'min' => ':count分鐘',
     'second' => ':count秒',
-<<<<<<< HEAD
-    's' => ':count秒',
-    'ago' => ':time前',
-    'from_now' => '距現在:time',
-    'after' => ':time後',
-    'before' => ':time前',
-);
-=======
     'a_second' => '{1}幾秒|]1,Inf[:count秒',
     's' => ':count秒',
     'ago' => ':time前',
@@ -125,4 +106,3 @@ return [
     'day_of_first_week_of_year' => 4,
     'list' => '',
 ];
->>>>>>> dev

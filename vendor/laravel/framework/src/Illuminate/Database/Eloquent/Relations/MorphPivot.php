@@ -2,10 +2,7 @@
 
 namespace Illuminate\Database\Eloquent\Relations;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Str;
->>>>>>> dev
 use Illuminate\Database\Eloquent\Builder;
 
 class MorphPivot extends Pivot
@@ -80,8 +77,6 @@ class MorphPivot extends Pivot
 
         return $this;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get the queueable identity for the entity.
@@ -152,5 +147,4 @@ class MorphPivot extends Pivot
 
         return $query;
     }
->>>>>>> dev
 }

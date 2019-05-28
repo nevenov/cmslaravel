@@ -34,16 +34,6 @@ class ModelMakeCommand extends GeneratorCommand
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-    {
-        if (parent::fire() !== false) {
-            if ($this->option('migration')) {
-                $table = Str::plural(Str::snake(class_basename($this->argument('name'))));
-
-                $this->call('make:migration', ['name' => "create_{$table}_table", '--create' => $table]);
-            }
-=======
     public function handle()
     {
         if (parent::handle() === false && ! $this->option('force')) {
@@ -67,31 +57,10 @@ class ModelMakeCommand extends GeneratorCommand
 
         if ($this->option('controller') || $this->option('resource')) {
             $this->createController();
->>>>>>> dev
         }
     }
 
     /**
-<<<<<<< HEAD
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return __DIR__.'/stubs/model.stub';
-    }
-
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string  $rootNamespace
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace;
-=======
      * Create a model factory for the model.
      *
      * @return void
@@ -154,7 +123,6 @@ class ModelMakeCommand extends GeneratorCommand
         }
 
         return __DIR__.'/stubs/model.stub';
->>>>>>> dev
     }
 
     /**
@@ -165,9 +133,6 @@ class ModelMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
-<<<<<<< HEAD
-            ['migration', 'm', InputOption::VALUE_NONE, 'Create a new migration file for the model.'],
-=======
             ['all', 'a', InputOption::VALUE_NONE, 'Generate a migration, factory, and resource controller for the model'],
 
             ['controller', 'c', InputOption::VALUE_NONE, 'Create a new controller for the model'],
@@ -181,7 +146,6 @@ class ModelMakeCommand extends GeneratorCommand
             ['pivot', 'p', InputOption::VALUE_NONE, 'Indicates if the generated model should be a custom intermediate table model'],
 
             ['resource', 'r', InputOption::VALUE_NONE, 'Indicates if the generated controller should be a resource controller'],
->>>>>>> dev
         ];
     }
 }

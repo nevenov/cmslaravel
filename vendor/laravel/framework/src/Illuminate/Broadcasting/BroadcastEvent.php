@@ -4,20 +4,6 @@ namespace Illuminate\Broadcasting;
 
 use ReflectionClass;
 use ReflectionProperty;
-<<<<<<< HEAD
-use Illuminate\Contracts\Queue\Job;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Broadcasting\Broadcaster;
-
-class BroadcastEvent
-{
-    /**
-     * The broadcaster implementation.
-     *
-     * @var \Illuminate\Contracts\Broadcasting\Broadcaster
-     */
-    protected $broadcaster;
-=======
 use Illuminate\Support\Arr;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,49 +20,21 @@ class BroadcastEvent implements ShouldQueue
      * @var mixed
      */
     public $event;
->>>>>>> dev
 
     /**
      * Create a new job handler instance.
      *
-<<<<<<< HEAD
-     * @param  \Illuminate\Contracts\Broadcasting\Broadcaster  $broadcaster
-     * @return void
-     */
-    public function __construct(Broadcaster $broadcaster)
-    {
-        $this->broadcaster = $broadcaster;
-=======
      * @param  mixed  $event
      * @return void
      */
     public function __construct($event)
     {
         $this->event = $event;
->>>>>>> dev
     }
 
     /**
      * Handle the queued job.
      *
-<<<<<<< HEAD
-     * @param  \Illuminate\Contracts\Queue\Job  $job
-     * @param  array  $data
-     * @return void
-     */
-    public function fire(Job $job, array $data)
-    {
-        $event = unserialize($data['event']);
-
-        $name = method_exists($event, 'broadcastAs')
-                ? $event->broadcastAs() : get_class($event);
-
-        $this->broadcaster->broadcast(
-            $event->broadcastOn(), $name, $this->getPayloadFromEvent($event)
-        );
-
-        $job->delete();
-=======
      * @param  \Illuminate\Contracts\Broadcasting\Broadcaster  $broadcaster
      * @return void
      */
@@ -89,7 +47,6 @@ class BroadcastEvent implements ShouldQueue
             Arr::wrap($this->event->broadcastOn()), $name,
             $this->getPayloadFromEvent($this->event)
         );
->>>>>>> dev
     }
 
     /**
@@ -101,13 +58,9 @@ class BroadcastEvent implements ShouldQueue
     protected function getPayloadFromEvent($event)
     {
         if (method_exists($event, 'broadcastWith')) {
-<<<<<<< HEAD
-            return $event->broadcastWith();
-=======
             return array_merge(
                 $event->broadcastWith(), ['socket' => data_get($event, 'socket')]
             );
->>>>>>> dev
         }
 
         $payload = [];
@@ -116,11 +69,8 @@ class BroadcastEvent implements ShouldQueue
             $payload[$property->getName()] = $this->formatProperty($property->getValue($event));
         }
 
-<<<<<<< HEAD
-=======
         unset($payload['broadcastQueue']);
 
->>>>>>> dev
         return $payload;
     }
 
@@ -138,8 +88,6 @@ class BroadcastEvent implements ShouldQueue
 
         return $value;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get the display name for the queued job.
@@ -160,5 +108,4 @@ class BroadcastEvent implements ShouldQueue
     {
         $this->event = clone $this->event;
     }
->>>>>>> dev
 }

@@ -11,13 +11,8 @@
 
 namespace Symfony\Component\Finder\Tests\Iterator;
 
-<<<<<<< HEAD
-use Symfony\Component\Finder\Iterator\DateRangeFilterIterator;
-use Symfony\Component\Finder\Comparator\DateComparator;
-=======
 use Symfony\Component\Finder\Comparator\DateComparator;
 use Symfony\Component\Finder\Iterator\DateRangeFilterIterator;
->>>>>>> dev
 
 class DateRangeFilterIteratorTest extends RealIteratorTestCase
 {
@@ -37,11 +32,7 @@ class DateRangeFilterIteratorTest extends RealIteratorTestCase
 
     public function getAcceptData()
     {
-<<<<<<< HEAD
-        $since20YearsAgo = array(
-=======
         $since20YearsAgo = [
->>>>>>> dev
             '.git',
             'test.py',
             'foo',
@@ -54,11 +45,6 @@ class DateRangeFilterIteratorTest extends RealIteratorTestCase
             '.foo/.bar',
             'foo bar',
             '.foo/bar',
-<<<<<<< HEAD
-        );
-
-        $since2MonthsAgo = array(
-=======
             'qux',
             'qux/baz_100_1.py',
             'qux/baz_1_2.py',
@@ -71,7 +57,6 @@ class DateRangeFilterIteratorTest extends RealIteratorTestCase
         ];
 
         $since2MonthsAgo = [
->>>>>>> dev
             '.git',
             'test.py',
             'foo',
@@ -82,20 +67,6 @@ class DateRangeFilterIteratorTest extends RealIteratorTestCase
             '.foo/.bar',
             'foo bar',
             '.foo/bar',
-<<<<<<< HEAD
-        );
-
-        $untilLastMonth = array(
-            'foo/bar.tmp',
-            'test.php',
-        );
-
-        return array(
-            array(array(new DateComparator('since 20 years ago')), $this->toAbsolute($since20YearsAgo)),
-            array(array(new DateComparator('since 2 months ago')), $this->toAbsolute($since2MonthsAgo)),
-            array(array(new DateComparator('until last month')), $this->toAbsolute($untilLastMonth)),
-        );
-=======
             'qux',
             'qux/baz_100_1.py',
             'qux/baz_1_2.py',
@@ -117,6 +88,5 @@ class DateRangeFilterIteratorTest extends RealIteratorTestCase
             [[new DateComparator('since 2 months ago')], $this->toAbsolute($since2MonthsAgo)],
             [[new DateComparator('until last month')], $this->toAbsolute($untilLastMonth)],
         ];
->>>>>>> dev
     }
 }

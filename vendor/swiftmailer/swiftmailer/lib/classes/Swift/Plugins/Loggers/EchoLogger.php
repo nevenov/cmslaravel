@@ -16,11 +16,7 @@
 class Swift_Plugins_Loggers_EchoLogger implements Swift_Plugins_Logger
 {
     /** Whether or not HTML should be output */
-<<<<<<< HEAD
-    private $_isHtml;
-=======
     private $isHtml;
->>>>>>> dev
 
     /**
      * Create a new EchoLogger.
@@ -29,11 +25,7 @@ class Swift_Plugins_Loggers_EchoLogger implements Swift_Plugins_Logger
      */
     public function __construct($isHtml = true)
     {
-<<<<<<< HEAD
-        $this->_isHtml = $isHtml;
-=======
         $this->isHtml = $isHtml;
->>>>>>> dev
     }
 
     /**
@@ -43,11 +35,7 @@ class Swift_Plugins_Loggers_EchoLogger implements Swift_Plugins_Logger
      */
     public function add($entry)
     {
-<<<<<<< HEAD
-        if ($this->_isHtml) {
-=======
         if ($this->isHtml) {
->>>>>>> dev
             printf('%s%s%s', htmlspecialchars($entry, ENT_QUOTES), '<br />', PHP_EOL);
         } else {
             printf('%s%s', $entry, PHP_EOL);

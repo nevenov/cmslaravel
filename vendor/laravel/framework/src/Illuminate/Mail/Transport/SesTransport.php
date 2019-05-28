@@ -3,11 +3,7 @@
 namespace Illuminate\Mail\Transport;
 
 use Aws\Ses\SesClient;
-<<<<<<< HEAD
-use Swift_Mime_Message;
-=======
 use Swift_Mime_SimpleMessage;
->>>>>>> dev
 
 class SesTransport extends Transport
 {
@@ -19,16 +15,6 @@ class SesTransport extends Transport
     protected $ses;
 
     /**
-<<<<<<< HEAD
-     * Create a new SES transport instance.
-     *
-     * @param  \Aws\Ses\SesClient  $ses
-     * @return void
-     */
-    public function __construct(SesClient $ses)
-    {
-        $this->ses = $ses;
-=======
      * The Amazon SES transmission options.
      *
      * @var array
@@ -46,24 +32,11 @@ class SesTransport extends Transport
     {
         $this->ses = $ses;
         $this->options = $options;
->>>>>>> dev
     }
 
     /**
      * {@inheritdoc}
      */
-<<<<<<< HEAD
-    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
-    {
-        $this->beforeSendPerformed($message);
-
-        return $this->ses->sendRawEmail([
-            'Source' => key($message->getSender() ?: $message->getFrom()),
-            'RawMessage' => [
-                'Data' => $message->toString(),
-            ],
-        ]);
-=======
     public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
     {
         $this->beforeSendPerformed($message);
@@ -115,6 +88,5 @@ class SesTransport extends Transport
     public function setOptions(array $options)
     {
         return $this->options = $options;
->>>>>>> dev
     }
 }

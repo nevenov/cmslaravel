@@ -7,11 +7,6 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Contracts\Encryption\Encrypter as EncrypterContract;
 
-<<<<<<< HEAD
-class Encrypter extends BaseEncrypter implements EncrypterContract
-{
-    /**
-=======
 class Encrypter implements EncrypterContract
 {
     /**
@@ -22,7 +17,6 @@ class Encrypter implements EncrypterContract
     protected $key;
 
     /**
->>>>>>> dev
      * The algorithm used for encryption.
      *
      * @var string
@@ -61,9 +55,6 @@ class Encrypter implements EncrypterContract
     {
         $length = mb_strlen($key, '8bit');
 
-<<<<<<< HEAD
-        return ($cipher === 'AES-128-CBC' && $length === 16) || ($cipher === 'AES-256-CBC' && $length === 32);
-=======
         return ($cipher === 'AES-128-CBC' && $length === 16) ||
                ($cipher === 'AES-256-CBC' && $length === 32);
     }
@@ -77,29 +68,17 @@ class Encrypter implements EncrypterContract
     public static function generateKey($cipher)
     {
         return random_bytes($cipher === 'AES-128-CBC' ? 16 : 32);
->>>>>>> dev
     }
 
     /**
      * Encrypt the given value.
      *
-<<<<<<< HEAD
-     * @param  string  $value
-=======
      * @param  mixed  $value
      * @param  bool  $serialize
->>>>>>> dev
      * @return string
      *
      * @throws \Illuminate\Contracts\Encryption\EncryptException
      */
-<<<<<<< HEAD
-    public function encrypt($value)
-    {
-        $iv = random_bytes($this->getIvSize());
-
-        $value = \openssl_encrypt(serialize($value), $this->cipher, $this->key, 0, $iv);
-=======
     public function encrypt($value, $serialize = true)
     {
         $iv = random_bytes(openssl_cipher_iv_length($this->cipher));
@@ -111,30 +90,19 @@ class Encrypter implements EncrypterContract
             $serialize ? serialize($value) : $value,
             $this->cipher, $this->key, 0, $iv
         );
->>>>>>> dev
 
         if ($value === false) {
             throw new EncryptException('Could not encrypt the data.');
         }
 
-<<<<<<< HEAD
-        // Once we have the encrypted value we will go ahead base64_encode the input
-        // vector and create the MAC for the encrypted value so we can verify its
-        // authenticity. Then, we'll JSON encode the data in a "payload" array.
-=======
         // Once we get the encrypted value we'll go ahead and base64_encode the input
         // vector and create the MAC for the encrypted value so we can then verify
         // its authenticity. Then, we'll JSON the data into the "payload" array.
->>>>>>> dev
         $mac = $this->hash($iv = base64_encode($iv), $value);
 
         $json = json_encode(compact('iv', 'value', 'mac'));
 
-<<<<<<< HEAD
-        if (! is_string($json)) {
-=======
         if (json_last_error() !== JSON_ERROR_NONE) {
->>>>>>> dev
             throw new EncryptException('Could not encrypt the data.');
         }
 
@@ -142,16 +110,6 @@ class Encrypter implements EncrypterContract
     }
 
     /**
-<<<<<<< HEAD
-     * Decrypt the given value.
-     *
-     * @param  string  $payload
-     * @return string
-     *
-     * @throws \Illuminate\Contracts\Encryption\DecryptException
-     */
-    public function decrypt($payload)
-=======
      * Encrypt a string without serialization.
      *
      * @param  string  $value
@@ -174,40 +132,22 @@ class Encrypter implements EncrypterContract
      * @throws \Illuminate\Contracts\Encryption\DecryptException
      */
     public function decrypt($payload, $unserialize = true)
->>>>>>> dev
     {
         $payload = $this->getJsonPayload($payload);
 
         $iv = base64_decode($payload['iv']);
 
-<<<<<<< HEAD
-        $decrypted = \openssl_decrypt($payload['value'], $this->cipher, $this->key, 0, $iv);
-=======
         // Here we will decrypt the value. If we are able to successfully decrypt it
         // we will then unserialize it and return it out to the caller. If we are
         // unable to decrypt this value we will throw out an exception message.
         $decrypted = \openssl_decrypt(
             $payload['value'], $this->cipher, $this->key, 0, $iv
         );
->>>>>>> dev
 
         if ($decrypted === false) {
             throw new DecryptException('Could not decrypt the data.');
         }
 
-<<<<<<< HEAD
-        return unserialize($decrypted);
-    }
-
-    /**
-     * Get the IV size for the cipher.
-     *
-     * @return int
-     */
-    protected function getIvSize()
-    {
-        return 16;
-=======
         return $unserialize ? unserialize($decrypted) : $decrypted;
     }
 
@@ -311,6 +251,5 @@ class Encrypter implements EncrypterContract
     public function getKey()
     {
         return $this->key;
->>>>>>> dev
     }
 }

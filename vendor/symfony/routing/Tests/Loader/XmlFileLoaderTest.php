@@ -11,27 +11,16 @@
 
 namespace Symfony\Component\Routing\Tests\Loader;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\XmlFileLoader;
 use Symfony\Component\Routing\Tests\Fixtures\CustomXmlFileLoader;
 
-<<<<<<< HEAD
-class XmlFileLoaderTest extends \PHPUnit_Framework_TestCase
-{
-    public function testSupports()
-    {
-        $loader = new XmlFileLoader($this->getMock('Symfony\Component\Config\FileLocator'));
-=======
 class XmlFileLoaderTest extends TestCase
 {
     public function testSupports()
     {
         $loader = new XmlFileLoader($this->getMockBuilder('Symfony\Component\Config\FileLocator')->getMock());
->>>>>>> dev
 
         $this->assertTrue($loader->supports('foo.xml'), '->supports() returns true if the resource is loadable');
         $this->assertFalse($loader->supports('foo.foo'), '->supports() returns true if the resource is loadable');
@@ -42,11 +31,7 @@ class XmlFileLoaderTest extends TestCase
 
     public function testLoadWithRoute()
     {
-<<<<<<< HEAD
-        $loader = new XmlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-=======
         $loader = new XmlFileLoader(new FileLocator([__DIR__.'/../Fixtures']));
->>>>>>> dev
         $routeCollection = $loader->load('validpattern.xml');
         $route = $routeCollection->get('blog_show');
 
@@ -56,23 +41,14 @@ class XmlFileLoaderTest extends TestCase
         $this->assertSame('MyBundle:Blog:show', $route->getDefault('_controller'));
         $this->assertSame('\w+', $route->getRequirement('locale'));
         $this->assertSame('RouteCompiler', $route->getOption('compiler_class'));
-<<<<<<< HEAD
-        $this->assertEquals(array('GET', 'POST', 'PUT', 'OPTIONS'), $route->getMethods());
-        $this->assertEquals(array('https'), $route->getSchemes());
-=======
         $this->assertEquals(['GET', 'POST', 'PUT', 'OPTIONS'], $route->getMethods());
         $this->assertEquals(['https'], $route->getSchemes());
->>>>>>> dev
         $this->assertEquals('context.getMethod() == "GET"', $route->getCondition());
     }
 
     public function testLoadWithNamespacePrefix()
     {
-<<<<<<< HEAD
-        $loader = new XmlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-=======
         $loader = new XmlFileLoader(new FileLocator([__DIR__.'/../Fixtures']));
->>>>>>> dev
         $routeCollection = $loader->load('namespaceprefix.xml');
 
         $this->assertCount(1, $routeCollection->all(), 'One route is loaded');
@@ -85,19 +61,12 @@ class XmlFileLoaderTest extends TestCase
         $this->assertSame('en|fr|de', $route->getRequirement('_locale'));
         $this->assertNull($route->getDefault('slug'));
         $this->assertSame('RouteCompiler', $route->getOption('compiler_class'));
-<<<<<<< HEAD
-=======
         $this->assertSame(1, $route->getDefault('page'));
->>>>>>> dev
     }
 
     public function testLoadWithImport()
     {
-<<<<<<< HEAD
-        $loader = new XmlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-=======
         $loader = new XmlFileLoader(new FileLocator([__DIR__.'/../Fixtures']));
->>>>>>> dev
         $routeCollection = $loader->load('validresource.xml');
         $routes = $routeCollection->all();
 
@@ -114,8 +83,6 @@ class XmlFileLoaderTest extends TestCase
         }
     }
 
-<<<<<<< HEAD
-=======
     public function testUtf8Route()
     {
         $loader = new XmlFileLoader(new FileLocator([__DIR__.'/../Fixtures/localized']));
@@ -175,18 +142,13 @@ class XmlFileLoaderTest extends TestCase
         $this->assertEquals('/the-prefix/suffix', $routeCollection->get('imported.en')->getPath());
     }
 
->>>>>>> dev
     /**
      * @expectedException \InvalidArgumentException
      * @dataProvider getPathsToInvalidFiles
      */
     public function testLoadThrowsExceptionWithInvalidFile($filePath)
     {
-<<<<<<< HEAD
-        $loader = new XmlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-=======
         $loader = new XmlFileLoader(new FileLocator([__DIR__.'/../Fixtures']));
->>>>>>> dev
         $loader->load($filePath);
     }
 
@@ -196,21 +158,13 @@ class XmlFileLoaderTest extends TestCase
      */
     public function testLoadThrowsExceptionWithInvalidFileEvenWithoutSchemaValidation($filePath)
     {
-<<<<<<< HEAD
-        $loader = new CustomXmlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-=======
         $loader = new CustomXmlFileLoader(new FileLocator([__DIR__.'/../Fixtures']));
->>>>>>> dev
         $loader->load($filePath);
     }
 
     public function getPathsToInvalidFiles()
     {
-<<<<<<< HEAD
-        return array(array('nonvalidnode.xml'), array('nonvalidroute.xml'), array('nonvalid.xml'), array('missing_id.xml'), array('missing_path.xml'));
-=======
         return [['nonvalidnode.xml'], ['nonvalidroute.xml'], ['nonvalid.xml'], ['missing_id.xml'], ['missing_path.xml']];
->>>>>>> dev
     }
 
     /**
@@ -219,21 +173,13 @@ class XmlFileLoaderTest extends TestCase
      */
     public function testDocTypeIsNotAllowed()
     {
-<<<<<<< HEAD
-        $loader = new XmlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-=======
         $loader = new XmlFileLoader(new FileLocator([__DIR__.'/../Fixtures']));
->>>>>>> dev
         $loader->load('withdoctype.xml');
     }
 
     public function testNullValues()
     {
-<<<<<<< HEAD
-        $loader = new XmlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-=======
         $loader = new XmlFileLoader(new FileLocator([__DIR__.'/../Fixtures']));
->>>>>>> dev
         $routeCollection = $loader->load('null_values.xml');
         $route = $routeCollection->get('blog_show');
 
@@ -244,8 +190,6 @@ class XmlFileLoaderTest extends TestCase
         $this->assertEquals('foo', $route->getDefault('foobar'));
         $this->assertEquals('bar', $route->getDefault('baz'));
     }
-<<<<<<< HEAD
-=======
 
     public function testScalarDataTypeDefaults()
     {
@@ -517,5 +461,4 @@ class XmlFileLoaderTest extends TestCase
         $this->assertEquals('/slash/', $routeCollection->get('a_app_homepage')->getPath());
         $this->assertEquals('/no-slash', $routeCollection->get('b_app_homepage')->getPath());
     }
->>>>>>> dev
 }

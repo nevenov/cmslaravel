@@ -1,11 +1,7 @@
 <?php
-<<<<<<< HEAD
-class DependencyFailureTest extends PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 
 class DependencyFailureTest extends TestCase
->>>>>>> dev
 {
     public function testOne()
     {
@@ -17,15 +13,6 @@ class DependencyFailureTest extends TestCase
      */
     public function testTwo()
     {
-<<<<<<< HEAD
-    }
-
-    /**
-     * @depends testTwo
-     */
-    public function testThree()
-    {
-=======
         $this->assertTrue(true);
     }
 
@@ -43,6 +30,5 @@ class DependencyFailureTest extends TestCase
     public function testFour()
     {
         $this->assertTrue(true);
->>>>>>> dev
     }
 }

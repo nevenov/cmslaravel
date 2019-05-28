@@ -7,15 +7,9 @@ use ArrayAccess;
 use JsonSerializable;
 use IteratorAggregate;
 use Illuminate\Support\Collection;
-<<<<<<< HEAD
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Pagination\Presenter;
-=======
 use Illuminate\Support\HtmlString;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
->>>>>>> dev
 use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginatorContract;
 
 class LengthAwarePaginator extends AbstractPaginator implements Arrayable, ArrayAccess, Countable, IteratorAggregate, JsonSerializable, Jsonable, LengthAwarePaginatorContract
@@ -46,26 +40,17 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
      */
     public function __construct($items, $total, $perPage, $currentPage = null, array $options = [])
     {
-<<<<<<< HEAD
-=======
         $this->options = $options;
 
->>>>>>> dev
         foreach ($options as $key => $value) {
             $this->{$key} = $value;
         }
 
         $this->total = $total;
         $this->perPage = $perPage;
-<<<<<<< HEAD
-        $this->lastPage = (int) ceil($total / $perPage);
-        $this->path = $this->path != '/' ? rtrim($this->path, '/') : $this->path;
-        $this->currentPage = $this->setCurrentPage($currentPage, $this->lastPage);
-=======
         $this->lastPage = max((int) ceil($total / $perPage), 1);
         $this->path = $this->path !== '/' ? rtrim($this->path, '/') : $this->path;
         $this->currentPage = $this->setCurrentPage($currentPage, $this->pageName);
->>>>>>> dev
         $this->items = $items instanceof Collection ? $items : Collection::make($items);
     }
 
@@ -73,47 +58,17 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
      * Get the current page for the request.
      *
      * @param  int  $currentPage
-<<<<<<< HEAD
-     * @param  int  $lastPage
-     * @return int
-     */
-    protected function setCurrentPage($currentPage, $lastPage)
-    {
-        $currentPage = $currentPage ?: static::resolveCurrentPage();
-=======
      * @param  string  $pageName
      * @return int
      */
     protected function setCurrentPage($currentPage, $pageName)
     {
         $currentPage = $currentPage ?: static::resolveCurrentPage($pageName);
->>>>>>> dev
 
         return $this->isValidPageNumber($currentPage) ? (int) $currentPage : 1;
     }
 
     /**
-<<<<<<< HEAD
-     * Get the URL for the next page.
-     *
-     * @return string|null
-     */
-    public function nextPageUrl()
-    {
-        if ($this->lastPage() > $this->currentPage()) {
-            return $this->url($this->currentPage() + 1);
-        }
-    }
-
-    /**
-     * Determine if there are more items in the data source.
-     *
-     * @return bool
-     */
-    public function hasMorePages()
-    {
-        return $this->currentPage() < $this->lastPage();
-=======
      * Render the paginator using the given view.
      *
      * @param  string|null  $view
@@ -156,7 +111,6 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
             is_array($window['last']) ? '...' : null,
             $window['last'],
         ]);
->>>>>>> dev
     }
 
     /**
@@ -170,43 +124,6 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     }
 
     /**
-<<<<<<< HEAD
-     * Get the last page.
-     *
-     * @return int
-     */
-    public function lastPage()
-    {
-        return $this->lastPage;
-    }
-
-    /**
-     * Render the paginator using the given presenter.
-     *
-     * @param  \Illuminate\Contracts\Pagination\Presenter|null  $presenter
-     * @return string
-     */
-    public function links(Presenter $presenter = null)
-    {
-        return $this->render($presenter);
-    }
-
-    /**
-     * Render the paginator using the given presenter.
-     *
-     * @param  \Illuminate\Contracts\Pagination\Presenter|null  $presenter
-     * @return string
-     */
-    public function render(Presenter $presenter = null)
-    {
-        if (is_null($presenter) && static::$presenterResolver) {
-            $presenter = call_user_func(static::$presenterResolver, $this);
-        }
-
-        $presenter = $presenter ?: new BootstrapThreePresenter($this);
-
-        return $presenter->render();
-=======
      * Determine if there are more items in the data source.
      *
      * @return bool
@@ -236,7 +153,6 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     public function lastPage()
     {
         return $this->lastPage;
->>>>>>> dev
     }
 
     /**
@@ -247,17 +163,6 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     public function toArray()
     {
         return [
-<<<<<<< HEAD
-            'total'         => $this->total(),
-            'per_page'      => $this->perPage(),
-            'current_page'  => $this->currentPage(),
-            'last_page'     => $this->lastPage(),
-            'next_page_url' => $this->nextPageUrl(),
-            'prev_page_url' => $this->previousPageUrl(),
-            'from'          => $this->firstItem(),
-            'to'            => $this->lastItem(),
-            'data'          => $this->items->toArray(),
-=======
             'current_page' => $this->currentPage(),
             'data' => $this->items->toArray(),
             'first_page_url' => $this->url(1),
@@ -270,7 +175,6 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
             'prev_page_url' => $this->previousPageUrl(),
             'to' => $this->lastItem(),
             'total' => $this->total(),
->>>>>>> dev
         ];
     }
 

@@ -31,22 +31,6 @@ class InputArgument
     private $description;
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-     * @param string $name        The argument name
-     * @param int    $mode        The argument mode: self::REQUIRED or self::OPTIONAL
-     * @param string $description A description text
-     * @param mixed  $default     The default value (for self::OPTIONAL mode only)
-     *
-     * @throws InvalidArgumentException When argument mode is not valid
-     */
-    public function __construct($name, $mode = null, $description = '', $default = null)
-    {
-        if (null === $mode) {
-            $mode = self::OPTIONAL;
-        } elseif (!is_int($mode) || $mode > 7 || $mode < 1) {
-=======
      * @param string               $name        The argument name
      * @param int|null             $mode        The argument mode: self::REQUIRED or self::OPTIONAL
      * @param string               $description A description text
@@ -59,7 +43,6 @@ class InputArgument
         if (null === $mode) {
             $mode = self::OPTIONAL;
         } elseif ($mode > 7 || $mode < 1) {
->>>>>>> dev
             throw new InvalidArgumentException(sprintf('Argument mode "%s" is not valid.', $mode));
         }
 
@@ -103,11 +86,7 @@ class InputArgument
     /**
      * Sets the default value.
      *
-<<<<<<< HEAD
-     * @param mixed $default The default value
-=======
      * @param string|string[]|null $default The default value
->>>>>>> dev
      *
      * @throws LogicException When incorrect default value is given
      */
@@ -119,13 +98,8 @@ class InputArgument
 
         if ($this->isArray()) {
             if (null === $default) {
-<<<<<<< HEAD
-                $default = array();
-            } elseif (!is_array($default)) {
-=======
                 $default = [];
             } elseif (!\is_array($default)) {
->>>>>>> dev
                 throw new LogicException('A default value for an array argument must be an array.');
             }
         }
@@ -136,11 +110,7 @@ class InputArgument
     /**
      * Returns the default value.
      *
-<<<<<<< HEAD
-     * @return mixed The default value
-=======
      * @return string|string[]|null The default value
->>>>>>> dev
      */
     public function getDefault()
     {

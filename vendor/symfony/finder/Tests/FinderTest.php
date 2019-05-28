@@ -24,30 +24,19 @@ class FinderTest extends Iterator\RealIteratorTestCase
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->directories());
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'toto')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['foo', 'qux', 'toto']), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
 
         $finder = $this->buildFinder();
         $finder->directories();
         $finder->files();
         $finder->directories();
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'toto')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['foo', 'qux', 'toto']), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testFiles()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->files());
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php', 'test.py', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['foo/bar.tmp',
             'test.php',
             'test.py',
@@ -61,15 +50,11 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux_12_0.php',
             'qux_2_0.php',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
 
         $finder = $this->buildFinder();
         $finder->files();
         $finder->directories();
         $finder->files();
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php', 'test.py', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['foo/bar.tmp',
             'test.php',
             'test.py',
@@ -135,28 +120,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $expected = $this->toAbsolute(['foo/../foo/bar.tmp']);
         $in = self::$tmpDir.'/foo/../foo/';
         $this->assertIterator($expected, $finder->in($in)->files()->getIterator());
->>>>>>> dev
     }
 
     public function testDepth()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->depth('< 1'));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $this->assertSame($finder, $finder->depth('<= 0'));
-        $this->assertIterator($this->toAbsolute(array('foo', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $this->assertSame($finder, $finder->depth('>= 1'));
-        $this->assertIterator($this->toAbsolute(array('foo/bar.tmp')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $finder->depth('< 1')->depth('>= 1');
-        $this->assertIterator(array(), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['foo',
             'test.php',
             'test.py',
@@ -209,16 +178,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux/baz_100_1.py',
             'qux/baz_1_2.py',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testName()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->name('*.php'));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('test.php')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'test.php',
             'qux_0_1.php',
@@ -228,26 +193,10 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux_12_0.php',
             'qux_2_0.php',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
 
         $finder = $this->buildFinder();
         $finder->name('test.ph*');
         $finder->name('test.py');
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $finder->name('~^test~i');
-        $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $finder->name('~\\.php$~i');
-        $this->assertIterator($this->toAbsolute(array('test.php')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $finder->name('test.p{hp,y}');
-        $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['test.php', 'test.py']), $finder->in(self::$tmpDir)->getIterator());
 
         $finder = $this->buildFinder();
@@ -276,16 +225,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $finder = $this->buildFinder();
         $finder->name(['test.php', 'test.py']);
         $this->assertIterator($this->toAbsolute(['test.php', 'test.py']), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testNotName()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->notName('*.php'));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'foo',
             'foo/bar.tmp',
@@ -296,14 +241,10 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux/baz_100_1.py',
             'qux/baz_1_2.py',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
 
         $finder = $this->buildFinder();
         $finder->notName('*.php');
         $finder->notName('*.py');
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'foo',
             'foo/bar.tmp',
@@ -311,26 +252,18 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'foo bar',
             'qux',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
 
         $finder = $this->buildFinder();
         $finder->name('test.ph*');
         $finder->name('test.py');
         $finder->notName('*.php');
         $finder->notName('*.py');
-<<<<<<< HEAD
-        $this->assertIterator(array(), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator([], $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
 
         $finder = $this->buildFinder();
         $finder->name('test.ph*');
         $finder->name('test.py');
         $finder->notName('*.p{hp,y}');
-<<<<<<< HEAD
-        $this->assertIterator(array(), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator([], $finder->in(self::$tmpDir)->getIterator());
     }
 
@@ -345,7 +278,6 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'foo bar',
             'qux',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     /**
@@ -355,23 +287,16 @@ class FinderTest extends Iterator\RealIteratorTestCase
     {
         $finder = $this->buildFinder();
         $finder->name($regex);
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('test.py', 'test.php')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'test.py',
             'test.php',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testSize()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->files()->size('< 1K')->size('> 500'));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('test.php')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['test.php']), $finder->in(self::$tmpDir)->getIterator());
     }
 
@@ -380,16 +305,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->files()->size(['< 1K', '> 500']));
         $this->assertIterator($this->toAbsolute(['test.php']), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testDate()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->files()->date('until last month'));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['foo/bar.tmp', 'test.php']), $finder->in(self::$tmpDir)->getIterator());
     }
 
@@ -398,16 +319,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->files()->date(['>= 2005-10-15', 'until last month']));
         $this->assertIterator($this->toAbsolute(['foo/bar.tmp', 'test.php']), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testExclude()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->exclude('foo'));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'test.php',
             'test.py',
@@ -423,24 +340,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux_12_0.php',
             'qux_2_0.php',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testIgnoreVCS()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->ignoreVCS(false)->ignoreDotFiles(false));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('.git', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'toto/.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $finder->ignoreVCS(false)->ignoreVCS(false)->ignoreDotFiles(false);
-        $this->assertIterator($this->toAbsolute(array('.git', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'toto/.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $this->assertSame($finder, $finder->ignoreVCS(true)->ignoreDotFiles(false));
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             '.git',
             'foo',
@@ -567,24 +472,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
             '.foo/bar',
             'foo bar',
         ]), $finder->getIterator());
->>>>>>> dev
     }
 
     public function testIgnoreDotFiles()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->ignoreDotFiles(false)->ignoreVCS(false));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'toto/.git', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $finder->ignoreDotFiles(false)->ignoreDotFiles(false)->ignoreVCS(false);
-        $this->assertIterator($this->toAbsolute(array('.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'toto/.git', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-
-        $finder = $this->buildFinder();
-        $this->assertSame($finder, $finder->ignoreDotFiles(true)->ignoreVCS(false));
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             '.git',
             '.bar',
@@ -701,16 +594,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
             '.foo/bar',
             'foo bar',
         ]), $finder->getIterator());
->>>>>>> dev
     }
 
     public function testSortByName()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByName());
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo bar', 'foo/bar.tmp', 'test.php', 'test.py', 'toto')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'foo',
             'foo bar',
@@ -728,16 +617,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'test.py',
             'toto',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testSortByType()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByType());
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo bar', 'toto', 'foo/bar.tmp', 'test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'foo',
             'foo bar',
@@ -755,16 +640,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux_12_0.php',
             'qux_2_0.php',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testSortByAccessedTime()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByAccessedTime());
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php', 'toto', 'test.py', 'foo', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'foo/bar.tmp',
             'test.php',
@@ -782,16 +663,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux_12_0.php',
             'qux_2_0.php',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testSortByChangedTime()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByChangedTime());
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('toto', 'test.py', 'test.php', 'foo/bar.tmp', 'foo', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'toto',
             'test.py',
@@ -809,16 +686,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux_12_0.php',
             'qux_2_0.php',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testSortByModifiedTime()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByModifiedTime());
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php', 'toto', 'test.py', 'foo', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'foo/bar.tmp',
             'test.php',
@@ -903,16 +776,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'test.py',
             'toto',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testSort()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sort(function (\SplFileInfo $a, \SplFileInfo $b) { return strcmp($a->getRealPath(), $b->getRealPath()); }));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo bar', 'foo/bar.tmp', 'test.php', 'test.py', 'toto')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'foo',
             'foo bar',
@@ -930,35 +799,23 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux_12_0.php',
             'qux_2_0.php',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testFilter()
     {
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->filter(function (\SplFileInfo $f) { return false !== strpos($f, 'test'); }));
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['test.php', 'test.py']), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testFollowLinks()
     {
-<<<<<<< HEAD
-        if ('\\' == DIRECTORY_SEPARATOR) {
-=======
         if ('\\' == \DIRECTORY_SEPARATOR) {
->>>>>>> dev
             $this->markTestSkipped('symlinks are not supported on Windows');
         }
 
         $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->followLinks());
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
-=======
         $this->assertIterator($this->toAbsolute([
             'foo',
             'foo/bar.tmp',
@@ -976,21 +833,11 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux_12_0.php',
             'qux_2_0.php',
         ]), $finder->in(self::$tmpDir)->getIterator());
->>>>>>> dev
     }
 
     public function testIn()
     {
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $iterator = $finder->files()->name('*.php')->depth('< 1')->in(array(self::$tmpDir, __DIR__))->getIterator();
-
-        $expected = array(
-            self::$tmpDir.DIRECTORY_SEPARATOR.'test.php',
-            __DIR__.DIRECTORY_SEPARATOR.'FinderTest.php',
-            __DIR__.DIRECTORY_SEPARATOR.'GlobTest.php',
-        );
-=======
         $iterator = $finder->files()->name('*.php')->depth('< 1')->in([self::$tmpDir, __DIR__])->getIterator();
 
         $expected = [
@@ -1004,7 +851,6 @@ class FinderTest extends Iterator\RealIteratorTestCase
             self::$tmpDir.\DIRECTORY_SEPARATOR.'qux_12_0.php',
             self::$tmpDir.\DIRECTORY_SEPARATOR.'qux_2_0.php',
         ];
->>>>>>> dev
 
         $this->assertIterator($expected, $iterator);
     }
@@ -1021,15 +867,9 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testInWithGlob()
     {
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $finder->in(array(__DIR__.'/Fixtures/*/B/C', __DIR__.'/Fixtures/*/*/B/C'))->getIterator();
-
-        $this->assertIterator($this->toAbsoluteFixtures(array('A/B/C/abc.dat', 'copy/A/B/C/abc.dat.copy')), $finder);
-=======
         $finder->in([__DIR__.'/Fixtures/*/B/C/', __DIR__.'/Fixtures/*/*/B/C/'])->getIterator();
 
         $this->assertIterator($this->toAbsoluteFixtures(['A/B/C/abc.dat', 'copy/A/B/C/abc.dat.copy']), $finder);
->>>>>>> dev
     }
 
     /**
@@ -1043,12 +883,6 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     public function testInWithGlobBrace()
     {
-<<<<<<< HEAD
-        $finder = $this->buildFinder();
-        $finder->in(array(__DIR__.'/Fixtures/{A,copy/A}/B/C'))->getIterator();
-
-        $this->assertIterator($this->toAbsoluteFixtures(array('A/B/C/abc.dat', 'copy/A/B/C/abc.dat.copy')), $finder);
-=======
         if (!\defined('GLOB_BRACE')) {
             $this->markTestSkipped('Glob brace is not supported on this system.');
         }
@@ -1057,7 +891,6 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $finder->in([__DIR__.'/Fixtures/{A,copy/A}/B/C'])->getIterator();
 
         $this->assertIterator($this->toAbsoluteFixtures(['A/B/C/abc.dat', 'copy/A/B/C/abc.dat.copy']), $finder);
->>>>>>> dev
     }
 
     /**
@@ -1072,20 +905,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testGetIterator()
     {
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $dirs = array();
-=======
         $dirs = [];
->>>>>>> dev
         foreach ($finder->directories()->in(self::$tmpDir) as $dir) {
             $dirs[] = (string) $dir;
         }
 
-<<<<<<< HEAD
-        $expected = $this->toAbsolute(array('foo', 'toto'));
-=======
         $expected = $this->toAbsolute(['foo', 'qux', 'toto']);
->>>>>>> dev
 
         sort($dirs);
         sort($expected);
@@ -1093,19 +918,11 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $this->assertEquals($expected, $dirs, 'implements the \IteratorAggregate interface');
 
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $this->assertEquals(2, iterator_count($finder->directories()->in(self::$tmpDir)), 'implements the \IteratorAggregate interface');
-
-        $finder = $this->buildFinder();
-        $a = iterator_to_array($finder->directories()->in(self::$tmpDir));
-        $a = array_values(array_map(function ($a) { return (string) $a; }, $a));
-=======
         $this->assertEquals(3, iterator_count($finder->directories()->in(self::$tmpDir)), 'implements the \IteratorAggregate interface');
 
         $finder = $this->buildFinder();
         $a = iterator_to_array($finder->directories()->in(self::$tmpDir));
         $a = array_values(array_map('strval', $a));
->>>>>>> dev
         sort($a);
         $this->assertEquals($expected, $a, 'implements the \IteratorAggregate interface');
     }
@@ -1114,21 +931,13 @@ class FinderTest extends Iterator\RealIteratorTestCase
     {
         $finder = $this->buildFinder()->in(self::$tmpDir);
 
-<<<<<<< HEAD
-        $paths = array();
-=======
         $paths = [];
->>>>>>> dev
 
         foreach ($finder as $file) {
             $paths[] = $file->getRelativePath();
         }
 
-<<<<<<< HEAD
-        $ref = array('', '', '', '', 'foo', '');
-=======
         $ref = ['', '', '', '', '', '', '', '', '', '', '', 'foo', 'qux', 'qux', ''];
->>>>>>> dev
 
         sort($ref);
         sort($paths);
@@ -1140,19 +949,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
     {
         $finder = $this->buildFinder()->in(self::$tmpDir)->sortByName();
 
-<<<<<<< HEAD
-        $paths = array();
-=======
         $paths = [];
->>>>>>> dev
 
         foreach ($finder as $file) {
             $paths[] = $file->getRelativePathname();
         }
 
-<<<<<<< HEAD
-        $ref = array('test.php', 'toto', 'test.py', 'foo', 'foo'.DIRECTORY_SEPARATOR.'bar.tmp', 'foo bar');
-=======
         $ref = [
             'test.php',
             'toto',
@@ -1170,7 +972,6 @@ class FinderTest extends Iterator\RealIteratorTestCase
             'qux_12_0.php',
             'qux_2_0.php',
         ];
->>>>>>> dev
 
         sort($paths);
         sort($ref);
@@ -1181,59 +982,35 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testAppendWithAFinder()
     {
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $finder->files()->in(self::$tmpDir.DIRECTORY_SEPARATOR.'foo');
-=======
         $finder->files()->in(self::$tmpDir.\DIRECTORY_SEPARATOR.'foo');
->>>>>>> dev
 
         $finder1 = $this->buildFinder();
         $finder1->directories()->in(self::$tmpDir);
 
         $finder = $finder->append($finder1);
 
-<<<<<<< HEAD
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'toto')), $finder->getIterator());
-=======
         $this->assertIterator($this->toAbsolute(['foo', 'foo/bar.tmp', 'qux', 'toto']), $finder->getIterator());
->>>>>>> dev
     }
 
     public function testAppendWithAnArray()
     {
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $finder->files()->in(self::$tmpDir.DIRECTORY_SEPARATOR.'foo');
-
-        $finder->append($this->toAbsolute(array('foo', 'toto')));
-
-        $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'toto')), $finder->getIterator());
-=======
         $finder->files()->in(self::$tmpDir.\DIRECTORY_SEPARATOR.'foo');
 
         $finder->append($this->toAbsolute(['foo', 'toto']));
 
         $this->assertIterator($this->toAbsolute(['foo', 'foo/bar.tmp', 'toto']), $finder->getIterator());
->>>>>>> dev
     }
 
     public function testAppendReturnsAFinder()
     {
-<<<<<<< HEAD
-        $this->assertInstanceOf('Symfony\\Component\\Finder\\Finder', Finder::create()->append(array()));
-=======
         $this->assertInstanceOf('Symfony\\Component\\Finder\\Finder', Finder::create()->append([]));
->>>>>>> dev
     }
 
     public function testAppendDoesNotRequireIn()
     {
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $finder->in(self::$tmpDir.DIRECTORY_SEPARATOR.'foo');
-=======
         $finder->in(self::$tmpDir.\DIRECTORY_SEPARATOR.'foo');
->>>>>>> dev
 
         $finder1 = Finder::create()->append($finder);
 
@@ -1254,11 +1031,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     public function testCountFiles()
     {
-<<<<<<< HEAD
-        $files = Finder::create()->files()->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures');
-=======
         $files = Finder::create()->files()->in(__DIR__.\DIRECTORY_SEPARATOR.'Fixtures');
->>>>>>> dev
         $i = 0;
 
         foreach ($files as $file) {
@@ -1274,9 +1047,6 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testCountWithoutIn()
     {
         $finder = Finder::create()->files();
-<<<<<<< HEAD
-        count($finder);
-=======
         \count($finder);
     }
 
@@ -1292,7 +1062,6 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $finder = $this->buildFinder();
         $finder->in(__DIR__)->name('DoesNotExist');
         $this->assertFalse($finder->hasResults());
->>>>>>> dev
     }
 
     /**
@@ -1301,11 +1070,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testContains($matchPatterns, $noMatchPatterns, $expected)
     {
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $finder->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures')
-=======
         $finder->in(__DIR__.\DIRECTORY_SEPARATOR.'Fixtures')
->>>>>>> dev
             ->name('*.txt')->sortByName()
             ->contains($matchPatterns)
             ->notContains($noMatchPatterns);
@@ -1320,11 +1085,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
             ->directories()
             ->name('Fixtures')
             ->contains('abc');
-<<<<<<< HEAD
-        $this->assertIterator(array(), $finder);
-=======
         $this->assertIterator([], $finder);
->>>>>>> dev
     }
 
     public function testNotContainsOnDirectory()
@@ -1334,11 +1095,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
             ->directories()
             ->name('Fixtures')
             ->notContains('abc');
-<<<<<<< HEAD
-        $this->assertIterator(array(), $finder);
-=======
         $this->assertIterator([], $finder);
->>>>>>> dev
     }
 
     /**
@@ -1349,17 +1106,10 @@ class FinderTest extends Iterator\RealIteratorTestCase
      */
     public function testMultipleLocations()
     {
-<<<<<<< HEAD
-        $locations = array(
-            self::$tmpDir.'/',
-            self::$tmpDir.'/toto/',
-        );
-=======
         $locations = [
             self::$tmpDir.'/',
             self::$tmpDir.'/toto/',
         ];
->>>>>>> dev
 
         // it is expected that there are test.py test.php in the tmpDir
         $finder = new Finder();
@@ -1381,32 +1131,18 @@ class FinderTest extends Iterator\RealIteratorTestCase
      */
     public function testMultipleLocationsWithSubDirectories()
     {
-<<<<<<< HEAD
-        $locations = array(
-            __DIR__.'/Fixtures/one',
-            self::$tmpDir.DIRECTORY_SEPARATOR.'toto',
-        );
-=======
         $locations = [
             __DIR__.'/Fixtures/one',
             self::$tmpDir.\DIRECTORY_SEPARATOR.'toto',
         ];
->>>>>>> dev
 
         $finder = $this->buildFinder();
         $finder->in($locations)->depth('< 10')->name('*.neon');
 
-<<<<<<< HEAD
-        $expected = array(
-            __DIR__.'/Fixtures/one'.DIRECTORY_SEPARATOR.'b'.DIRECTORY_SEPARATOR.'c.neon',
-            __DIR__.'/Fixtures/one'.DIRECTORY_SEPARATOR.'b'.DIRECTORY_SEPARATOR.'d.neon',
-        );
-=======
         $expected = [
             __DIR__.'/Fixtures/one'.\DIRECTORY_SEPARATOR.'b'.\DIRECTORY_SEPARATOR.'c.neon',
             __DIR__.'/Fixtures/one'.\DIRECTORY_SEPARATOR.'b'.\DIRECTORY_SEPARATOR.'d.neon',
         ];
->>>>>>> dev
 
         $this->assertIterator($expected, $finder);
         $this->assertIteratorInForeach($expected, $finder);
@@ -1426,36 +1162,15 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testRegexSpecialCharsLocationWithPathRestrictionContainingStartFlag()
     {
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $finder->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures'.DIRECTORY_SEPARATOR.'r+e.gex[c]a(r)s')
-            ->path('/^dir/');
-
-        $expected = array('r+e.gex[c]a(r)s'.DIRECTORY_SEPARATOR.'dir', 'r+e.gex[c]a(r)s'.DIRECTORY_SEPARATOR.'dir'.DIRECTORY_SEPARATOR.'bar.dat');
-=======
         $finder->in(__DIR__.\DIRECTORY_SEPARATOR.'Fixtures'.\DIRECTORY_SEPARATOR.'r+e.gex[c]a(r)s')
             ->path('/^dir/');
 
         $expected = ['r+e.gex[c]a(r)s'.\DIRECTORY_SEPARATOR.'dir', 'r+e.gex[c]a(r)s'.\DIRECTORY_SEPARATOR.'dir'.\DIRECTORY_SEPARATOR.'bar.dat'];
->>>>>>> dev
         $this->assertIterator($this->toAbsoluteFixtures($expected), $finder);
     }
 
     public function getContainsTestData()
     {
-<<<<<<< HEAD
-        return array(
-            array('', '', array()),
-            array('foo', 'bar', array()),
-            array('', 'foobar', array('dolor.txt', 'ipsum.txt', 'lorem.txt')),
-            array('lorem ipsum dolor sit amet', 'foobar', array('lorem.txt')),
-            array('sit', 'bar', array('dolor.txt', 'ipsum.txt', 'lorem.txt')),
-            array('dolor sit amet', '@^L@m', array('dolor.txt', 'ipsum.txt')),
-            array('/^lorem ipsum dolor sit amet$/m', 'foobar', array('lorem.txt')),
-            array('lorem', 'foobar', array('lorem.txt')),
-            array('', 'lorem', array('dolor.txt', 'ipsum.txt')),
-            array('ipsum dolor sit amet', '/^IPSUM/m', array('lorem.txt')),
-        );
-=======
         return [
             ['', '', []],
             ['foo', 'bar', []],
@@ -1470,22 +1185,14 @@ class FinderTest extends Iterator\RealIteratorTestCase
             [['lorem', 'dolor'], [], ['lorem.txt', 'ipsum.txt', 'dolor.txt']],
             ['', ['lorem', 'ipsum'], ['dolor.txt']],
         ];
->>>>>>> dev
     }
 
     public function getRegexNameTestData()
     {
-<<<<<<< HEAD
-        return array(
-            array('~.+\\.p.+~i'),
-            array('~t.*s~i'),
-        );
-=======
         return [
             ['~.*t\\.p.+~i'],
             ['~t.*s~i'],
         ];
->>>>>>> dev
     }
 
     /**
@@ -1494,11 +1201,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testPath($matchPatterns, $noMatchPatterns, array $expected)
     {
         $finder = $this->buildFinder();
-<<<<<<< HEAD
-        $finder->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures')
-=======
         $finder->in(__DIR__.\DIRECTORY_SEPARATOR.'Fixtures')
->>>>>>> dev
             ->path($matchPatterns)
             ->notPath($noMatchPatterns);
 
@@ -1507,49 +1210,6 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     public function getTestPathData()
     {
-<<<<<<< HEAD
-        return array(
-            array('', '', array()),
-            array('/^A\/B\/C/', '/C$/',
-                array('A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat'),
-            ),
-            array('/^A\/B/', 'foobar',
-                array(
-                    'A'.DIRECTORY_SEPARATOR.'B',
-                    'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C',
-                    'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat',
-                    'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
-                ),
-            ),
-            array('A/B/C', 'foobar',
-                array(
-                    'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C',
-                    'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
-                    'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C',
-                    'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat.copy',
-                ),
-            ),
-            array('A/B', 'foobar',
-                array(
-                    //dirs
-                    'A'.DIRECTORY_SEPARATOR.'B',
-                    'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C',
-                    'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B',
-                    'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C',
-                    //files
-                    'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat',
-                    'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
-                    'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat.copy',
-                    'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat.copy',
-                ),
-            ),
-            array('/^with space\//', 'foobar',
-                array(
-                    'with space'.DIRECTORY_SEPARATOR.'foo.txt',
-                ),
-            ),
-        );
-=======
         return [
             ['', '', []],
             ['/^A\/B\/C/', '/C$/',
@@ -1618,16 +1278,11 @@ class FinderTest extends Iterator\RealIteratorTestCase
                 ],
             ],
         ];
->>>>>>> dev
     }
 
     public function testAccessDeniedException()
     {
-<<<<<<< HEAD
-        if ('\\' === DIRECTORY_SEPARATOR) {
-=======
         if ('\\' === \DIRECTORY_SEPARATOR) {
->>>>>>> dev
             $this->markTestSkipped('chmod is not supported on Windows');
         }
 
@@ -1635,20 +1290,12 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $finder->files()->in(self::$tmpDir);
 
         // make 'foo' directory non-readable
-<<<<<<< HEAD
-        $testDir = self::$tmpDir.DIRECTORY_SEPARATOR.'foo';
-=======
         $testDir = self::$tmpDir.\DIRECTORY_SEPARATOR.'foo';
->>>>>>> dev
         chmod($testDir, 0333);
 
         if (false === $couldRead = is_readable($testDir)) {
             try {
-<<<<<<< HEAD
-                $this->assertIterator($this->toAbsolute(array('foo bar', 'test.php', 'test.py')), $finder->getIterator());
-=======
                 $this->assertIterator($this->toAbsolute(['foo bar', 'test.php', 'test.py']), $finder->getIterator());
->>>>>>> dev
                 $this->fail('Finder should throw an exception when opening a non-readable directory.');
             } catch (\Exception $e) {
                 $expectedExceptionClass = 'Symfony\\Component\\Finder\\Exception\\AccessDeniedException';
@@ -1656,24 +1303,17 @@ class FinderTest extends Iterator\RealIteratorTestCase
                     $this->fail(sprintf("Expected exception:\n%s\nGot:\n%s\nWith comparison failure:\n%s", $expectedExceptionClass, 'PHPUnit_Framework_ExpectationFailedException', $e->getComparisonFailure()->getExpectedAsString()));
                 }
 
-<<<<<<< HEAD
-=======
                 if ($e instanceof \PHPUnit\Framework\ExpectationFailedException) {
                     $this->fail(sprintf("Expected exception:\n%s\nGot:\n%s\nWith comparison failure:\n%s", $expectedExceptionClass, '\PHPUnit\Framework\ExpectationFailedException', $e->getComparisonFailure()->getExpectedAsString()));
                 }
 
->>>>>>> dev
                 $this->assertInstanceOf($expectedExceptionClass, $e);
             }
         }
 
         // restore original permissions
         chmod($testDir, 0777);
-<<<<<<< HEAD
-        clearstatcache($testDir);
-=======
         clearstatcache(true, $testDir);
->>>>>>> dev
 
         if ($couldRead) {
             $this->markTestSkipped('could read test files while test requires unreadable');
@@ -1682,11 +1322,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     public function testIgnoredAccessDeniedException()
     {
-<<<<<<< HEAD
-        if ('\\' === DIRECTORY_SEPARATOR) {
-=======
         if ('\\' === \DIRECTORY_SEPARATOR) {
->>>>>>> dev
             $this->markTestSkipped('chmod is not supported on Windows');
         }
 
@@ -1694,13 +1330,6 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $finder->files()->ignoreUnreadableDirs()->in(self::$tmpDir);
 
         // make 'foo' directory non-readable
-<<<<<<< HEAD
-        $testDir = self::$tmpDir.DIRECTORY_SEPARATOR.'foo';
-        chmod($testDir, 0333);
-
-        if (false === ($couldRead = is_readable($testDir))) {
-            $this->assertIterator($this->toAbsolute(array('foo bar', 'test.php', 'test.py')), $finder->getIterator());
-=======
         $testDir = self::$tmpDir.\DIRECTORY_SEPARATOR.'foo';
         chmod($testDir, 0333);
 
@@ -1719,24 +1348,17 @@ class FinderTest extends Iterator\RealIteratorTestCase
                 'qux_2_0.php',
                 ]
             ), $finder->getIterator());
->>>>>>> dev
         }
 
         // restore original permissions
         chmod($testDir, 0777);
-<<<<<<< HEAD
-        clearstatcache($testDir);
-=======
         clearstatcache(true, $testDir);
->>>>>>> dev
 
         if ($couldRead) {
             $this->markTestSkipped('could read test files while test requires unreadable');
         }
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @group legacy
      * @expectedDeprecation The "Symfony\Component\Finder\Finder::sortByName()" method will have a new "bool $useNaturalSort = false" argument in version 5.0, not defining it is deprecated since Symfony 4.2.
@@ -1747,14 +1369,11 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $finderChild->sortByName();
     }
 
->>>>>>> dev
     protected function buildFinder()
     {
         return Finder::create();
     }
 }
-<<<<<<< HEAD
-=======
 
 class ClassThatInheritFinder extends Finder
 {
@@ -1763,4 +1382,3 @@ class ClassThatInheritFinder extends Finder
         parent::sortByName();
     }
 }
->>>>>>> dev

@@ -2,9 +2,6 @@
 
 namespace Illuminate\Support\Facades;
 
-<<<<<<< HEAD
-/**
-=======
 use Illuminate\Support\Testing\Fakes\QueueFake;
 
 /**
@@ -19,15 +16,12 @@ use Illuminate\Support\Testing\Fakes\QueueFake;
  * @method static string getConnectionName()
  * @method static \Illuminate\Contracts\Queue\Queue setConnectionName(string $name)
  *
->>>>>>> dev
  * @see \Illuminate\Queue\QueueManager
  * @see \Illuminate\Queue\Queue
  */
 class Queue extends Facade
 {
     /**
-<<<<<<< HEAD
-=======
      * Replace the bound instance with a fake.
      *
      * @return \Illuminate\Support\Testing\Fakes\QueueFake
@@ -40,7 +34,6 @@ class Queue extends Facade
     }
 
     /**
->>>>>>> dev
      * Get the registered name of the component.
      *
      * @return string

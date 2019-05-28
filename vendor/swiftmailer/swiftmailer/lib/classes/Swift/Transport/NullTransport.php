@@ -16,22 +16,14 @@
 class Swift_Transport_NullTransport implements Swift_Transport
 {
     /** The event dispatcher from the plugin API */
-<<<<<<< HEAD
-    private $_eventDispatcher;
-=======
     private $eventDispatcher;
->>>>>>> dev
 
     /**
      * Constructor.
      */
     public function __construct(Swift_Events_EventDispatcher $eventDispatcher)
     {
-<<<<<<< HEAD
-        $this->_eventDispatcher = $eventDispatcher;
-=======
         $this->eventDispatcher = $eventDispatcher;
->>>>>>> dev
     }
 
     /**
@@ -59,19 +51,6 @@ class Swift_Transport_NullTransport implements Swift_Transport
     }
 
     /**
-<<<<<<< HEAD
-     * Sends the given message.
-     *
-     * @param Swift_Mime_Message $message
-     * @param string[]           $failedRecipients An array of failures by-reference
-     *
-     * @return int The number of sent emails
-     */
-    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
-    {
-        if ($evt = $this->_eventDispatcher->createSendEvent($this, $message)) {
-            $this->_eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
-=======
      * {@inheritdoc}
      */
     public function ping()
@@ -90,7 +69,6 @@ class Swift_Transport_NullTransport implements Swift_Transport
     {
         if ($evt = $this->eventDispatcher->createSendEvent($this, $message)) {
             $this->eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
->>>>>>> dev
             if ($evt->bubbleCancelled()) {
                 return 0;
             }
@@ -98,11 +76,7 @@ class Swift_Transport_NullTransport implements Swift_Transport
 
         if ($evt) {
             $evt->setResult(Swift_Events_SendEvent::RESULT_SUCCESS);
-<<<<<<< HEAD
-            $this->_eventDispatcher->dispatchEvent($evt, 'sendPerformed');
-=======
             $this->eventDispatcher->dispatchEvent($evt, 'sendPerformed');
->>>>>>> dev
         }
 
         $count = (
@@ -116,18 +90,9 @@ class Swift_Transport_NullTransport implements Swift_Transport
 
     /**
      * Register a plugin.
-<<<<<<< HEAD
-     *
-     * @param Swift_Events_EventListener $plugin
-     */
-    public function registerPlugin(Swift_Events_EventListener $plugin)
-    {
-        $this->_eventDispatcher->bindEventListener($plugin);
-=======
      */
     public function registerPlugin(Swift_Events_EventListener $plugin)
     {
         $this->eventDispatcher->bindEventListener($plugin);
->>>>>>> dev
     }
 }

@@ -2,17 +2,11 @@
 
 namespace Illuminate\Translation;
 
-<<<<<<< HEAD
-use Illuminate\Filesystem\Filesystem;
-
-class FileLoader implements LoaderInterface
-=======
 use RuntimeException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Translation\Loader;
 
 class FileLoader implements Loader
->>>>>>> dev
 {
     /**
      * The filesystem instance.
@@ -29,8 +23,6 @@ class FileLoader implements Loader
     protected $path;
 
     /**
-<<<<<<< HEAD
-=======
      * All of the registered paths to JSON translation files.
      *
      * @var array
@@ -38,7 +30,6 @@ class FileLoader implements Loader
     protected $jsonPaths = [];
 
     /**
->>>>>>> dev
      * All of the namespace hints.
      *
      * @var array
@@ -68,15 +59,11 @@ class FileLoader implements Loader
      */
     public function load($locale, $group, $namespace = null)
     {
-<<<<<<< HEAD
-        if (is_null($namespace) || $namespace == '*') {
-=======
         if ($group === '*' && $namespace === '*') {
             return $this->loadJsonPaths($locale);
         }
 
         if (is_null($namespace) || $namespace === '*') {
->>>>>>> dev
             return $this->loadPath($this->path, $locale, $group);
         }
 
@@ -140,8 +127,6 @@ class FileLoader implements Loader
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Load a locale from the given JSON file path.
      *
      * @param  string  $locale
@@ -168,7 +153,6 @@ class FileLoader implements Loader
     }
 
     /**
->>>>>>> dev
      * Add a new namespace to the loader.
      *
      * @param  string  $namespace
@@ -179,8 +163,6 @@ class FileLoader implements Loader
     {
         $this->hints[$namespace] = $hint;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Add a new JSON path to the loader.
@@ -202,5 +184,4 @@ class FileLoader implements Loader
     {
         return $this->hints;
     }
->>>>>>> dev
 }

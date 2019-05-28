@@ -15,18 +15,11 @@
 
 namespace Symfony\Component\HttpKernel\Tests\HttpCache;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\HttpCache\ResponseCacheStrategy;
-
-class ResponseCacheStrategyTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpCache\ResponseCacheStrategy;
 
 class ResponseCacheStrategyTest extends TestCase
->>>>>>> dev
 {
     public function testMinimumSharedMaxAgeWins()
     {
@@ -82,8 +75,6 @@ class ResponseCacheStrategyTest extends TestCase
 
         $this->assertFalse($response->headers->hasCacheControlDirective('s-maxage'));
     }
-<<<<<<< HEAD
-=======
 
     public function testMasterResponseNotCacheableWhenEmbeddedResponseRequiresValidation()
     {
@@ -475,5 +466,4 @@ class ResponseCacheStrategyTest extends TestCase
             ],
         ];
     }
->>>>>>> dev
 }

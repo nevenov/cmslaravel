@@ -20,11 +20,7 @@ abstract class CacheWarmer implements CacheWarmerInterface
 {
     protected function writeCacheFile($file, $content)
     {
-<<<<<<< HEAD
-        $tmpFile = @tempnam(dirname($file), basename($file));
-=======
         $tmpFile = @tempnam(\dirname($file), basename($file));
->>>>>>> dev
         if (false !== @file_put_contents($tmpFile, $content) && @rename($tmpFile, $file)) {
             @chmod($file, 0666 & ~umask());
 

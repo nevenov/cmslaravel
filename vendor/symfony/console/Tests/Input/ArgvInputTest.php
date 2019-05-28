@@ -11,18 +11,6 @@
 
 namespace Symfony\Component\Console\Tests\Input;
 
-<<<<<<< HEAD
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
-
-class ArgvInputTest extends \PHPUnit_Framework_TestCase
-{
-    public function testConstructor()
-    {
-        $_SERVER['argv'] = array('cli.php', 'foo');
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputArgument;
@@ -34,36 +22,22 @@ class ArgvInputTest extends TestCase
     public function testConstructor()
     {
         $_SERVER['argv'] = ['cli.php', 'foo'];
->>>>>>> dev
         $input = new ArgvInput();
         $r = new \ReflectionObject($input);
         $p = $r->getProperty('tokens');
         $p->setAccessible(true);
 
-<<<<<<< HEAD
-        $this->assertEquals(array('foo'), $p->getValue($input), '__construct() automatically get its input from the argv server variable');
-=======
         $this->assertEquals(['foo'], $p->getValue($input), '__construct() automatically get its input from the argv server variable');
->>>>>>> dev
     }
 
     public function testParseArguments()
     {
-<<<<<<< HEAD
-        $input = new ArgvInput(array('cli.php', 'foo'));
-        $input->bind(new InputDefinition(array(new InputArgument('name'))));
-        $this->assertEquals(array('name' => 'foo'), $input->getArguments(), '->parse() parses required arguments');
-
-        $input->bind(new InputDefinition(array(new InputArgument('name'))));
-        $this->assertEquals(array('name' => 'foo'), $input->getArguments(), '->parse() is stateless');
-=======
         $input = new ArgvInput(['cli.php', 'foo']);
         $input->bind(new InputDefinition([new InputArgument('name')]));
         $this->assertEquals(['name' => 'foo'], $input->getArguments(), '->parse() parses required arguments');
 
         $input->bind(new InputDefinition([new InputArgument('name')]));
         $this->assertEquals(['name' => 'foo'], $input->getArguments(), '->parse() is stateless');
->>>>>>> dev
     }
 
     /**
@@ -74,109 +48,11 @@ class ArgvInputTest extends TestCase
         $input = new ArgvInput($input);
         $input->bind(new InputDefinition($options));
 
-<<<<<<< HEAD
-        $this->assertEquals($expectedOptions, $input->getOptions(), $message);
-=======
         $this->assertSame($expectedOptions, $input->getOptions(), $message);
->>>>>>> dev
     }
 
     public function provideOptions()
     {
-<<<<<<< HEAD
-        return array(
-            array(
-                array('cli.php', '--foo'),
-                array(new InputOption('foo')),
-                array('foo' => true),
-                '->parse() parses long options without a value',
-            ),
-            array(
-                array('cli.php', '--foo=bar'),
-                array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED)),
-                array('foo' => 'bar'),
-                '->parse() parses long options with a required value (with a = separator)',
-            ),
-            array(
-                array('cli.php', '--foo', 'bar'),
-                array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED)),
-                array('foo' => 'bar'),
-                '->parse() parses long options with a required value (with a space separator)',
-            ),
-            array(
-                array('cli.php', '-f'),
-                array(new InputOption('foo', 'f')),
-                array('foo' => true),
-                '->parse() parses short options without a value',
-            ),
-            array(
-                array('cli.php', '-fbar'),
-                array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED)),
-                array('foo' => 'bar'),
-                '->parse() parses short options with a required value (with no separator)',
-            ),
-            array(
-                array('cli.php', '-f', 'bar'),
-                array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED)),
-                array('foo' => 'bar'),
-                '->parse() parses short options with a required value (with a space separator)',
-            ),
-            array(
-                array('cli.php', '-f', ''),
-                array(new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL)),
-                array('foo' => ''),
-                '->parse() parses short options with an optional empty value',
-            ),
-            array(
-                array('cli.php', '-f', '', 'foo'),
-                array(new InputArgument('name'), new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL)),
-                array('foo' => ''),
-                '->parse() parses short options with an optional empty value followed by an argument',
-            ),
-            array(
-                array('cli.php', '-f', '', '-b'),
-                array(new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL), new InputOption('bar', 'b')),
-                array('foo' => '', 'bar' => true),
-                '->parse() parses short options with an optional empty value followed by an option',
-            ),
-            array(
-                array('cli.php', '-f', '-b', 'foo'),
-                array(new InputArgument('name'), new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL), new InputOption('bar', 'b')),
-                array('foo' => null, 'bar' => true),
-                '->parse() parses short options with an optional value which is not present',
-            ),
-            array(
-                array('cli.php', '-fb'),
-                array(new InputOption('foo', 'f'), new InputOption('bar', 'b')),
-                array('foo' => true, 'bar' => true),
-                '->parse() parses short options when they are aggregated as a single one',
-            ),
-            array(
-                array('cli.php', '-fb', 'bar'),
-                array(new InputOption('foo', 'f'), new InputOption('bar', 'b', InputOption::VALUE_REQUIRED)),
-                array('foo' => true, 'bar' => 'bar'),
-                '->parse() parses short options when they are aggregated as a single one and the last one has a required value',
-            ),
-            array(
-                array('cli.php', '-fb', 'bar'),
-                array(new InputOption('foo', 'f'), new InputOption('bar', 'b', InputOption::VALUE_OPTIONAL)),
-                array('foo' => true, 'bar' => 'bar'),
-                '->parse() parses short options when they are aggregated as a single one and the last one has an optional value',
-            ),
-            array(
-                array('cli.php', '-fbbar'),
-                array(new InputOption('foo', 'f'), new InputOption('bar', 'b', InputOption::VALUE_OPTIONAL)),
-                array('foo' => true, 'bar' => 'bar'),
-                '->parse() parses short options when they are aggregated as a single one and the last one has an optional value with no separator',
-            ),
-            array(
-                array('cli.php', '-fbbar'),
-                array(new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL), new InputOption('bar', 'b', InputOption::VALUE_OPTIONAL)),
-                array('foo' => 'bbar', 'bar' => null),
-                '->parse() parses short options when they are aggregated as a single one and one of them takes a value',
-            ),
-        );
-=======
         return [
             [
                 ['cli.php', '--foo'],
@@ -299,7 +175,6 @@ class ArgvInputTest extends TestCase
                 '->parse() parses short options when they are aggregated as a single one and one of them takes a value',
             ],
         ];
->>>>>>> dev
     }
 
     /**
@@ -307,16 +182,12 @@ class ArgvInputTest extends TestCase
      */
     public function testInvalidInput($argv, $definition, $expectedExceptionMessage)
     {
-<<<<<<< HEAD
-        $this->setExpectedException('RuntimeException', $expectedExceptionMessage);
-=======
         if (method_exists($this, 'expectException')) {
             $this->expectException('RuntimeException');
             $this->expectExceptionMessage($expectedExceptionMessage);
         } else {
             $this->setExpectedException('RuntimeException', $expectedExceptionMessage);
         }
->>>>>>> dev
 
         $input = new ArgvInput($argv);
         $input->bind($definition);
@@ -324,60 +195,6 @@ class ArgvInputTest extends TestCase
 
     public function provideInvalidInput()
     {
-<<<<<<< HEAD
-        return array(
-            array(
-                array('cli.php', '--foo'),
-                new InputDefinition(array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED))),
-                'The "--foo" option requires a value.',
-            ),
-            array(
-                array('cli.php', '-f'),
-                new InputDefinition(array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED))),
-                'The "--foo" option requires a value.',
-            ),
-            array(
-                array('cli.php', '-ffoo'),
-                new InputDefinition(array(new InputOption('foo', 'f', InputOption::VALUE_NONE))),
-                'The "-o" option does not exist.',
-            ),
-            array(
-                array('cli.php', '--foo=bar'),
-                new InputDefinition(array(new InputOption('foo', 'f', InputOption::VALUE_NONE))),
-                'The "--foo" option does not accept a value.',
-            ),
-            array(
-                array('cli.php', 'foo', 'bar'),
-                new InputDefinition(),
-                'No arguments expected, got "foo".',
-            ),
-            array(
-                array('cli.php', 'foo', 'bar'),
-                new InputDefinition(array(new InputArgument('number'))),
-                'Too many arguments, expected arguments "number".',
-            ),
-            array(
-                array('cli.php', 'foo', 'bar', 'zzz'),
-                new InputDefinition(array(new InputArgument('number'), new InputArgument('county'))),
-                'Too many arguments, expected arguments "number" "county".',
-            ),
-            array(
-                array('cli.php', '--foo'),
-                new InputDefinition(),
-                'The "--foo" option does not exist.',
-            ),
-            array(
-                array('cli.php', '-f'),
-                new InputDefinition(),
-                'The "-f" option does not exist.',
-            ),
-            array(
-                array('cli.php', '-1'),
-                new InputDefinition(array(new InputArgument('number'))),
-                'The "-1" option does not exist.',
-            ),
-        );
-=======
         return [
             [
                 ['cli.php', '--foo'],
@@ -435,47 +252,18 @@ class ArgvInputTest extends TestCase
                 'The "-Щ" option does not exist.',
             ],
         ];
->>>>>>> dev
     }
 
     public function testParseArrayArgument()
     {
-<<<<<<< HEAD
-        $input = new ArgvInput(array('cli.php', 'foo', 'bar', 'baz', 'bat'));
-        $input->bind(new InputDefinition(array(new InputArgument('name', InputArgument::IS_ARRAY))));
-
-        $this->assertEquals(array('name' => array('foo', 'bar', 'baz', 'bat')), $input->getArguments(), '->parse() parses array arguments');
-=======
         $input = new ArgvInput(['cli.php', 'foo', 'bar', 'baz', 'bat']);
         $input->bind(new InputDefinition([new InputArgument('name', InputArgument::IS_ARRAY)]));
 
         $this->assertEquals(['name' => ['foo', 'bar', 'baz', 'bat']], $input->getArguments(), '->parse() parses array arguments');
->>>>>>> dev
     }
 
     public function testParseArrayOption()
     {
-<<<<<<< HEAD
-        $input = new ArgvInput(array('cli.php', '--name=foo', '--name=bar', '--name=baz'));
-        $input->bind(new InputDefinition(array(new InputOption('name', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY))));
-
-        $this->assertEquals(array('name' => array('foo', 'bar', 'baz')), $input->getOptions(), '->parse() parses array options ("--option=value" syntax)');
-
-        $input = new ArgvInput(array('cli.php', '--name', 'foo', '--name', 'bar', '--name', 'baz'));
-        $input->bind(new InputDefinition(array(new InputOption('name', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY))));
-        $this->assertEquals(array('name' => array('foo', 'bar', 'baz')), $input->getOptions(), '->parse() parses array options ("--option value" syntax)');
-
-        $input = new ArgvInput(array('cli.php', '--name=foo', '--name=bar', '--name='));
-        $input->bind(new InputDefinition(array(new InputOption('name', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY))));
-        $this->assertSame(array('name' => array('foo', 'bar', null)), $input->getOptions(), '->parse() parses empty array options as null ("--option=value" syntax)');
-
-        $input = new ArgvInput(array('cli.php', '--name', 'foo', '--name', 'bar', '--name', '--anotherOption'));
-        $input->bind(new InputDefinition(array(
-            new InputOption('name', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY),
-            new InputOption('anotherOption', null, InputOption::VALUE_NONE),
-        )));
-        $this->assertSame(array('name' => array('foo', 'bar', null), 'anotherOption' => true), $input->getOptions(), '->parse() parses empty array options as null ("--option value" syntax)');
-=======
         $input = new ArgvInput(['cli.php', '--name=foo', '--name=bar', '--name=baz']);
         $input->bind(new InputDefinition([new InputOption('name', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY)]));
 
@@ -495,21 +283,10 @@ class ArgvInputTest extends TestCase
             new InputOption('anotherOption', null, InputOption::VALUE_NONE),
         ]));
         $this->assertSame(['name' => ['foo', 'bar', null], 'anotherOption' => true], $input->getOptions(), '->parse() parses empty array options ("--option value" syntax)');
->>>>>>> dev
     }
 
     public function testParseNegativeNumberAfterDoubleDash()
     {
-<<<<<<< HEAD
-        $input = new ArgvInput(array('cli.php', '--', '-1'));
-        $input->bind(new InputDefinition(array(new InputArgument('number'))));
-        $this->assertEquals(array('number' => '-1'), $input->getArguments(), '->parse() parses arguments with leading dashes as arguments after having encountered a double-dash sequence');
-
-        $input = new ArgvInput(array('cli.php', '-f', 'bar', '--', '-1'));
-        $input->bind(new InputDefinition(array(new InputArgument('number'), new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL))));
-        $this->assertEquals(array('foo' => 'bar'), $input->getOptions(), '->parse() parses arguments with leading dashes as options before having encountered a double-dash sequence');
-        $this->assertEquals(array('number' => '-1'), $input->getArguments(), '->parse() parses arguments with leading dashes as arguments after having encountered a double-dash sequence');
-=======
         $input = new ArgvInput(['cli.php', '--', '-1']);
         $input->bind(new InputDefinition([new InputArgument('number')]));
         $this->assertEquals(['number' => '-1'], $input->getArguments(), '->parse() parses arguments with leading dashes as arguments after having encountered a double-dash sequence');
@@ -518,33 +295,18 @@ class ArgvInputTest extends TestCase
         $input->bind(new InputDefinition([new InputArgument('number'), new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL)]));
         $this->assertEquals(['foo' => 'bar'], $input->getOptions(), '->parse() parses arguments with leading dashes as options before having encountered a double-dash sequence');
         $this->assertEquals(['number' => '-1'], $input->getArguments(), '->parse() parses arguments with leading dashes as arguments after having encountered a double-dash sequence');
->>>>>>> dev
     }
 
     public function testParseEmptyStringArgument()
     {
-<<<<<<< HEAD
-        $input = new ArgvInput(array('cli.php', '-f', 'bar', ''));
-        $input->bind(new InputDefinition(array(new InputArgument('empty'), new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL))));
-
-        $this->assertEquals(array('empty' => ''), $input->getArguments(), '->parse() parses empty string arguments');
-=======
         $input = new ArgvInput(['cli.php', '-f', 'bar', '']);
         $input->bind(new InputDefinition([new InputArgument('empty'), new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL)]));
 
         $this->assertEquals(['empty' => ''], $input->getArguments(), '->parse() parses empty string arguments');
->>>>>>> dev
     }
 
     public function testGetFirstArgument()
     {
-<<<<<<< HEAD
-        $input = new ArgvInput(array('cli.php', '-fbbar'));
-        $this->assertNull($input->getFirstArgument(), '->getFirstArgument() returns null when there is no arguments');
-
-        $input = new ArgvInput(array('cli.php', '-fbbar', 'foo'));
-        $this->assertEquals('foo', $input->getFirstArgument(), '->getFirstArgument() returns the first argument from the raw input');
-=======
         $input = new ArgvInput(['cli.php', '-fbbar']);
         $this->assertNull($input->getFirstArgument(), '->getFirstArgument() returns null when there is no arguments');
 
@@ -558,23 +320,10 @@ class ArgvInputTest extends TestCase
         $input = new ArgvInput(['cli.php', '-bf', 'fooval', 'argval']);
         $input->bind(new InputDefinition([new InputOption('bar', 'b', InputOption::VALUE_NONE), new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL), new InputArgument('arg')]));
         $this->assertSame('argval', $input->getFirstArgument());
->>>>>>> dev
     }
 
     public function testHasParameterOption()
     {
-<<<<<<< HEAD
-        $input = new ArgvInput(array('cli.php', '-f', 'foo'));
-        $this->assertTrue($input->hasParameterOption('-f'), '->hasParameterOption() returns true if the given short option is in the raw input');
-
-        $input = new ArgvInput(array('cli.php', '--foo', 'foo'));
-        $this->assertTrue($input->hasParameterOption('--foo'), '->hasParameterOption() returns true if the given short option is in the raw input');
-
-        $input = new ArgvInput(array('cli.php', 'foo'));
-        $this->assertFalse($input->hasParameterOption('--foo'), '->hasParameterOption() returns false if the given short option is not in the raw input');
-
-        $input = new ArgvInput(array('cli.php', '--foo=bar'));
-=======
         $input = new ArgvInput(['cli.php', '-f', 'foo']);
         $this->assertTrue($input->hasParameterOption('-f'), '->hasParameterOption() returns true if the given short option is in the raw input');
 
@@ -589,33 +338,11 @@ class ArgvInputTest extends TestCase
         $this->assertFalse($input->hasParameterOption('--foo'), '->hasParameterOption() returns false if the given short option is not in the raw input');
 
         $input = new ArgvInput(['cli.php', '--foo=bar']);
->>>>>>> dev
         $this->assertTrue($input->hasParameterOption('--foo'), '->hasParameterOption() returns true if the given option with provided value is in the raw input');
     }
 
     public function testHasParameterOptionOnlyOptions()
     {
-<<<<<<< HEAD
-        $input = new ArgvInput(array('cli.php', '-f', 'foo'));
-        $this->assertTrue($input->hasParameterOption('-f', true), '->hasParameterOption() returns true if the given short option is in the raw input');
-
-        $input = new ArgvInput(array('cli.php', '--foo', '--', 'foo'));
-        $this->assertTrue($input->hasParameterOption('--foo', true), '->hasParameterOption() returns true if the given long option is in the raw input');
-
-        $input = new ArgvInput(array('cli.php', '--foo=bar', 'foo'));
-        $this->assertTrue($input->hasParameterOption('--foo', true), '->hasParameterOption() returns true if the given long option with provided value is in the raw input');
-
-        $input = new ArgvInput(array('cli.php', '--', '--foo'));
-        $this->assertFalse($input->hasParameterOption('--foo', true), '->hasParameterOption() returns false if the given option is in the raw input but after an end of options signal');
-    }
-
-    public function testToString()
-    {
-        $input = new ArgvInput(array('cli.php', '-f', 'foo'));
-        $this->assertEquals('-f foo', (string) $input);
-
-        $input = new ArgvInput(array('cli.php', '-f', '--bar=foo', 'a b c d', "A\nB'C"));
-=======
         $input = new ArgvInput(['cli.php', '-f', 'foo']);
         $this->assertTrue($input->hasParameterOption('-f', true), '->hasParameterOption() returns true if the given short option is in the raw input');
 
@@ -675,42 +402,20 @@ class ArgvInputTest extends TestCase
         $this->assertEquals('-f foo', (string) $input);
 
         $input = new ArgvInput(['cli.php', '-f', '--bar=foo', 'a b c d', "A\nB'C"]);
->>>>>>> dev
         $this->assertEquals('-f --bar=foo '.escapeshellarg('a b c d').' '.escapeshellarg("A\nB'C"), (string) $input);
     }
 
     /**
      * @dataProvider provideGetParameterOptionValues
      */
-<<<<<<< HEAD
-    public function testGetParameterOptionEqualSign($argv, $key, $onlyParams, $expected)
-    {
-        $input = new ArgvInput($argv);
-        $this->assertEquals($expected, $input->getParameterOption($key, false, $onlyParams), '->getParameterOption() returns the expected value');
-=======
     public function testGetParameterOptionEqualSign($argv, $key, $default, $onlyParams, $expected)
     {
         $input = new ArgvInput($argv);
         $this->assertEquals($expected, $input->getParameterOption($key, $default, $onlyParams), '->getParameterOption() returns the expected value');
->>>>>>> dev
     }
 
     public function provideGetParameterOptionValues()
     {
-<<<<<<< HEAD
-        return array(
-            array(array('app/console', 'foo:bar', '-e', 'dev'), '-e', false, 'dev'),
-            array(array('app/console', 'foo:bar', '--env=dev'), '--env', false, 'dev'),
-            array(array('app/console', 'foo:bar', '-e', 'dev'), array('-e', '--env'), false, 'dev'),
-            array(array('app/console', 'foo:bar', '--env=dev'), array('-e', '--env'), false, 'dev'),
-            array(array('app/console', 'foo:bar', '--env=dev', '--en=1'), array('--en'), false, '1'),
-            array(array('app/console', 'foo:bar', '--env=dev', '', '--en=1'), array('--en'), false, '1'),
-            array(array('app/console', 'foo:bar', '--env', 'val'), '--env', false, 'val'),
-            array(array('app/console', 'foo:bar', '--env', 'val', '--dummy'), '--env', false, 'val'),
-            array(array('app/console', 'foo:bar', '--', '--env=dev'), '--env', false, 'dev'),
-            array(array('app/console', 'foo:bar', '--', '--env=dev'), '--env', true, false),
-        );
-=======
         return [
             [['app/console', 'foo:bar'], '-e', 'default', false, 'default'],
             [['app/console', 'foo:bar', '-e', 'dev'], '-e', 'default', false, 'dev'],
@@ -724,16 +429,10 @@ class ArgvInputTest extends TestCase
             [['app/console', 'foo:bar', '--', '--env=dev'], '--env', 'default', false, 'dev'],
             [['app/console', 'foo:bar', '--', '--env=dev'], '--env', 'default', true, 'default'],
         ];
->>>>>>> dev
     }
 
     public function testParseSingleDashAsArgument()
     {
-<<<<<<< HEAD
-        $input = new ArgvInput(array('cli.php', '-'));
-        $input->bind(new InputDefinition(array(new InputArgument('file'))));
-        $this->assertEquals(array('file' => '-'), $input->getArguments(), '->parse() parses single dash as an argument');
-=======
         $input = new ArgvInput(['cli.php', '-']);
         $input->bind(new InputDefinition([new InputArgument('file')]));
         $this->assertEquals(['file' => '-'], $input->getArguments(), '->parse() parses single dash as an argument');
@@ -763,6 +462,5 @@ class ArgvInputTest extends TestCase
         $input->bind(new InputDefinition([new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL), new InputArgument('name', InputArgument::OPTIONAL)]));
         $this->assertEquals(['foo' => '0'], $input->getOptions(), '->parse() parses optional options with empty value as null');
         $this->assertEquals(['name' => 'bar'], $input->getArguments(), '->parse() parses optional arguments');
->>>>>>> dev
     }
 }

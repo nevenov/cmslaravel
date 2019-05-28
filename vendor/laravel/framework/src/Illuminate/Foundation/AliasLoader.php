@@ -19,8 +19,6 @@ class AliasLoader
     protected $registered = false;
 
     /**
-<<<<<<< HEAD
-=======
      * The namespace for all real-time facades.
      *
      * @var string
@@ -28,7 +26,6 @@ class AliasLoader
     protected static $facadeNamespace = 'Facades\\';
 
     /**
->>>>>>> dev
      * The singleton instance of the loader.
      *
      * @var \Illuminate\Foundation\AliasLoader
@@ -39,10 +36,7 @@ class AliasLoader
      * Create a new AliasLoader instance.
      *
      * @param  array  $aliases
-<<<<<<< HEAD
-=======
      * @return void
->>>>>>> dev
      */
     private function __construct($aliases)
     {
@@ -76,23 +70,18 @@ class AliasLoader
      */
     public function load($alias)
     {
-<<<<<<< HEAD
-=======
         if (static::$facadeNamespace && strpos($alias, static::$facadeNamespace) === 0) {
             $this->loadFacade($alias);
 
             return true;
         }
 
->>>>>>> dev
         if (isset($this->aliases[$alias])) {
             return class_alias($this->aliases[$alias], $alias);
         }
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Load a real-time facade for the given alias.
      *
      * @param  string  $alias
@@ -143,7 +132,6 @@ class AliasLoader
     }
 
     /**
->>>>>>> dev
      * Add an alias to the loader.
      *
      * @param  string  $class
@@ -222,8 +210,6 @@ class AliasLoader
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Set the real-time facade namespace.
      *
      * @param  string  $namespace
@@ -235,7 +221,6 @@ class AliasLoader
     }
 
     /**
->>>>>>> dev
      * Set the value of the singleton alias loader.
      *
      * @param  \Illuminate\Foundation\AliasLoader  $loader

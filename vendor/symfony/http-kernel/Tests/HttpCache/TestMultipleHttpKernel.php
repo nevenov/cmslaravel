@@ -11,20 +11,6 @@
 
 namespace Symfony\Component\HttpKernel\Tests\HttpCache;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\HttpKernel;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-
-class TestMultipleHttpKernel extends HttpKernel implements ControllerResolverInterface
-{
-    protected $bodies = array();
-    protected $statuses = array();
-    protected $headers = array();
-=======
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +24,6 @@ class TestMultipleHttpKernel extends HttpKernel implements ControllerResolverInt
     protected $bodies = [];
     protected $statuses = [];
     protected $headers = [];
->>>>>>> dev
     protected $called = false;
     protected $backendRequest;
 
@@ -50,11 +35,7 @@ class TestMultipleHttpKernel extends HttpKernel implements ControllerResolverInt
             $this->headers[] = $response['headers'];
         }
 
-<<<<<<< HEAD
-        parent::__construct(new EventDispatcher(), $this);
-=======
         parent::__construct(new EventDispatcher(), $this, null, $this);
->>>>>>> dev
     }
 
     public function getBackendRequest()
@@ -71,20 +52,12 @@ class TestMultipleHttpKernel extends HttpKernel implements ControllerResolverInt
 
     public function getController(Request $request)
     {
-<<<<<<< HEAD
-        return array($this, 'callController');
-=======
         return [$this, 'callController'];
->>>>>>> dev
     }
 
     public function getArguments(Request $request, $controller)
     {
-<<<<<<< HEAD
-        return array($request);
-=======
         return [$request];
->>>>>>> dev
     }
 
     public function callController(Request $request)

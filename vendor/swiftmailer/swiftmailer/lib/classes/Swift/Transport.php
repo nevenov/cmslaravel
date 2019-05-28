@@ -33,8 +33,6 @@ interface Swift_Transport
     public function stop();
 
     /**
-<<<<<<< HEAD
-=======
      * Check if this Transport mechanism is alive.
      *
      * If a Transport mechanism session is no longer functional, the method
@@ -58,20 +56,11 @@ interface Swift_Transport
     public function ping();
 
     /**
->>>>>>> dev
      * Send the given Message.
      *
      * Recipient/sender data will be retrieved from the Message API.
      * The return value is the number of recipients who were accepted for delivery.
      *
-<<<<<<< HEAD
-     * @param Swift_Mime_Message $message
-     * @param string[]           $failedRecipients An array of failures by-reference
-     *
-     * @return int
-     */
-    public function send(Swift_Mime_Message $message, &$failedRecipients = null);
-=======
      * This is the responsibility of the send method to start the transport if needed.
      *
      * @param Swift_Mime_SimpleMessage $message
@@ -80,7 +69,6 @@ interface Swift_Transport
      * @return int
      */
     public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null);
->>>>>>> dev
 
     /**
      * Register a plugin in the Transport.

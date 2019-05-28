@@ -1,10 +1,6 @@
 <?php
 /*
-<<<<<<< HEAD
- * This file is part of the Comparator package.
-=======
  * This file is part of sebastian/comparator.
->>>>>>> dev
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -14,25 +10,17 @@
 
 namespace SebastianBergmann\Comparator;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use stdClass;
 
 /**
  * @coversDefaultClass SebastianBergmann\Comparator\TypeComparator
  *
-<<<<<<< HEAD
- */
-class TypeComparatorTest extends \PHPUnit_Framework_TestCase
-=======
  * @uses SebastianBergmann\Comparator\Comparator
  * @uses SebastianBergmann\Comparator\Factory
  * @uses SebastianBergmann\Comparator\ComparisonFailure
  */
 class TypeComparatorTest extends TestCase
->>>>>>> dev
 {
     private $comparator;
 
@@ -43,15 +31,6 @@ class TypeComparatorTest extends TestCase
 
     public function acceptsSucceedsProvider()
     {
-<<<<<<< HEAD
-        return array(
-          array(true, 1),
-          array(false, array(1)),
-          array(null, new stdClass),
-          array(1.0, 5),
-          array("", "")
-        );
-=======
         return [
           [true, 1],
           [false, [1]],
@@ -59,25 +38,10 @@ class TypeComparatorTest extends TestCase
           [1.0, 5],
           ['', '']
         ];
->>>>>>> dev
     }
 
     public function assertEqualsSucceedsProvider()
     {
-<<<<<<< HEAD
-        return array(
-          array(true, true),
-          array(true, false),
-          array(false, false),
-          array(null, null),
-          array(new stdClass, new stdClass),
-          array(0, 0),
-          array(1.0, 2.0),
-          array("hello", "world"),
-          array("", ""),
-          array(array(), array(1,2,3))
-        );
-=======
         return [
           [true, true],
           [true, false],
@@ -90,20 +54,10 @@ class TypeComparatorTest extends TestCase
           ['', ''],
           [[], [1,2,3]]
         ];
->>>>>>> dev
     }
 
     public function assertEqualsFailsProvider()
     {
-<<<<<<< HEAD
-        return array(
-          array(true, null),
-          array(null, false),
-          array(1.0, 0),
-          array(new stdClass, array()),
-          array("1", 1)
-        );
-=======
         return [
           [true, null],
           [null, false],
@@ -111,7 +65,6 @@ class TypeComparatorTest extends TestCase
           [new stdClass, []],
           ['1', 1]
         ];
->>>>>>> dev
     }
 
     /**
@@ -135,13 +88,7 @@ class TypeComparatorTest extends TestCase
 
         try {
             $this->comparator->assertEquals($expected, $actual);
-<<<<<<< HEAD
-        }
-
-        catch (ComparisonFailure $exception) {
-=======
         } catch (ComparisonFailure $exception) {
->>>>>>> dev
         }
 
         $this->assertNull($exception, 'Unexpected ComparisonFailure');
@@ -153,13 +100,9 @@ class TypeComparatorTest extends TestCase
      */
     public function testAssertEqualsFails($expected, $actual)
     {
-<<<<<<< HEAD
-        $this->setExpectedException('SebastianBergmann\\Comparator\\ComparisonFailure', 'does not match expected type');
-=======
         $this->expectException(ComparisonFailure::class);
         $this->expectExceptionMessage('does not match expected type');
 
->>>>>>> dev
         $this->comparator->assertEquals($expected, $actual);
     }
 }

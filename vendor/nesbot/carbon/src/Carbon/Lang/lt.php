@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /*
  * Authors:
  * - Philippe Vaucher
@@ -41,7 +34,6 @@ return array(
  * - Rolandas
  */
 return [
->>>>>>> dev
     'year' => ':count metus|:count metus|:count metų',
     'y' => ':count metus|:count metus|:count metų',
     'month' => ':count mėnesį|:count mėnesius|:count mėnesių',
@@ -67,9 +59,6 @@ return [
     'from_now' => 'už :time',
     'after' => 'po :time',
     'before' => ':time nuo dabar',
-<<<<<<< HEAD
-);
-=======
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'diff_now' => 'ką tik',
@@ -97,4 +86,3 @@ return [
     ],
     'meridiem' => ['priešpiet', 'popiet'],
 ];
->>>>>>> dev

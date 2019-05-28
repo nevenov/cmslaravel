@@ -11,11 +11,8 @@
 
 namespace Symfony\Component\Process\Pipes;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 
->>>>>>> dev
 /**
  * @author Romain Neutron <imprec@gmail.com>
  *
@@ -23,23 +20,6 @@ use Symfony\Component\Process\Exception\InvalidArgumentException;
  */
 abstract class AbstractPipes implements PipesInterface
 {
-<<<<<<< HEAD
-    /** @var array */
-    public $pipes = array();
-
-    /** @var string */
-    private $inputBuffer = '';
-    /** @var resource|null */
-    private $input;
-    /** @var bool */
-    private $blocked = true;
-
-    public function __construct($input)
-    {
-        if (is_resource($input)) {
-            $this->input = $input;
-        } elseif (is_string($input)) {
-=======
     public $pipes = [];
 
     private $inputBuffer = '';
@@ -55,7 +35,6 @@ abstract class AbstractPipes implements PipesInterface
         if (\is_resource($input) || $input instanceof \Iterator) {
             $this->input = $input;
         } elseif (\is_string($input)) {
->>>>>>> dev
             $this->inputBuffer = $input;
         } else {
             $this->inputBuffer = (string) $input;
@@ -70,11 +49,7 @@ abstract class AbstractPipes implements PipesInterface
         foreach ($this->pipes as $pipe) {
             fclose($pipe);
         }
-<<<<<<< HEAD
-        $this->pipes = array();
-=======
         $this->pipes = [];
->>>>>>> dev
     }
 
     /**
@@ -84,18 +59,11 @@ abstract class AbstractPipes implements PipesInterface
      */
     protected function hasSystemCallBeenInterrupted()
     {
-<<<<<<< HEAD
-        $lastError = error_get_last();
-
-        // stream_select returns false when the `select` system call is interrupted by an incoming signal
-        return isset($lastError['message']) && false !== stripos($lastError['message'], 'interrupted system call');
-=======
         $lastError = $this->lastError;
         $this->lastError = null;
 
         // stream_select returns false when the `select` system call is interrupted by an incoming signal
         return null !== $lastError && false !== stripos($lastError, 'interrupted system call');
->>>>>>> dev
     }
 
     /**
@@ -110,11 +78,7 @@ abstract class AbstractPipes implements PipesInterface
         foreach ($this->pipes as $pipe) {
             stream_set_blocking($pipe, 0);
         }
-<<<<<<< HEAD
-        if (null !== $this->input) {
-=======
         if (\is_resource($this->input)) {
->>>>>>> dev
             stream_set_blocking($this->input, 0);
         }
 
@@ -123,11 +87,8 @@ abstract class AbstractPipes implements PipesInterface
 
     /**
      * Writes input to stdin.
-<<<<<<< HEAD
-=======
      *
      * @throws InvalidArgumentException When an input iterator yields a non supported value
->>>>>>> dev
      */
     protected function write()
     {
@@ -135,13 +96,6 @@ abstract class AbstractPipes implements PipesInterface
             return;
         }
         $input = $this->input;
-<<<<<<< HEAD
-        $r = $e = array();
-        $w = array($this->pipes[0]);
-
-        // let's have a look if something changed in streams
-        if (false === $n = @stream_select($r, $w, $e, 0, 0)) {
-=======
 
         if ($input instanceof \Iterator) {
             if (!$input->valid()) {
@@ -168,7 +122,6 @@ abstract class AbstractPipes implements PipesInterface
 
         // let's have a look if something changed in streams
         if (false === @stream_select($r, $w, $e, 0, 0)) {
->>>>>>> dev
             return;
         }
 
@@ -177,11 +130,7 @@ abstract class AbstractPipes implements PipesInterface
                 $written = fwrite($stdin, $this->inputBuffer);
                 $this->inputBuffer = substr($this->inputBuffer, $written);
                 if (isset($this->inputBuffer[0])) {
-<<<<<<< HEAD
-                    return array($this->pipes[0]);
-=======
                     return [$this->pipes[0]];
->>>>>>> dev
                 }
             }
 
@@ -196,15 +145,6 @@ abstract class AbstractPipes implements PipesInterface
                     if (isset($data[0])) {
                         $this->inputBuffer = $data;
 
-<<<<<<< HEAD
-                        return array($this->pipes[0]);
-                    }
-                }
-                if (feof($input)) {
-                    // no more data to read on input resource
-                    // use an empty buffer in the next reads
-                    $this->input = null;
-=======
                         return [$this->pipes[0]];
                     }
                 }
@@ -214,22 +154,11 @@ abstract class AbstractPipes implements PipesInterface
                     } else {
                         $this->input = null;
                     }
->>>>>>> dev
                 }
             }
         }
 
         // no input to read on resource, buffer is empty
-<<<<<<< HEAD
-        if (null === $this->input && !isset($this->inputBuffer[0])) {
-            fclose($this->pipes[0]);
-            unset($this->pipes[0]);
-        }
-
-        if (!$w) {
-            return array($this->pipes[0]);
-        }
-=======
         if (!isset($this->inputBuffer[0]) && !($this->input instanceof \Iterator ? $this->input->valid() : $this->input)) {
             $this->input = null;
             fclose($this->pipes[0]);
@@ -245,6 +174,5 @@ abstract class AbstractPipes implements PipesInterface
     public function handleError($type, $msg)
     {
         $this->lastError = $msg;
->>>>>>> dev
     }
 }

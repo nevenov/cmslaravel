@@ -11,25 +11,15 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Fragment;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
->>>>>>> dev
 
 /**
  * @group time-sensitive
  */
-<<<<<<< HEAD
-class FragmentHandlerTest extends \PHPUnit_Framework_TestCase
-=======
 class FragmentHandlerTest extends TestCase
->>>>>>> dev
 {
     private $requestStack;
 
@@ -78,16 +68,6 @@ class FragmentHandlerTest extends TestCase
 
     public function testRender()
     {
-<<<<<<< HEAD
-        $handler = $this->getHandler($this->returnValue(new Response('foo')), array('/', Request::create('/'), array('foo' => 'foo', 'ignore_errors' => true)));
-
-        $this->assertEquals('foo', $handler->render('/', 'foo', array('foo' => 'foo')));
-    }
-
-    protected function getHandler($returnValue, $arguments = array())
-    {
-        $renderer = $this->getMock('Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface');
-=======
         $handler = $this->getHandler($this->returnValue(new Response('foo')), ['/', Request::create('/'), ['foo' => 'foo', 'ignore_errors' => true]]);
 
         $this->assertEquals('foo', $handler->render('/', 'foo', ['foo' => 'foo']));
@@ -96,7 +76,6 @@ class FragmentHandlerTest extends TestCase
     protected function getHandler($returnValue, $arguments = [])
     {
         $renderer = $this->getMockBuilder('Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface')->getMock();
->>>>>>> dev
         $renderer
             ->expects($this->any())
             ->method('getName')
@@ -109,11 +88,7 @@ class FragmentHandlerTest extends TestCase
         ;
 
         if ($arguments) {
-<<<<<<< HEAD
-            call_user_func_array(array($e, 'with'), $arguments);
-=======
             $e->with(...$arguments);
->>>>>>> dev
         }
 
         $handler = new FragmentHandler($this->requestStack);

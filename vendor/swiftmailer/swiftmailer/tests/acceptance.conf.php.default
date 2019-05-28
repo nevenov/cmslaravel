@@ -1,11 +1,7 @@
 <?php
 
 /*
-<<<<<<< HEAD
- Swift Mailer V4 accpetance test configuration.
-=======
  Swift Mailer acceptance test configuration.
->>>>>>> dev
 
  YOU ONLY NEED TO EDIT THIS FILE IF YOU WISH TO RUN THE ACCEPTANCE TESTS.
 

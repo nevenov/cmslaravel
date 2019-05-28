@@ -4,11 +4,6 @@ namespace Illuminate\Mail;
 
 use Swift_Image;
 use Swift_Attachment;
-<<<<<<< HEAD
-
-class Message
-{
-=======
 use Illuminate\Support\Traits\ForwardsCalls;
 
 /**
@@ -18,7 +13,6 @@ class Message
 {
     use ForwardsCalls;
 
->>>>>>> dev
     /**
      * The Swift Message instance.
      *
@@ -27,8 +21,6 @@ class Message
     protected $swift;
 
     /**
-<<<<<<< HEAD
-=======
      * CIDs of files embedded in the message.
      *
      * @var array
@@ -36,7 +28,6 @@ class Message
     protected $embeddedFiles = [];
 
     /**
->>>>>>> dev
      * Create a new message instance.
      *
      * @param  \Swift_Message  $swift
@@ -112,12 +103,6 @@ class Message
      *
      * @param  string|array  $address
      * @param  string|null  $name
-<<<<<<< HEAD
-     * @return $this
-     */
-    public function cc($address, $name = null)
-    {
-=======
      * @param  bool  $override
      * @return $this
      */
@@ -129,7 +114,6 @@ class Message
             return $this;
         }
 
->>>>>>> dev
         return $this->addAddresses($address, $name, 'Cc');
     }
 
@@ -138,12 +122,6 @@ class Message
      *
      * @param  string|array  $address
      * @param  string|null  $name
-<<<<<<< HEAD
-     * @return $this
-     */
-    public function bcc($address, $name = null)
-    {
-=======
      * @param  bool  $override
      * @return $this
      */
@@ -155,7 +133,6 @@ class Message
             return $this;
         }
 
->>>>>>> dev
         return $this->addAddresses($address, $name, 'Bcc');
     }
 
@@ -234,11 +211,7 @@ class Message
      * Create a Swift Attachment instance.
      *
      * @param  string  $file
-<<<<<<< HEAD
-     * @return \Swift_Attachment
-=======
      * @return \Swift_Mime_Attachment
->>>>>>> dev
      */
     protected function createAttachmentFromPath($file)
     {
@@ -269,11 +242,7 @@ class Message
      */
     protected function createAttachmentFromData($data, $name)
     {
-<<<<<<< HEAD
-        return Swift_Attachment::newInstance($data, $name);
-=======
         return new Swift_Attachment($data, $name);
->>>>>>> dev
     }
 
     /**
@@ -284,9 +253,6 @@ class Message
      */
     public function embed($file)
     {
-<<<<<<< HEAD
-        return $this->swift->embed(Swift_Image::fromPath($file));
-=======
         if (isset($this->embeddedFiles[$file])) {
             return $this->embeddedFiles[$file];
         }
@@ -294,7 +260,6 @@ class Message
         return $this->embeddedFiles[$file] = $this->swift->embed(
             Swift_Image::fromPath($file)
         );
->>>>>>> dev
     }
 
     /**
@@ -307,11 +272,7 @@ class Message
      */
     public function embedData($data, $name, $contentType = null)
     {
-<<<<<<< HEAD
-        $image = Swift_Image::newInstance($data, $name, $contentType);
-=======
         $image = new Swift_Image($data, $name, $contentType);
->>>>>>> dev
 
         return $this->swift->embed($image);
     }
@@ -363,12 +324,6 @@ class Message
      */
     public function __call($method, $parameters)
     {
-<<<<<<< HEAD
-        $callable = [$this->swift, $method];
-
-        return call_user_func_array($callable, $parameters);
-=======
         return $this->forwardCallTo($this->swift, $method, $parameters);
->>>>>>> dev
     }
 }

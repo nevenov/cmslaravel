@@ -12,10 +12,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function boot()
     {
-<<<<<<< HEAD
-        $service = $this;
-        $events = $this->app['events'];
-=======
         if (!$this->app->bound('events') || !$this->app->bound('translator')) {
             return;
         }
@@ -23,7 +19,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $service = $this;
         $events = $this->app['events'];
 
->>>>>>> dev
         if ($events instanceof EventDispatcher || $events instanceof Dispatcher) {
             $events->listen(class_exists('Illuminate\Foundation\Events\LocaleUpdated') ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed', function () use ($service) {
                 $service->updateLocale();
@@ -35,10 +30,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function updateLocale()
     {
         $translator = $this->app['translator'];
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
         if ($translator instanceof Translator || $translator instanceof IlluminateTranslator) {
             Carbon::setLocale($translator->getLocale());
         }

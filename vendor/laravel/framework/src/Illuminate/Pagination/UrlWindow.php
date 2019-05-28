@@ -28,39 +28,22 @@ class UrlWindow
      * Create a new URL window instance.
      *
      * @param  \Illuminate\Contracts\Pagination\LengthAwarePaginator  $paginator
-<<<<<<< HEAD
-     * @param  int  $onEachSide
-     * @return array
-     */
-    public static function make(PaginatorContract $paginator, $onEachSide = 3)
-    {
-        return (new static($paginator))->get($onEachSide);
-=======
      * @return array
      */
     public static function make(PaginatorContract $paginator)
     {
         return (new static($paginator))->get();
->>>>>>> dev
     }
 
     /**
      * Get the window of URLs to be shown.
      *
-<<<<<<< HEAD
-     * @param  int  $onEachSide
-     * @return array
-     */
-    public function get($onEachSide = 3)
-    {
-=======
      * @return array
      */
     public function get()
     {
         $onEachSide = $this->paginator->onEachSide;
 
->>>>>>> dev
         if ($this->paginator->lastPage() < ($onEachSide * 2) + 6) {
             return $this->getSmallSlider();
         }
@@ -93,15 +76,7 @@ class UrlWindow
         $window = $onEachSide * 2;
 
         if (! $this->hasPages()) {
-<<<<<<< HEAD
-            return [
-                'first'  => null,
-                'slider' => null,
-                'last'   => null,
-            ];
-=======
             return ['first' => null, 'slider' => null, 'last' => null];
->>>>>>> dev
         }
 
         // If the current page is very close to the beginning of the page range, we will
@@ -133,15 +108,9 @@ class UrlWindow
     protected function getSliderTooCloseToBeginning($window)
     {
         return [
-<<<<<<< HEAD
-            'first'  => $this->paginator->getUrlRange(1, $window + 2),
-            'slider' => null,
-            'last'   => $this->getFinish(),
-=======
             'first' => $this->paginator->getUrlRange(1, $window + 2),
             'slider' => null,
             'last' => $this->getFinish(),
->>>>>>> dev
         ];
     }
 
@@ -159,15 +128,9 @@ class UrlWindow
         );
 
         return [
-<<<<<<< HEAD
-            'first'  => $this->getStart(),
-            'slider' => null,
-            'last'   => $last,
-=======
             'first' => $this->getStart(),
             'slider' => null,
             'last' => $last,
->>>>>>> dev
         ];
     }
 

@@ -1,8 +1,6 @@
 CHANGELOG
 =========
 
-<<<<<<< HEAD
-=======
 4.2.0
 -----
 
@@ -28,7 +26,6 @@ CHANGELOG
 
  * added double-star matching to Glob::toRegex()
 
->>>>>>> dev
 3.0.0
 -----
 

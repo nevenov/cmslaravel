@@ -2,12 +2,6 @@
 
 namespace Illuminate\Database\Eloquent\Relations;
 
-<<<<<<< HEAD
-use Illuminate\Database\Eloquent\Collection;
-
-class HasOne extends HasOneOrMany
-{
-=======
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Concerns\SupportsDefaultModels;
@@ -16,7 +10,6 @@ class HasOne extends HasOneOrMany
 {
     use SupportsDefaultModels;
 
->>>>>>> dev
     /**
      * Get the results of the relationship.
      *
@@ -24,15 +17,11 @@ class HasOne extends HasOneOrMany
      */
     public function getResults()
     {
-<<<<<<< HEAD
-        return $this->query->first();
-=======
         if (is_null($this->getParentKey())) {
             return $this->getDefaultFor($this->parent);
         }
 
         return $this->query->first() ?: $this->getDefaultFor($this->parent);
->>>>>>> dev
     }
 
     /**
@@ -45,11 +34,7 @@ class HasOne extends HasOneOrMany
     public function initRelation(array $models, $relation)
     {
         foreach ($models as $model) {
-<<<<<<< HEAD
-            $model->setRelation($relation, null);
-=======
             $model->setRelation($relation, $this->getDefaultFor($model));
->>>>>>> dev
         }
 
         return $models;
@@ -58,11 +43,7 @@ class HasOne extends HasOneOrMany
     /**
      * Match the eagerly loaded results to their parents.
      *
-<<<<<<< HEAD
-     * @param  array   $models
-=======
      * @param  array  $models
->>>>>>> dev
      * @param  \Illuminate\Database\Eloquent\Collection  $results
      * @param  string  $relation
      * @return array
@@ -71,8 +52,6 @@ class HasOne extends HasOneOrMany
     {
         return $this->matchOne($models, $results, $relation);
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Make a new related instance for the given model.
@@ -86,5 +65,4 @@ class HasOne extends HasOneOrMany
             $this->getForeignKeyName(), $parent->{$this->localKey}
         );
     }
->>>>>>> dev
 }

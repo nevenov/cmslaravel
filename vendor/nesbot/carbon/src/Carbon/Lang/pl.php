@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /**
  * Authors:
  * - Wacław Jacek
@@ -32,7 +25,6 @@ return array(
  * - Peter (UnrulyNatives)
  */
 return [
->>>>>>> dev
     'year' => ':count rok|:count lata|:count lat',
     'y' => ':countr|:countl',
     'month' => ':count miesiąc|:count miesiące|:count miesięcy',
@@ -46,16 +38,10 @@ return [
     'minute' => ':count minuta|:count minuty|:count minut',
     'min' => ':countm',
     'second' => ':count sekunda|:count sekundy|:count sekund',
-<<<<<<< HEAD
-    's' => ':counts',
-    'ago' => ':time temu',
-    'from_now' => ':time od teraz',
-=======
     'a_second' => '{1}kilka sekund|:count sekunda|:count sekundy|:count sekund',
     's' => ':counts',
     'ago' => ':time temu',
     'from_now' => 'za :time',
->>>>>>> dev
     'after' => ':time po',
     'before' => ':time przed',
     'diff_now' => 'przed chwilą',
@@ -63,9 +49,6 @@ return [
     'diff_tomorrow' => 'jutro',
     'diff_before_yesterday' => 'przedwczoraj',
     'diff_after_tomorrow' => 'pojutrze',
-<<<<<<< HEAD
-);
-=======
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
@@ -119,4 +102,3 @@ return [
     'list' => [', ', ' i '],
     'meridiem' => ['przed południem', 'po południu'],
 ];
->>>>>>> dev

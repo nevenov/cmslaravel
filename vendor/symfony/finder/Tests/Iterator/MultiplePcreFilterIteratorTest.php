@@ -11,16 +11,10 @@
 
 namespace Symfony\Component\Finder\Tests\Iterator;
 
-<<<<<<< HEAD
-use Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator;
-
-class MultiplePcreFilterIteratorTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator;
 
 class MultiplePcreFilterIteratorTest extends TestCase
->>>>>>> dev
 {
     /**
      * @dataProvider getIsRegexFixtures
@@ -33,26 +27,6 @@ class MultiplePcreFilterIteratorTest extends TestCase
 
     public function getIsRegexFixtures()
     {
-<<<<<<< HEAD
-        return array(
-            array('foo', false, 'string'),
-            array(' foo ', false, '" " is not a valid delimiter'),
-            array('\\foo\\', false, '"\\" is not a valid delimiter'),
-            array('afooa', false, '"a" is not a valid delimiter'),
-            array('//', false, 'the pattern should contain at least 1 character'),
-            array('/a/', true, 'valid regex'),
-            array('/foo/', true, 'valid regex'),
-            array('/foo/i', true, 'valid regex with a single modifier'),
-            array('/foo/imsxu', true, 'valid regex with multiple modifiers'),
-            array('#foo#', true, '"#" is a valid delimiter'),
-            array('{foo}', true, '"{,}" is a valid delimiter pair'),
-            array('[foo]', true, '"[,]" is a valid delimiter pair'),
-            array('(foo)', true, '"(,)" is a valid delimiter pair'),
-            array('<foo>', true, '"<,>" is a valid delimiter pair'),
-            array('*foo.*', false, '"*" is not considered as a valid delimiter'),
-            array('?foo.?', false, '"?" is not considered as a valid delimiter'),
-        );
-=======
         return [
             ['foo', false, 'string'],
             [' foo ', false, '" " is not a valid delimiter'],
@@ -71,7 +45,6 @@ class MultiplePcreFilterIteratorTest extends TestCase
             ['*foo.*', false, '"*" is not considered as a valid delimiter'],
             ['?foo.?', false, '"?" is not considered as a valid delimiter'],
         ];
->>>>>>> dev
     }
 }
 

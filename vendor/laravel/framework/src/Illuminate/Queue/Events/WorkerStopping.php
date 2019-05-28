@@ -4,9 +4,6 @@ namespace Illuminate\Queue\Events;
 
 class WorkerStopping
 {
-<<<<<<< HEAD
-    //
-=======
     /**
      * The exit status.
      *
@@ -24,5 +21,4 @@ class WorkerStopping
     {
         $this->status = $status;
     }
->>>>>>> dev
 }

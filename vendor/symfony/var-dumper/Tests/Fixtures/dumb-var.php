@@ -14,34 +14,19 @@ $foo->bar = 'bar';
 
 $g = fopen(__FILE__, 'r');
 
-<<<<<<< HEAD
-$var = array(
-    'number' => 1, null,
-    'const' => 1.1, true, false, NAN, INF, -INF, PHP_INT_MAX,
-    'str' => "déjà\n", "\xE9\x00",
-    '[]' => array(),
-=======
 $var = [
     'number' => 1, null,
     'const' => 1.1, true, false, NAN, INF, -INF, PHP_INT_MAX,
     'str' => "déjà\n", "\xE9\x00test\t\ning",
     '[]' => [],
->>>>>>> dev
     'res' => $g,
     'obj' => $foo,
     'closure' => function ($a, \PDO &$b = null) {},
     'line' => __LINE__ - 1,
-<<<<<<< HEAD
-    'nobj' => array((object) array()),
-);
-
-$r = array();
-=======
     'nobj' => [(object) []],
 ];
 
 $r = [];
->>>>>>> dev
 $r[] = &$r;
 
 $var['recurs'] = &$r;

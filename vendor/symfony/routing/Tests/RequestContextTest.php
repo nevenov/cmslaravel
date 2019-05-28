@@ -11,18 +11,11 @@
 
 namespace Symfony\Component\Routing\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RequestContext;
-
-class RequestContextTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RequestContext;
 
 class RequestContextTest extends TestCase
->>>>>>> dev
 {
     public function testConstruct()
     {
@@ -75,27 +68,16 @@ class RequestContextTest extends TestCase
     public function testGetParameters()
     {
         $requestContext = new RequestContext();
-<<<<<<< HEAD
-        $this->assertEquals(array(), $requestContext->getParameters());
-
-        $requestContext->setParameters(array('foo' => 'bar'));
-        $this->assertEquals(array('foo' => 'bar'), $requestContext->getParameters());
-=======
         $this->assertEquals([], $requestContext->getParameters());
 
         $requestContext->setParameters(['foo' => 'bar']);
         $this->assertEquals(['foo' => 'bar'], $requestContext->getParameters());
->>>>>>> dev
     }
 
     public function testHasParameter()
     {
         $requestContext = new RequestContext();
-<<<<<<< HEAD
-        $requestContext->setParameters(array('foo' => 'bar'));
-=======
         $requestContext->setParameters(['foo' => 'bar']);
->>>>>>> dev
 
         $this->assertTrue($requestContext->hasParameter('foo'));
         $this->assertFalse($requestContext->hasParameter('baz'));
@@ -104,11 +86,7 @@ class RequestContextTest extends TestCase
     public function testGetParameter()
     {
         $requestContext = new RequestContext();
-<<<<<<< HEAD
-        $requestContext->setParameters(array('foo' => 'bar'));
-=======
         $requestContext->setParameters(['foo' => 'bar']);
->>>>>>> dev
 
         $this->assertEquals('bar', $requestContext->getParameter('foo'));
         $this->assertNull($requestContext->getParameter('baz'));
@@ -176,11 +154,7 @@ class RequestContextTest extends TestCase
         $this->assertSame($requestContext, $requestContext->setQueryString('foo=bar'));
         $this->assertSame($requestContext, $requestContext->setHttpPort(80));
         $this->assertSame($requestContext, $requestContext->setHttpsPort(443));
-<<<<<<< HEAD
-        $this->assertSame($requestContext, $requestContext->setParameters(array()));
-=======
         $this->assertSame($requestContext, $requestContext->setParameters([]));
->>>>>>> dev
         $this->assertSame($requestContext, $requestContext->setParameter('foo', 'bar'));
     }
 }

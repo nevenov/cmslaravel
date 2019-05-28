@@ -11,10 +11,7 @@
 
 namespace Symfony\Component\Console\Tests\Descriptor;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -22,11 +19,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-<<<<<<< HEAD
-abstract class AbstractDescriptorTest extends \PHPUnit_Framework_TestCase
-=======
 abstract class AbstractDescriptorTest extends TestCase
->>>>>>> dev
 {
     /** @dataProvider getDescribeInputArgumentTestData */
     public function testDescribeInputArgument(InputArgument $argument, $expectedDescription)
@@ -94,37 +87,21 @@ abstract class AbstractDescriptorTest extends TestCase
 
     abstract protected function getFormat();
 
-<<<<<<< HEAD
-    private function getDescriptionTestData(array $objects)
-    {
-        $data = array();
-        foreach ($objects as $name => $object) {
-            $description = file_get_contents(sprintf('%s/../Fixtures/%s.%s', __DIR__, $name, $this->getFormat()));
-            $data[] = array($object, $description);
-=======
     protected function getDescriptionTestData(array $objects)
     {
         $data = [];
         foreach ($objects as $name => $object) {
             $description = file_get_contents(sprintf('%s/../Fixtures/%s.%s', __DIR__, $name, $this->getFormat()));
             $data[] = [$object, $description];
->>>>>>> dev
         }
 
         return $data;
     }
 
-<<<<<<< HEAD
-    protected function assertDescription($expectedDescription, $describedObject)
-    {
-        $output = new BufferedOutput(BufferedOutput::VERBOSITY_NORMAL, true);
-        $this->getDescriptor()->describe($output, $describedObject, array('raw_output' => true));
-=======
     protected function assertDescription($expectedDescription, $describedObject, array $options = [])
     {
         $output = new BufferedOutput(BufferedOutput::VERBOSITY_NORMAL, true);
         $this->getDescriptor()->describe($output, $describedObject, $options + ['raw_output' => true]);
->>>>>>> dev
         $this->assertEquals(trim($expectedDescription), trim(str_replace(PHP_EOL, "\n", $output->fetch())));
     }
 }

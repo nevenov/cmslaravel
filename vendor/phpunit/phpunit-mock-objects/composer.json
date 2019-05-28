@@ -11,28 +11,11 @@
     "authors": [
         {
             "name": "Sebastian Bergmann",
-<<<<<<< HEAD
-            "email": "sb@sebastian-bergmann.de",
-=======
             "email": "sebastian@phpunit.de",
->>>>>>> dev
             "role": "lead"
         }
     ],
     "support": {
-<<<<<<< HEAD
-        "issues": "https://github.com/sebastianbergmann/phpunit-mock-objects/issues",
-        "irc": "irc://irc.freenode.net/phpunit"
-    },
-    "require": {
-        "php": ">=5.3.3",
-        "phpunit/php-text-template": "~1.2",
-        "doctrine/instantiator": "^1.0.2",
-        "sebastian/exporter": "~1.2"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4.4"
-=======
         "issues": "https://github.com/sebastianbergmann/phpunit-mock-objects/issues"
     },
     "prefer-stable": true,
@@ -51,7 +34,6 @@
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true
->>>>>>> dev
     },
     "suggest": {
         "ext-soap": "*"
@@ -68,11 +50,7 @@
     },
     "extra": {
         "branch-alias": {
-<<<<<<< HEAD
-            "dev-master": "2.3.x-dev"
-=======
             "dev-master": "5.0.x-dev"
->>>>>>> dev
         }
     }
 }

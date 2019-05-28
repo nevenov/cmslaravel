@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symfony name="My Symfony application" version="v1.0">
   <commands>
-<<<<<<< HEAD
-    <command id="help" name="help">
-=======
     <command id="help" name="help" hidden="0">
->>>>>>> dev
       <usages>
         <usage>help [--format FORMAT] [--raw] [--] [&lt;command_name&gt;]</usage>
       </usages>
@@ -60,11 +56,7 @@
         </option>
       </options>
     </command>
-<<<<<<< HEAD
-    <command id="list" name="list">
-=======
     <command id="list" name="list" hidden="0">
->>>>>>> dev
       <usages>
         <usage>list [--raw] [--format FORMAT] [--] [&lt;namespace&gt;]</usage>
       </usages>
@@ -102,11 +94,7 @@
         </option>
       </options>
     </command>
-<<<<<<< HEAD
-    <command id="descriptor:command1" name="descriptor:command1">
-=======
     <command id="descriptor:command1" name="descriptor:command1" hidden="0">
->>>>>>> dev
       <usages>
         <usage>descriptor:command1</usage>
         <usage>alias1</usage>
@@ -139,11 +127,7 @@
         </option>
       </options>
     </command>
-<<<<<<< HEAD
-    <command id="descriptor:command2" name="descriptor:command2">
-=======
     <command id="descriptor:command2" name="descriptor:command2" hidden="0">
->>>>>>> dev
       <usages>
         <usage>descriptor:command2 [-o|--option_name] [--] &lt;argument_name&gt;</usage>
         <usage>descriptor:command2 -o|--option_name &lt;argument_name&gt;</usage>
@@ -184,8 +168,6 @@
         </option>
       </options>
     </command>
-<<<<<<< HEAD
-=======
     <command id="descriptor:command3" name="descriptor:command3" hidden="1">
       <usages>
         <usage>descriptor:command3</usage>
@@ -250,7 +232,6 @@
         </option>
       </options>
     </command>
->>>>>>> dev
   </commands>
   <namespaces>
     <namespace id="_global">
@@ -259,11 +240,6 @@
       <command>help</command>
       <command>list</command>
     </namespace>
-<<<<<<< HEAD
-    <namespace id="descriptor">
-      <command>descriptor:command1</command>
-      <command>descriptor:command2</command>
-=======
     <namespace id="command4">
       <command>command4:descriptor</command>
     </namespace>
@@ -273,7 +249,6 @@
       <command>descriptor:command2</command>
       <command>descriptor:command3</command>
       <command>descriptor:command4</command>
->>>>>>> dev
     </namespace>
   </namespaces>
 </symfony>

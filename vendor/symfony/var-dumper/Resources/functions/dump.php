@@ -15,13 +15,6 @@ if (!function_exists('dump')) {
     /**
      * @author Nicolas Grekas <p@tchwork.com>
      */
-<<<<<<< HEAD
-    function dump($var)
-    {
-        foreach (func_get_args() as $var) {
-            VarDumper::dump($var);
-        }
-=======
     function dump($var, ...$moreVars)
     {
         VarDumper::dump($var);
@@ -46,6 +39,5 @@ if (!function_exists('dd')) {
         }
 
         die(1);
->>>>>>> dev
     }
 }

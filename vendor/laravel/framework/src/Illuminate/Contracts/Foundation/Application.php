@@ -2,10 +2,7 @@
 
 namespace Illuminate\Contracts\Foundation;
 
-<<<<<<< HEAD
-=======
 use Closure;
->>>>>>> dev
 use Illuminate\Contracts\Container\Container;
 
 interface Application extends Container
@@ -25,14 +22,6 @@ interface Application extends Container
     public function basePath();
 
     /**
-<<<<<<< HEAD
-     * Get or check the current application environment.
-     *
-     * @param  mixed
-     * @return string
-     */
-    public function environment();
-=======
      * Get the path to the bootstrap directory.
      *
      * @param  string  $path Optionally, a path to append to the bootstrap path
@@ -99,7 +88,6 @@ interface Application extends Container
      * @return bool
      */
     public function runningUnitTests();
->>>>>>> dev
 
     /**
      * Determine if the application is currently down for maintenance.
@@ -119,35 +107,21 @@ interface Application extends Container
      * Register a service provider with the application.
      *
      * @param  \Illuminate\Support\ServiceProvider|string  $provider
-<<<<<<< HEAD
-     * @param  array  $options
-     * @param  bool   $force
-     * @return \Illuminate\Support\ServiceProvider
-     */
-    public function register($provider, $options = [], $force = false);
-=======
      * @param  bool   $force
      * @return \Illuminate\Support\ServiceProvider
      */
     public function register($provider, $force = false);
->>>>>>> dev
 
     /**
      * Register a deferred provider and service.
      *
      * @param  string  $provider
-<<<<<<< HEAD
-     * @param  string  $service
-=======
      * @param  string|null  $service
->>>>>>> dev
      * @return void
      */
     public function registerDeferredProvider($provider, $service = null);
 
     /**
-<<<<<<< HEAD
-=======
      * Resolve a service provider instance from the class name.
      *
      * @param  string  $provider
@@ -156,7 +130,6 @@ interface Application extends Container
     public function resolveProvider($provider);
 
     /**
->>>>>>> dev
      * Boot the application's service providers.
      *
      * @return void
@@ -166,11 +139,7 @@ interface Application extends Container
     /**
      * Register a new boot listener.
      *
-<<<<<<< HEAD
-     * @param  mixed  $callback
-=======
      * @param  callable  $callback
->>>>>>> dev
      * @return void
      */
     public function booting($callback);
@@ -178,23 +147,12 @@ interface Application extends Container
     /**
      * Register a new "booted" listener.
      *
-<<<<<<< HEAD
-     * @param  mixed  $callback
-=======
      * @param  callable  $callback
->>>>>>> dev
      * @return void
      */
     public function booted($callback);
 
     /**
-<<<<<<< HEAD
-     * Get the path to the cached "compiled.php" file.
-     *
-     * @return string
-     */
-    public function getCachedCompilePath();
-=======
      * Run the given array of bootstrap classes.
      *
      * @param  array  $bootstrappers
@@ -237,7 +195,6 @@ interface Application extends Container
      * @return string
      */
     public function getCachedConfigPath();
->>>>>>> dev
 
     /**
      * Get the path to the cached services.php file.
@@ -245,8 +202,6 @@ interface Application extends Container
      * @return string
      */
     public function getCachedServicesPath();
-<<<<<<< HEAD
-=======
 
     /**
      * Get the path to the cached packages.php file.
@@ -336,5 +291,4 @@ interface Application extends Container
      * @return void
      */
     public function terminate();
->>>>>>> dev
 }

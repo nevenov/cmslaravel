@@ -11,10 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Proxy;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy;
 
 /**
@@ -25,11 +22,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy;
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
-<<<<<<< HEAD
-class SessionHandlerProxyTest extends \PHPUnit_Framework_TestCase
-=======
 class SessionHandlerProxyTest extends TestCase
->>>>>>> dev
 {
     /**
      * @var \PHPUnit_Framework_MockObject_Matcher
@@ -43,11 +36,7 @@ class SessionHandlerProxyTest extends TestCase
 
     protected function setUp()
     {
-<<<<<<< HEAD
-        $this->mock = $this->getMock('SessionHandlerInterface');
-=======
         $this->mock = $this->getMockBuilder('SessionHandlerInterface')->getMock();
->>>>>>> dev
         $this->proxy = new SessionHandlerProxy($this->mock);
     }
 
@@ -132,8 +121,6 @@ class SessionHandlerProxyTest extends TestCase
 
         $this->proxy->gc(86400);
     }
-<<<<<<< HEAD
-=======
 
     /**
      * @requires PHPUnit 5.1
@@ -167,5 +154,4 @@ class SessionHandlerProxyTest extends TestCase
 
         $this->proxy->updateTimestamp('id', 'data');
     }
->>>>>>> dev
 }

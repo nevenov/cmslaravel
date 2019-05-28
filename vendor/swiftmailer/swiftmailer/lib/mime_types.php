@@ -17,11 +17,7 @@
 
 // You may add or take away what you like (lowercase required)
 
-<<<<<<< HEAD
-$swift_mime_types = array(
-=======
 $swift_mime_types = [
->>>>>>> dev
     '3dml' => 'text/vnd.in3d.3dml',
     '3ds' => 'image/x-3ds',
     '3g2' => 'video/3gpp2',
@@ -1008,8 +1004,4 @@ $swift_mime_types = [
     'zirz' => 'application/vnd.zul',
     'zmm' => 'application/vnd.handheld-entertainment+xml',
     '123' => 'application/vnd.lotus-1-2-3',
-<<<<<<< HEAD
-);
-=======
 ];
->>>>>>> dev

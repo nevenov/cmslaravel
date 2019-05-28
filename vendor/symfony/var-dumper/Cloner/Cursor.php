@@ -38,9 +38,6 @@ class Cursor
     public $hashLength = 0;
     public $hashCut = 0;
     public $stop = false;
-<<<<<<< HEAD
-=======
     public $attr = [];
     public $skipChildren = false;
->>>>>>> dev
 }

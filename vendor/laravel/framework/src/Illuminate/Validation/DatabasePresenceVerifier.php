@@ -2,10 +2,7 @@
 
 namespace Illuminate\Validation;
 
-<<<<<<< HEAD
-=======
 use Closure;
->>>>>>> dev
 use Illuminate\Support\Str;
 use Illuminate\Database\ConnectionResolverInterface;
 
@@ -23,11 +20,7 @@ class DatabasePresenceVerifier implements PresenceVerifierInterface
      *
      * @var string
      */
-<<<<<<< HEAD
-    protected $connection = null;
-=======
     protected $connection;
->>>>>>> dev
 
     /**
      * Create a new database presence verifier.
@@ -46,38 +39,20 @@ class DatabasePresenceVerifier implements PresenceVerifierInterface
      * @param  string  $collection
      * @param  string  $column
      * @param  string  $value
-<<<<<<< HEAD
-     * @param  int     $excludeId
-     * @param  string  $idColumn
-     * @param  array   $extra
-=======
      * @param  int|null  $excludeId
      * @param  string|null  $idColumn
      * @param  array  $extra
->>>>>>> dev
      * @return int
      */
     public function getCount($collection, $column, $value, $excludeId = null, $idColumn = null, array $extra = [])
     {
         $query = $this->table($collection)->where($column, '=', $value);
 
-<<<<<<< HEAD
-        if (! is_null($excludeId) && $excludeId != 'NULL') {
-            $query->where($idColumn ?: 'id', '<>', $excludeId);
-        }
-
-        foreach ($extra as $key => $extraValue) {
-            $this->addWhere($query, $key, $extraValue);
-        }
-
-        return $query->count();
-=======
         if (! is_null($excludeId) && $excludeId !== 'NULL') {
             $query->where($idColumn ?: 'id', '<>', $excludeId);
         }
 
         return $this->addConditions($query, $extra)->count();
->>>>>>> dev
     }
 
     /**
@@ -93,13 +68,6 @@ class DatabasePresenceVerifier implements PresenceVerifierInterface
     {
         $query = $this->table($collection)->whereIn($column, $values);
 
-<<<<<<< HEAD
-        foreach ($extra as $key => $extraValue) {
-            $this->addWhere($query, $key, $extraValue);
-        }
-
-        return $query->count();
-=======
         return $this->addConditions($query, $extra)->distinct()->count($column);
     }
 
@@ -123,7 +91,6 @@ class DatabasePresenceVerifier implements PresenceVerifierInterface
         }
 
         return $query;
->>>>>>> dev
     }
 
     /**
@@ -153,11 +120,7 @@ class DatabasePresenceVerifier implements PresenceVerifierInterface
      * @param  string  $table
      * @return \Illuminate\Database\Query\Builder
      */
-<<<<<<< HEAD
-    protected function table($table)
-=======
     public function table($table)
->>>>>>> dev
     {
         return $this->db->connection($this->connection)->table($table)->useWritePdo();
     }

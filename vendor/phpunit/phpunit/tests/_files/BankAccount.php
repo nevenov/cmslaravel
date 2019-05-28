@@ -14,11 +14,6 @@ class BankAccountException extends RuntimeException
 
 /**
  * A bank account.
-<<<<<<< HEAD
- *
- * @since      Class available since Release 2.3.0
-=======
->>>>>>> dev
  */
 class BankAccount
 {

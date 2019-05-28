@@ -11,13 +11,8 @@
 
 namespace Symfony\Component\Debug\FatalErrorHandler;
 
-<<<<<<< HEAD
-use Symfony\Component\Debug\Exception\UndefinedFunctionException;
-use Symfony\Component\Debug\Exception\FatalErrorException;
-=======
 use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\Debug\Exception\UndefinedFunctionException;
->>>>>>> dev
 
 /**
  * ErrorHandler for undefined functions.
@@ -31,15 +26,9 @@ class UndefinedFunctionFatalErrorHandler implements FatalErrorHandlerInterface
      */
     public function handleError(array $error, FatalErrorException $exception)
     {
-<<<<<<< HEAD
-        $messageLen = strlen($error['message']);
-        $notFoundSuffix = '()';
-        $notFoundSuffixLen = strlen($notFoundSuffix);
-=======
         $messageLen = \strlen($error['message']);
         $notFoundSuffix = '()';
         $notFoundSuffixLen = \strlen($notFoundSuffix);
->>>>>>> dev
         if ($notFoundSuffixLen > $messageLen) {
             return;
         }
@@ -49,11 +38,7 @@ class UndefinedFunctionFatalErrorHandler implements FatalErrorHandlerInterface
         }
 
         $prefix = 'Call to undefined function ';
-<<<<<<< HEAD
-        $prefixLen = strlen($prefix);
-=======
         $prefixLen = \strlen($prefix);
->>>>>>> dev
         if (0 !== strpos($error['message'], $prefix)) {
             return;
         }
@@ -68,11 +53,7 @@ class UndefinedFunctionFatalErrorHandler implements FatalErrorHandlerInterface
             $message = sprintf('Attempted to call function "%s" from the global namespace.', $functionName);
         }
 
-<<<<<<< HEAD
-        $candidates = array();
-=======
         $candidates = [];
->>>>>>> dev
         foreach (get_defined_functions() as $type => $definedFunctionNames) {
             foreach ($definedFunctionNames as $definedFunctionName) {
                 if (false !== $namespaceSeparatorIndex = strrpos($definedFunctionName, '\\')) {

@@ -4,9 +4,6 @@ namespace Illuminate\Contracts\Filesystem;
 
 interface Cloud extends Filesystem
 {
-<<<<<<< HEAD
-    //
-=======
     /**
      * Get the URL for the file at the given path.
      *
@@ -14,5 +11,4 @@ interface Cloud extends Filesystem
      * @return string
      */
     public function url($path);
->>>>>>> dev
 }

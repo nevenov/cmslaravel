@@ -16,23 +16,12 @@ namespace Symfony\Component\Finder\Iterator;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-<<<<<<< HEAD
-abstract class MultiplePcreFilterIterator extends FilterIterator
-{
-    protected $matchRegexps = array();
-    protected $noMatchRegexps = array();
-
-    /**
-     * Constructor.
-     *
-=======
 abstract class MultiplePcreFilterIterator extends \FilterIterator
 {
     protected $matchRegexps = [];
     protected $noMatchRegexps = [];
 
     /**
->>>>>>> dev
      * @param \Iterator $iterator        The Iterator to filter
      * @param array     $matchPatterns   An array of patterns that need to match
      * @param array     $noMatchPatterns An array of patterns that need to not match
@@ -102,11 +91,7 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
                 return !preg_match('/[*?[:alnum:] \\\\]/', $start);
             }
 
-<<<<<<< HEAD
-            foreach (array(array('{', '}'), array('(', ')'), array('[', ']'), array('<', '>')) as $delimiters) {
-=======
             foreach ([['{', '}'], ['(', ')'], ['[', ']'], ['<', '>']] as $delimiters) {
->>>>>>> dev
                 if ($start === $delimiters[0] && $end === $delimiters[1]) {
                     return true;
                 }

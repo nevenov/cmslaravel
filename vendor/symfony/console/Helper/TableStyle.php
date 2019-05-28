@@ -19,19 +19,11 @@ use Symfony\Component\Console\Exception\LogicException;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Саша Стаменковић <umpirsky@gmail.com>
-<<<<<<< HEAD
-=======
  * @author Dany Maillard <danymaillard93b@gmail.com>
->>>>>>> dev
  */
 class TableStyle
 {
     private $paddingChar = ' ';
-<<<<<<< HEAD
-    private $horizontalBorderChar = '-';
-    private $verticalBorderChar = '|';
-    private $crossingChar = '+';
-=======
     private $horizontalOutsideBorderChar = '-';
     private $horizontalInsideBorderChar = '-';
     private $verticalOutsideBorderChar = '|';
@@ -50,7 +42,6 @@ class TableStyle
     private $crossingTopRightBottomChar = '+';
     private $headerTitleFormat = '<fg=black;bg=white;options=bold> %s </>';
     private $footerTitleFormat = '<fg=black;bg=white;options=bold> %s </>';
->>>>>>> dev
     private $cellHeaderFormat = '<info>%s</info>';
     private $cellRowFormat = '%s';
     private $cellRowContentFormat = ' %s ';
@@ -62,11 +53,7 @@ class TableStyle
      *
      * @param string $paddingChar
      *
-<<<<<<< HEAD
-     * @return TableStyle
-=======
      * @return $this
->>>>>>> dev
      */
     public function setPaddingChar($paddingChar)
     {
@@ -90,8 +77,6 @@ class TableStyle
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Sets horizontal border characters.
      *
      * <code>
@@ -117,20 +102,10 @@ class TableStyle
     }
 
     /**
->>>>>>> dev
      * Sets horizontal border character.
      *
      * @param string $horizontalBorderChar
      *
-<<<<<<< HEAD
-     * @return TableStyle
-     */
-    public function setHorizontalBorderChar($horizontalBorderChar)
-    {
-        $this->horizontalBorderChar = $horizontalBorderChar;
-
-        return $this;
-=======
      * @return $this
      *
      * @deprecated since Symfony 4.1, use {@link setHorizontalBorderChars()} instead.
@@ -140,19 +115,12 @@ class TableStyle
         @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.1, use setHorizontalBorderChars() instead.', __METHOD__), E_USER_DEPRECATED);
 
         return $this->setHorizontalBorderChars($horizontalBorderChar, $horizontalBorderChar);
->>>>>>> dev
     }
 
     /**
      * Gets horizontal border character.
      *
      * @return string
-<<<<<<< HEAD
-     */
-    public function getHorizontalBorderChar()
-    {
-        return $this->horizontalBorderChar;
-=======
      *
      * @deprecated since Symfony 4.1, use {@link getBorderChars()} instead.
      */
@@ -187,7 +155,6 @@ class TableStyle
         $this->verticalInsideBorderChar = $inside ?? $outside;
 
         return $this;
->>>>>>> dev
     }
 
     /**
@@ -195,15 +162,6 @@ class TableStyle
      *
      * @param string $verticalBorderChar
      *
-<<<<<<< HEAD
-     * @return TableStyle
-     */
-    public function setVerticalBorderChar($verticalBorderChar)
-    {
-        $this->verticalBorderChar = $verticalBorderChar;
-
-        return $this;
-=======
      * @return $this
      *
      * @deprecated since Symfony 4.1, use {@link setVerticalBorderChars()} instead.
@@ -213,19 +171,12 @@ class TableStyle
         @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.1, use setVerticalBorderChars() instead.', __METHOD__), E_USER_DEPRECATED);
 
         return $this->setVerticalBorderChars($verticalBorderChar, $verticalBorderChar);
->>>>>>> dev
     }
 
     /**
      * Gets vertical border character.
      *
      * @return string
-<<<<<<< HEAD
-     */
-    public function getVerticalBorderChar()
-    {
-        return $this->verticalBorderChar;
-=======
      *
      * @deprecated since Symfony 4.1, use {@link getBorderChars()} instead.
      */
@@ -306,7 +257,6 @@ class TableStyle
     public function setDefaultCrossingChar(string $char): self
     {
         return $this->setCrossingChars($char, $char, $char, $char, $char, $char, $char, $char, $char);
->>>>>>> dev
     }
 
     /**
@@ -314,15 +264,6 @@ class TableStyle
      *
      * @param string $crossingChar
      *
-<<<<<<< HEAD
-     * @return TableStyle
-     */
-    public function setCrossingChar($crossingChar)
-    {
-        $this->crossingChar = $crossingChar;
-
-        return $this;
-=======
      * @return $this
      *
      * @deprecated since Symfony 4.1. Use {@link setDefaultCrossingChar()} instead.
@@ -332,17 +273,12 @@ class TableStyle
         @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.1. Use setDefaultCrossingChar() instead.', __METHOD__), E_USER_DEPRECATED);
 
         return $this->setDefaultCrossingChar($crossingChar);
->>>>>>> dev
     }
 
     /**
      * Gets crossing character.
      *
-<<<<<<< HEAD
-     * @return string $crossingChar
-=======
      * @return string
->>>>>>> dev
      */
     public function getCrossingChar()
     {
@@ -350,8 +286,6 @@ class TableStyle
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Gets crossing characters.
      *
      * @internal
@@ -375,16 +309,11 @@ class TableStyle
     }
 
     /**
->>>>>>> dev
      * Sets header cell format.
      *
      * @param string $cellHeaderFormat
      *
-<<<<<<< HEAD
-     * @return TableStyle
-=======
      * @return $this
->>>>>>> dev
      */
     public function setCellHeaderFormat($cellHeaderFormat)
     {
@@ -408,11 +337,7 @@ class TableStyle
      *
      * @param string $cellRowFormat
      *
-<<<<<<< HEAD
-     * @return TableStyle
-=======
      * @return $this
->>>>>>> dev
      */
     public function setCellRowFormat($cellRowFormat)
     {
@@ -436,11 +361,7 @@ class TableStyle
      *
      * @param string $cellRowContentFormat
      *
-<<<<<<< HEAD
-     * @return TableStyle
-=======
      * @return $this
->>>>>>> dev
      */
     public function setCellRowContentFormat($cellRowContentFormat)
     {
@@ -464,11 +385,7 @@ class TableStyle
      *
      * @param string $borderFormat
      *
-<<<<<<< HEAD
-     * @return TableStyle
-=======
      * @return $this
->>>>>>> dev
      */
     public function setBorderFormat($borderFormat)
     {
@@ -492,19 +409,11 @@ class TableStyle
      *
      * @param int $padType STR_PAD_*
      *
-<<<<<<< HEAD
-     * @return TableStyle
-     */
-    public function setPadType($padType)
-    {
-        if (!in_array($padType, array(STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH), true)) {
-=======
      * @return $this
      */
     public function setPadType($padType)
     {
         if (!\in_array($padType, [STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH], true)) {
->>>>>>> dev
             throw new InvalidArgumentException('Invalid padding type. Expected one of (STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH).');
         }
 
@@ -522,8 +431,6 @@ class TableStyle
     {
         return $this->padType;
     }
-<<<<<<< HEAD
-=======
 
     public function getHeaderTitleFormat(): string
     {
@@ -548,5 +455,4 @@ class TableStyle
 
         return $this;
     }
->>>>>>> dev
 }

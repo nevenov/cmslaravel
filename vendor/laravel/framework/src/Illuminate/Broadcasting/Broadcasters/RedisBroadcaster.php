@@ -2,17 +2,6 @@
 
 namespace Illuminate\Broadcasting\Broadcasters;
 
-<<<<<<< HEAD
-use Illuminate\Contracts\Broadcasting\Broadcaster;
-use Illuminate\Contracts\Redis\Database as RedisDatabase;
-
-class RedisBroadcaster implements Broadcaster
-{
-    /**
-     * The Redis instance.
-     *
-     * @var \Illuminate\Contracts\Redis\Database
-=======
 use Illuminate\Support\Arr;
 use Illuminate\Contracts\Redis\Factory as Redis;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -25,7 +14,6 @@ class RedisBroadcaster extends Broadcaster
      * The Redis instance.
      *
      * @var \Illuminate\Contracts\Redis\Factory
->>>>>>> dev
      */
     protected $redis;
 
@@ -39,28 +27,17 @@ class RedisBroadcaster extends Broadcaster
     /**
      * Create a new broadcaster instance.
      *
-<<<<<<< HEAD
-     * @param  \Illuminate\Contracts\Redis\Database  $redis
-     * @param  string  $connection
-     * @return void
-     */
-    public function __construct(RedisDatabase $redis, $connection = null)
-=======
      * @param  \Illuminate\Contracts\Redis\Factory  $redis
      * @param  string|null  $connection
      * @return void
      */
     public function __construct(Redis $redis, $connection = null)
->>>>>>> dev
     {
         $this->redis = $redis;
         $this->connection = $connection;
     }
 
     /**
-<<<<<<< HEAD
-     * {@inheritdoc}
-=======
      * Authenticate the incoming request for a given channel.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -110,17 +87,11 @@ class RedisBroadcaster extends Broadcaster
      * @param  string  $event
      * @param  array  $payload
      * @return void
->>>>>>> dev
      */
     public function broadcast(array $channels, $event, array $payload = [])
     {
         $connection = $this->redis->connection($this->connection);
 
-<<<<<<< HEAD
-        $payload = json_encode(['event' => $event, 'data' => $payload]);
-
-        foreach ($channels as $channel) {
-=======
         $payload = json_encode([
             'event' => $event,
             'data' => $payload,
@@ -128,7 +99,6 @@ class RedisBroadcaster extends Broadcaster
         ]);
 
         foreach ($this->formatChannels($channels) as $channel) {
->>>>>>> dev
             $connection->publish($channel, $payload);
         }
     }

@@ -19,19 +19,11 @@ interface Swift_Events_EventDispatcher
      * Create a new SendEvent for $source and $message.
      *
      * @param Swift_Transport $source
-<<<<<<< HEAD
-     * @param Swift_Mime_Message
-     *
-     * @return Swift_Events_SendEvent
-     */
-    public function createSendEvent(Swift_Transport $source, Swift_Mime_Message $message);
-=======
      * @param Swift_Mime_SimpleMessage
      *
      * @return Swift_Events_SendEvent
      */
     public function createSendEvent(Swift_Transport $source, Swift_Mime_SimpleMessage $message);
->>>>>>> dev
 
     /**
      * Create a new CommandEvent for $source and $command.
@@ -42,11 +34,7 @@ interface Swift_Events_EventDispatcher
      *
      * @return Swift_Events_CommandEvent
      */
-<<<<<<< HEAD
-    public function createCommandEvent(Swift_Transport $source, $command, $successCodes = array());
-=======
     public function createCommandEvent(Swift_Transport $source, $command, $successCodes = []);
->>>>>>> dev
 
     /**
      * Create a new ResponseEvent for $source and $response.

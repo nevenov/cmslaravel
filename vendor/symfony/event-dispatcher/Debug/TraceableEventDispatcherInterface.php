@@ -12,15 +12,6 @@
 namespace Symfony\Component\EventDispatcher\Debug;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-<<<<<<< HEAD
-
-/**
- * @author Fabien Potencier <fabien@symfony.com>
- *
- * @method reset() Resets the trace.
- */
-interface TraceableEventDispatcherInterface extends EventDispatcherInterface
-=======
 use Symfony\Contracts\Service\ResetInterface;
 
 /**
@@ -29,7 +20,6 @@ use Symfony\Contracts\Service\ResetInterface;
  * @author Fabien Potencier <fabien@symfony.com>
  */
 interface TraceableEventDispatcherInterface extends EventDispatcherInterface, ResetInterface
->>>>>>> dev
 {
     /**
      * Gets the called listeners.

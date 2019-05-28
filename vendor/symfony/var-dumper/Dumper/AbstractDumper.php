@@ -21,14 +21,11 @@ use Symfony\Component\VarDumper\Cloner\DumperInterface;
  */
 abstract class AbstractDumper implements DataDumperInterface, DumperInterface
 {
-<<<<<<< HEAD
-=======
     const DUMP_LIGHT_ARRAY = 1;
     const DUMP_STRING_LENGTH = 2;
     const DUMP_COMMA_SEPARATOR = 4;
     const DUMP_TRAILING_COMMA = 8;
 
->>>>>>> dev
     public static $defaultOutput = 'php://output';
 
     protected $line = '';
@@ -36,26 +33,12 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     protected $outputStream;
     protected $decimalPoint; // This is locale dependent
     protected $indentPad = '  ';
-<<<<<<< HEAD
-=======
     protected $flags;
->>>>>>> dev
 
     private $charset;
 
     /**
      * @param callable|resource|string|null $output  A line dumper callable, an opened stream or an output path, defaults to static::$defaultOutput
-<<<<<<< HEAD
-     * @param string                        $charset The default character encoding to use for non-UTF8 strings
-     */
-    public function __construct($output = null, $charset = null)
-    {
-        $this->setCharset($charset ?: ini_get('php.output_encoding') ?: ini_get('default_charset') ?: 'UTF-8');
-        $this->decimalPoint = (string) 0.5;
-        $this->decimalPoint = $this->decimalPoint[1];
-        $this->setOutput($output ?: static::$defaultOutput);
-        if (!$output && is_string(static::$defaultOutput)) {
-=======
      * @param string|null                   $charset The default character encoding to use for non-UTF8 strings
      * @param int                           $flags   A bit field of static::DUMP_* constants to fine tune dumps representation
      */
@@ -67,7 +50,6 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
         $this->decimalPoint = $this->decimalPoint['decimal_point'];
         $this->setOutput($output ?: static::$defaultOutput);
         if (!$output && \is_string(static::$defaultOutput)) {
->>>>>>> dev
             static::$defaultOutput = $this->outputStream;
         }
     }
@@ -83,17 +65,6 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     {
         $prev = null !== $this->outputStream ? $this->outputStream : $this->lineDumper;
 
-<<<<<<< HEAD
-        if (is_callable($output)) {
-            $this->outputStream = null;
-            $this->lineDumper = $output;
-        } else {
-            if (is_string($output)) {
-                $output = fopen($output, 'wb');
-            }
-            $this->outputStream = $output;
-            $this->lineDumper = array($this, 'echoLine');
-=======
         if (\is_callable($output)) {
             $this->outputStream = null;
             $this->lineDumper = $output;
@@ -103,7 +74,6 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
             }
             $this->outputStream = $output;
             $this->lineDumper = [$this, 'echoLine'];
->>>>>>> dev
         }
 
         return $prev;
@@ -131,15 +101,9 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     /**
      * Sets the indentation pad string.
      *
-<<<<<<< HEAD
-     * @param string $pad A string the will be prepended to dumped lines, repeated by nesting level
-     *
-     * @return string The indent pad
-=======
      * @param string $pad A string that will be prepended to dumped lines, repeated by nesting level
      *
      * @return string The previous indent pad
->>>>>>> dev
      */
     public function setIndentPad($pad)
     {
@@ -152,14 +116,6 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     /**
      * Dumps a Data object.
      *
-<<<<<<< HEAD
-     * @param Data                          $data   A Data object
-     * @param callable|resource|string|null $output A line dumper callable, an opened stream or an output path
-     */
-    public function dump(Data $data, $output = null)
-    {
-        $exception = null;
-=======
      * @param Data                               $data   A Data object
      * @param callable|resource|string|true|null $output A line dumper callable, an opened stream, an output path or true to return the dump
      *
@@ -177,25 +133,12 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
         if ($returnDump = true === $output) {
             $output = fopen('php://memory', 'r+b');
         }
->>>>>>> dev
         if ($output) {
             $prevOutput = $this->setOutput($output);
         }
         try {
             $data->dump($this);
             $this->dumpLine(-1);
-<<<<<<< HEAD
-        } catch (\Exception $exception) {
-            // Re-thrown below
-        } catch (\Throwable $exception) {
-            // Re-thrown below
-        }
-        if ($output) {
-            $this->setOutput($prevOutput);
-        }
-        if (null !== $exception) {
-            throw $exception;
-=======
 
             if ($returnDump) {
                 $result = stream_get_contents($output, -1, 0);
@@ -210,41 +153,27 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
             if ($locale) {
                 setlocale(LC_NUMERIC, $locale);
             }
->>>>>>> dev
         }
     }
 
     /**
      * Dumps the current line.
      *
-<<<<<<< HEAD
-     * @param int $depth The recursive depth in the dumped structure for the line being dumped
-     */
-    protected function dumpLine($depth)
-    {
-        call_user_func($this->lineDumper, $this->line, $depth, $this->indentPad);
-=======
      * @param int $depth The recursive depth in the dumped structure for the line being dumped,
      *                   or -1 to signal the end-of-dump to the line dumper callable
      */
     protected function dumpLine($depth)
     {
         ($this->lineDumper)($this->line, $depth, $this->indentPad);
->>>>>>> dev
         $this->line = '';
     }
 
     /**
      * Generic line dumper callback.
      *
-<<<<<<< HEAD
-     * @param string $line  The line to write
-     * @param int    $depth The recursive depth in the dumped structure
-=======
      * @param string $line      The line to write
      * @param int    $depth     The recursive depth in the dumped structure
      * @param string $indentPad The line indent pad
->>>>>>> dev
      */
     protected function echoLine($line, $depth, $indentPad)
     {
@@ -262,8 +191,6 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
      */
     protected function utf8Encode($s)
     {
-<<<<<<< HEAD
-=======
         if (preg_match('//u', $s)) {
             return $s;
         }
@@ -272,7 +199,6 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
             throw new \RuntimeException('Unable to convert a non-UTF-8 string to UTF-8: required function iconv() does not exist. You should install ext-iconv or symfony/polyfill-iconv.');
         }
 
->>>>>>> dev
         if (false !== $c = @iconv($this->charset, 'UTF-8', $s)) {
             return $c;
         }

@@ -7,46 +7,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-=======
 namespace PHPUnit\Framework\Constraint;
->>>>>>> dev
 
 /**
  * Constraint that asserts that the value it is evaluated for is greater
  * than a given value.
-<<<<<<< HEAD
- *
- * @since Class available since Release 3.0.0
- */
-class PHPUnit_Framework_Constraint_GreaterThan extends PHPUnit_Framework_Constraint
-{
-    /**
-     * @var numeric
-=======
  */
 class GreaterThan extends Constraint
 {
     /**
      * @var int|float
->>>>>>> dev
      */
     protected $value;
 
     /**
-<<<<<<< HEAD
-     * @param numeric $value
-=======
      * @param int|float $value
->>>>>>> dev
      */
     public function __construct($value)
     {
         parent::__construct();
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
         $this->value = $value;
     }
 

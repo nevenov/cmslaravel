@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<?php
-=======
 <?php declare(strict_types=1);
->>>>>>> dev
 $header = <<<'EOF'
 This file is part of sebastian/diff.
 
@@ -16,11 +12,7 @@ return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules(
         [
-<<<<<<< HEAD
-            'array_syntax' => ['syntax' => 'long'],
-=======
             'array_syntax' => ['syntax' => 'short'],
->>>>>>> dev
             'binary_operator_spaces' => [
                 'align_double_arrow' => true,
                 'align_equals' => true
@@ -30,10 +22,7 @@ return PhpCsFixer\Config::create()
             'braces' => true,
             'cast_spaces' => true,
             'concat_space' => ['spacing' => 'one'],
-<<<<<<< HEAD
-=======
             'declare_strict_types' => true,
->>>>>>> dev
             'elseif' => true,
             'encoding' => true,
             'full_opening_tag' => true,
@@ -71,10 +60,7 @@ return PhpCsFixer\Config::create()
             'phpdoc_trim' => true,
             'phpdoc_types' => true,
             'phpdoc_var_without_name' => true,
-<<<<<<< HEAD
-=======
             'pow_to_exponentiation' => true,
->>>>>>> dev
             'self_accessor' => true,
             'simplified_null_return' => true,
             'single_blank_line_at_eof' => true,

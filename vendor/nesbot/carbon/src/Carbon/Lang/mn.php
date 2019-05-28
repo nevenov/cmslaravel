@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -16,9 +12,6 @@
  * @translator Batmandakh Erdenebileg <batmandakh.e@icloud.com>
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /*
  * Authors:
  * - Philippe Vaucher
@@ -38,7 +31,6 @@ return array(
  * - Batmandakh
  */
 return [
->>>>>>> dev
     'year' => ':count жил',
     'y' => ':count жил',
     'month' => ':count сар',
@@ -85,9 +77,6 @@ return [
     'hour_before' => ':count цагий',
     'minute_before' => ':count минуты',
     'second_before' => ':count секунды',
-<<<<<<< HEAD
-);
-=======
     'list' => ', ',
     'formats' => [
         'LT' => 'HH:mm',
@@ -105,4 +94,3 @@ return [
     'meridiem' => ['өглөө', 'орой'],
     'first_day_of_week' => 1,
 ];
->>>>>>> dev

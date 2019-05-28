@@ -16,11 +16,7 @@ namespace Symfony\Component\Finder\Iterator;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-<<<<<<< HEAD
-class FileTypeFilterIterator extends FilterIterator
-=======
 class FileTypeFilterIterator extends \FilterIterator
->>>>>>> dev
 {
     const ONLY_FILES = 1;
     const ONLY_DIRECTORIES = 2;
@@ -28,19 +24,10 @@ class FileTypeFilterIterator extends \FilterIterator
     private $mode;
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-     * @param \Iterator $iterator The Iterator to filter
-     * @param int       $mode     The mode (self::ONLY_FILES or self::ONLY_DIRECTORIES)
-     */
-    public function __construct(\Iterator $iterator, $mode)
-=======
      * @param \Iterator $iterator The Iterator to filter
      * @param int       $mode     The mode (self::ONLY_FILES or self::ONLY_DIRECTORIES)
      */
     public function __construct(\Iterator $iterator, int $mode)
->>>>>>> dev
     {
         $this->mode = $mode;
 

@@ -1,14 +1,7 @@
 
-<<<<<<< HEAD
-                                                                
-  [Symfony\Component\Console\Exception\InvalidOptionException]  
-  The "--foo" option does not exist.                            
-                                                                
-=======
                                       
   The "--foo" option does not exist.  
                                       
->>>>>>> dev
 
 list [--raw] [--format FORMAT] [--] [<namespace>]
 

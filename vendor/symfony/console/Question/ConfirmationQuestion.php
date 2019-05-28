@@ -21,24 +21,13 @@ class ConfirmationQuestion extends Question
     private $trueAnswerRegex;
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-=======
->>>>>>> dev
      * @param string $question        The question to ask to the user
      * @param bool   $default         The default answer to return, true or false
      * @param string $trueAnswerRegex A regex to match the "yes" answer
      */
-<<<<<<< HEAD
-    public function __construct($question, $default = true, $trueAnswerRegex = '/^y/i')
-    {
-        parent::__construct($question, (bool) $default);
-=======
     public function __construct(string $question, bool $default = true, string $trueAnswerRegex = '/^y/i')
     {
         parent::__construct($question, $default);
->>>>>>> dev
 
         $this->trueAnswerRegex = $trueAnswerRegex;
         $this->setNormalizer($this->getDefaultNormalizer());
@@ -55,11 +44,7 @@ class ConfirmationQuestion extends Question
         $regex = $this->trueAnswerRegex;
 
         return function ($answer) use ($default, $regex) {
-<<<<<<< HEAD
-            if (is_bool($answer)) {
-=======
             if (\is_bool($answer)) {
->>>>>>> dev
                 return $answer;
             }
 
@@ -68,11 +53,7 @@ class ConfirmationQuestion extends Question
                 return $answer && $answerIsTrue;
             }
 
-<<<<<<< HEAD
-            return !$answer || $answerIsTrue;
-=======
             return '' === $answer || $answerIsTrue;
->>>>>>> dev
         };
     }
 }

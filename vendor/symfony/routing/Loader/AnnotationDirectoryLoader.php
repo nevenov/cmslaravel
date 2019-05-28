@@ -11,13 +11,8 @@
 
 namespace Symfony\Component\Routing\Loader;
 
-<<<<<<< HEAD
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Config\Resource\DirectoryResource;
-=======
 use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Routing\RouteCollection;
->>>>>>> dev
 
 /**
  * AnnotationDirectoryLoader loads routing information from annotations set
@@ -39,13 +34,6 @@ class AnnotationDirectoryLoader extends AnnotationFileLoader
      */
     public function load($path, $type = null)
     {
-<<<<<<< HEAD
-        $dir = $this->locator->locate($path);
-
-        $collection = new RouteCollection();
-        $collection->addResource(new DirectoryResource($dir, '/\.php$/'));
-        $files = iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::LEAVES_ONLY));
-=======
         if (!is_dir($dir = $this->locator->locate($path))) {
             return parent::supports($path, $type) ? parent::load($path, $type) : new RouteCollection();
         }
@@ -61,7 +49,6 @@ class AnnotationDirectoryLoader extends AnnotationFileLoader
             ),
             \RecursiveIteratorIterator::LEAVES_ONLY
         ));
->>>>>>> dev
         usort($files, function (\SplFileInfo $a, \SplFileInfo $b) {
             return (string) $a > (string) $b ? 1 : -1;
         });
@@ -89,31 +76,18 @@ class AnnotationDirectoryLoader extends AnnotationFileLoader
      */
     public function supports($resource, $type = null)
     {
-<<<<<<< HEAD
-        if (!is_string($resource)) {
-=======
         if ('annotation' === $type) {
             return true;
         }
 
         if ($type || !\is_string($resource)) {
->>>>>>> dev
             return false;
         }
 
         try {
-<<<<<<< HEAD
-            $path = $this->locator->locate($resource);
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        return is_dir($path) && (!$type || 'annotation' === $type);
-=======
             return is_dir($this->locator->locate($resource));
         } catch (\Exception $e) {
             return false;
         }
->>>>>>> dev
     }
 }

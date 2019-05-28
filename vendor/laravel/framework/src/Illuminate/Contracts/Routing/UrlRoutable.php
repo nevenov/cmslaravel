@@ -17,8 +17,6 @@ interface UrlRoutable
      * @return string
      */
     public function getRouteKeyName();
-<<<<<<< HEAD
-=======
 
     /**
      * Retrieve the model for a bound value.
@@ -27,5 +25,4 @@ interface UrlRoutable
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function resolveRouteBinding($value);
->>>>>>> dev
 }

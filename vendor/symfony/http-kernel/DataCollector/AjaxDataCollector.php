@@ -26,14 +26,11 @@ class AjaxDataCollector extends DataCollector
         // all collecting is done client side
     }
 
-<<<<<<< HEAD
-=======
     public function reset()
     {
         // all collecting is done client side
     }
 
->>>>>>> dev
     public function getName()
     {
         return 'ajax';

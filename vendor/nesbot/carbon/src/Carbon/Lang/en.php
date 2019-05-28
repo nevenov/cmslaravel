@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,23 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-    'year' => ':count year|:count years',
-    'y' => ':countyr|:countyrs',
-    'month' => ':count month|:count months',
-    'm' => ':countmo|:countmos',
-    'week' => ':count week|:count weeks',
-    'w' => ':countw|:countw',
-    'day' => ':count day|:count days',
-    'd' => ':countd|:countd',
-    'hour' => ':count hour|:count hours',
-    'h' => ':counth|:counth',
-    'minute' => ':count minute|:count minutes',
-    'min' => ':countm|:countm',
-    'second' => ':count second|:count seconds',
-    's' => ':counts|:counts',
-=======
 /*
  * Authors:
  * - Milos Sakovic
@@ -57,7 +36,6 @@ return [
     'second' => '{1}:count second|{0}:count seconds|]1,Inf[:count seconds',
     'a_second' => '{1}a few seconds|{0}:count seconds|]1,Inf[:count seconds',
     's' => ':counts',
->>>>>>> dev
     'ago' => ':time ago',
     'from_now' => ':time from now',
     'after' => ':time after',
@@ -67,13 +45,6 @@ return [
     'diff_tomorrow' => 'tomorrow',
     'diff_before_yesterday' => 'before yesterday',
     'diff_after_tomorrow' => 'after tomorrow',
-<<<<<<< HEAD
-    'period_recurrences' => 'once|:count times',
-    'period_interval' => 'every :interval',
-    'period_start_date' => 'from :date',
-    'period_end_date' => 'to :date',
-);
-=======
     'period_recurrences' => '{1}once|{0}:count times|]1,Inf[:count times',
     'period_interval' => 'every :interval',
     'period_start_date' => 'from :date',
@@ -100,4 +71,3 @@ return [
     'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 ];
->>>>>>> dev

@@ -7,12 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-=======
 namespace PHPUnit\Framework\Constraint;
 
 use ArrayAccess;
->>>>>>> dev
 
 /**
  * Constraint that asserts that the array it is evaluated for has a given key.
@@ -21,15 +18,8 @@ use ArrayAccess;
  * not found the evaluation fails.
  *
  * The array key is passed in the constructor.
-<<<<<<< HEAD
- *
- * @since Class available since Release 3.0.0
- */
-class PHPUnit_Framework_Constraint_ArrayHasKey extends PHPUnit_Framework_Constraint
-=======
  */
 class ArrayHasKey extends Constraint
->>>>>>> dev
 {
     /**
      * @var int|string
@@ -55,13 +45,8 @@ class ArrayHasKey extends Constraint
      */
     protected function matches($other)
     {
-<<<<<<< HEAD
-        if (is_array($other)) {
-            return array_key_exists($this->key, $other);
-=======
         if (\is_array($other)) {
             return \array_key_exists($this->key, $other);
->>>>>>> dev
         }
 
         if ($other instanceof ArrayAccess) {

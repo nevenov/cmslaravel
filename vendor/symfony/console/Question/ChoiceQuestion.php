@@ -26,26 +26,16 @@ class ChoiceQuestion extends Question
     private $errorMessage = 'Value "%s" is invalid';
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-=======
->>>>>>> dev
      * @param string $question The question to ask to the user
      * @param array  $choices  The list of available choices
      * @param mixed  $default  The default answer to return
      */
-<<<<<<< HEAD
-    public function __construct($question, array $choices, $default = null)
-    {
-=======
     public function __construct(string $question, array $choices, $default = null)
     {
         if (!$choices) {
             throw new \LogicException('Choice question must have at least 1 choice available.');
         }
 
->>>>>>> dev
         parent::__construct($question, $default);
 
         $this->choices = $choices;
@@ -70,11 +60,7 @@ class ChoiceQuestion extends Question
      *
      * @param bool $multiselect
      *
-<<<<<<< HEAD
-     * @return ChoiceQuestion The current instance
-=======
      * @return $this
->>>>>>> dev
      */
     public function setMultiselect($multiselect)
     {
@@ -109,11 +95,7 @@ class ChoiceQuestion extends Question
      *
      * @param string $prompt
      *
-<<<<<<< HEAD
-     * @return ChoiceQuestion The current instance
-=======
      * @return $this
->>>>>>> dev
      */
     public function setPrompt($prompt)
     {
@@ -129,11 +111,7 @@ class ChoiceQuestion extends Question
      *
      * @param string $errorMessage
      *
-<<<<<<< HEAD
-     * @return ChoiceQuestion The current instance
-=======
      * @return $this
->>>>>>> dev
      */
     public function setErrorMessage($errorMessage)
     {
@@ -143,16 +121,7 @@ class ChoiceQuestion extends Question
         return $this;
     }
 
-<<<<<<< HEAD
-    /**
-     * Returns the default answer validator.
-     *
-     * @return callable
-     */
-    private function getDefaultValidator()
-=======
     private function getDefaultValidator(): callable
->>>>>>> dev
     {
         $choices = $this->choices;
         $errorMessage = $this->errorMessage;
@@ -165,41 +134,24 @@ class ChoiceQuestion extends Question
 
             if ($multiselect) {
                 // Check for a separated comma values
-<<<<<<< HEAD
-                if (!preg_match('/^[a-zA-Z0-9_-]+(?:,[a-zA-Z0-9_-]+)*$/', $selectedChoices, $matches)) {
-=======
                 if (!preg_match('/^[^,]+(?:,[^,]+)*$/', $selectedChoices, $matches)) {
->>>>>>> dev
                     throw new InvalidArgumentException(sprintf($errorMessage, $selected));
                 }
                 $selectedChoices = explode(',', $selectedChoices);
             } else {
-<<<<<<< HEAD
-                $selectedChoices = array($selected);
-            }
-
-            $multiselectChoices = array();
-            foreach ($selectedChoices as $value) {
-                $results = array();
-=======
                 $selectedChoices = [$selected];
             }
 
             $multiselectChoices = [];
             foreach ($selectedChoices as $value) {
                 $results = [];
->>>>>>> dev
                 foreach ($choices as $key => $choice) {
                     if ($choice === $value) {
                         $results[] = $key;
                     }
                 }
 
-<<<<<<< HEAD
-                if (count($results) > 1) {
-=======
                 if (\count($results) > 1) {
->>>>>>> dev
                     throw new InvalidArgumentException(sprintf('The provided answer is ambiguous. Value should be one of %s.', implode(' or ', $results)));
                 }
 

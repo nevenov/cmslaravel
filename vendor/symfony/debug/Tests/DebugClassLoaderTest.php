@@ -11,17 +11,10 @@
 
 namespace Symfony\Component\Debug\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\Debug\DebugClassLoader;
-use Symfony\Component\Debug\ErrorHandler;
-
-class DebugClassLoaderTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Debug\DebugClassLoader;
 
 class DebugClassLoaderTest extends TestCase
->>>>>>> dev
 {
     /**
      * @var int Error reporting level before running tests
@@ -34,22 +27,14 @@ class DebugClassLoaderTest extends TestCase
     {
         $this->errorReporting = error_reporting(E_ALL);
         $this->loader = new ClassLoader();
-<<<<<<< HEAD
-        spl_autoload_register(array($this->loader, 'loadClass'), true, true);
-=======
         spl_autoload_register([$this->loader, 'loadClass'], true, true);
->>>>>>> dev
         DebugClassLoader::enable();
     }
 
     protected function tearDown()
     {
         DebugClassLoader::disable();
-<<<<<<< HEAD
-        spl_autoload_unregister(array($this->loader, 'loadClass'));
-=======
         spl_autoload_unregister([$this->loader, 'loadClass']);
->>>>>>> dev
         error_reporting($this->errorReporting);
     }
 
@@ -59,11 +44,7 @@ class DebugClassLoaderTest extends TestCase
 
         $functions = spl_autoload_functions();
         foreach ($functions as $function) {
-<<<<<<< HEAD
-            if (is_array($function) && $function[0] instanceof DebugClassLoader) {
-=======
             if (\is_array($function) && $function[0] instanceof DebugClassLoader) {
->>>>>>> dev
                 $reflClass = new \ReflectionClass($function[0]);
                 $reflProp = $reflClass->getProperty('classLoader');
                 $reflProp->setAccessible(true);
@@ -77,69 +58,6 @@ class DebugClassLoaderTest extends TestCase
         $this->fail('DebugClassLoader did not register');
     }
 
-<<<<<<< HEAD
-    public function testUnsilencing()
-    {
-        if (PHP_VERSION_ID >= 70000) {
-            $this->markTestSkipped('PHP7 throws exceptions, unsilencing is not required anymore.');
-        }
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped('HHVM is not handled in this test case.');
-        }
-
-        ob_start();
-
-        $this->iniSet('log_errors', 0);
-        $this->iniSet('display_errors', 1);
-
-        // See below: this will fail with parse error
-        // but this should not be @-silenced.
-        @class_exists(__NAMESPACE__.'\TestingUnsilencing', true);
-
-        $output = ob_get_clean();
-
-        $this->assertStringMatchesFormat('%aParse error%a', $output);
-    }
-
-    public function testStacking()
-    {
-        // the ContextErrorException must not be loaded to test the workaround
-        // for https://bugs.php.net/65322.
-        if (class_exists('Symfony\Component\Debug\Exception\ContextErrorException', false)) {
-            $this->markTestSkipped('The ContextErrorException class is already loaded.');
-        }
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped('HHVM is not handled in this test case.');
-        }
-
-        ErrorHandler::register();
-
-        try {
-            // Trigger autoloading + E_STRICT at compile time
-            // which in turn triggers $errorHandler->handle()
-            // that again triggers autoloading for ContextErrorException.
-            // Error stacking works around the bug above and everything is fine.
-
-            eval('
-                namespace '.__NAMESPACE__.';
-                class ChildTestingStacking extends TestingStacking { function foo($bar) {} }
-            ');
-            $this->fail('ContextErrorException expected');
-        } catch (\ErrorException $exception) {
-            // if an exception is thrown, the test passed
-            $this->assertStringStartsWith(__FILE__, $exception->getFile());
-            if (PHP_VERSION_ID < 70000) {
-                $this->assertRegExp('/^Runtime Notice: Declaration/', $exception->getMessage());
-                $this->assertEquals(E_STRICT, $exception->getSeverity());
-            } else {
-                $this->assertRegExp('/^Warning: Declaration/', $exception->getMessage());
-                $this->assertEquals(E_WARNING, $exception->getSeverity());
-            }
-        } finally {
-            restore_error_handler();
-            restore_exception_handler();
-        }
-=======
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage boo
@@ -155,7 +73,6 @@ class DebugClassLoaderTest extends TestCase
 
         // the second call also should throw
         class_exists(__NAMESPACE__.'\Fixtures\Throwing');
->>>>>>> dev
     }
 
     /**
@@ -219,34 +136,20 @@ class DebugClassLoaderTest extends TestCase
         $lastError = error_get_last();
         unset($lastError['file'], $lastError['line']);
 
-<<<<<<< HEAD
-        $xError = array(
-            'type' => E_USER_DEPRECATED,
-            'message' => 'The Test\Symfony\Component\Debug\Tests\\'.$class.' class '.$type.' Symfony\Component\Debug\Tests\Fixtures\\'.$super.' that is deprecated but this is a test deprecation notice.',
-        );
-=======
         $xError = [
             'type' => E_USER_DEPRECATED,
             'message' => 'The "Test\Symfony\Component\Debug\Tests\\'.$class.'" class '.$type.' "Symfony\Component\Debug\Tests\Fixtures\\'.$super.'" that is deprecated but this is a test deprecation notice.',
         ];
->>>>>>> dev
 
         $this->assertSame($xError, $lastError);
     }
 
     public function provideDeprecatedSuper()
     {
-<<<<<<< HEAD
-        return array(
-            array('DeprecatedInterfaceClass', 'DeprecatedInterface', 'implements'),
-            array('DeprecatedParentClass', 'DeprecatedClass', 'extends'),
-        );
-=======
         return [
             ['DeprecatedInterfaceClass', 'DeprecatedInterface', 'implements'],
             ['DeprecatedParentClass', 'DeprecatedClass', 'extends'],
         ];
->>>>>>> dev
     }
 
     public function testInterfaceExtendsDeprecatedInterface()
@@ -263,17 +166,10 @@ class DebugClassLoaderTest extends TestCase
         $lastError = error_get_last();
         unset($lastError['file'], $lastError['line']);
 
-<<<<<<< HEAD
-        $xError = array(
-            'type' => E_USER_NOTICE,
-            'message' => '',
-        );
-=======
         $xError = [
             'type' => E_USER_NOTICE,
             'message' => '',
         ];
->>>>>>> dev
 
         $this->assertSame($xError, $lastError);
     }
@@ -292,29 +188,14 @@ class DebugClassLoaderTest extends TestCase
         $lastError = error_get_last();
         unset($lastError['file'], $lastError['line']);
 
-<<<<<<< HEAD
-        $xError = array(
-            'type' => E_USER_NOTICE,
-            'message' => '',
-        );
-=======
         $xError = [
             'type' => E_USER_NOTICE,
             'message' => '',
         ];
->>>>>>> dev
 
         $this->assertSame($xError, $lastError);
     }
 
-<<<<<<< HEAD
-    public function testReservedForPhp7()
-    {
-        if (PHP_VERSION_ID >= 70000) {
-            $this->markTestSkipped('PHP7 already prevents using reserved names.');
-        }
-
-=======
     public function testExtendedFinalClass()
     {
         $deprecations = [];
@@ -365,16 +246,11 @@ class DebugClassLoaderTest extends TestCase
 
     public function testExtendedDeprecatedMethodDoesntTriggerAnyNotice()
     {
->>>>>>> dev
         set_error_handler(function () { return false; });
         $e = error_reporting(0);
         trigger_error('', E_USER_NOTICE);
 
-<<<<<<< HEAD
-        class_exists('Test\\'.__NAMESPACE__.'\\Float', true);
-=======
         class_exists('Test\\'.__NAMESPACE__.'\\ExtendsAnnotatedClass', true);
->>>>>>> dev
 
         error_reporting($e);
         restore_error_handler();
@@ -382,14 +258,6 @@ class DebugClassLoaderTest extends TestCase
         $lastError = error_get_last();
         unset($lastError['file'], $lastError['line']);
 
-<<<<<<< HEAD
-        $xError = array(
-            'type' => E_USER_DEPRECATED,
-            'message' => 'Test\Symfony\Component\Debug\Tests\Float uses a reserved class name (Float) that will break on PHP 7 and higher',
-        );
-
-        $this->assertSame($xError, $lastError);
-=======
         $this->assertSame(['type' => E_USER_NOTICE, 'message' => ''], $lastError);
     }
 
@@ -447,7 +315,6 @@ class DebugClassLoaderTest extends TestCase
     public function testEvaluatedCode()
     {
         $this->assertTrue(class_exists(__NAMESPACE__.'\Fixtures\DefinitionInEvaluatedCode', true));
->>>>>>> dev
     }
 }
 
@@ -459,20 +326,12 @@ class ClassLoader
 
     public function getClassMap()
     {
-<<<<<<< HEAD
-        return array(__NAMESPACE__.'\Fixtures\NotPSR0bis' => __DIR__.'/Fixtures/notPsr0Bis.php');
-=======
         return [__NAMESPACE__.'\Fixtures\NotPSR0bis' => __DIR__.'/Fixtures/notPsr0Bis.php'];
->>>>>>> dev
     }
 
     public function findFile($class)
     {
-<<<<<<< HEAD
-        $fixtureDir = __DIR__.DIRECTORY_SEPARATOR.'Fixtures'.DIRECTORY_SEPARATOR;
-=======
         $fixtureDir = __DIR__.\DIRECTORY_SEPARATOR.'Fixtures'.\DIRECTORY_SEPARATOR;
->>>>>>> dev
 
         if (__NAMESPACE__.'\TestingUnsilencing' === $class) {
             eval('-- parse error --');
@@ -480,24 +339,12 @@ class ClassLoader
             eval('namespace '.__NAMESPACE__.'; class TestingStacking { function foo() {} }');
         } elseif (__NAMESPACE__.'\TestingCaseMismatch' === $class) {
             eval('namespace '.__NAMESPACE__.'; class TestingCaseMisMatch {}');
-<<<<<<< HEAD
-        } elseif (__NAMESPACE__.'\Fixtures\CaseMismatch' === $class) {
-            return $fixtureDir.'CaseMismatch.php';
-        } elseif (__NAMESPACE__.'\Fixtures\Psr4CaseMismatch' === $class) {
-            return $fixtureDir.'psr4'.DIRECTORY_SEPARATOR.'Psr4CaseMismatch.php';
-=======
         } elseif (__NAMESPACE__.'\Fixtures\Psr4CaseMismatch' === $class) {
             return $fixtureDir.'psr4'.\DIRECTORY_SEPARATOR.'Psr4CaseMismatch.php';
->>>>>>> dev
         } elseif (__NAMESPACE__.'\Fixtures\NotPSR0' === $class) {
             return $fixtureDir.'reallyNotPsr0.php';
         } elseif (__NAMESPACE__.'\Fixtures\NotPSR0bis' === $class) {
             return $fixtureDir.'notPsr0Bis.php';
-<<<<<<< HEAD
-        } elseif (__NAMESPACE__.'\Fixtures\DeprecatedInterface' === $class) {
-            return $fixtureDir.'DeprecatedInterface.php';
-=======
->>>>>>> dev
         } elseif ('Symfony\Bridge\Debug\Tests\Fixtures\ExtendsDeprecatedParent' === $class) {
             eval('namespace Symfony\Bridge\Debug\Tests\Fixtures; class ExtendsDeprecatedParent extends \\'.__NAMESPACE__.'\Fixtures\DeprecatedClass {}');
         } elseif ('Test\\'.__NAMESPACE__.'\DeprecatedParentClass' === $class) {
@@ -508,8 +355,6 @@ class ClassLoader
             eval('namespace Test\\'.__NAMESPACE__.'; class NonDeprecatedInterfaceClass implements \\'.__NAMESPACE__.'\Fixtures\NonDeprecatedInterface {}');
         } elseif ('Test\\'.__NAMESPACE__.'\Float' === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class Float {}');
-<<<<<<< HEAD
-=======
         } elseif (0 === strpos($class, 'Test\\'.__NAMESPACE__.'\ExtendsFinalClass')) {
             $classShortName = substr($class, strrpos($class, '\\') + 1);
             eval('namespace Test\\'.__NAMESPACE__.'; class '.$classShortName.' extends \\'.__NAMESPACE__.'\Fixtures\\'.substr($classShortName, 7).' {}');
@@ -527,7 +372,6 @@ class ClassLoader
             eval('namespace Test\\'.__NAMESPACE__.'; class ExtendsInternalsParent extends \\'.__NAMESPACE__.'\Fixtures\InternalClass implements \\'.__NAMESPACE__.'\Fixtures\InternalInterface { }');
         } elseif ('Test\\'.__NAMESPACE__.'\UseTraitWithInternalMethod' === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class UseTraitWithInternalMethod { use \\'.__NAMESPACE__.'\Fixtures\TraitWithInternalMethod; }');
->>>>>>> dev
         }
     }
 }

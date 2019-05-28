@@ -13,15 +13,9 @@ namespace Symfony\Component\Finder\Tests\Iterator;
 
 class MockSplFileInfo extends \SplFileInfo
 {
-<<<<<<< HEAD
-    const   TYPE_DIRECTORY = 1;
-    const   TYPE_FILE = 2;
-    const   TYPE_UNKNOWN = 3;
-=======
     const TYPE_DIRECTORY = 1;
     const TYPE_FILE = 2;
     const TYPE_UNKNOWN = 3;
->>>>>>> dev
 
     private $contents = null;
     private $mode = null;
@@ -31,19 +25,6 @@ class MockSplFileInfo extends \SplFileInfo
 
     public function __construct($param)
     {
-<<<<<<< HEAD
-        if (is_string($param)) {
-            parent::__construct($param);
-        } elseif (is_array($param)) {
-            $defaults = array(
-              'name' => 'file.txt',
-              'contents' => null,
-              'mode' => null,
-              'type' => null,
-              'relativePath' => null,
-              'relativePathname' => null,
-            );
-=======
         if (\is_string($param)) {
             parent::__construct($param);
         } elseif (\is_array($param)) {
@@ -55,7 +36,6 @@ class MockSplFileInfo extends \SplFileInfo
                 'relativePath' => null,
                 'relativePathname' => null,
             ];
->>>>>>> dev
             $defaults = array_merge($defaults, $param);
             parent::__construct($defaults['name']);
             $this->setContents($defaults['contents']);
@@ -112,24 +92,13 @@ class MockSplFileInfo extends \SplFileInfo
 
     public function setType($type)
     {
-<<<<<<< HEAD
-        if (is_string($type)) {
-            switch ($type) {
-                case 'directory':
-                    $this->type = self::TYPE_DIRECTORY;
-=======
         if (\is_string($type)) {
             switch ($type) {
                 case 'directory':
->>>>>>> dev
                 case 'd':
                     $this->type = self::TYPE_DIRECTORY;
                     break;
                 case 'file':
-<<<<<<< HEAD
-                    $this->type = self::TYPE_FILE;
-=======
->>>>>>> dev
                 case 'f':
                     $this->type = self::TYPE_FILE;
                     break;

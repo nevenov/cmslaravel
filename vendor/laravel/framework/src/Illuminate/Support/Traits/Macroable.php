@@ -3,11 +3,8 @@
 namespace Illuminate\Support\Traits;
 
 use Closure;
-<<<<<<< HEAD
-=======
 use ReflectionClass;
 use ReflectionMethod;
->>>>>>> dev
 use BadMethodCallException;
 
 trait Macroable
@@ -22,27 +19,17 @@ trait Macroable
     /**
      * Register a custom macro.
      *
-<<<<<<< HEAD
-     * @param  string    $name
-     * @param  callable  $macro
-     * @return void
-     */
-    public static function macro($name, callable $macro)
-=======
      * @param  string $name
      * @param  object|callable  $macro
      *
      * @return void
      */
     public static function macro($name, $macro)
->>>>>>> dev
     {
         static::$macros[$name] = $macro;
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Mix another object into the class.
      *
      * @param  object  $mixin
@@ -66,7 +53,6 @@ trait Macroable
     }
 
     /**
->>>>>>> dev
      * Checks if macro is registered.
      *
      * @param  string  $name
@@ -89,13 +75,9 @@ trait Macroable
     public static function __callStatic($method, $parameters)
     {
         if (! static::hasMacro($method)) {
-<<<<<<< HEAD
-            throw new BadMethodCallException("Method {$method} does not exist.");
-=======
             throw new BadMethodCallException(sprintf(
                 'Method %s::%s does not exist.', static::class, $method
             ));
->>>>>>> dev
         }
 
         if (static::$macros[$method] instanceof Closure) {
@@ -117,16 +99,6 @@ trait Macroable
     public function __call($method, $parameters)
     {
         if (! static::hasMacro($method)) {
-<<<<<<< HEAD
-            throw new BadMethodCallException("Method {$method} does not exist.");
-        }
-
-        if (static::$macros[$method] instanceof Closure) {
-            return call_user_func_array(static::$macros[$method]->bindTo($this, static::class), $parameters);
-        }
-
-        return call_user_func_array(static::$macros[$method], $parameters);
-=======
             throw new BadMethodCallException(sprintf(
                 'Method %s::%s does not exist.', static::class, $method
             ));
@@ -139,6 +111,5 @@ trait Macroable
         }
 
         return call_user_func_array($macro, $parameters);
->>>>>>> dev
     }
 }

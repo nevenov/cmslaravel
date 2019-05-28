@@ -1,8 +1,6 @@
 CHANGELOG
 =========
 
-<<<<<<< HEAD
-=======
 4.2.0
 -----
 
@@ -53,7 +51,6 @@ CHANGELOG
  * deprecated configuring enhanced Windows compatibility
  * deprecated configuring enhanced sigchild compatibility
 
->>>>>>> dev
 2.5.0
 -----
 

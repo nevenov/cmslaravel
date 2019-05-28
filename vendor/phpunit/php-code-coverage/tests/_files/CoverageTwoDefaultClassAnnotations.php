@@ -1,8 +1,4 @@
 <?php
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
 /**
  * @coversDefaultClass \NamespaceOne
  * @coversDefaultClass \AnotherDefault\Name\Space\Does\Not\Work

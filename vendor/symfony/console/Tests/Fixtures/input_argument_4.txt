@@ -1,6 +1,2 @@
   <info>argument_name</info>  multiline
-<<<<<<< HEAD
-                              argument description
-=======
                  argument description
->>>>>>> dev

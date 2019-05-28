@@ -18,18 +18,6 @@ namespace Symfony\Component\Debug\Exception;
  */
 class FatalThrowableError extends FatalErrorException
 {
-<<<<<<< HEAD
-    public function __construct(\Throwable $e)
-    {
-        if ($e instanceof \ParseError) {
-            $message = 'Parse error: '.$e->getMessage();
-            $severity = E_PARSE;
-        } elseif ($e instanceof \TypeError) {
-            $message = 'Type error: '.$e->getMessage();
-            $severity = E_RECOVERABLE_ERROR;
-        } else {
-            $message = $e->getMessage();
-=======
     private $originalClassName;
 
     public function __construct(\Throwable $e)
@@ -41,35 +29,23 @@ class FatalThrowableError extends FatalErrorException
         } elseif ($e instanceof \TypeError) {
             $severity = E_RECOVERABLE_ERROR;
         } else {
->>>>>>> dev
             $severity = E_ERROR;
         }
 
         \ErrorException::__construct(
-<<<<<<< HEAD
-            $message,
-            $e->getCode(),
-            $severity,
-            $e->getFile(),
-            $e->getLine()
-=======
             $e->getMessage(),
             $e->getCode(),
             $severity,
             $e->getFile(),
             $e->getLine(),
             $e->getPrevious()
->>>>>>> dev
         );
 
         $this->setTrace($e->getTrace());
     }
-<<<<<<< HEAD
-=======
 
     public function getOriginalClassName(): string
     {
         return $this->originalClassName;
     }
->>>>>>> dev
 }

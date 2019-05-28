@@ -31,8 +31,6 @@ class BeanstalkdQueue extends Queue implements QueueContract
     protected $timeToRun;
 
     /**
-<<<<<<< HEAD
-=======
      * The maximum number of seconds to block for a job.
      *
      * @var int
@@ -40,19 +38,11 @@ class BeanstalkdQueue extends Queue implements QueueContract
     protected $blockFor;
 
     /**
->>>>>>> dev
      * Create a new Beanstalkd queue instance.
      *
      * @param  \Pheanstalk\Pheanstalk  $pheanstalk
      * @param  string  $default
      * @param  int  $timeToRun
-<<<<<<< HEAD
-     * @return void
-     */
-    public function __construct(Pheanstalk $pheanstalk, $default, $timeToRun)
-    {
-        $this->default = $default;
-=======
      * @param  int  $blockFor
      * @return void
      */
@@ -60,14 +50,11 @@ class BeanstalkdQueue extends Queue implements QueueContract
     {
         $this->default = $default;
         $this->blockFor = $blockFor;
->>>>>>> dev
         $this->timeToRun = $timeToRun;
         $this->pheanstalk = $pheanstalk;
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Get the size of the queue.
      *
      * @param  string  $queue
@@ -81,7 +68,6 @@ class BeanstalkdQueue extends Queue implements QueueContract
     }
 
     /**
->>>>>>> dev
      * Push a new job onto the queue.
      *
      * @param  string  $job
@@ -91,11 +77,7 @@ class BeanstalkdQueue extends Queue implements QueueContract
      */
     public function push($job, $data = '', $queue = null)
     {
-<<<<<<< HEAD
-        return $this->pushRaw($this->createPayload($job, $data), $queue);
-=======
         return $this->pushRaw($this->createPayload($job, $this->getQueue($queue), $data), $queue);
->>>>>>> dev
     }
 
     /**
@@ -116,11 +98,7 @@ class BeanstalkdQueue extends Queue implements QueueContract
     /**
      * Push a new job onto the queue after a delay.
      *
-<<<<<<< HEAD
-     * @param  \DateTime|int  $delay
-=======
      * @param  \DateTimeInterface|\DateInterval|int  $delay
->>>>>>> dev
      * @param  string  $job
      * @param  mixed   $data
      * @param  string  $queue
@@ -128,13 +106,6 @@ class BeanstalkdQueue extends Queue implements QueueContract
      */
     public function later($delay, $job, $data = '', $queue = null)
     {
-<<<<<<< HEAD
-        $payload = $this->createPayload($job, $data);
-
-        $pheanstalk = $this->pheanstalk->useTube($this->getQueue($queue));
-
-        return $pheanstalk->put($payload, Pheanstalk::DEFAULT_PRIORITY, $this->getSeconds($delay), $this->timeToRun);
-=======
         $pheanstalk = $this->pheanstalk->useTube($this->getQueue($queue));
 
         return $pheanstalk->put(
@@ -143,7 +114,6 @@ class BeanstalkdQueue extends Queue implements QueueContract
             $this->secondsUntil($delay),
             $this->timeToRun
         );
->>>>>>> dev
     }
 
     /**
@@ -156,19 +126,12 @@ class BeanstalkdQueue extends Queue implements QueueContract
     {
         $queue = $this->getQueue($queue);
 
-<<<<<<< HEAD
-        $job = $this->pheanstalk->watchOnly($queue)->reserve(0);
-
-        if ($job instanceof PheanstalkJob) {
-            return new BeanstalkdJob($this->container, $this->pheanstalk, $job, $queue);
-=======
         $job = $this->pheanstalk->watchOnly($queue)->reserveWithTimeout($this->blockFor);
 
         if ($job instanceof PheanstalkJob) {
             return new BeanstalkdJob(
                 $this->container, $this->pheanstalk, $job, $this->connectionName, $queue
             );
->>>>>>> dev
         }
     }
 
@@ -181,13 +144,9 @@ class BeanstalkdQueue extends Queue implements QueueContract
      */
     public function deleteMessage($queue, $id)
     {
-<<<<<<< HEAD
-        $this->pheanstalk->useTube($this->getQueue($queue))->delete($id);
-=======
         $queue = $this->getQueue($queue);
 
         $this->pheanstalk->useTube($queue)->delete(new PheanstalkJob($id, ''));
->>>>>>> dev
     }
 
     /**

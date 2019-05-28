@@ -13,23 +13,17 @@
     "support": {
         "issues": "https://github.com/sebastianbergmann/version/issues"
     },
-<<<<<<< HEAD
-=======
     "require": {
         "php": ">=5.6"
     },
->>>>>>> dev
     "autoload": {
         "classmap": [
             "src/"
         ]
-<<<<<<< HEAD
-=======
     },
     "extra": {
         "branch-alias": {
             "dev-master": "2.0.x-dev"
         }
->>>>>>> dev
     }
 }

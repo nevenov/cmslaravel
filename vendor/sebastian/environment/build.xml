@@ -1,34 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<project name="environment">
-=======
 <project name="environment" default="setup">
  <target name="setup" depends="clean,composer"/>
 
->>>>>>> dev
  <target name="clean" description="Cleanup build artifacts">
   <delete dir="${basedir}/vendor"/>
   <delete file="${basedir}/composer.lock"/>
  </target>
 
  <target name="composer" depends="clean" description="Install dependencies with Composer">
-<<<<<<< HEAD
-  <tstamp>
-   <format property="thirty.days.ago" pattern="MM/dd/yyyy hh:mm aa" offset="-30" unit="day"/>
-  </tstamp>
-  <delete>
-   <fileset dir="${basedir}">
-    <include name="composer.phar" />
-    <date datetime="${thirty.days.ago}" when="before"/>
-   </fileset>
-  </delete>
-
-  <get src="https://getcomposer.org/composer.phar" dest="${basedir}/composer.phar" skipexisting="true"/>
-
-  <exec executable="php">
-   <arg value="composer.phar"/>
-   <arg value="install"/>
-=======
   <exec executable="composer" taskname="composer">
    <arg value="update"/>
    <arg value="--no-interaction"/>
@@ -37,7 +16,6 @@
    <arg value="--no-suggest"/>
    <arg value="--optimize-autoloader"/>
    <arg value="--prefer-stable"/>
->>>>>>> dev
   </exec>
  </target>
 </project>

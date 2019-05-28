@@ -14,11 +14,7 @@ class FooCommand extends Command
         $this
             ->setName('foo:bar')
             ->setDescription('The foo:bar command')
-<<<<<<< HEAD
-            ->setAliases(array('afoobar'))
-=======
             ->setAliases(['afoobar'])
->>>>>>> dev
         ;
     }
 

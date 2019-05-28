@@ -11,25 +11,16 @@
 
 namespace Symfony\Component\Console\Tests\Helper;
 
-<<<<<<< HEAD
-use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Helper\Helper;
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
->>>>>>> dev
 use Symfony\Component\Console\Output\StreamOutput;
 
 /**
  * @group time-sensitive
  */
-<<<<<<< HEAD
-class ProgressBarTest extends \PHPUnit_Framework_TestCase
-{
-=======
 class ProgressBarTest extends TestCase
 {
     private $colSize;
@@ -45,7 +36,6 @@ class ProgressBarTest extends TestCase
         putenv($this->colSize ? 'COLUMNS='.$this->colSize : 'COLUMNS');
     }
 
->>>>>>> dev
     public function testMultipleStart()
     {
         $bar = new ProgressBar($output = $this->getOutputStream());
@@ -122,8 +112,6 @@ class ProgressBarTest extends TestCase
         );
     }
 
-<<<<<<< HEAD
-=======
     public function testRegress()
     {
         $bar = new ProgressBar($output = $this->getOutputStream());
@@ -195,7 +183,6 @@ class ProgressBarTest extends TestCase
         );
     }
 
->>>>>>> dev
     public function testFormat()
     {
         $expected =
@@ -338,8 +325,6 @@ class ProgressBarTest extends TestCase
         );
     }
 
-<<<<<<< HEAD
-=======
     public function testOverwriteWithSectionOutput()
     {
         $sections = [];
@@ -422,7 +407,6 @@ class ProgressBarTest extends TestCase
         );
     }
 
->>>>>>> dev
     public function testStartWithMax()
     {
         $bar = new ProgressBar($output = $this->getOutputStream());
@@ -458,11 +442,6 @@ class ProgressBarTest extends TestCase
         );
     }
 
-<<<<<<< HEAD
-    /**
-     */
-=======
->>>>>>> dev
     public function testSetCurrentBeforeStarting()
     {
         $bar = new ProgressBar($this->getOutputStream());
@@ -470,37 +449,15 @@ class ProgressBarTest extends TestCase
         $this->assertNotNull($bar->getStartTime());
     }
 
-<<<<<<< HEAD
-    /**
-     * @expectedException        \LogicException
-     * @expectedExceptionMessage You can't regress the progress bar
-     */
-    public function testRegressProgress()
-    {
-        $bar = new ProgressBar($output = $this->getOutputStream(), 50);
-        $bar->start();
-        $bar->setProgress(15);
-        $bar->setProgress(10);
-    }
-
-    public function testRedrawFrequency()
-    {
-        $bar = $this->getMock('Symfony\Component\Console\Helper\ProgressBar', array('display'), array($this->getOutputStream(), 6));
-        $bar->expects($this->exactly(4))->method('display');
-
-=======
     public function testRedrawFrequency()
     {
         $bar = new ProgressBar($output = $this->getOutputStream(), 6);
->>>>>>> dev
         $bar->setRedrawFrequency(2);
         $bar->start();
         $bar->setProgress(1);
         $bar->advance(2);
         $bar->advance(2);
         $bar->advance(1);
-<<<<<<< HEAD
-=======
 
         rewind($output->getStream());
         $this->assertEquals(
@@ -510,19 +467,10 @@ class ProgressBarTest extends TestCase
             $this->generateOutput(' 6/6 [============================] 100%'),
             stream_get_contents($output->getStream())
         );
->>>>>>> dev
     }
 
     public function testRedrawFrequencyIsAtLeastOneIfZeroGiven()
     {
-<<<<<<< HEAD
-        $bar = $this->getMock('Symfony\Component\Console\Helper\ProgressBar', array('display'), array($this->getOutputStream()));
-
-        $bar->expects($this->exactly(2))->method('display');
-        $bar->setRedrawFrequency(0);
-        $bar->start();
-        $bar->advance();
-=======
         $bar = new ProgressBar($output = $this->getOutputStream());
         $bar->setRedrawFrequency(0);
         $bar->start();
@@ -534,19 +482,10 @@ class ProgressBarTest extends TestCase
             $this->generateOutput('    1 [->--------------------------]'),
             stream_get_contents($output->getStream())
         );
->>>>>>> dev
     }
 
     public function testRedrawFrequencyIsAtLeastOneIfSmallerOneGiven()
     {
-<<<<<<< HEAD
-        $bar = $this->getMock('Symfony\Component\Console\Helper\ProgressBar', array('display'), array($this->getOutputStream()));
-
-        $bar->expects($this->exactly(2))->method('display');
-        $bar->setRedrawFrequency(0.9);
-        $bar->start();
-        $bar->advance();
-=======
         $bar = new ProgressBar($output = $this->getOutputStream());
         $bar->setRedrawFrequency(0.9);
         $bar->start();
@@ -558,7 +497,6 @@ class ProgressBarTest extends TestCase
             $this->generateOutput('    1 [->--------------------------]'),
             stream_get_contents($output->getStream())
         );
->>>>>>> dev
     }
 
     public function testMultiByteSupport()
@@ -751,8 +689,6 @@ class ProgressBarTest extends TestCase
         );
     }
 
-<<<<<<< HEAD
-=======
     public function testSettingMaxStepsDuringProgressing()
     {
         $output = $this->getOutputStream();
@@ -794,7 +730,6 @@ class ProgressBarTest extends TestCase
         );
     }
 
->>>>>>> dev
     public function testAddingPlaceholderFormatter()
     {
         ProgressBar::setPlaceholderFormatterDefinition('remaining_steps', function (ProgressBar $bar) {
@@ -838,11 +773,8 @@ class ProgressBarTest extends TestCase
 
     public function testAnsiColorsAndEmojis()
     {
-<<<<<<< HEAD
-=======
         putenv('COLUMNS=156');
 
->>>>>>> dev
         $bar = new ProgressBar($output = $this->getOutputStream(), 15);
         ProgressBar::setPlaceholderFormatterDefinition('memory', function (ProgressBar $bar) {
             static $i = 0;
@@ -858,20 +790,6 @@ class ProgressBarTest extends TestCase
 
         $bar->setMessage('Starting the demo... fingers crossed', 'title');
         $bar->start();
-<<<<<<< HEAD
-        $bar->setMessage('Looks good to me...', 'title');
-        $bar->advance(4);
-        $bar->setMessage('Thanks, bye', 'title');
-        $bar->finish();
-
-        rewind($output->getStream());
-        $this->assertEquals(
-
-                " \033[44;37m Starting the demo... fingers crossed  \033[0m\n".
-                '  0/15 '.$progress.str_repeat($empty, 26)."   0%\n".
-                " \xf0\x9f\x8f\x81  < 1 sec                        \033[44;37m 0 B \033[0m"
-            .
-=======
 
         rewind($output->getStream());
         $this->assertEquals(
@@ -888,14 +806,10 @@ class ProgressBarTest extends TestCase
 
         rewind($output->getStream());
         $this->assertEquals(
->>>>>>> dev
             $this->generateOutput(
                 " \033[44;37m Looks good to me...                   \033[0m\n".
                 '  4/15 '.str_repeat($done, 7).$progress.str_repeat($empty, 19)."  26%\n".
                 " \xf0\x9f\x8f\x81  < 1 sec                     \033[41;37m 97 KiB \033[0m"
-<<<<<<< HEAD
-            ).
-=======
             ),
             stream_get_contents($output->getStream())
         );
@@ -907,7 +821,6 @@ class ProgressBarTest extends TestCase
 
         rewind($output->getStream());
         $this->assertEquals(
->>>>>>> dev
             $this->generateOutput(
                 " \033[44;37m Thanks, bye                           \033[0m\n".
                 ' 15/15 '.str_repeat($done, 28)." 100%\n".
@@ -915,10 +828,7 @@ class ProgressBarTest extends TestCase
             ),
             stream_get_contents($output->getStream())
         );
-<<<<<<< HEAD
-=======
         putenv('COLUMNS=120');
->>>>>>> dev
     }
 
     public function testSetFormat()
@@ -962,21 +872,12 @@ class ProgressBarTest extends TestCase
      */
     public function provideFormat()
     {
-<<<<<<< HEAD
-        return array(
-            array('normal'),
-            array('verbose'),
-            array('very_verbose'),
-            array('debug'),
-        );
-=======
         return [
             ['normal'],
             ['verbose'],
             ['very_verbose'],
             ['debug'],
         ];
->>>>>>> dev
     }
 
     protected function getOutputStream($decorated = true, $verbosity = StreamOutput::VERBOSITY_NORMAL)
@@ -990,8 +891,6 @@ class ProgressBarTest extends TestCase
 
         return "\x0D\x1B[2K".($count ? str_repeat("\x1B[1A\x1B[2K", $count) : '').$expected;
     }
-<<<<<<< HEAD
-=======
 
     public function testBarWidthWithMultilineFormat()
     {
@@ -1010,5 +909,4 @@ class ProgressBarTest extends TestCase
         $this->assertEquals(5, $bar->getBarWidth(), stream_get_contents($output->getStream()));
         putenv('COLUMNS=120');
     }
->>>>>>> dev
 }

@@ -16,49 +16,28 @@
 class Swift_Transport_SpoolTransport implements Swift_Transport
 {
     /** The spool instance */
-<<<<<<< HEAD
-    private $_spool;
-
-    /** The event dispatcher from the plugin API */
-    private $_eventDispatcher;
-=======
     private $spool;
 
     /** The event dispatcher from the plugin API */
     private $eventDispatcher;
->>>>>>> dev
 
     /**
      * Constructor.
      */
     public function __construct(Swift_Events_EventDispatcher $eventDispatcher, Swift_Spool $spool = null)
     {
-<<<<<<< HEAD
-        $this->_eventDispatcher = $eventDispatcher;
-        $this->_spool = $spool;
-=======
         $this->eventDispatcher = $eventDispatcher;
         $this->spool = $spool;
->>>>>>> dev
     }
 
     /**
      * Sets the spool object.
      *
-<<<<<<< HEAD
-     * @param Swift_Spool $spool
-     *
-=======
->>>>>>> dev
      * @return $this
      */
     public function setSpool(Swift_Spool $spool)
     {
-<<<<<<< HEAD
-        $this->_spool = $spool;
-=======
         $this->spool = $spool;
->>>>>>> dev
 
         return $this;
     }
@@ -70,11 +49,7 @@ class Swift_Transport_SpoolTransport implements Swift_Transport
      */
     public function getSpool()
     {
-<<<<<<< HEAD
-        return $this->_spool;
-=======
         return $this->spool;
->>>>>>> dev
     }
 
     /**
@@ -102,19 +77,6 @@ class Swift_Transport_SpoolTransport implements Swift_Transport
     }
 
     /**
-<<<<<<< HEAD
-     * Sends the given message.
-     *
-     * @param Swift_Mime_Message $message
-     * @param string[]           $failedRecipients An array of failures by-reference
-     *
-     * @return int The number of sent e-mail's
-     */
-    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
-    {
-        if ($evt = $this->_eventDispatcher->createSendEvent($this, $message)) {
-            $this->_eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
-=======
      * {@inheritdoc}
      */
     public function ping()
@@ -133,25 +95,16 @@ class Swift_Transport_SpoolTransport implements Swift_Transport
     {
         if ($evt = $this->eventDispatcher->createSendEvent($this, $message)) {
             $this->eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
->>>>>>> dev
             if ($evt->bubbleCancelled()) {
                 return 0;
             }
         }
 
-<<<<<<< HEAD
-        $success = $this->_spool->queueMessage($message);
-
-        if ($evt) {
-            $evt->setResult($success ? Swift_Events_SendEvent::RESULT_SPOOLED : Swift_Events_SendEvent::RESULT_FAILED);
-            $this->_eventDispatcher->dispatchEvent($evt, 'sendPerformed');
-=======
         $success = $this->spool->queueMessage($message);
 
         if ($evt) {
             $evt->setResult($success ? Swift_Events_SendEvent::RESULT_SPOOLED : Swift_Events_SendEvent::RESULT_FAILED);
             $this->eventDispatcher->dispatchEvent($evt, 'sendPerformed');
->>>>>>> dev
         }
 
         return 1;
@@ -159,18 +112,9 @@ class Swift_Transport_SpoolTransport implements Swift_Transport
 
     /**
      * Register a plugin.
-<<<<<<< HEAD
-     *
-     * @param Swift_Events_EventListener $plugin
-     */
-    public function registerPlugin(Swift_Events_EventListener $plugin)
-    {
-        $this->_eventDispatcher->bindEventListener($plugin);
-=======
      */
     public function registerPlugin(Swift_Events_EventListener $plugin)
     {
         $this->eventDispatcher->bindEventListener($plugin);
->>>>>>> dev
     }
 }

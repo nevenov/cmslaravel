@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /*
  * Authors:
  * - Philippe Vaucher
@@ -39,7 +32,6 @@ return array(
  * - Ingmar
  */
 return [
->>>>>>> dev
     'year' => ':count aasta|:count aastat',
     'y' => ':count aasta|:count aastat',
     'month' => ':count kuu|:count kuud',
@@ -65,9 +57,6 @@ return [
     'hour_from_now' => ':count tunni',
     'minute_from_now' => ':count minuti',
     'second_from_now' => ':count sekundi',
-<<<<<<< HEAD
-);
-=======
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'diff_now' => 'nüüd',
@@ -99,4 +88,3 @@ return [
     'list' => [', ', ' ja '],
     'meridiem' => ['enne lõunat', 'pärast lõunat'],
 ];
->>>>>>> dev

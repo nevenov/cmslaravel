@@ -11,13 +11,8 @@
 
 namespace Symfony\Component\Translation\Tests\Loader;
 
-<<<<<<< HEAD
-use Symfony\Component\Translation\Loader\IcuResFileLoader;
-use Symfony\Component\Config\Resource\DirectoryResource;
-=======
 use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Translation\Loader\IcuResFileLoader;
->>>>>>> dev
 
 /**
  * @requires extension intl
@@ -31,15 +26,9 @@ class IcuResFileLoaderTest extends LocalizedTestCase
         $resource = __DIR__.'/../fixtures/resourcebundle/res';
         $catalogue = $loader->load($resource, 'en', 'domain1');
 
-<<<<<<< HEAD
-        $this->assertEquals(array('foo' => 'bar'), $catalogue->all('domain1'));
-        $this->assertEquals('en', $catalogue->getLocale());
-        $this->assertEquals(array(new DirectoryResource($resource)), $catalogue->getResources());
-=======
         $this->assertEquals(['foo' => 'bar'], $catalogue->all('domain1'));
         $this->assertEquals('en', $catalogue->getLocale());
         $this->assertEquals([new DirectoryResource($resource)], $catalogue->getResources());
->>>>>>> dev
     }
 
     /**

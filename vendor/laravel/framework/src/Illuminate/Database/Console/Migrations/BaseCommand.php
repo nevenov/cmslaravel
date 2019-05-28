@@ -7,8 +7,6 @@ use Illuminate\Console\Command;
 class BaseCommand extends Command
 {
     /**
-<<<<<<< HEAD
-=======
      * Get all of the migration paths.
      *
      * @return array
@@ -42,7 +40,6 @@ class BaseCommand extends Command
     }
 
     /**
->>>>>>> dev
      * Get the path to the migration directory.
      *
      * @return string

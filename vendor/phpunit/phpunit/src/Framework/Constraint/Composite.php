@@ -7,16 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-
-/**
- * @since Class available since Release 3.1.0
- */
-abstract class PHPUnit_Framework_Constraint_Composite extends PHPUnit_Framework_Constraint
-{
-    /**
-     * @var PHPUnit_Framework_Constraint
-=======
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\ExpectationFailedException;
@@ -25,20 +15,13 @@ abstract class Composite extends Constraint
 {
     /**
      * @var Constraint
->>>>>>> dev
      */
     protected $innerConstraint;
 
     /**
-<<<<<<< HEAD
-     * @param PHPUnit_Framework_Constraint $innerConstraint
-     */
-    public function __construct(PHPUnit_Framework_Constraint $innerConstraint)
-=======
      * @param Constraint $innerConstraint
      */
     public function __construct(Constraint $innerConstraint)
->>>>>>> dev
     {
         parent::__construct();
         $this->innerConstraint = $innerConstraint;
@@ -60,11 +43,7 @@ abstract class Composite extends Constraint
      *
      * @return mixed
      *
-<<<<<<< HEAD
-     * @throws PHPUnit_Framework_ExpectationFailedException
-=======
      * @throws ExpectationFailedException
->>>>>>> dev
      */
     public function evaluate($other, $description = '', $returnResult = false)
     {
@@ -74,13 +53,8 @@ abstract class Composite extends Constraint
                 $description,
                 $returnResult
             );
-<<<<<<< HEAD
-        } catch (PHPUnit_Framework_ExpectationFailedException $e) {
-            $this->fail($other, $description);
-=======
         } catch (ExpectationFailedException $e) {
             $this->fail($other, $description, $e->getComparisonFailure());
->>>>>>> dev
         }
     }
 
@@ -91,10 +65,6 @@ abstract class Composite extends Constraint
      */
     public function count()
     {
-<<<<<<< HEAD
-        return count($this->innerConstraint);
-=======
         return \count($this->innerConstraint);
->>>>>>> dev
     }
 }

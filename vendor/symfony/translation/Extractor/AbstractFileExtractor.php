@@ -11,11 +11,8 @@
 
 namespace Symfony\Component\Translation\Extractor;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
 
->>>>>>> dev
 /**
  * Base class used by classes that extract translation messages from files.
  *
@@ -24,34 +21,21 @@ use Symfony\Component\Translation\Exception\InvalidArgumentException;
 abstract class AbstractFileExtractor
 {
     /**
-<<<<<<< HEAD
-     * @param string|array $resource files, a file or a directory
-=======
      * @param string|array $resource Files, a file or a directory
->>>>>>> dev
      *
      * @return array
      */
     protected function extractFiles($resource)
     {
-<<<<<<< HEAD
-        if (is_array($resource) || $resource instanceof \Traversable) {
-            $files = array();
-=======
         if (\is_array($resource) || $resource instanceof \Traversable) {
             $files = [];
->>>>>>> dev
             foreach ($resource as $file) {
                 if ($this->canBeExtracted($file)) {
                     $files[] = $this->toSplFileInfo($file);
                 }
             }
         } elseif (is_file($resource)) {
-<<<<<<< HEAD
-            $files = $this->canBeExtracted($resource) ? array($this->toSplFileInfo($resource)) : array();
-=======
             $files = $this->canBeExtracted($resource) ? [$this->toSplFileInfo($resource)] : [];
->>>>>>> dev
         } else {
             $files = $this->extractFromDirectory($resource);
         }
@@ -59,20 +43,9 @@ abstract class AbstractFileExtractor
         return $files;
     }
 
-<<<<<<< HEAD
-    /**
-     * @param string $file
-     *
-     * @return \SplFileInfo
-     */
-    private function toSplFileInfo($file)
-    {
-        return ($file instanceof \SplFileInfo) ? $file : new \SplFileInfo($file);
-=======
     private function toSplFileInfo(string $file): \SplFileInfo
     {
         return new \SplFileInfo($file);
->>>>>>> dev
     }
 
     /**
@@ -80,20 +53,12 @@ abstract class AbstractFileExtractor
      *
      * @return bool
      *
-<<<<<<< HEAD
-     * @throws \InvalidArgumentException
-=======
      * @throws InvalidArgumentException
->>>>>>> dev
      */
     protected function isFile($file)
     {
         if (!is_file($file)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The "%s" file does not exist.', $file));
-=======
             throw new InvalidArgumentException(sprintf('The "%s" file does not exist.', $file));
->>>>>>> dev
         }
 
         return true;
@@ -107,11 +72,7 @@ abstract class AbstractFileExtractor
     abstract protected function canBeExtracted($file);
 
     /**
-<<<<<<< HEAD
-     * @param string|array $resource files, a file or a directory
-=======
      * @param string|array $resource Files, a file or a directory
->>>>>>> dev
      *
      * @return array files to be extracted
      */

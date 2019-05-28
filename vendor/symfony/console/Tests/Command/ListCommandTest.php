@@ -11,28 +11,17 @@
 
 namespace Symfony\Component\Console\Tests\Command;
 
-<<<<<<< HEAD
-use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\Console\Application;
-
-class ListCommandTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class ListCommandTest extends TestCase
->>>>>>> dev
 {
     public function testExecuteListsCommands()
     {
         $application = new Application();
         $commandTester = new CommandTester($command = $application->get('list'));
-<<<<<<< HEAD
-        $commandTester->execute(array('command' => $command->getName()), array('decorated' => false));
-=======
         $commandTester->execute(['command' => $command->getName()], ['decorated' => false]);
->>>>>>> dev
 
         $this->assertRegExp('/help\s{2,}Displays help for a command/', $commandTester->getDisplay(), '->execute() returns a list of available commands');
     }
@@ -41,24 +30,15 @@ class ListCommandTest extends TestCase
     {
         $application = new Application();
         $commandTester = new CommandTester($command = $application->get('list'));
-<<<<<<< HEAD
-        $commandTester->execute(array('command' => $command->getName(), '--format' => 'xml'));
-        $this->assertRegExp('/<command id="list" name="list">/', $commandTester->getDisplay(), '->execute() returns a list of available commands in XML if --xml is passed');
-=======
         $commandTester->execute(['command' => $command->getName(), '--format' => 'xml']);
         $this->assertRegExp('/<command id="list" name="list" hidden="0">/', $commandTester->getDisplay(), '->execute() returns a list of available commands in XML if --xml is passed');
->>>>>>> dev
     }
 
     public function testExecuteListsCommandsWithRawOption()
     {
         $application = new Application();
         $commandTester = new CommandTester($command = $application->get('list'));
-<<<<<<< HEAD
-        $commandTester->execute(array('command' => $command->getName(), '--raw' => true));
-=======
         $commandTester->execute(['command' => $command->getName(), '--raw' => true]);
->>>>>>> dev
         $output = <<<'EOF'
 help   Displays help for a command
 list   Lists commands
@@ -74,11 +54,7 @@ EOF;
         $application = new Application();
         $application->add(new \FooCommand());
         $commandTester = new CommandTester($command = $application->get('list'));
-<<<<<<< HEAD
-        $commandTester->execute(array('command' => $command->getName(), 'namespace' => 'foo', '--raw' => true));
-=======
         $commandTester->execute(['command' => $command->getName(), 'namespace' => 'foo', '--raw' => true]);
->>>>>>> dev
         $output = <<<'EOF'
 foo:bar   The foo:bar command
 
@@ -93,11 +69,7 @@ EOF;
         $application = new Application();
         $application->add(new \Foo6Command());
         $commandTester = new CommandTester($command = $application->get('list'));
-<<<<<<< HEAD
-        $commandTester->execute(array('command' => $command->getName()), array('decorated' => false));
-=======
         $commandTester->execute(['command' => $command->getName()], ['decorated' => false]);
->>>>>>> dev
         $output = <<<'EOF'
 Console Tool
 
@@ -129,11 +101,7 @@ EOF;
         $application = new Application();
         $application->add(new \Foo6Command());
         $commandTester = new CommandTester($command = $application->get('list'));
-<<<<<<< HEAD
-        $commandTester->execute(array('command' => $command->getName(), '--raw' => true));
-=======
         $commandTester->execute(['command' => $command->getName(), '--raw' => true]);
->>>>>>> dev
         $output = <<<'EOF'
 help       Displays help for a command
 list       Lists commands

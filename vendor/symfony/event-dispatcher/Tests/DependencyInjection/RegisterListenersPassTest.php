@@ -141,8 +141,6 @@ class RegisterListenersPassTest extends TestCase
         $registerListenersPass = new RegisterListenersPass();
         $registerListenersPass->process($container);
     }
-<<<<<<< HEAD
-=======
 
     public function testInvokableEventListener()
     {
@@ -184,7 +182,6 @@ class RegisterListenersPassTest extends TestCase
         ];
         $this->assertEquals($expectedCalls, $definition->getMethodCalls());
     }
->>>>>>> dev
 }
 
 class SubscriberService implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
@@ -196,8 +193,6 @@ class SubscriberService implements \Symfony\Component\EventDispatcher\EventSubsc
         ];
     }
 }
-<<<<<<< HEAD
-=======
 
 class InvokableListenerService
 {
@@ -209,4 +204,3 @@ class InvokableListenerService
     {
     }
 }
->>>>>>> dev

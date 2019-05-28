@@ -3,10 +3,7 @@
 namespace Illuminate\Console\Scheduling;
 
 use Illuminate\Console\Command;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\Date;
->>>>>>> dev
 
 class ScheduleRunCommand extends Command
 {
@@ -32,8 +29,6 @@ class ScheduleRunCommand extends Command
     protected $schedule;
 
     /**
-<<<<<<< HEAD
-=======
      * The 24 hour timestamp this scheduler command started running.
      *
      * @var \Illuminate\Support\Carbon;
@@ -48,7 +43,6 @@ class ScheduleRunCommand extends Command
     protected $eventsRan = false;
 
     /**
->>>>>>> dev
      * Create a new command instance.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
@@ -58,11 +52,8 @@ class ScheduleRunCommand extends Command
     {
         $this->schedule = $schedule;
 
-<<<<<<< HEAD
-=======
         $this->startedAt = Date::now();
 
->>>>>>> dev
         parent::__construct();
     }
 
@@ -71,36 +62,13 @@ class ScheduleRunCommand extends Command
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-    {
-        $events = $this->schedule->dueEvents($this->laravel);
-
-        $eventsRan = 0;
-
-        foreach ($events as $event) {
-=======
     public function handle()
     {
         foreach ($this->schedule->dueEvents($this->laravel) as $event) {
->>>>>>> dev
             if (! $event->filtersPass($this->laravel)) {
                 continue;
             }
 
-<<<<<<< HEAD
-            $this->line('<info>Running scheduled command:</info> '.$event->getSummaryForDisplay());
-
-            $event->run($this->laravel);
-
-            ++$eventsRan;
-        }
-
-        if (count($events) === 0 || $eventsRan === 0) {
-            $this->info('No scheduled commands are ready to run.');
-        }
-    }
-=======
             if ($event->onOneServer) {
                 $this->runSingleServerEvent($event);
             } else {
@@ -144,5 +112,4 @@ class ScheduleRunCommand extends Command
 
         $this->eventsRan = true;
     }
->>>>>>> dev
 }

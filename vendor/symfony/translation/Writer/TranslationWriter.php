@@ -11,35 +11,19 @@
 
 namespace Symfony\Component\Translation\Writer;
 
-<<<<<<< HEAD
-use Symfony\Component\Translation\MessageCatalogue;
-use Symfony\Component\Translation\Dumper\DumperInterface;
-=======
 use Symfony\Component\Translation\Dumper\DumperInterface;
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Component\Translation\Exception\RuntimeException;
 use Symfony\Component\Translation\MessageCatalogue;
->>>>>>> dev
 
 /**
  * TranslationWriter writes translation messages.
  *
  * @author Michel Salib <michelsalib@hotmail.com>
  */
-<<<<<<< HEAD
-class TranslationWriter
-{
-    /**
-     * Dumpers used for export.
-     *
-     * @var array
-     */
-    private $dumpers = array();
-=======
 class TranslationWriter implements TranslationWriterInterface
 {
     private $dumpers = [];
->>>>>>> dev
 
     /**
      * Adds a dumper to the writer.
@@ -54,11 +38,6 @@ class TranslationWriter implements TranslationWriterInterface
 
     /**
      * Disables dumper backup.
-<<<<<<< HEAD
-     */
-    public function disableBackup()
-    {
-=======
      *
      * @deprecated since Symfony 4.1
      */
@@ -66,7 +45,6 @@ class TranslationWriter implements TranslationWriterInterface
     {
         @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.1.', __METHOD__), E_USER_DEPRECATED);
 
->>>>>>> dev
         foreach ($this->dumpers as $dumper) {
             if (method_exists($dumper, 'setBackup')) {
                 $dumper->setBackup(false);
@@ -87,18 +65,6 @@ class TranslationWriter implements TranslationWriterInterface
     /**
      * Writes translation from the catalogue according to the selected format.
      *
-<<<<<<< HEAD
-     * @param MessageCatalogue $catalogue The message catalogue to dump
-     * @param string           $format    The format to use to dump the messages
-     * @param array            $options   Options that are passed to the dumper
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function writeTranslations(MessageCatalogue $catalogue, $format, $options = array())
-    {
-        if (!isset($this->dumpers[$format])) {
-            throw new \InvalidArgumentException(sprintf('There is no dumper associated with format "%s".', $format));
-=======
      * @param MessageCatalogue $catalogue The message catalogue to write
      * @param string           $format    The format to use to dump the messages
      * @param array            $options   Options that are passed to the dumper
@@ -109,18 +75,13 @@ class TranslationWriter implements TranslationWriterInterface
     {
         if (!isset($this->dumpers[$format])) {
             throw new InvalidArgumentException(sprintf('There is no dumper associated with format "%s".', $format));
->>>>>>> dev
         }
 
         // get the right dumper
         $dumper = $this->dumpers[$format];
 
         if (isset($options['path']) && !is_dir($options['path']) && !@mkdir($options['path'], 0777, true) && !is_dir($options['path'])) {
-<<<<<<< HEAD
-            throw new \RuntimeException(sprintf('Translation Writer was not able to create directory "%s"', $options['path']));
-=======
             throw new RuntimeException(sprintf('Translation Writer was not able to create directory "%s"', $options['path']));
->>>>>>> dev
         }
 
         // save

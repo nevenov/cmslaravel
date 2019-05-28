@@ -1,15 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit_Framework_TestCase
-{
-    public function testBasicReplacementsAreMade()
-    {
-        $filter = $this->_createFilter(array(0x61, 0x62), array(0x63, 0x64));
-        $this->assertEquals(
-            array(0x59, 0x60, 0x63, 0x64, 0x65),
-            $filter->filter(array(0x59, 0x60, 0x61, 0x62, 0x65))
-=======
 class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framework\TestCase
 {
     public function testBasicReplacementsAreMade()
@@ -18,19 +8,13 @@ class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framew
         $this->assertEquals(
             [0x59, 0x60, 0x63, 0x64, 0x65],
             $filter->filter([0x59, 0x60, 0x61, 0x62, 0x65])
->>>>>>> dev
             );
     }
 
     public function testShouldBufferReturnsTrueIfPartialMatchAtEndOfBuffer()
     {
-<<<<<<< HEAD
-        $filter = $this->_createFilter(array(0x61, 0x62), array(0x63, 0x64));
-        $this->assertTrue($filter->shouldBuffer(array(0x59, 0x60, 0x61)),
-=======
         $filter = $this->createFilter([0x61, 0x62], [0x63, 0x64]);
         $this->assertTrue($filter->shouldBuffer([0x59, 0x60, 0x61]),
->>>>>>> dev
             '%s: Filter should buffer since 0x61 0x62 is the needle and the ending '.
             '0x61 could be from 0x61 0x62'
             );
@@ -38,58 +22,34 @@ class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framew
 
     public function testFilterCanMakeMultipleReplacements()
     {
-<<<<<<< HEAD
-        $filter = $this->_createFilter(array(array(0x61), array(0x62)), array(0x63));
-        $this->assertEquals(
-            array(0x60, 0x63, 0x60, 0x63, 0x60),
-            $filter->filter(array(0x60, 0x61, 0x60, 0x62, 0x60))
-=======
         $filter = $this->createFilter([[0x61], [0x62]], [0x63]);
         $this->assertEquals(
             [0x60, 0x63, 0x60, 0x63, 0x60],
             $filter->filter([0x60, 0x61, 0x60, 0x62, 0x60])
->>>>>>> dev
             );
     }
 
     public function testMultipleReplacementsCanBeDifferent()
     {
-<<<<<<< HEAD
-        $filter = $this->_createFilter(array(array(0x61), array(0x62)), array(array(0x63), array(0x64)));
-        $this->assertEquals(
-            array(0x60, 0x63, 0x60, 0x64, 0x60),
-            $filter->filter(array(0x60, 0x61, 0x60, 0x62, 0x60))
-=======
         $filter = $this->createFilter([[0x61], [0x62]], [[0x63], [0x64]]);
         $this->assertEquals(
             [0x60, 0x63, 0x60, 0x64, 0x60],
             $filter->filter([0x60, 0x61, 0x60, 0x62, 0x60])
->>>>>>> dev
             );
     }
 
     public function testShouldBufferReturnsFalseIfPartialMatchNotAtEndOfString()
     {
-<<<<<<< HEAD
-        $filter = $this->_createFilter(array(0x0D, 0x0A), array(0x0A));
-        $this->assertFalse($filter->shouldBuffer(array(0x61, 0x62, 0x0D, 0x0A, 0x63)),
-=======
         $filter = $this->createFilter([0x0D, 0x0A], [0x0A]);
         $this->assertFalse($filter->shouldBuffer([0x61, 0x62, 0x0D, 0x0A, 0x63]),
->>>>>>> dev
             '%s: Filter should not buffer since x0Dx0A is the needle and is not at EOF'
             );
     }
 
     public function testShouldBufferReturnsTrueIfAnyOfMultipleMatchesAtEndOfString()
     {
-<<<<<<< HEAD
-        $filter = $this->_createFilter(array(array(0x61, 0x62), array(0x63)), array(0x64));
-        $this->assertTrue($filter->shouldBuffer(array(0x59, 0x60, 0x61)),
-=======
         $filter = $this->createFilter([[0x61, 0x62], [0x63]], [0x64]);
         $this->assertTrue($filter->shouldBuffer([0x59, 0x60, 0x61]),
->>>>>>> dev
             '%s: Filter should buffer since 0x61 0x62 is a needle and the ending '.
             '0x61 could be from 0x61 0x62'
             );
@@ -97,16 +57,6 @@ class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framew
 
     public function testConvertingAllLineEndingsToCRLFWhenInputIsLF()
     {
-<<<<<<< HEAD
-        $filter = $this->_createFilter(
-            array(array(0x0D, 0x0A), array(0x0D), array(0x0A)),
-            array(array(0x0A), array(0x0A), array(0x0D, 0x0A))
-            );
-
-        $this->assertEquals(
-            array(0x60, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x63),
-            $filter->filter(array(0x60, 0x0A, 0x61, 0x0A, 0x62, 0x0A, 0x63))
-=======
         $filter = $this->createFilter(
             [[0x0D, 0x0A], [0x0D], [0x0A]],
             [[0x0A], [0x0A], [0x0D, 0x0A]]
@@ -115,22 +65,11 @@ class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framew
         $this->assertEquals(
             [0x60, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x63],
             $filter->filter([0x60, 0x0A, 0x61, 0x0A, 0x62, 0x0A, 0x63])
->>>>>>> dev
             );
     }
 
     public function testConvertingAllLineEndingsToCRLFWhenInputIsCR()
     {
-<<<<<<< HEAD
-        $filter = $this->_createFilter(
-            array(array(0x0D, 0x0A), array(0x0D), array(0x0A)),
-            array(array(0x0A), array(0x0A), array(0x0D, 0x0A))
-            );
-
-        $this->assertEquals(
-            array(0x60, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x63),
-            $filter->filter(array(0x60, 0x0D, 0x61, 0x0D, 0x62, 0x0D, 0x63))
-=======
         $filter = $this->createFilter(
             [[0x0D, 0x0A], [0x0D], [0x0A]],
             [[0x0A], [0x0A], [0x0D, 0x0A]]
@@ -139,22 +78,11 @@ class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framew
         $this->assertEquals(
             [0x60, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x63],
             $filter->filter([0x60, 0x0D, 0x61, 0x0D, 0x62, 0x0D, 0x63])
->>>>>>> dev
             );
     }
 
     public function testConvertingAllLineEndingsToCRLFWhenInputIsCRLF()
     {
-<<<<<<< HEAD
-        $filter = $this->_createFilter(
-            array(array(0x0D, 0x0A), array(0x0D), array(0x0A)),
-            array(array(0x0A), array(0x0A), array(0x0D, 0x0A))
-            );
-
-        $this->assertEquals(
-            array(0x60, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x63),
-            $filter->filter(array(0x60, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x63))
-=======
         $filter = $this->createFilter(
             [[0x0D, 0x0A], [0x0D], [0x0A]],
             [[0x0A], [0x0A], [0x0D, 0x0A]]
@@ -163,22 +91,11 @@ class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framew
         $this->assertEquals(
             [0x60, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x63],
             $filter->filter([0x60, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x63])
->>>>>>> dev
             );
     }
 
     public function testConvertingAllLineEndingsToCRLFWhenInputIsLFCR()
     {
-<<<<<<< HEAD
-        $filter = $this->_createFilter(
-            array(array(0x0D, 0x0A), array(0x0D), array(0x0A)),
-            array(array(0x0A), array(0x0A), array(0x0D, 0x0A))
-            );
-
-        $this->assertEquals(
-            array(0x60, 0x0D, 0x0A, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x0D, 0x0A, 0x63),
-            $filter->filter(array(0x60, 0x0A, 0x0D, 0x61, 0x0A, 0x0D, 0x62, 0x0A, 0x0D, 0x63))
-=======
         $filter = $this->createFilter(
             [[0x0D, 0x0A], [0x0D], [0x0A]],
             [[0x0A], [0x0A], [0x0D, 0x0A]]
@@ -187,7 +104,6 @@ class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framew
         $this->assertEquals(
             [0x60, 0x0D, 0x0A, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x0D, 0x0A, 0x63],
             $filter->filter([0x60, 0x0A, 0x0D, 0x61, 0x0A, 0x0D, 0x62, 0x0A, 0x0D, 0x63])
->>>>>>> dev
             );
     }
 
@@ -195,20 +111,6 @@ class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framew
     {
         //Lighthouse Bug #23
 
-<<<<<<< HEAD
-        $filter = $this->_createFilter(
-            array(array(0x0D, 0x0A), array(0x0D), array(0x0A)),
-            array(array(0x0A), array(0x0A), array(0x0D, 0x0A))
-            );
-
-        $this->assertEquals(
-            array(0x60, 0x0D, 0x0A, 0x0D, 0x0A, 0x61, 0x0D, 0x0A, 0x0D, 0x0A, 0x62, 0x0D, 0x0A, 0x0D, 0x0A, 0x63),
-            $filter->filter(array(0x60, 0x0A, 0x0A, 0x61, 0x0A, 0x0A, 0x62, 0x0A, 0x0A, 0x63))
-            );
-    }
-
-    private function _createFilter($search, $replace)
-=======
         $filter = $this->createFilter(
             [[0x0D, 0x0A], [0x0D], [0x0A]],
             [[0x0A], [0x0A], [0x0D, 0x0A]]
@@ -221,7 +123,6 @@ class Swift_StreamFilters_ByteArrayReplacementFilterTest extends \PHPUnit\Framew
     }
 
     private function createFilter($search, $replace)
->>>>>>> dev
     {
         return new Swift_StreamFilters_ByteArrayReplacementFilter($search, $replace);
     }

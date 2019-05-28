@@ -2,20 +2,13 @@
 
 namespace Illuminate\Foundation\Auth\Access;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Str;
->>>>>>> dev
 use Illuminate\Contracts\Auth\Access\Gate;
 
 trait AuthorizesRequests
 {
     /**
-<<<<<<< HEAD
-     * Authorize a given action against a set of arguments.
-=======
      * Authorize a given action for the current user.
->>>>>>> dev
      *
      * @param  mixed  $ability
      * @param  mixed|array  $arguments
@@ -25,11 +18,7 @@ trait AuthorizesRequests
      */
     public function authorize($ability, $arguments = [])
     {
-<<<<<<< HEAD
-        list($ability, $arguments) = $this->parseAbilityAndArguments($ability, $arguments);
-=======
         [$ability, $arguments] = $this->parseAbilityAndArguments($ability, $arguments);
->>>>>>> dev
 
         return app(Gate::class)->authorize($ability, $arguments);
     }
@@ -46,11 +35,7 @@ trait AuthorizesRequests
      */
     public function authorizeForUser($user, $ability, $arguments = [])
     {
-<<<<<<< HEAD
-        list($ability, $arguments) = $this->parseAbilityAndArguments($ability, $arguments);
-=======
         [$ability, $arguments] = $this->parseAbilityAndArguments($ability, $arguments);
->>>>>>> dev
 
         return app(Gate::class)->forUser($user)->authorize($ability, $arguments);
     }
@@ -64,13 +49,6 @@ trait AuthorizesRequests
      */
     protected function parseAbilityAndArguments($ability, $arguments)
     {
-<<<<<<< HEAD
-        if (is_string($ability)) {
-            return [$ability, $arguments];
-        }
-
-        return [debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3)[2]['function'], $ability];
-=======
         if (is_string($ability) && strpos($ability, '\\') === false) {
             return [$ability, $arguments];
         }
@@ -144,6 +122,5 @@ trait AuthorizesRequests
     protected function resourceMethodsWithoutModels()
     {
         return ['index', 'create', 'store'];
->>>>>>> dev
     }
 }

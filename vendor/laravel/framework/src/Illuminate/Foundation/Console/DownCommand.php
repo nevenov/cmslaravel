@@ -3,17 +3,6 @@
 namespace Illuminate\Foundation\Console;
 
 use Illuminate\Console\Command;
-<<<<<<< HEAD
-
-class DownCommand extends Command
-{
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected $name = 'down';
-=======
 use Illuminate\Support\InteractsWithTime;
 
 class DownCommand extends Command
@@ -28,7 +17,6 @@ class DownCommand extends Command
     protected $signature = 'down {--message= : The message for the maintenance mode}
                                  {--retry= : The number of seconds after which the request may be retried}
                                  {--allow=* : IP or networks allowed to access the application while in maintenance mode}';
->>>>>>> dev
 
     /**
      * The console command description.
@@ -42,14 +30,6 @@ class DownCommand extends Command
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-    {
-        touch($this->laravel->storagePath().'/framework/down');
-
-        $this->comment('Application is now in maintenance mode.');
-    }
-=======
     public function handle()
     {
         file_put_contents(
@@ -86,5 +66,4 @@ class DownCommand extends Command
 
         return is_numeric($retry) && $retry > 0 ? (int) $retry : null;
     }
->>>>>>> dev
 }

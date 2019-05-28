@@ -28,20 +28,12 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * @var Route[]
      */
-<<<<<<< HEAD
-    private $routes = array();
-=======
     private $routes = [];
->>>>>>> dev
 
     /**
      * @var array
      */
-<<<<<<< HEAD
-    private $resources = array();
-=======
     private $resources = [];
->>>>>>> dev
 
     public function __clone()
     {
@@ -71,11 +63,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      */
     public function count()
     {
-<<<<<<< HEAD
-        return count($this->routes);
-=======
         return \count($this->routes);
->>>>>>> dev
     }
 
     /**
@@ -116,11 +104,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Removes a route or an array of routes by name from the collection.
      *
-<<<<<<< HEAD
-     * @param string|array $name The route name or an array of route names
-=======
      * @param string|string[] $name The route name or an array of route names
->>>>>>> dev
      */
     public function remove($name)
     {
@@ -132,15 +116,8 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Adds a route collection at the end of the current set by appending all
      * routes of the added collection.
-<<<<<<< HEAD
-     *
-     * @param RouteCollection $collection A RouteCollection instance
-     */
-    public function addCollection(RouteCollection $collection)
-=======
      */
     public function addCollection(self $collection)
->>>>>>> dev
     {
         // we need to remove all routes with the same names first because just replacing them
         // would not place the new route at the end of the merged array
@@ -149,13 +126,9 @@ class RouteCollection implements \IteratorAggregate, \Countable
             $this->routes[$name] = $route;
         }
 
-<<<<<<< HEAD
-        $this->resources = array_merge($this->resources, $collection->getResources());
-=======
         foreach ($collection->getResources() as $resource) {
             $this->addResource($resource);
         }
->>>>>>> dev
     }
 
     /**
@@ -165,11 +138,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      * @param array  $defaults     An array of default values
      * @param array  $requirements An array of requirements
      */
-<<<<<<< HEAD
-    public function addPrefix($prefix, array $defaults = array(), array $requirements = array())
-=======
     public function addPrefix($prefix, array $defaults = [], array $requirements = [])
->>>>>>> dev
     {
         $prefix = trim(trim($prefix), '/');
 
@@ -185,8 +154,6 @@ class RouteCollection implements \IteratorAggregate, \Countable
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Adds a prefix to the name of all the routes within in the collection.
      */
     public function addNamePrefix(string $prefix)
@@ -204,18 +171,13 @@ class RouteCollection implements \IteratorAggregate, \Countable
     }
 
     /**
->>>>>>> dev
      * Sets the host pattern on all routes.
      *
      * @param string $pattern      The pattern
      * @param array  $defaults     An array of default values
      * @param array  $requirements An array of requirements
      */
-<<<<<<< HEAD
-    public function setHost($pattern, array $defaults = array(), array $requirements = array())
-=======
     public function setHost($pattern, array $defaults = [], array $requirements = [])
->>>>>>> dev
     {
         foreach ($this->routes as $route) {
             $route->setHost($pattern);
@@ -289,11 +251,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Sets the schemes (e.g. 'https') all child routes are restricted to.
      *
-<<<<<<< HEAD
-     * @param string|array $schemes The scheme or an array of schemes
-=======
      * @param string|string[] $schemes The scheme or an array of schemes
->>>>>>> dev
      */
     public function setSchemes($schemes)
     {
@@ -305,11 +263,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Sets the HTTP methods (e.g. 'POST') all child routes are restricted to.
      *
-<<<<<<< HEAD
-     * @param string|array $methods The method or an array of methods
-=======
      * @param string|string[] $methods The method or an array of methods
->>>>>>> dev
      */
     public function setMethods($methods)
     {
@@ -325,19 +279,6 @@ class RouteCollection implements \IteratorAggregate, \Countable
      */
     public function getResources()
     {
-<<<<<<< HEAD
-        return array_unique($this->resources);
-    }
-
-    /**
-     * Adds a resource for this collection.
-     *
-     * @param ResourceInterface $resource A resource instance
-     */
-    public function addResource(ResourceInterface $resource)
-    {
-        $this->resources[] = $resource;
-=======
         return array_values($this->resources);
     }
 
@@ -352,6 +293,5 @@ class RouteCollection implements \IteratorAggregate, \Countable
         if (!isset($this->resources[$key])) {
             $this->resources[$key] = $resource;
         }
->>>>>>> dev
     }
 }

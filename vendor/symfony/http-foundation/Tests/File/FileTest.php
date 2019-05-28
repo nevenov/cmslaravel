@@ -11,18 +11,11 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\File;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
-
-class FileTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
 
 class FileTest extends TestCase
->>>>>>> dev
 {
     protected $file;
 
@@ -71,11 +64,7 @@ class FileTest extends TestCase
 
     public function testConstructWhenFileNotExists()
     {
-<<<<<<< HEAD
-        $this->setExpectedException('Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException');
-=======
         $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}('Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException');
->>>>>>> dev
 
         new File(__DIR__.'/Fixtures/not_here');
     }
@@ -121,16 +110,6 @@ class FileTest extends TestCase
 
     public function getFilenameFixtures()
     {
-<<<<<<< HEAD
-        return array(
-            array('original.gif', 'original.gif'),
-            array('..\\..\\original.gif', 'original.gif'),
-            array('../../original.gif', 'original.gif'),
-            array('файлfile.gif', 'файлfile.gif'),
-            array('..\\..\\файлfile.gif', 'файлfile.gif'),
-            array('../../файлfile.gif', 'файлfile.gif'),
-        );
-=======
         return [
             ['original.gif', 'original.gif'],
             ['..\\..\\original.gif', 'original.gif'],
@@ -139,7 +118,6 @@ class FileTest extends TestCase
             ['..\\..\\файлfile.gif', 'файлfile.gif'],
             ['../../файлfile.gif', 'файлfile.gif'],
         ];
->>>>>>> dev
     }
 
     /**
@@ -189,11 +167,7 @@ class FileTest extends TestCase
 
     protected function createMockGuesser($path, $mimeType)
     {
-<<<<<<< HEAD
-        $guesser = $this->getMock('Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface');
-=======
         $guesser = $this->getMockBuilder('Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface')->getMock();
->>>>>>> dev
         $guesser
             ->expects($this->once())
             ->method('guess')

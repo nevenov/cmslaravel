@@ -3,19 +3,6 @@
 namespace Illuminate\Filesystem;
 
 use RuntimeException;
-<<<<<<< HEAD
-use InvalidArgumentException;
-use Illuminate\Support\Collection;
-use League\Flysystem\AdapterInterface;
-use League\Flysystem\FilesystemInterface;
-use League\Flysystem\AwsS3v3\AwsS3Adapter;
-use League\Flysystem\FileNotFoundException;
-use League\Flysystem\Adapter\Local as LocalAdapter;
-use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
-use Illuminate\Contracts\Filesystem\Cloud as CloudFilesystemContract;
-use Illuminate\Contracts\Filesystem\FileNotFoundException as ContractFileNotFoundException;
-
-=======
 use Illuminate\Http\File;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -41,7 +28,6 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException as ContractFileNotFoun
 /**
  * @mixin \League\Flysystem\FilesystemInterface
  */
->>>>>>> dev
 class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
 {
     /**
@@ -63,8 +49,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Assert that the given file exists.
      *
      * @param  string|array  $path
@@ -103,7 +87,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     }
 
     /**
->>>>>>> dev
      * Determine if a file exists.
      *
      * @param  string  $path
@@ -115,8 +98,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Get the full path for the file at the given "short" path.
      *
      * @param  string  $path
@@ -128,7 +109,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     }
 
     /**
->>>>>>> dev
      * Get the contents of a file.
      *
      * @param  string  $path
@@ -146,8 +126,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Create a streamed response for a given file.
      *
      * @param  string  $path
@@ -195,29 +173,10 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     }
 
     /**
->>>>>>> dev
      * Write the contents of a file.
      *
      * @param  string  $path
      * @param  string|resource  $contents
-<<<<<<< HEAD
-     * @param  string  $visibility
-     * @return bool
-     */
-    public function put($path, $contents, $visibility = null)
-    {
-        if ($visibility = $this->parseVisibility($visibility)) {
-            $config = ['visibility' => $visibility];
-        } else {
-            $config = [];
-        }
-
-        if (is_resource($contents)) {
-            return $this->driver->putStream($path, $contents, $config);
-        } else {
-            return $this->driver->put($path, $contents, $config);
-        }
-=======
      * @param  mixed  $options
      * @return bool
      */
@@ -278,7 +237,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
         }
 
         return $result ? $path : false;
->>>>>>> dev
     }
 
     /**
@@ -301,11 +259,7 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
      *
      * @param  string  $path
      * @param  string  $visibility
-<<<<<<< HEAD
-     * @return void
-=======
      * @return bool
->>>>>>> dev
      */
     public function setVisibility($path, $visibility)
     {
@@ -317,12 +271,8 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
      *
      * @param  string  $path
      * @param  string  $data
-<<<<<<< HEAD
-     * @return int
-=======
      * @param  string  $separator
      * @return bool
->>>>>>> dev
      */
     public function prepend($path, $data, $separator = PHP_EOL)
     {
@@ -338,12 +288,8 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
      *
      * @param  string  $path
      * @param  string  $data
-<<<<<<< HEAD
-     * @return int
-=======
      * @param  string  $separator
      * @return bool
->>>>>>> dev
      */
     public function append($path, $data, $separator = PHP_EOL)
     {
@@ -364,17 +310,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     {
         $paths = is_array($paths) ? $paths : func_get_args();
 
-<<<<<<< HEAD
-        foreach ($paths as $path) {
-            try {
-                $this->driver->delete($path);
-            } catch (FileNotFoundException $e) {
-                //
-            }
-        }
-
-        return true;
-=======
         $success = true;
 
         foreach ($paths as $path) {
@@ -388,7 +323,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
         }
 
         return $success;
->>>>>>> dev
     }
 
     /**
@@ -453,26 +387,13 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
      *
      * @param  string  $path
      * @return string
-<<<<<<< HEAD
-=======
      *
      * @throws \RuntimeException
->>>>>>> dev
      */
     public function url($path)
     {
         $adapter = $this->driver->getAdapter();
 
-<<<<<<< HEAD
-        if ($adapter instanceof AwsS3Adapter) {
-            $path = $adapter->getPathPrefix().$path;
-
-            return $adapter->getClient()->getObjectUrl($adapter->getBucket(), $path);
-        } elseif ($adapter instanceof LocalAdapter) {
-            return '/storage/'.$path;
-        } elseif (method_exists($adapter, 'getUrl')) {
-            return $adapter->getUrl($path);
-=======
         if ($adapter instanceof CachedAdapter) {
             $adapter = $adapter->getAdapter();
         }
@@ -487,15 +408,12 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
             return $this->getRackspaceUrl($adapter, $path);
         } elseif ($adapter instanceof LocalAdapter) {
             return $this->getLocalUrl($path);
->>>>>>> dev
         } else {
             throw new RuntimeException('This driver does not support retrieving URLs.');
         }
     }
 
     /**
-<<<<<<< HEAD
-=======
      * {@inheritdoc}
      */
     public function readStream($path)
@@ -664,7 +582,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     }
 
     /**
->>>>>>> dev
      * Get an array of all files in a directory.
      *
      * @param  string|null  $directory
@@ -737,8 +654,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Flush the Flysystem cache.
      *
      * @return void
@@ -753,7 +668,6 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
     }
 
     /**
->>>>>>> dev
      * Get the Flysystem driver.
      *
      * @return \League\Flysystem\FilesystemInterface
@@ -800,11 +714,7 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract
                 return AdapterInterface::VISIBILITY_PRIVATE;
         }
 
-<<<<<<< HEAD
-        throw new InvalidArgumentException('Unknown visibility: '.$visibility);
-=======
         throw new InvalidArgumentException("Unknown visibility: {$visibility}");
->>>>>>> dev
     }
 
     /**

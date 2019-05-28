@@ -11,14 +11,9 @@
 
 namespace Symfony\Component\HttpKernel\Tests\EventListener;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\EventListener\DumpListener;
-use Symfony\Component\HttpKernel\KernelEvents;
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\HttpKernel\EventListener\DumpListener;
->>>>>>> dev
 use Symfony\Component\VarDumper\Cloner\ClonerInterface;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
@@ -29,20 +24,12 @@ use Symfony\Component\VarDumper\VarDumper;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-<<<<<<< HEAD
-class DumpListenerTest extends \PHPUnit_Framework_TestCase
-=======
 class DumpListenerTest extends TestCase
->>>>>>> dev
 {
     public function testSubscribedEvents()
     {
         $this->assertSame(
-<<<<<<< HEAD
-            array(KernelEvents::REQUEST => array('configure', 1024)),
-=======
             [ConsoleEvents::COMMAND => ['configure', 1024]],
->>>>>>> dev
             DumpListener::getSubscribedEvents()
         );
     }
@@ -81,11 +68,7 @@ class MockCloner implements ClonerInterface
 {
     public function cloneVar($var)
     {
-<<<<<<< HEAD
-        return new Data(array($var.'-'));
-=======
         return new Data([[$var.'-']]);
->>>>>>> dev
     }
 }
 
@@ -93,12 +76,6 @@ class MockDumper implements DataDumperInterface
 {
     public function dump(Data $data)
     {
-<<<<<<< HEAD
-        $rawData = $data->getRawData();
-
-        echo '+'.$rawData[0];
-=======
         echo '+'.$data->getValue();
->>>>>>> dev
     }
 }

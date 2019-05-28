@@ -7,42 +7,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-=======
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Util\InvalidArgumentHelper;
->>>>>>> dev
 
 /**
  * Constraint that evaluates against a specified closure.
  */
-<<<<<<< HEAD
-class PHPUnit_Framework_Constraint_Callback extends PHPUnit_Framework_Constraint
-=======
 class Callback extends Constraint
->>>>>>> dev
 {
     private $callback;
 
     /**
      * @param callable $callback
      *
-<<<<<<< HEAD
-     * @throws PHPUnit_Framework_Exception
-     */
-    public function __construct($callback)
-    {
-        if (!is_callable($callback)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(
-=======
      * @throws \PHPUnit\Framework\Exception
      */
     public function __construct($callback)
     {
         if (!\is_callable($callback)) {
             throw InvalidArgumentHelper::factory(
->>>>>>> dev
                 1,
                 'callable'
             );
@@ -63,11 +47,7 @@ class Callback extends Constraint
      */
     protected function matches($other)
     {
-<<<<<<< HEAD
-        return call_user_func($this->callback, $other);
-=======
         return \call_user_func($this->callback, $other);
->>>>>>> dev
     }
 
     /**

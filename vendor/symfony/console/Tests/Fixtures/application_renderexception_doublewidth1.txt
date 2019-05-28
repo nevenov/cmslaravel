@@ -1,11 +1,6 @@
 
-<<<<<<< HEAD
-                    
-  [Exception]       
-=======
 In ApplicationTest.php line %d:
                     
->>>>>>> dev
   エラーメッセージ  
                     
 

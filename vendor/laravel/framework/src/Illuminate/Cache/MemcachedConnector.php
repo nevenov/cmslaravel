@@ -3,10 +3,6 @@
 namespace Illuminate\Cache;
 
 use Memcached;
-<<<<<<< HEAD
-use RuntimeException;
-=======
->>>>>>> dev
 
 class MemcachedConnector
 {
@@ -14,33 +10,6 @@ class MemcachedConnector
      * Create a new Memcached connection.
      *
      * @param  array  $servers
-<<<<<<< HEAD
-     * @return \Memcached
-     *
-     * @throws \RuntimeException
-     */
-    public function connect(array $servers)
-    {
-        $memcached = $this->getMemcached();
-
-        // For each server in the array, we'll just extract the configuration and add
-        // the server to the Memcached connection. Once we have added all of these
-        // servers we'll verify the connection is successful and return it back.
-        foreach ($servers as $server) {
-            $memcached->addServer(
-                $server['host'], $server['port'], $server['weight']
-            );
-        }
-
-        $memcachedStatus = $memcached->getVersion();
-
-        if (! is_array($memcachedStatus)) {
-            throw new RuntimeException('No Memcached servers added.');
-        }
-
-        if (in_array('255.255.255', $memcachedStatus) && count(array_unique($memcachedStatus)) === 1) {
-            throw new RuntimeException('Could not establish Memcached connection.');
-=======
      * @param  string|null  $connectionId
      * @param  array  $options
      * @param  array  $credentials
@@ -84,22 +53,12 @@ class MemcachedConnector
 
         if (count($options)) {
             $memcached->setOptions($options);
->>>>>>> dev
         }
 
         return $memcached;
     }
 
     /**
-<<<<<<< HEAD
-     * Get a new Memcached instance.
-     *
-     * @return \Memcached
-     */
-    protected function getMemcached()
-    {
-        return new Memcached;
-=======
      * Create the Memcached instance.
      *
      * @param  string|null  $connectionId
@@ -124,6 +83,5 @@ class MemcachedConnector
         $memcached->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
 
         $memcached->setSaslAuthData($username, $password);
->>>>>>> dev
     }
 }

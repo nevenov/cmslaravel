@@ -38,18 +38,11 @@ class EngineResolver
     }
 
     /**
-<<<<<<< HEAD
-     * Resolver an engine instance by name.
-     *
-     * @param  string  $engine
-     * @return \Illuminate\View\Engines\EngineInterface
-=======
      * Resolve an engine instance by name.
      *
      * @param  string  $engine
      * @return \Illuminate\Contracts\View\Engine
      *
->>>>>>> dev
      * @throws \InvalidArgumentException
      */
     public function resolve($engine)
@@ -62,10 +55,6 @@ class EngineResolver
             return $this->resolved[$engine] = call_user_func($this->resolvers[$engine]);
         }
 
-<<<<<<< HEAD
-        throw new InvalidArgumentException("Engine $engine not found.");
-=======
         throw new InvalidArgumentException("Engine [{$engine}] not found.");
->>>>>>> dev
     }
 }

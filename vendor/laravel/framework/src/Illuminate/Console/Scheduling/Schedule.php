@@ -2,42 +2,22 @@
 
 namespace Illuminate\Console\Scheduling;
 
-<<<<<<< HEAD
-use Symfony\Component\Process\ProcessUtils;
-use Symfony\Component\Process\PhpExecutableFinder;
-=======
 use DateTimeInterface;
 use Illuminate\Console\Application;
 use Illuminate\Container\Container;
 use Illuminate\Support\ProcessUtils;
 use Illuminate\Contracts\Queue\ShouldQueue;
->>>>>>> dev
 
 class Schedule
 {
     /**
      * All of the events on the schedule.
      *
-<<<<<<< HEAD
-     * @var array
-=======
      * @var \Illuminate\Console\Scheduling\Event[]
->>>>>>> dev
      */
     protected $events = [];
 
     /**
-<<<<<<< HEAD
-     * Add a new callback event to the schedule.
-     *
-     * @param  string  $callback
-     * @param  array   $parameters
-     * @return \Illuminate\Console\Scheduling\Event
-     */
-    public function call($callback, array $parameters = [])
-    {
-        $this->events[] = $event = new CallbackEvent($callback, $parameters);
-=======
      * The event mutex implementation.
      *
      * @var \Illuminate\Console\Scheduling\EventMutex
@@ -91,7 +71,6 @@ class Schedule
         $this->events[] = $event = new CallbackEvent(
             $this->eventMutex, $callback, $parameters
         );
->>>>>>> dev
 
         return $event;
     }
@@ -105,21 +84,6 @@ class Schedule
      */
     public function command($command, array $parameters = [])
     {
-<<<<<<< HEAD
-        $binary = ProcessUtils::escapeArgument((new PhpExecutableFinder)->find(false));
-
-        if (defined('HHVM_VERSION')) {
-            $binary .= ' --php';
-        }
-
-        if (defined('ARTISAN_BINARY')) {
-            $artisan = ProcessUtils::escapeArgument(ARTISAN_BINARY);
-        } else {
-            $artisan = 'artisan';
-        }
-
-        return $this->exec("{$binary} {$artisan} {$command}", $parameters);
-=======
         if (class_exists($command)) {
             $command = Container::getInstance()->make($command)->getName();
         }
@@ -150,7 +114,6 @@ class Schedule
                 dispatch_now($job);
             }
         })->name(is_string($job) ? $job : get_class($job));
->>>>>>> dev
     }
 
     /**
@@ -166,11 +129,7 @@ class Schedule
             $command .= ' '.$this->compileParameters($parameters);
         }
 
-<<<<<<< HEAD
-        $this->events[] = $event = new Event($command);
-=======
         $this->events[] = $event = new Event($this->eventMutex, $command, $this->timezone);
->>>>>>> dev
 
         return $event;
     }
@@ -184,9 +143,6 @@ class Schedule
     protected function compileParameters(array $parameters)
     {
         return collect($parameters)->map(function ($value, $key) {
-<<<<<<< HEAD
-            return is_numeric($key) ? $value : $key.'='.(is_numeric($value) ? $value : ProcessUtils::escapeArgument($value));
-=======
             if (is_array($value)) {
                 $value = collect($value)->map(function ($value) {
                     return ProcessUtils::escapeArgument($value);
@@ -196,20 +152,10 @@ class Schedule
             }
 
             return is_numeric($key) ? $value : "{$key}={$value}";
->>>>>>> dev
         })->implode(' ');
     }
 
     /**
-<<<<<<< HEAD
-     * Get all of the events on the schedule.
-     *
-     * @return array
-     */
-    public function events()
-    {
-        return $this->events;
-=======
      * Determine if the server is allowed to run this event.
      *
      * @param  \Illuminate\Console\Scheduling\Event  $event
@@ -219,22 +165,12 @@ class Schedule
     public function serverShouldRun(Event $event, DateTimeInterface $time)
     {
         return $this->schedulingMutex->create($event, $time);
->>>>>>> dev
     }
 
     /**
      * Get all of the events on the schedule that are due.
      *
      * @param  \Illuminate\Contracts\Foundation\Application  $app
-<<<<<<< HEAD
-     * @return array
-     */
-    public function dueEvents($app)
-    {
-        return array_filter($this->events, function ($event) use ($app) {
-            return $event->isDue($app);
-        });
-=======
      * @return \Illuminate\Support\Collection
      */
     public function dueEvents($app)
@@ -269,6 +205,5 @@ class Schedule
         }
 
         return $this;
->>>>>>> dev
     }
 }

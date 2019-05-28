@@ -5,10 +5,7 @@ namespace Illuminate\Database;
 use Closure;
 use Exception;
 use Throwable;
-<<<<<<< HEAD
-=======
 use Illuminate\Database\Schema\SqlServerBuilder;
->>>>>>> dev
 use Doctrine\DBAL\Driver\PDOSqlsrv\Driver as DoctrineDriver;
 use Illuminate\Database\Query\Processors\SqlServerProcessor;
 use Illuminate\Database\Query\Grammars\SqlServerGrammar as QueryGrammar;
@@ -20,47 +17,11 @@ class SqlServerConnection extends Connection
      * Execute a Closure within a transaction.
      *
      * @param  \Closure  $callback
-<<<<<<< HEAD
-=======
      * @param  int  $attempts
->>>>>>> dev
      * @return mixed
      *
      * @throws \Exception|\Throwable
      */
-<<<<<<< HEAD
-    public function transaction(Closure $callback)
-    {
-        if ($this->getDriverName() == 'sqlsrv') {
-            return parent::transaction($callback);
-        }
-
-        $this->getPdo()->exec('BEGIN TRAN');
-
-        // We'll simply execute the given callback within a try / catch block
-        // and if we catch any exception we can rollback the transaction
-        // so that none of the changes are persisted to the database.
-        try {
-            $result = $callback($this);
-
-            $this->getPdo()->exec('COMMIT TRAN');
-        }
-
-        // If we catch an exception, we will roll back so nothing gets messed
-        // up in the database. Then we'll re-throw the exception so it can
-        // be handled how the developer sees fit for their applications.
-        catch (Exception $e) {
-            $this->getPdo()->exec('ROLLBACK TRAN');
-
-            throw $e;
-        } catch (Throwable $e) {
-            $this->getPdo()->exec('ROLLBACK TRAN');
-
-            throw $e;
-        }
-
-        return $result;
-=======
     public function transaction(Closure $callback, $attempts = 1)
     {
         for ($a = 1; $a <= $attempts; $a++) {
@@ -94,7 +55,6 @@ class SqlServerConnection extends Connection
 
             return $result;
         }
->>>>>>> dev
     }
 
     /**
@@ -108,8 +68,6 @@ class SqlServerConnection extends Connection
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Get a schema builder instance for the connection.
      *
      * @return \Illuminate\Database\Schema\SqlServerBuilder
@@ -124,7 +82,6 @@ class SqlServerConnection extends Connection
     }
 
     /**
->>>>>>> dev
      * Get the default schema grammar instance.
      *
      * @return \Illuminate\Database\Schema\Grammars\SqlServerGrammar

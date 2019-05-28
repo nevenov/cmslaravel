@@ -24,29 +24,14 @@ namespace Symfony\Component\HttpFoundation\Session\Storage;
  */
 class MockFileSessionStorage extends MockArraySessionStorage
 {
-<<<<<<< HEAD
-    /**
-     * @var string
-     */
     private $savePath;
 
     /**
-     * Constructor.
-     *
-=======
-    private $savePath;
-
-    /**
->>>>>>> dev
      * @param string      $savePath Path of directory to save session files
      * @param string      $name     Session name
      * @param MetadataBag $metaBag  MetadataBag instance
      */
-<<<<<<< HEAD
-    public function __construct($savePath = null, $name = 'MOCKSESSID', MetadataBag $metaBag = null)
-=======
     public function __construct(string $savePath = null, string $name = 'MOCKSESSID', MetadataBag $metaBag = null)
->>>>>>> dev
     {
         if (null === $savePath) {
             $savePath = sys_get_temp_dir();
@@ -106,9 +91,6 @@ class MockFileSessionStorage extends MockArraySessionStorage
             throw new \RuntimeException('Trying to save a session that was not started yet or was already closed');
         }
 
-<<<<<<< HEAD
-        file_put_contents($this->getFilePath(), serialize($this->data));
-=======
         $data = $this->data;
 
         foreach ($this->bags as $bag) {
@@ -129,7 +111,6 @@ class MockFileSessionStorage extends MockArraySessionStorage
         } finally {
             $this->data = $data;
         }
->>>>>>> dev
 
         // this is needed for Silex, where the session object is re-used across requests
         // in functional tests. In Symfony, the container is rebooted, so we don't have
@@ -164,11 +145,7 @@ class MockFileSessionStorage extends MockArraySessionStorage
     private function read()
     {
         $filePath = $this->getFilePath();
-<<<<<<< HEAD
-        $this->data = is_readable($filePath) && is_file($filePath) ? unserialize(file_get_contents($filePath)) : array();
-=======
         $this->data = is_readable($filePath) && is_file($filePath) ? unserialize(file_get_contents($filePath)) : [];
->>>>>>> dev
 
         $this->loadSession();
     }

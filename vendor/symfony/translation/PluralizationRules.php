@@ -15,19 +15,12 @@ namespace Symfony\Component\Translation;
  * Returns the plural rules for a given locale.
  *
  * @author Fabien Potencier <fabien@symfony.com>
-<<<<<<< HEAD
- */
-class PluralizationRules
-{
-    private static $rules = array();
-=======
  *
  * @deprecated since Symfony 4.2, use IdentityTranslator instead
  */
 class PluralizationRules
 {
     private static $rules = [];
->>>>>>> dev
 
     /**
      * Returns the plural position to use for the given locale and number.
@@ -37,32 +30,17 @@ class PluralizationRules
      *
      * @return int The plural position
      */
-<<<<<<< HEAD
-    public static function get($number, $locale)
-    {
-=======
     public static function get($number, $locale/*, bool $triggerDeprecation = true*/)
     {
         if (3 > \func_num_args() || \func_get_arg(2)) {
             @trigger_error(sprintf('The "%s" class is deprecated since Symfony 4.2.', __CLASS__), E_USER_DEPRECATED);
         }
 
->>>>>>> dev
         if ('pt_BR' === $locale) {
             // temporary set a locale for brazilian
             $locale = 'xbr';
         }
 
-<<<<<<< HEAD
-        if (strlen($locale) > 3) {
-            $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
-        }
-
-        if (isset(self::$rules[$locale])) {
-            $return = call_user_func(self::$rules[$locale], $number);
-
-            if (!is_int($return) || $return < 0) {
-=======
         if (\strlen($locale) > 3) {
             $locale = substr($locale, 0, -\strlen(strrchr($locale, '_')));
         }
@@ -71,7 +49,6 @@ class PluralizationRules
             $return = self::$rules[$locale]($number);
 
             if (!\is_int($return) || $return < 0) {
->>>>>>> dev
                 return 0;
             }
 
@@ -100,10 +77,6 @@ class PluralizationRules
             case 'vi':
             case 'zh':
                 return 0;
-<<<<<<< HEAD
-                break;
-=======
->>>>>>> dev
 
             case 'af':
             case 'bn':
@@ -140,10 +113,7 @@ class PluralizationRules
             case 'nl':
             case 'nn':
             case 'no':
-<<<<<<< HEAD
-=======
             case 'oc':
->>>>>>> dev
             case 'om':
             case 'or':
             case 'pa':
@@ -159,11 +129,7 @@ class PluralizationRules
             case 'tk':
             case 'ur':
             case 'zu':
-<<<<<<< HEAD
-                return ($number == 1) ? 0 : 1;
-=======
                 return (1 == $number) ? 0 : 1;
->>>>>>> dev
 
             case 'am':
             case 'bh':
@@ -178,55 +144,12 @@ class PluralizationRules
             case 'xbr':
             case 'ti':
             case 'wa':
-<<<<<<< HEAD
-                return (($number == 0) || ($number == 1)) ? 0 : 1;
-=======
                 return ((0 == $number) || (1 == $number)) ? 0 : 1;
->>>>>>> dev
 
             case 'be':
             case 'bs':
             case 'hr':
             case 'ru':
-<<<<<<< HEAD
-            case 'sr':
-            case 'uk':
-                return (($number % 10 == 1) && ($number % 100 != 11)) ? 0 : ((($number % 10 >= 2) && ($number % 10 <= 4) && (($number % 100 < 10) || ($number % 100 >= 20))) ? 1 : 2);
-
-            case 'cs':
-            case 'sk':
-                return ($number == 1) ? 0 : ((($number >= 2) && ($number <= 4)) ? 1 : 2);
-
-            case 'ga':
-                return ($number == 1) ? 0 : (($number == 2) ? 1 : 2);
-
-            case 'lt':
-                return (($number % 10 == 1) && ($number % 100 != 11)) ? 0 : ((($number % 10 >= 2) && (($number % 100 < 10) || ($number % 100 >= 20))) ? 1 : 2);
-
-            case 'sl':
-                return ($number % 100 == 1) ? 0 : (($number % 100 == 2) ? 1 : ((($number % 100 == 3) || ($number % 100 == 4)) ? 2 : 3));
-
-            case 'mk':
-                return ($number % 10 == 1) ? 0 : 1;
-
-            case 'mt':
-                return ($number == 1) ? 0 : ((($number == 0) || (($number % 100 > 1) && ($number % 100 < 11))) ? 1 : ((($number % 100 > 10) && ($number % 100 < 20)) ? 2 : 3));
-
-            case 'lv':
-                return ($number == 0) ? 0 : ((($number % 10 == 1) && ($number % 100 != 11)) ? 1 : 2);
-
-            case 'pl':
-                return ($number == 1) ? 0 : ((($number % 10 >= 2) && ($number % 10 <= 4) && (($number % 100 < 12) || ($number % 100 > 14))) ? 1 : 2);
-
-            case 'cy':
-                return ($number == 1) ? 0 : (($number == 2) ? 1 : ((($number == 8) || ($number == 11)) ? 2 : 3));
-
-            case 'ro':
-                return ($number == 1) ? 0 : ((($number == 0) || (($number % 100 > 0) && ($number % 100 < 20))) ? 1 : 2);
-
-            case 'ar':
-                return ($number == 0) ? 0 : (($number == 1) ? 1 : (($number == 2) ? 2 : ((($number % 100 >= 3) && ($number % 100 <= 10)) ? 3 : ((($number % 100 >= 11) && ($number % 100 <= 99)) ? 4 : 5))));
-=======
             case 'sh':
             case 'sr':
             case 'uk':
@@ -265,7 +188,6 @@ class PluralizationRules
 
             case 'ar':
                 return (0 == $number) ? 0 : ((1 == $number) ? 1 : ((2 == $number) ? 2 : ((($number % 100 >= 3) && ($number % 100 <= 10)) ? 3 : ((($number % 100 >= 11) && ($number % 100 <= 99)) ? 4 : 5))));
->>>>>>> dev
 
             default:
                 return 0;
@@ -280,23 +202,15 @@ class PluralizationRules
      */
     public static function set(callable $rule, $locale)
     {
-<<<<<<< HEAD
-=======
         @trigger_error(sprintf('The "%s" class is deprecated since Symfony 4.2.', __CLASS__), E_USER_DEPRECATED);
 
->>>>>>> dev
         if ('pt_BR' === $locale) {
             // temporary set a locale for brazilian
             $locale = 'xbr';
         }
 
-<<<<<<< HEAD
-        if (strlen($locale) > 3) {
-            $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
-=======
         if (\strlen($locale) > 3) {
             $locale = substr($locale, 0, -\strlen(strrchr($locale, '_')));
->>>>>>> dev
         }
 
         self::$rules[$locale] = $rule;

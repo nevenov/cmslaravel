@@ -11,16 +11,10 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\ParameterBag;
-
-class ParameterBagTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class ParameterBagTest extends TestCase
->>>>>>> dev
 {
     public function testConstructor()
     {
@@ -29,79 +23,44 @@ class ParameterBagTest extends TestCase
 
     public function testAll()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('foo' => 'bar'));
-        $this->assertEquals(array('foo' => 'bar'), $bag->all(), '->all() gets all the input');
-=======
         $bag = new ParameterBag(['foo' => 'bar']);
         $this->assertEquals(['foo' => 'bar'], $bag->all(), '->all() gets all the input');
->>>>>>> dev
     }
 
     public function testKeys()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('foo' => 'bar'));
-        $this->assertEquals(array('foo'), $bag->keys());
-=======
         $bag = new ParameterBag(['foo' => 'bar']);
         $this->assertEquals(['foo'], $bag->keys());
->>>>>>> dev
     }
 
     public function testAdd()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('foo' => 'bar'));
-        $bag->add(array('bar' => 'bas'));
-        $this->assertEquals(array('foo' => 'bar', 'bar' => 'bas'), $bag->all());
-=======
         $bag = new ParameterBag(['foo' => 'bar']);
         $bag->add(['bar' => 'bas']);
         $this->assertEquals(['foo' => 'bar', 'bar' => 'bas'], $bag->all());
->>>>>>> dev
     }
 
     public function testRemove()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('foo' => 'bar'));
-        $bag->add(array('bar' => 'bas'));
-        $this->assertEquals(array('foo' => 'bar', 'bar' => 'bas'), $bag->all());
-        $bag->remove('bar');
-        $this->assertEquals(array('foo' => 'bar'), $bag->all());
-=======
         $bag = new ParameterBag(['foo' => 'bar']);
         $bag->add(['bar' => 'bas']);
         $this->assertEquals(['foo' => 'bar', 'bar' => 'bas'], $bag->all());
         $bag->remove('bar');
         $this->assertEquals(['foo' => 'bar'], $bag->all());
->>>>>>> dev
     }
 
     public function testReplace()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('foo' => 'bar'));
-
-        $bag->replace(array('FOO' => 'BAR'));
-        $this->assertEquals(array('FOO' => 'BAR'), $bag->all(), '->replace() replaces the input with the argument');
-=======
         $bag = new ParameterBag(['foo' => 'bar']);
 
         $bag->replace(['FOO' => 'BAR']);
         $this->assertEquals(['FOO' => 'BAR'], $bag->all(), '->replace() replaces the input with the argument');
->>>>>>> dev
         $this->assertFalse($bag->has('foo'), '->replace() overrides previously set the input');
     }
 
     public function testGet()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('foo' => 'bar', 'null' => null));
-=======
         $bag = new ParameterBag(['foo' => 'bar', 'null' => null]);
->>>>>>> dev
 
         $this->assertEquals('bar', $bag->get('foo'), '->get() gets the value of a parameter');
         $this->assertEquals('default', $bag->get('unknown', 'default'), '->get() returns second argument as default if a parameter is not defined');
@@ -110,22 +69,14 @@ class ParameterBagTest extends TestCase
 
     public function testGetDoesNotUseDeepByDefault()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('foo' => array('bar' => 'moo')));
-=======
         $bag = new ParameterBag(['foo' => ['bar' => 'moo']]);
->>>>>>> dev
 
         $this->assertNull($bag->get('foo[bar]'));
     }
 
     public function testSet()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array());
-=======
         $bag = new ParameterBag([]);
->>>>>>> dev
 
         $bag->set('foo', 'bar');
         $this->assertEquals('bar', $bag->get('foo'), '->set() sets the value of parameter');
@@ -136,11 +87,7 @@ class ParameterBagTest extends TestCase
 
     public function testHas()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('foo' => 'bar'));
-=======
         $bag = new ParameterBag(['foo' => 'bar']);
->>>>>>> dev
 
         $this->assertTrue($bag->has('foo'), '->has() returns true if a parameter is defined');
         $this->assertFalse($bag->has('unknown'), '->has() return false if a parameter is not defined');
@@ -148,11 +95,7 @@ class ParameterBagTest extends TestCase
 
     public function testGetAlpha()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('word' => 'foo_BAR_012'));
-=======
         $bag = new ParameterBag(['word' => 'foo_BAR_012']);
->>>>>>> dev
 
         $this->assertEquals('fooBAR', $bag->getAlpha('word'), '->getAlpha() gets only alphabetic characters');
         $this->assertEquals('', $bag->getAlpha('unknown'), '->getAlpha() returns empty string if a parameter is not defined');
@@ -160,11 +103,7 @@ class ParameterBagTest extends TestCase
 
     public function testGetAlnum()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('word' => 'foo_BAR_012'));
-=======
         $bag = new ParameterBag(['word' => 'foo_BAR_012']);
->>>>>>> dev
 
         $this->assertEquals('fooBAR012', $bag->getAlnum('word'), '->getAlnum() gets only alphanumeric characters');
         $this->assertEquals('', $bag->getAlnum('unknown'), '->getAlnum() returns empty string if a parameter is not defined');
@@ -172,11 +111,7 @@ class ParameterBagTest extends TestCase
 
     public function testGetDigits()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('word' => 'foo_BAR_012'));
-=======
         $bag = new ParameterBag(['word' => 'foo_BAR_012']);
->>>>>>> dev
 
         $this->assertEquals('012', $bag->getDigits('word'), '->getDigits() gets only digits as string');
         $this->assertEquals('', $bag->getDigits('unknown'), '->getDigits() returns empty string if a parameter is not defined');
@@ -184,11 +119,7 @@ class ParameterBagTest extends TestCase
 
     public function testGetInt()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array('digits' => '0123'));
-=======
         $bag = new ParameterBag(['digits' => '0123']);
->>>>>>> dev
 
         $this->assertEquals(123, $bag->getInt('digits'), '->getInt() gets a value of parameter as integer');
         $this->assertEquals(0, $bag->getInt('unknown'), '->getInt() returns zero if a parameter is not defined');
@@ -196,23 +127,14 @@ class ParameterBagTest extends TestCase
 
     public function testFilter()
     {
-<<<<<<< HEAD
-        $bag = new ParameterBag(array(
-=======
         $bag = new ParameterBag([
->>>>>>> dev
             'digits' => '0123ab',
             'email' => 'example@example.com',
             'url' => 'http://example.com/foo',
             'dec' => '256',
             'hex' => '0x100',
-<<<<<<< HEAD
-            'array' => array('bang'),
-            ));
-=======
             'array' => ['bang'],
             ]);
->>>>>>> dev
 
         $this->assertEmpty($bag->filter('nokey'), '->filter() should return empty by default if no key is found');
 
@@ -220,28 +142,11 @@ class ParameterBagTest extends TestCase
 
         $this->assertEquals('example@example.com', $bag->filter('email', '', FILTER_VALIDATE_EMAIL), '->filter() gets a value of parameter as email');
 
-<<<<<<< HEAD
-        $this->assertEquals('http://example.com/foo', $bag->filter('url', '', FILTER_VALIDATE_URL, array('flags' => FILTER_FLAG_PATH_REQUIRED)), '->filter() gets a value of parameter as URL with a path');
-=======
         $this->assertEquals('http://example.com/foo', $bag->filter('url', '', FILTER_VALIDATE_URL, ['flags' => FILTER_FLAG_PATH_REQUIRED]), '->filter() gets a value of parameter as URL with a path');
->>>>>>> dev
 
         // This test is repeated for code-coverage
         $this->assertEquals('http://example.com/foo', $bag->filter('url', '', FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED), '->filter() gets a value of parameter as URL with a path');
 
-<<<<<<< HEAD
-        $this->assertFalse($bag->filter('dec', '', FILTER_VALIDATE_INT, array(
-            'flags' => FILTER_FLAG_ALLOW_HEX,
-            'options' => array('min_range' => 1, 'max_range' => 0xff),
-        )), '->filter() gets a value of parameter as integer between boundaries');
-
-        $this->assertFalse($bag->filter('hex', '', FILTER_VALIDATE_INT, array(
-            'flags' => FILTER_FLAG_ALLOW_HEX,
-            'options' => array('min_range' => 1, 'max_range' => 0xff),
-        )), '->filter() gets a value of parameter as integer between boundaries');
-
-        $this->assertEquals(array('bang'), $bag->filter('array', ''), '->filter() gets a value of parameter as an array');
-=======
         $this->assertFalse($bag->filter('dec', '', FILTER_VALIDATE_INT, [
             'flags' => FILTER_FLAG_ALLOW_HEX,
             'options' => ['min_range' => 1, 'max_range' => 0xff],
@@ -253,16 +158,11 @@ class ParameterBagTest extends TestCase
         ]), '->filter() gets a value of parameter as integer between boundaries');
 
         $this->assertEquals(['bang'], $bag->filter('array', ''), '->filter() gets a value of parameter as an array');
->>>>>>> dev
     }
 
     public function testGetIterator()
     {
-<<<<<<< HEAD
-        $parameters = array('foo' => 'bar', 'hello' => 'world');
-=======
         $parameters = ['foo' => 'bar', 'hello' => 'world'];
->>>>>>> dev
         $bag = new ParameterBag($parameters);
 
         $i = 0;
@@ -271,35 +171,20 @@ class ParameterBagTest extends TestCase
             $this->assertEquals($parameters[$key], $val);
         }
 
-<<<<<<< HEAD
-        $this->assertEquals(count($parameters), $i);
-=======
         $this->assertEquals(\count($parameters), $i);
->>>>>>> dev
     }
 
     public function testCount()
     {
-<<<<<<< HEAD
-        $parameters = array('foo' => 'bar', 'hello' => 'world');
-        $bag = new ParameterBag($parameters);
-
-        $this->assertEquals(count($parameters), count($bag));
-=======
         $parameters = ['foo' => 'bar', 'hello' => 'world'];
         $bag = new ParameterBag($parameters);
 
         $this->assertCount(\count($parameters), $bag);
->>>>>>> dev
     }
 
     public function testGetBoolean()
     {
-<<<<<<< HEAD
-        $parameters = array('string_true' => 'true', 'string_false' => 'false');
-=======
         $parameters = ['string_true' => 'true', 'string_false' => 'false'];
->>>>>>> dev
         $bag = new ParameterBag($parameters);
 
         $this->assertTrue($bag->getBoolean('string_true'), '->getBoolean() gets the string true as boolean true');

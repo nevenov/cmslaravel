@@ -17,11 +17,6 @@ class Swift_SpoolTransport extends Swift_Transport_SpoolTransport
 {
     /**
      * Create a new SpoolTransport.
-<<<<<<< HEAD
-     *
-     * @param Swift_Spool $spool
-=======
->>>>>>> dev
      */
     public function __construct(Swift_Spool $spool)
     {
@@ -31,27 +26,8 @@ class Swift_SpoolTransport extends Swift_Transport_SpoolTransport
         $arguments[] = $spool;
 
         call_user_func_array(
-<<<<<<< HEAD
-            array($this, 'Swift_Transport_SpoolTransport::__construct'),
-            $arguments
-        );
-    }
-
-    /**
-     * Create a new SpoolTransport instance.
-     *
-     * @param Swift_Spool $spool
-     *
-     * @return self
-     */
-    public static function newInstance(Swift_Spool $spool)
-    {
-        return new self($spool);
-    }
-=======
             [$this, 'Swift_Transport_SpoolTransport::__construct'],
             $arguments
         );
     }
->>>>>>> dev
 }

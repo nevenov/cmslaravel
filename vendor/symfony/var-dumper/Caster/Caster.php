@@ -11,20 +11,14 @@
 
 namespace Symfony\Component\VarDumper\Caster;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\VarDumper\Cloner\Stub;
 
->>>>>>> dev
 /**
  * Helper for filtering out properties in casters.
  *
  * @author Nicolas Grekas <p@tchwork.com>
-<<<<<<< HEAD
-=======
  *
  * @final
->>>>>>> dev
  */
 class Caster
 {
@@ -46,33 +40,6 @@ class Caster
     /**
      * Casts objects to arrays and adds the dynamic property prefix.
      *
-<<<<<<< HEAD
-     * @param object           $obj       The object to cast
-     * @param \ReflectionClass $reflector The class reflector to use for inspecting the object definition
-     *
-     * @return array The array-cast of the object, with prefixed dynamic properties
-     */
-    public static function castObject($obj, \ReflectionClass $reflector)
-    {
-        if ($reflector->hasMethod('__debugInfo')) {
-            $a = $obj->__debugInfo();
-        } elseif ($obj instanceof \Closure) {
-            $a = array();
-        } else {
-            $a = (array) $obj;
-        }
-
-        if ($a) {
-            $p = array_keys($a);
-            foreach ($p as $i => $k) {
-                if (isset($k[0]) && "\0" !== $k[0] && !$reflector->hasProperty($k)) {
-                    $p[$i] = self::PREFIX_DYNAMIC.$k;
-                } elseif (isset($k[16]) && "\0" === $k[16] && 0 === strpos($k, "\0class@anonymous\0")) {
-                    $p[$i] = "\0".$reflector->getParentClass().'@anonymous'.strrchr($k, "\0");
-                }
-            }
-            $a = array_combine($p, $a);
-=======
      * @param object $obj          The object to cast
      * @param string $class        The class of the object
      * @param bool   $hasDebugInfo Whether the __debugInfo method exists on $obj or not
@@ -119,7 +86,6 @@ class Caster
                 }
                 $a = array_combine($keys, $a);
             }
->>>>>>> dev
         }
 
         return $a;
@@ -134,13 +100,6 @@ class Caster
      * @param array    $a                The array containing the properties to filter
      * @param int      $filter           A bit field of Caster::EXCLUDE_* constants specifying which properties to filter out
      * @param string[] $listedProperties List of properties to exclude when Caster::EXCLUDE_VERBOSE is set, and to preserve when Caster::EXCLUDE_NOT_IMPORTANT is set
-<<<<<<< HEAD
-     *
-     * @return array The filtered array
-     */
-    public static function filter(array $a, $filter, array $listedProperties = array())
-    {
-=======
      * @param int      &$count           Set to the number of removed properties
      *
      * @return array The filtered array
@@ -149,22 +108,11 @@ class Caster
     {
         $count = 0;
 
->>>>>>> dev
         foreach ($a as $k => $v) {
             $type = self::EXCLUDE_STRICT & $filter;
 
             if (null === $v) {
                 $type |= self::EXCLUDE_NULL & $filter;
-<<<<<<< HEAD
-            }
-            if (empty($v)) {
-                $type |= self::EXCLUDE_EMPTY & $filter;
-            }
-            if ((self::EXCLUDE_NOT_IMPORTANT & $filter) && !in_array($k, $listedProperties, true)) {
-                $type |= self::EXCLUDE_NOT_IMPORTANT;
-            }
-            if ((self::EXCLUDE_VERBOSE & $filter) && in_array($k, $listedProperties, true)) {
-=======
                 $type |= self::EXCLUDE_EMPTY & $filter;
             } elseif (false === $v || '' === $v || '0' === $v || 0 === $v || 0.0 === $v || [] === $v) {
                 $type |= self::EXCLUDE_EMPTY & $filter;
@@ -173,7 +121,6 @@ class Caster
                 $type |= self::EXCLUDE_NOT_IMPORTANT;
             }
             if ((self::EXCLUDE_VERBOSE & $filter) && \in_array($k, $listedProperties, true)) {
->>>>>>> dev
                 $type |= self::EXCLUDE_VERBOSE;
             }
 
@@ -191,17 +138,12 @@ class Caster
 
             if ((self::EXCLUDE_STRICT & $filter) ? $type === $filter : $type) {
                 unset($a[$k]);
-<<<<<<< HEAD
-=======
                 ++$count;
->>>>>>> dev
             }
         }
 
         return $a;
     }
-<<<<<<< HEAD
-=======
 
     public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, Stub $stub, $isNested)
     {
@@ -212,5 +154,4 @@ class Caster
 
         return $a;
     }
->>>>>>> dev
 }

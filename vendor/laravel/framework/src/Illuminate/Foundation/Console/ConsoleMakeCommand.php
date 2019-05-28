@@ -13,11 +13,7 @@ class ConsoleMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-<<<<<<< HEAD
-    protected $name = 'make:console';
-=======
     protected $name = 'make:command';
->>>>>>> dev
 
     /**
      * The console command description.
@@ -76,11 +72,7 @@ class ConsoleMakeCommand extends GeneratorCommand
     protected function getArguments()
     {
         return [
-<<<<<<< HEAD
-            ['name', InputArgument::REQUIRED, 'The name of the command.'],
-=======
             ['name', InputArgument::REQUIRED, 'The name of the command'],
->>>>>>> dev
         ];
     }
 
@@ -92,11 +84,7 @@ class ConsoleMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
-<<<<<<< HEAD
-            ['command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that should be assigned.', 'command:name'],
-=======
             ['command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that should be assigned', 'command:name'],
->>>>>>> dev
         ];
     }
 }

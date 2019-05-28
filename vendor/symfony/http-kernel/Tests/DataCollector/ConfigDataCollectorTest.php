@@ -11,15 +11,6 @@
 
 namespace Symfony\Component\HttpKernel\Tests\DataCollector;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector;
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-class ConfigDataCollectorTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,50 +19,17 @@ use Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector;
 use Symfony\Component\HttpKernel\Kernel;
 
 class ConfigDataCollectorTest extends TestCase
->>>>>>> dev
 {
     public function testCollect()
     {
         $kernel = new KernelForTest('test', true);
         $c = new ConfigDataCollector();
-<<<<<<< HEAD
-        $c->setCacheVersionInfo(false);
-=======
->>>>>>> dev
         $c->setKernel($kernel);
         $c->collect(new Request(), new Response());
 
         $this->assertSame('test', $c->getEnv());
         $this->assertTrue($c->isDebug());
         $this->assertSame('config', $c->getName());
-<<<<<<< HEAD
-        $this->assertSame('testkernel', $c->getAppName());
-        $this->assertSame(PHP_VERSION, $c->getPhpVersion());
-        $this->assertSame(Kernel::VERSION, $c->getSymfonyVersion());
-        $this->assertNull($c->getToken());
-
-        // if else clause because we don't know it
-        if (extension_loaded('xdebug')) {
-            $this->assertTrue($c->hasXDebug());
-        } else {
-            $this->assertFalse($c->hasXDebug());
-        }
-
-        // if else clause because we don't know it
-        if (((extension_loaded('eaccelerator') && ini_get('eaccelerator.enable'))
-                ||
-                (extension_loaded('apc') && ini_get('apc.enabled'))
-                ||
-                (extension_loaded('Zend OPcache') && ini_get('opcache.enable'))
-                ||
-                (extension_loaded('xcache') && ini_get('xcache.cacher'))
-                ||
-                (extension_loaded('wincache') && ini_get('wincache.ocenabled')))) {
-            $this->assertTrue($c->hasAccelerator());
-        } else {
-            $this->assertFalse($c->hasAccelerator());
-        }
-=======
         $this->assertRegExp('~^'.preg_quote($c->getPhpVersion(), '~').'~', PHP_VERSION);
         $this->assertRegExp('~'.preg_quote((string) $c->getPhpVersionExtra(), '~').'$~', PHP_VERSION);
         $this->assertSame(PHP_INT_SIZE * 8, $c->getPhpArchitecture());
@@ -98,31 +56,18 @@ class ConfigDataCollectorTest extends TestCase
 
         $this->assertSame('name', $c->getApplicationName());
         $this->assertNull($c->getApplicationVersion());
->>>>>>> dev
     }
 }
 
 class KernelForTest extends Kernel
 {
-<<<<<<< HEAD
-    public function getName()
-    {
-        return 'testkernel';
-    }
-
-=======
->>>>>>> dev
     public function registerBundles()
     {
     }
 
     public function getBundles()
     {
-<<<<<<< HEAD
-        return array();
-=======
         return [];
->>>>>>> dev
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

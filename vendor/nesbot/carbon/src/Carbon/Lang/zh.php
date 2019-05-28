@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /*
  * Authors:
  * - xuri
@@ -24,7 +17,6 @@ return array(
  * - Luo Ning
  */
 return [
->>>>>>> dev
     'year' => ':count年',
     'y' => ':count年',
     'month' => ':count个月',
@@ -43,9 +35,6 @@ return [
     'from_now' => '距现在:time',
     'after' => ':time后',
     'before' => ':time前',
-<<<<<<< HEAD
-);
-=======
     'diff_yesterday' => '昨天',
     'diff_tomorrow' => '明天',
     'formats' => [
@@ -108,4 +97,3 @@ return [
     'day_of_first_week_of_year' => 4,
     'list' => '',
 ];
->>>>>>> dev

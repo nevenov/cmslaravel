@@ -21,11 +21,7 @@ class PostgresProcessor extends Processor
 
         $sequence = $sequence ?: 'id';
 
-<<<<<<< HEAD
-        $id = is_object($result) ? $result->$sequence : $result[$sequence];
-=======
         $id = is_object($result) ? $result->{$sequence} : $result[$sequence];
->>>>>>> dev
 
         return is_numeric($id) ? (int) $id : $id;
     }
@@ -38,18 +34,8 @@ class PostgresProcessor extends Processor
      */
     public function processColumnListing($results)
     {
-<<<<<<< HEAD
-        $mapping = function ($r) {
-            $r = (object) $r;
-
-            return $r->column_name;
-        };
-
-        return array_map($mapping, $results);
-=======
         return array_map(function ($result) {
             return ((object) $result)->column_name;
         }, $results);
->>>>>>> dev
     }
 }

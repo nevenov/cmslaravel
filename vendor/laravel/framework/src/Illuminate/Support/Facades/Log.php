@@ -3,9 +3,6 @@
 namespace Illuminate\Support\Facades;
 
 /**
-<<<<<<< HEAD
- * @see \Illuminate\Log\Writer
-=======
  * @method static void emergency(string $message, array $context = [])
  * @method static void alert(string $message, array $context = [])
  * @method static void critical(string $message, array $context = [])
@@ -19,7 +16,6 @@ namespace Illuminate\Support\Facades;
  * @method static \Psr\Log\LoggerInterface stack(array $channels, string $channel = null)
  *
  * @see \Illuminate\Log\Logger
->>>>>>> dev
  */
 class Log extends Facade
 {

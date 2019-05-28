@@ -1,10 +1,6 @@
 <?php
 /*
-<<<<<<< HEAD
- * This file is part of the Comparator package.
-=======
  * This file is part of sebastian/comparator.
->>>>>>> dev
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -22,33 +18,6 @@ class Factory
     /**
      * @var Comparator[]
      */
-<<<<<<< HEAD
-    private $comparators = array();
-
-    /**
-     * @var Factory
-     */
-    private static $instance;
-
-    /**
-     * Constructs a new factory.
-     */
-    public function __construct()
-    {
-        $this->register(new TypeComparator);
-        $this->register(new ScalarComparator);
-        $this->register(new NumericComparator);
-        $this->register(new DoubleComparator);
-        $this->register(new ArrayComparator);
-        $this->register(new ResourceComparator);
-        $this->register(new ObjectComparator);
-        $this->register(new ExceptionComparator);
-        $this->register(new SplObjectStorageComparator);
-        $this->register(new DOMNodeComparator);
-        $this->register(new MockObjectComparator);
-        $this->register(new DateTimeComparator);
-    }
-=======
     private $customComparators = [];
 
     /**
@@ -60,7 +29,6 @@ class Factory
      * @var Factory
      */
     private static $instance;
->>>>>>> dev
 
     /**
      * @return Factory
@@ -75,12 +43,6 @@ class Factory
     }
 
     /**
-<<<<<<< HEAD
-     * Returns the correct comparator for comparing two values.
-     *
-     * @param  mixed      $expected The first value to compare
-     * @param  mixed      $actual   The second value to compare
-=======
      * Constructs a new factory.
      */
     public function __construct()
@@ -94,14 +56,10 @@ class Factory
      * @param mixed $expected The first value to compare
      * @param mixed $actual   The second value to compare
      *
->>>>>>> dev
      * @return Comparator
      */
     public function getComparatorFor($expected, $actual)
     {
-<<<<<<< HEAD
-        foreach ($this->comparators as $comparator) {
-=======
         foreach ($this->customComparators as $comparator) {
             if ($comparator->accepts($expected, $actual)) {
                 return $comparator;
@@ -109,7 +67,6 @@ class Factory
         }
 
         foreach ($this->defaultComparators as $comparator) {
->>>>>>> dev
             if ($comparator->accepts($expected, $actual)) {
                 return $comparator;
             }
@@ -119,18 +76,6 @@ class Factory
     /**
      * Registers a new comparator.
      *
-<<<<<<< HEAD
-     * This comparator will be returned by getInstance() if its accept() method
-     * returns TRUE for the compared values. It has higher priority than the
-     * existing comparators, meaning that its accept() method will be tested
-     * before those of the other comparators.
-     *
-     * @param Comparator $comparator The registered comparator
-     */
-    public function register(Comparator $comparator)
-    {
-        array_unshift($this->comparators, $comparator);
-=======
      * This comparator will be returned by getComparatorFor() if its accept() method
      * returns TRUE for the compared values. It has higher priority than the
      * existing comparators, meaning that its accept() method will be invoked
@@ -141,7 +86,6 @@ class Factory
     public function register(Comparator $comparator)
     {
         \array_unshift($this->customComparators, $comparator);
->>>>>>> dev
 
         $comparator->setFactory($this);
     }
@@ -149,20 +93,6 @@ class Factory
     /**
      * Unregisters a comparator.
      *
-<<<<<<< HEAD
-     * This comparator will no longer be returned by getInstance().
-     *
-     * @param Comparator $comparator The unregistered comparator
-     */
-    public function unregister(Comparator $comparator)
-    {
-        foreach ($this->comparators as $key => $_comparator) {
-            if ($comparator === $_comparator) {
-                unset($this->comparators[$key]);
-            }
-        }
-    }
-=======
      * This comparator will no longer be considered by getComparatorFor().
      *
      * @param Comparator $comparator The comparator to be unregistered
@@ -206,5 +136,4 @@ class Factory
 
         $comparator->setFactory($this);
     }
->>>>>>> dev
 }

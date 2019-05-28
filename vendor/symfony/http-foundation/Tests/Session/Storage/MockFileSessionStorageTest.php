@@ -11,27 +11,17 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
-use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
->>>>>>> dev
 
 /**
  * Test class for MockFileSessionStorage.
  *
  * @author Drak <drak@zikula.org>
  */
-<<<<<<< HEAD
-class MockFileSessionStorageTest extends \PHPUnit_Framework_TestCase
-=======
 class MockFileSessionStorageTest extends TestCase
->>>>>>> dev
 {
     /**
      * @var string
@@ -45,11 +35,7 @@ class MockFileSessionStorageTest extends TestCase
 
     protected function setUp()
     {
-<<<<<<< HEAD
-        $this->sessionDir = sys_get_temp_dir().'/sf2test';
-=======
         $this->sessionDir = sys_get_temp_dir().'/sftest';
->>>>>>> dev
         $this->storage = $this->getStorage();
     }
 
@@ -105,11 +91,7 @@ class MockFileSessionStorageTest extends TestCase
         $storage->start();
         $this->assertEquals('108', $storage->getBag('attributes')->get('new'));
         $this->assertTrue($storage->getBag('flashes')->has('newkey'));
-<<<<<<< HEAD
-        $this->assertEquals(array('test'), $storage->getBag('flashes')->peek('newkey'));
-=======
         $this->assertEquals(['test'], $storage->getBag('flashes')->peek('newkey'));
->>>>>>> dev
     }
 
     public function testMultipleInstances()

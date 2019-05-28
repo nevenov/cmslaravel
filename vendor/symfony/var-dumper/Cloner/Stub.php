@@ -18,19 +18,6 @@ namespace Symfony\Component\VarDumper\Cloner;
  */
 class Stub
 {
-<<<<<<< HEAD
-    const TYPE_REF = 'ref';
-    const TYPE_STRING = 'string';
-    const TYPE_ARRAY = 'array';
-    const TYPE_OBJECT = 'object';
-    const TYPE_RESOURCE = 'resource';
-
-    const STRING_BINARY = 'bin';
-    const STRING_UTF8 = 'utf8';
-
-    const ARRAY_ASSOC = 'assoc';
-    const ARRAY_INDEXED = 'indexed';
-=======
     const TYPE_REF = 1;
     const TYPE_STRING = 2;
     const TYPE_ARRAY = 3;
@@ -42,7 +29,6 @@ class Stub
 
     const ARRAY_ASSOC = 1;
     const ARRAY_INDEXED = 2;
->>>>>>> dev
 
     public $type = self::TYPE_REF;
     public $class = '';
@@ -51,8 +37,6 @@ class Stub
     public $handle = 0;
     public $refCount = 0;
     public $position = 0;
-<<<<<<< HEAD
-=======
     public $attr = [];
 
     private static $defaultProperties = [];
@@ -80,5 +64,4 @@ class Stub
 
         return $properties;
     }
->>>>>>> dev
 }

@@ -25,11 +25,7 @@ class ChainExtractor implements ExtractorInterface
      *
      * @var ExtractorInterface[]
      */
-<<<<<<< HEAD
-    private $extractors = array();
-=======
     private $extractors = [];
->>>>>>> dev
 
     /**
      * Adds a loader to the translation extractor.

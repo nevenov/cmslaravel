@@ -11,10 +11,7 @@
 
 namespace Symfony\Component\Translation\Tests;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\Translation\PluralizationRules;
 
 /**
@@ -29,15 +26,10 @@ use Symfony\Component\Translation\PluralizationRules;
  * The goal to cover all languages is to far fetched so this test case is smaller.
  *
  * @author Clemens Tolboom clemens@build2be.nl
-<<<<<<< HEAD
- */
-class PluralizationRulesTest extends \PHPUnit_Framework_TestCase
-=======
  *
  * @group legacy
  */
 class PluralizationRulesTest extends TestCase
->>>>>>> dev
 {
     /**
      * We test failed langcode here.
@@ -70,16 +62,6 @@ class PluralizationRulesTest extends TestCase
      */
     public function successLangcodes()
     {
-<<<<<<< HEAD
-        return array(
-            array('1', array('ay', 'bo', 'cgg', 'dz', 'id', 'ja', 'jbo', 'ka', 'kk', 'km', 'ko', 'ky')),
-            array('2', array('nl', 'fr', 'en', 'de', 'de_GE', 'hy', 'hy_AM')),
-            array('3', array('be', 'bs', 'cs', 'hr')),
-            array('4', array('cy', 'mt', 'sl')),
-            array('5', array()),
-            array('6', array('ar')),
-        );
-=======
         return [
             ['1', ['ay', 'bo', 'cgg', 'dz', 'id', 'ja', 'jbo', 'ka', 'kk', 'km', 'ko', 'ky']],
             ['2', ['nl', 'fr', 'en', 'de', 'de_GE', 'hy', 'hy_AM']],
@@ -87,7 +69,6 @@ class PluralizationRulesTest extends TestCase
             ['4', ['cy', 'mt', 'sl']],
             ['6', ['ar']],
         ];
->>>>>>> dev
     }
 
     /**
@@ -100,16 +81,6 @@ class PluralizationRulesTest extends TestCase
      */
     public function failingLangcodes()
     {
-<<<<<<< HEAD
-        return array(
-            array('1', array('fa')),
-            array('2', array('jbo')),
-            array('3', array('cbs')),
-            array('4', array('gd', 'kw')),
-            array('5', array('ga')),
-            array('6', array()),
-        );
-=======
         return [
             ['1', ['fa']],
             ['2', ['jbo']],
@@ -117,19 +88,13 @@ class PluralizationRulesTest extends TestCase
             ['4', ['gd', 'kw']],
             ['5', ['ga']],
         ];
->>>>>>> dev
     }
 
     /**
      * We validate only on the plural coverage. Thus the real rules is not tested.
      *
-<<<<<<< HEAD
-     * @param string $nplural       plural expected
-     * @param array  $matrix        containing langcodes and their plural index values
-=======
      * @param string $nplural       Plural expected
      * @param array  $matrix        Containing langcodes and their plural index values
->>>>>>> dev
      * @param bool   $expectSuccess
      */
     protected function validateMatrix($nplural, $matrix, $expectSuccess = true)
@@ -137,26 +102,16 @@ class PluralizationRulesTest extends TestCase
         foreach ($matrix as $langCode => $data) {
             $indexes = array_flip($data);
             if ($expectSuccess) {
-<<<<<<< HEAD
-                $this->assertEquals($nplural, count($indexes), "Langcode '$langCode' has '$nplural' plural forms.");
-            } else {
-                $this->assertNotEquals((int) $nplural, count($indexes), "Langcode '$langCode' has '$nplural' plural forms.");
-=======
                 $this->assertEquals($nplural, \count($indexes), "Langcode '$langCode' has '$nplural' plural forms.");
             } else {
                 $this->assertNotEquals((int) $nplural, \count($indexes), "Langcode '$langCode' has '$nplural' plural forms.");
->>>>>>> dev
             }
         }
     }
 
     protected function generateTestData($langCodes)
     {
-<<<<<<< HEAD
-        $matrix = array();
-=======
         $matrix = [];
->>>>>>> dev
         foreach ($langCodes as $langCode) {
             for ($count = 0; $count < 200; ++$count) {
                 $plural = PluralizationRules::get($count, $langCode);

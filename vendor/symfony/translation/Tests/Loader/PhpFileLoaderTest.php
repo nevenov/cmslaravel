@@ -11,18 +11,11 @@
 
 namespace Symfony\Component\Translation\Tests\Loader;
 
-<<<<<<< HEAD
-use Symfony\Component\Translation\Loader\PhpFileLoader;
-use Symfony\Component\Config\Resource\FileResource;
-
-class PhpFileLoaderTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Translation\Loader\PhpFileLoader;
 
 class PhpFileLoaderTest extends TestCase
->>>>>>> dev
 {
     public function testLoad()
     {
@@ -30,15 +23,9 @@ class PhpFileLoaderTest extends TestCase
         $resource = __DIR__.'/../fixtures/resources.php';
         $catalogue = $loader->load($resource, 'en', 'domain1');
 
-<<<<<<< HEAD
-        $this->assertEquals(array('foo' => 'bar'), $catalogue->all('domain1'));
-        $this->assertEquals('en', $catalogue->getLocale());
-        $this->assertEquals(array(new FileResource($resource)), $catalogue->getResources());
-=======
         $this->assertEquals(['foo' => 'bar'], $catalogue->all('domain1'));
         $this->assertEquals('en', $catalogue->getLocale());
         $this->assertEquals([new FileResource($resource)], $catalogue->getResources());
->>>>>>> dev
     }
 
     /**

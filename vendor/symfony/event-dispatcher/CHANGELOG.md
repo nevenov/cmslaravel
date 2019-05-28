@@ -1,8 +1,6 @@
 CHANGELOG
 =========
 
-<<<<<<< HEAD
-=======
 4.1.0
 -----
 
@@ -16,7 +14,6 @@ CHANGELOG
  * removed the `ContainerAwareEventDispatcher` class
  * added the `reset()` method to the `TraceableEventDispatcherInterface`
 
->>>>>>> dev
 3.4.0
 -----
 

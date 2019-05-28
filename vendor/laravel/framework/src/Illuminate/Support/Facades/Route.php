@@ -3,8 +3,6 @@
 namespace Illuminate\Support\Facades;
 
 /**
-<<<<<<< HEAD
-=======
  * @method static \Illuminate\Routing\Route get(string $uri, \Closure|array|string|callable|null $action = null)
  * @method static \Illuminate\Routing\Route post(string $uri, \Closure|array|string|callable|null $action = null)
  * @method static \Illuminate\Routing\Route put(string $uri, \Closure|array|string|callable|null $action = null)
@@ -35,7 +33,6 @@ namespace Illuminate\Support\Facades;
  * @method static string|null currentRouteName()
  * @method static string|null currentRouteAction()
  *
->>>>>>> dev
  * @see \Illuminate\Routing\Router
  */
 class Route extends Facade

@@ -11,13 +11,8 @@
 
 namespace Symfony\Component\Console\Output;
 
-<<<<<<< HEAD
-use Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use Symfony\Component\Console\Formatter\OutputFormatter;
-=======
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
->>>>>>> dev
 
 /**
  * Base class for output classes.
@@ -38,20 +33,11 @@ abstract class Output implements OutputInterface
     private $formatter;
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-=======
->>>>>>> dev
      * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
      * @param bool                          $decorated Whether to decorate messages
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      */
-<<<<<<< HEAD
-    public function __construct($verbosity = self::VERBOSITY_NORMAL, $decorated = false, OutputFormatterInterface $formatter = null)
-=======
     public function __construct(?int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = false, OutputFormatterInterface $formatter = null)
->>>>>>> dev
     {
         $this->verbosity = null === $verbosity ? self::VERBOSITY_NORMAL : $verbosity;
         $this->formatter = $formatter ?: new OutputFormatter();
@@ -151,13 +137,9 @@ abstract class Output implements OutputInterface
      */
     public function write($messages, $newline = false, $options = self::OUTPUT_NORMAL)
     {
-<<<<<<< HEAD
-        $messages = (array) $messages;
-=======
         if (!is_iterable($messages)) {
             $messages = [$messages];
         }
->>>>>>> dev
 
         $types = self::OUTPUT_NORMAL | self::OUTPUT_RAW | self::OUTPUT_PLAIN;
         $type = $types & $options ?: self::OUTPUT_NORMAL;

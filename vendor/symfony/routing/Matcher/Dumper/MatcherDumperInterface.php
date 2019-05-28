@@ -28,11 +28,7 @@ interface MatcherDumperInterface
      *
      * @return string Executable code
      */
-<<<<<<< HEAD
-    public function dump(array $options = array());
-=======
     public function dump(array $options = []);
->>>>>>> dev
 
     /**
      * Gets the routes to dump.

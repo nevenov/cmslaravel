@@ -2,9 +2,6 @@
 
 namespace Illuminate\Support\Facades;
 
-<<<<<<< HEAD
-/**
-=======
 use Illuminate\Contracts\Routing\ResponseFactory as ResponseFactoryContract;
 
 /**
@@ -21,7 +18,6 @@ use Illuminate\Contracts\Routing\ResponseFactory as ResponseFactoryContract;
  * @method static \Illuminate\Http\RedirectResponse redirectGuest(string $path, int $status = 302, array $headers = [], bool|null $secure = null)
  * @method static \Illuminate\Http\RedirectResponse redirectToIntended(string $default = '/', int $status = 302, array $headers = [], bool|null $secure = null)
  *
->>>>>>> dev
  * @see \Illuminate\Contracts\Routing\ResponseFactory
  */
 class Response extends Facade
@@ -33,10 +29,6 @@ class Response extends Facade
      */
     protected static function getFacadeAccessor()
     {
-<<<<<<< HEAD
-        return 'Illuminate\Contracts\Routing\ResponseFactory';
-=======
         return ResponseFactoryContract::class;
->>>>>>> dev
     }
 }

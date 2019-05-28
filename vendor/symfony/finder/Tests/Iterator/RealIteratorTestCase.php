@@ -18,15 +18,9 @@ abstract class RealIteratorTestCase extends IteratorTestCase
 
     public static function setUpBeforeClass()
     {
-<<<<<<< HEAD
-        self::$tmpDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.'symfony_finder';
-
-        self::$files = array(
-=======
         self::$tmpDir = realpath(sys_get_temp_dir()).\DIRECTORY_SEPARATOR.'symfony_finder';
 
         self::$files = [
->>>>>>> dev
             '.git/',
             '.foo/',
             '.foo/.bar',
@@ -39,9 +33,6 @@ abstract class RealIteratorTestCase extends IteratorTestCase
             'toto/',
             'toto/.git/',
             'foo bar',
-<<<<<<< HEAD
-        );
-=======
             'qux_0_1.php',
             'qux_2_0.php',
             'qux_10_2.php',
@@ -52,7 +43,6 @@ abstract class RealIteratorTestCase extends IteratorTestCase
             'qux/baz_1_2.py',
             'qux/baz_100_1.py',
         ];
->>>>>>> dev
 
         self::$files = self::toAbsolute(self::$files);
 
@@ -63,11 +53,7 @@ abstract class RealIteratorTestCase extends IteratorTestCase
         }
 
         foreach (self::$files as $file) {
-<<<<<<< HEAD
-            if (DIRECTORY_SEPARATOR === $file[strlen($file) - 1]) {
-=======
             if (\DIRECTORY_SEPARATOR === $file[\strlen($file) - 1]) {
->>>>>>> dev
                 mkdir($file);
             } else {
                 touch($file);
@@ -83,13 +69,6 @@ abstract class RealIteratorTestCase extends IteratorTestCase
 
     public static function tearDownAfterClass()
     {
-<<<<<<< HEAD
-        foreach (array_reverse(self::$files) as $file) {
-            if (DIRECTORY_SEPARATOR === $file[strlen($file) - 1]) {
-                @rmdir($file);
-            } else {
-                @unlink($file);
-=======
         $paths = new \RecursiveIteratorIterator(
              new \RecursiveDirectoryIterator(self::$tmpDir, \RecursiveDirectoryIterator::SKIP_DOTS),
              \RecursiveIteratorIterator::CHILD_FIRST
@@ -104,7 +83,6 @@ abstract class RealIteratorTestCase extends IteratorTestCase
                 }
             } else {
                 @unlink($path);
->>>>>>> dev
             }
         }
     }
@@ -115,18 +93,6 @@ abstract class RealIteratorTestCase extends IteratorTestCase
          * Without the call to setUpBeforeClass() property can be null.
          */
         if (!self::$tmpDir) {
-<<<<<<< HEAD
-            self::$tmpDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.'symfony_finder';
-        }
-
-        if (is_array($files)) {
-            $f = array();
-            foreach ($files as $file) {
-                if (is_array($file)) {
-                    $f[] = self::toAbsolute($file);
-                } else {
-                    $f[] = self::$tmpDir.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $file);
-=======
             self::$tmpDir = realpath(sys_get_temp_dir()).\DIRECTORY_SEPARATOR.'symfony_finder';
         }
 
@@ -137,20 +103,14 @@ abstract class RealIteratorTestCase extends IteratorTestCase
                     $f[] = self::toAbsolute($file);
                 } else {
                     $f[] = self::$tmpDir.\DIRECTORY_SEPARATOR.str_replace('/', \DIRECTORY_SEPARATOR, $file);
->>>>>>> dev
                 }
             }
 
             return $f;
         }
 
-<<<<<<< HEAD
-        if (is_string($files)) {
-            return self::$tmpDir.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $files);
-=======
         if (\is_string($files)) {
             return self::$tmpDir.\DIRECTORY_SEPARATOR.str_replace('/', \DIRECTORY_SEPARATOR, $files);
->>>>>>> dev
         }
 
         return self::$tmpDir;
@@ -158,15 +118,9 @@ abstract class RealIteratorTestCase extends IteratorTestCase
 
     protected static function toAbsoluteFixtures($files)
     {
-<<<<<<< HEAD
-        $f = array();
-        foreach ($files as $file) {
-            $f[] = realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Fixtures'.DIRECTORY_SEPARATOR.$file);
-=======
         $f = [];
         foreach ($files as $file) {
             $f[] = realpath(__DIR__.\DIRECTORY_SEPARATOR.'..'.\DIRECTORY_SEPARATOR.'Fixtures'.\DIRECTORY_SEPARATOR.$file);
->>>>>>> dev
         }
 
         return $f;

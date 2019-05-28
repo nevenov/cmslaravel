@@ -17,8 +17,6 @@ interface QueueableCollection
      * @return array
      */
     public function getQueueableIds();
-<<<<<<< HEAD
-=======
 
     /**
      * Get the relationships of the entities being queued.
@@ -33,5 +31,4 @@ interface QueueableCollection
      * @return string|null
      */
     public function getQueueableConnection();
->>>>>>> dev
 }

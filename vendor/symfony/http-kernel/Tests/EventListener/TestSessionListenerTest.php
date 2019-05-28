@@ -11,13 +11,6 @@
 
 namespace Symfony\Component\HttpKernel\Tests\EventListener;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +20,6 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\EventListener\SessionListener;
 use Symfony\Component\HttpKernel\EventListener\TestSessionListener;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
->>>>>>> dev
 
 /**
  * SessionListenerTest.
@@ -36,11 +28,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bulat Shakirzyanov <mallluhuct@gmail.com>
  */
-<<<<<<< HEAD
-class TestSessionListenerTest extends \PHPUnit_Framework_TestCase
-=======
 class TestSessionListenerTest extends TestCase
->>>>>>> dev
 {
     /**
      * @var TestSessionListener
@@ -54,16 +42,11 @@ class TestSessionListenerTest extends TestCase
 
     protected function setUp()
     {
-<<<<<<< HEAD
-        $this->listener = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\EventListener\TestSessionListener');
-        $this->session = $this->getSession();
-=======
         $this->listener = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\EventListener\AbstractTestSessionListener');
         $this->session = $this->getSession();
         $this->listener->expects($this->any())
              ->method('getSession')
              ->will($this->returnValue($this->session));
->>>>>>> dev
     }
 
     public function testShouldSaveMasterRequestSession()
@@ -85,12 +68,7 @@ class TestSessionListenerTest extends TestCase
     {
         $this->sessionHasBeenStarted();
 
-<<<<<<< HEAD
-        $params = session_get_cookie_params();
-        session_set_cookie_params(0, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
-=======
         @ini_set('session.cookie_lifetime', 0);
->>>>>>> dev
 
         $response = $this->filterResponse(new Request(), HttpKernelInterface::MASTER_REQUEST);
         $cookies = $response->headers->getCookies();
@@ -98,8 +76,6 @@ class TestSessionListenerTest extends TestCase
         $this->assertEquals(0, reset($cookies)->getExpiresTime());
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @requires function \Symfony\Component\HttpFoundation\Session\Session::isEmpty
      */
@@ -159,7 +135,6 @@ class TestSessionListenerTest extends TestCase
         ];
     }
 
->>>>>>> dev
     public function testUnstartedSessionIsNotSave()
     {
         $this->sessionHasNotBeenStarted();
@@ -168,13 +143,6 @@ class TestSessionListenerTest extends TestCase
         $this->filterResponse(new Request());
     }
 
-<<<<<<< HEAD
-    private function filterResponse(Request $request, $type = HttpKernelInterface::MASTER_REQUEST)
-    {
-        $request->setSession($this->session);
-        $response = new Response();
-        $kernel = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
-=======
     public function testDoesNotThrowIfRequestDoesNotHaveASession()
     {
         $kernel = $this->getMockBuilder('Symfony\Component\HttpKernel\HttpKernelInterface')->getMock();
@@ -190,7 +158,6 @@ class TestSessionListenerTest extends TestCase
         $request->setSession($this->session);
         $response = $response ?: new Response();
         $kernel = $this->getMockBuilder('Symfony\Component\HttpKernel\HttpKernelInterface')->getMock();
->>>>>>> dev
         $event = new FilterResponseEvent($kernel, $request, $type, $response);
 
         $this->listener->onKernelResponse($event);
@@ -226,8 +193,6 @@ class TestSessionListenerTest extends TestCase
             ->will($this->returnValue(false));
     }
 
-<<<<<<< HEAD
-=======
     private function sessionIsEmpty()
     {
         $this->session->expects($this->once())
@@ -242,7 +207,6 @@ class TestSessionListenerTest extends TestCase
             ->will($this->returnValue($sessionId));
     }
 
->>>>>>> dev
     private function getSession()
     {
         $mock = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\Session')

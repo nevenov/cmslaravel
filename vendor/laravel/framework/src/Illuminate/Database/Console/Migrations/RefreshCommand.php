@@ -29,27 +29,12 @@ class RefreshCommand extends Command
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-=======
     public function handle()
->>>>>>> dev
     {
         if (! $this->confirmToProceed()) {
             return;
         }
 
-<<<<<<< HEAD
-        $database = $this->input->getOption('database');
-
-        $force = $this->input->getOption('force');
-
-        $path = $this->input->getOption('path');
-
-        $this->call('migrate:reset', [
-            '--database' => $database, '--force' => $force,
-        ]);
-=======
         // Next we'll gather some of the options so that we can have the right options
         // to pass to the commands. This includes options such as which database to
         // use and the path to use for the migration. Then we'll run the command.
@@ -67,25 +52,16 @@ class RefreshCommand extends Command
         } else {
             $this->runReset($database, $path);
         }
->>>>>>> dev
 
         // The refresh command is essentially just a brief aggregate of a few other of
         // the migration commands and just provides a convenient wrapper to execute
         // them in succession. We'll also see if we need to re-seed the database.
-<<<<<<< HEAD
-        $this->call('migrate', [
-            '--database' => $database,
-            '--force' => $force,
-            '--path' => $path,
-        ]);
-=======
         $this->call('migrate', array_filter([
             '--database' => $database,
             '--path' => $path,
             '--realpath' => $this->input->getOption('realpath'),
             '--force' => true,
         ]));
->>>>>>> dev
 
         if ($this->needsSeeding()) {
             $this->runSeeder($database);
@@ -93,8 +69,6 @@ class RefreshCommand extends Command
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Run the rollback command.
      *
      * @param  string  $database
@@ -131,7 +105,6 @@ class RefreshCommand extends Command
     }
 
     /**
->>>>>>> dev
      * Determine if the developer has requested database seeding.
      *
      * @return bool
@@ -149,21 +122,11 @@ class RefreshCommand extends Command
      */
     protected function runSeeder($database)
     {
-<<<<<<< HEAD
-        $class = $this->option('seeder') ?: 'DatabaseSeeder';
-
-        $force = $this->input->getOption('force');
-
-        $this->call('db:seed', [
-            '--database' => $database, '--class' => $class, '--force' => $force,
-        ]);
-=======
         $this->call('db:seed', array_filter([
             '--database' => $database,
             '--class' => $this->option('seeder') ?: 'DatabaseSeeder',
             '--force' => true,
         ]));
->>>>>>> dev
     }
 
     /**
@@ -174,17 +137,6 @@ class RefreshCommand extends Command
     protected function getOptions()
     {
         return [
-<<<<<<< HEAD
-            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
-
-            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
-
-            ['path', null, InputOption::VALUE_OPTIONAL, 'The path of migrations files to be executed.'],
-
-            ['seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'],
-
-            ['seeder', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder.'],
-=======
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use'],
 
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production'],
@@ -198,7 +150,6 @@ class RefreshCommand extends Command
             ['seeder', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder'],
 
             ['step', null, InputOption::VALUE_OPTIONAL, 'The number of migrations to be reverted & re-run'],
->>>>>>> dev
         ];
     }
 }

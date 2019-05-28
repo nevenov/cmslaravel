@@ -1,9 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\Schema;
->>>>>>> dev
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -17,11 +14,7 @@ class DummyClass extends Migration
     public function up()
     {
         Schema::create('DummyTable', function (Blueprint $table) {
-<<<<<<< HEAD
-            $table->increments('id');
-=======
             $table->bigIncrements('id');
->>>>>>> dev
             $table->timestamps();
         });
     }
@@ -33,10 +26,6 @@ class DummyClass extends Migration
      */
     public function down()
     {
-<<<<<<< HEAD
-        Schema::drop('DummyTable');
-=======
         Schema::dropIfExists('DummyTable');
->>>>>>> dev
     }
 }

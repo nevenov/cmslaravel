@@ -2,11 +2,8 @@
 
 namespace Illuminate\Auth\Passwords;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 
->>>>>>> dev
 trait CanResetPassword
 {
     /**
@@ -18,8 +15,6 @@ trait CanResetPassword
     {
         return $this->email;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Send the password reset notification.
@@ -31,5 +26,4 @@ trait CanResetPassword
     {
         $this->notify(new ResetPasswordNotification($token));
     }
->>>>>>> dev
 }

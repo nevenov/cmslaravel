@@ -11,28 +11,18 @@
 
 namespace Symfony\Component\HttpKernel\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\UriSigner;
-
-class UriSignerTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\UriSigner;
 
 class UriSignerTest extends TestCase
->>>>>>> dev
 {
     public function testSign()
     {
         $signer = new UriSigner('foobar');
 
         $this->assertContains('?_hash=', $signer->sign('http://example.com/foo'));
-<<<<<<< HEAD
-        $this->assertContains('&_hash=', $signer->sign('http://example.com/foo?foo=bar'));
-=======
         $this->assertContains('?_hash=', $signer->sign('http://example.com/foo?foo=bar'));
         $this->assertContains('&foo=', $signer->sign('http://example.com/foo?foo=bar'));
->>>>>>> dev
     }
 
     public function testCheck()
@@ -47,11 +37,7 @@ class UriSignerTest extends TestCase
         $this->assertTrue($signer->check($signer->sign('http://example.com/foo?foo=bar')));
         $this->assertTrue($signer->check($signer->sign('http://example.com/foo?foo=bar&0=integer')));
 
-<<<<<<< HEAD
-        $this->assertTrue($signer->sign('http://example.com/foo?foo=bar&bar=foo') === $signer->sign('http://example.com/foo?bar=foo&foo=bar'));
-=======
         $this->assertSame($signer->sign('http://example.com/foo?foo=bar&bar=foo'), $signer->sign('http://example.com/foo?bar=foo&foo=bar'));
->>>>>>> dev
     }
 
     public function testCheckWithDifferentArgSeparator()
@@ -60,17 +46,11 @@ class UriSignerTest extends TestCase
         $signer = new UriSigner('foobar');
 
         $this->assertSame(
-<<<<<<< HEAD
-            'http://example.com/foo?baz=bay&foo=bar&_hash=rIOcC%2FF3DoEGo%2FvnESjSp7uU9zA9S%2F%2BOLhxgMexoPUM%3D',
-=======
             'http://example.com/foo?_hash=rIOcC%2FF3DoEGo%2FvnESjSp7uU9zA9S%2F%2BOLhxgMexoPUM%3D&baz=bay&foo=bar',
->>>>>>> dev
             $signer->sign('http://example.com/foo?foo=bar&baz=bay')
         );
         $this->assertTrue($signer->check($signer->sign('http://example.com/foo?foo=bar&baz=bay')));
     }
-<<<<<<< HEAD
-=======
 
     public function testCheckWithDifferentParameter()
     {
@@ -93,5 +73,4 @@ class UriSignerTest extends TestCase
         );
         $this->assertTrue($signer->check($signer->sign('http://example.com/foo?bar=foo&foo=bar#foobar')));
     }
->>>>>>> dev
 }

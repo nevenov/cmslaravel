@@ -11,10 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Attribute;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 
 /**
@@ -22,18 +19,9 @@ use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
  *
  * @author Drak <drak@zikula.org>
  */
-<<<<<<< HEAD
-class AttributeBagTest extends \PHPUnit_Framework_TestCase
-{
-    /**
-     * @var array
-     */
-    private $array;
-=======
 class AttributeBagTest extends TestCase
 {
     private $array = [];
->>>>>>> dev
 
     /**
      * @var AttributeBag
@@ -42,24 +30,6 @@ class AttributeBagTest extends TestCase
 
     protected function setUp()
     {
-<<<<<<< HEAD
-        $this->array = array(
-            'hello' => 'world',
-            'always' => 'be happy',
-            'user.login' => 'drak',
-            'csrf.token' => array(
-                'a' => '1234',
-                'b' => '4321',
-            ),
-            'category' => array(
-                'fishing' => array(
-                    'first' => 'cod',
-                    'second' => 'sole',
-                ),
-            ),
-        );
-        $this->bag = new AttributeBag('_sf2');
-=======
         $this->array = [
             'hello' => 'world',
             'always' => 'be happy',
@@ -76,18 +46,13 @@ class AttributeBagTest extends TestCase
             ],
         ];
         $this->bag = new AttributeBag('_sf');
->>>>>>> dev
         $this->bag->initialize($this->array);
     }
 
     protected function tearDown()
     {
         $this->bag = null;
-<<<<<<< HEAD
-        $this->array = array();
-=======
         $this->array = [];
->>>>>>> dev
     }
 
     public function testInitialize()
@@ -95,22 +60,14 @@ class AttributeBagTest extends TestCase
         $bag = new AttributeBag();
         $bag->initialize($this->array);
         $this->assertEquals($this->array, $bag->all());
-<<<<<<< HEAD
-        $array = array('should' => 'change');
-=======
         $array = ['should' => 'change'];
->>>>>>> dev
         $bag->initialize($array);
         $this->assertEquals($array, $bag->all());
     }
 
     public function testGetStorageKey()
     {
-<<<<<<< HEAD
-        $this->assertEquals('_sf2', $this->bag->getStorageKey());
-=======
         $this->assertEquals('_sf', $this->bag->getStorageKey());
->>>>>>> dev
         $attributeBag = new AttributeBag('test');
         $this->assertEquals('test', $attributeBag->getStorageKey());
     }
@@ -165,11 +122,7 @@ class AttributeBagTest extends TestCase
 
     public function testReplace()
     {
-<<<<<<< HEAD
-        $array = array();
-=======
         $array = [];
->>>>>>> dev
         $array['name'] = 'jack';
         $array['foo.bar'] = 'beep';
         $this->bag->replace($array);
@@ -197,28 +150,11 @@ class AttributeBagTest extends TestCase
     public function testClear()
     {
         $this->bag->clear();
-<<<<<<< HEAD
-        $this->assertEquals(array(), $this->bag->all());
-=======
         $this->assertEquals([], $this->bag->all());
->>>>>>> dev
     }
 
     public function attributesProvider()
     {
-<<<<<<< HEAD
-        return array(
-            array('hello', 'world', true),
-            array('always', 'be happy', true),
-            array('user.login', 'drak', true),
-            array('csrf.token', array('a' => '1234', 'b' => '4321'), true),
-            array('category', array('fishing' => array('first' => 'cod', 'second' => 'sole')), true),
-            array('user2.login', null, false),
-            array('never', null, false),
-            array('bye', null, false),
-            array('bye/for/now', null, false),
-        );
-=======
         return [
             ['hello', 'world', true],
             ['always', 'be happy', true],
@@ -230,7 +166,6 @@ class AttributeBagTest extends TestCase
             ['bye', null, false],
             ['bye/for/now', null, false],
         ];
->>>>>>> dev
     }
 
     public function testGetIterator()
@@ -241,19 +176,11 @@ class AttributeBagTest extends TestCase
             ++$i;
         }
 
-<<<<<<< HEAD
-        $this->assertEquals(count($this->array), $i);
-=======
         $this->assertEquals(\count($this->array), $i);
->>>>>>> dev
     }
 
     public function testCount()
     {
-<<<<<<< HEAD
-        $this->assertEquals(count($this->array), count($this->bag));
-=======
         $this->assertCount(\count($this->array), $this->bag);
->>>>>>> dev
     }
 }

@@ -11,19 +11,12 @@
 
 namespace Symfony\Component\Routing\Tests\Loader;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\Routing\Loader\ClosureLoader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-<<<<<<< HEAD
-class ClosureLoaderTest extends \PHPUnit_Framework_TestCase
-=======
 class ClosureLoaderTest extends TestCase
->>>>>>> dev
 {
     public function testSupports()
     {

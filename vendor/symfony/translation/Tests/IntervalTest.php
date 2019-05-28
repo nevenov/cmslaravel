@@ -11,11 +11,6 @@
 
 namespace Symfony\Component\Translation\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\Translation\Interval;
-
-class IntervalTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Interval;
 
@@ -23,7 +18,6 @@ use Symfony\Component\Translation\Interval;
  * @group legacy
  */
 class IntervalTest extends TestCase
->>>>>>> dev
 {
     /**
      * @dataProvider getTests
@@ -34,11 +28,7 @@ class IntervalTest extends TestCase
     }
 
     /**
-<<<<<<< HEAD
-     * @expectedException \InvalidArgumentException
-=======
      * @expectedException \Symfony\Component\Translation\Exception\InvalidArgumentException
->>>>>>> dev
      */
     public function testTestException()
     {
@@ -47,19 +37,6 @@ class IntervalTest extends TestCase
 
     public function getTests()
     {
-<<<<<<< HEAD
-        return array(
-            array(true, 3, '{1,2, 3 ,4}'),
-            array(false, 10, '{1,2, 3 ,4}'),
-            array(false, 3, '[1,2]'),
-            array(true, 1, '[1,2]'),
-            array(true, 2, '[1,2]'),
-            array(false, 1, ']1,2['),
-            array(false, 2, ']1,2['),
-            array(true, log(0), '[-Inf,2['),
-            array(true, -log(0), '[-2,+Inf]'),
-        );
-=======
         return [
             [true, 3, '{1,2, 3 ,4}'],
             [false, 10, '{1,2, 3 ,4}'],
@@ -71,6 +48,5 @@ class IntervalTest extends TestCase
             [true, log(0), '[-Inf,2['],
             [true, -log(0), '[-2,+Inf]'],
         ];
->>>>>>> dev
     }
 }

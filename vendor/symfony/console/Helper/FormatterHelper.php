@@ -45,32 +45,19 @@ class FormatterHelper extends Helper
      */
     public function formatBlock($messages, $style, $large = false)
     {
-<<<<<<< HEAD
-        if (!is_array($messages)) {
-            $messages = array($messages);
-        }
-
-        $len = 0;
-        $lines = array();
-=======
         if (!\is_array($messages)) {
             $messages = [$messages];
         }
 
         $len = 0;
         $lines = [];
->>>>>>> dev
         foreach ($messages as $message) {
             $message = OutputFormatter::escape($message);
             $lines[] = sprintf($large ? '  %s  ' : ' %s ', $message);
             $len = max($this->strlen($message) + ($large ? 4 : 2), $len);
         }
 
-<<<<<<< HEAD
-        $messages = $large ? array(str_repeat(' ', $len)) : array();
-=======
         $messages = $large ? [str_repeat(' ', $len)] : [];
->>>>>>> dev
         for ($i = 0; isset($lines[$i]); ++$i) {
             $messages[] = $lines[$i].str_repeat(' ', $len - $this->strlen($lines[$i]));
         }
@@ -86,8 +73,6 @@ class FormatterHelper extends Helper
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Truncates a message to the given length.
      *
      * @param string $message
@@ -112,7 +97,6 @@ class FormatterHelper extends Helper
     }
 
     /**
->>>>>>> dev
      * {@inheritdoc}
      */
     public function getName()

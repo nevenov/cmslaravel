@@ -11,21 +11,14 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Handler;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
 /**
  * @requires extension pdo_sqlite
  * @group time-sensitive
  */
-<<<<<<< HEAD
-class PdoSessionHandlerTest extends \PHPUnit_Framework_TestCase
-=======
 class PdoSessionHandlerTest extends TestCase
->>>>>>> dev
 {
     private $dbFile;
 
@@ -40,11 +33,7 @@ class PdoSessionHandlerTest extends TestCase
 
     protected function getPersistentSqliteDsn()
     {
-<<<<<<< HEAD
-        $this->dbFile = tempnam(sys_get_temp_dir(), 'sf2_sqlite_sessions');
-=======
         $this->dbFile = tempnam(sys_get_temp_dir(), 'sf_sqlite_sessions');
->>>>>>> dev
 
         return 'sqlite:'.$this->dbFile;
     }
@@ -75,11 +64,7 @@ class PdoSessionHandlerTest extends TestCase
      */
     public function testInexistentTable()
     {
-<<<<<<< HEAD
-        $storage = new PdoSessionHandler($this->getMemorySqlitePdo(), array('db_table' => 'inexistent_table'));
-=======
         $storage = new PdoSessionHandler($this->getMemorySqlitePdo(), ['db_table' => 'inexistent_table']);
->>>>>>> dev
         $storage->open('', 'sid');
         $storage->read('id');
         $storage->write('id', 'data');
@@ -151,27 +136,14 @@ class PdoSessionHandlerTest extends TestCase
 
     public function testReadConvertsStreamToString()
     {
-<<<<<<< HEAD
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped('PHPUnit_MockObject cannot mock the PDOStatement class on HHVM. See https://github.com/sebastianbergmann/phpunit-mock-objects/pull/289');
-        }
-
-        $pdo = new MockPdo('pgsql');
-        $pdo->prepareResult = $this->getMock('PDOStatement');
-=======
         $pdo = new MockPdo('pgsql');
         $pdo->prepareResult = $this->getMockBuilder('PDOStatement')->getMock();
->>>>>>> dev
 
         $content = 'foobar';
         $stream = $this->createStream($content);
 
         $pdo->prepareResult->expects($this->once())->method('fetchAll')
-<<<<<<< HEAD
-            ->will($this->returnValue(array(array($stream, 42, time()))));
-=======
             ->will($this->returnValue([[$stream, 42, time()]]));
->>>>>>> dev
 
         $storage = new PdoSessionHandler($pdo);
         $result = $storage->read('foo');
@@ -181,15 +153,6 @@ class PdoSessionHandlerTest extends TestCase
 
     public function testReadLockedConvertsStreamToString()
     {
-<<<<<<< HEAD
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped('PHPUnit_MockObject cannot mock the PDOStatement class on HHVM. See https://github.com/sebastianbergmann/phpunit-mock-objects/pull/289');
-        }
-
-        $pdo = new MockPdo('pgsql');
-        $selectStmt = $this->getMock('PDOStatement');
-        $insertStmt = $this->getMock('PDOStatement');
-=======
         if (filter_var(ini_get('session.use_strict_mode'), FILTER_VALIDATE_BOOLEAN)) {
             $this->markTestSkipped('Strict mode needs no locking for new sessions.');
         }
@@ -197,7 +160,6 @@ class PdoSessionHandlerTest extends TestCase
         $pdo = new MockPdo('pgsql');
         $selectStmt = $this->getMockBuilder('PDOStatement')->getMock();
         $insertStmt = $this->getMockBuilder('PDOStatement')->getMock();
->>>>>>> dev
 
         $pdo->prepareResult = function ($statement) use ($selectStmt, $insertStmt) {
             return 0 === strpos($statement, 'INSERT') ? $insertStmt : $selectStmt;
@@ -209,11 +171,7 @@ class PdoSessionHandlerTest extends TestCase
 
         $selectStmt->expects($this->atLeast(2))->method('fetchAll')
             ->will($this->returnCallback(function () use (&$exception, $stream) {
-<<<<<<< HEAD
-                return $exception ? array(array($stream, 42, time())) : array();
-=======
                 return $exception ? [[$stream, 42, time()]] : [];
->>>>>>> dev
             }));
 
         $insertStmt->expects($this->once())->method('execute')
@@ -307,12 +265,9 @@ class PdoSessionHandlerTest extends TestCase
         $this->assertSame('', $data, 'Destroyed session returns empty string');
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @runInSeparateProcess
      */
->>>>>>> dev
     public function testSessionGC()
     {
         $previousLifeTime = ini_set('session.gc_maxlifetime', 1000);
@@ -362,8 +317,6 @@ class PdoSessionHandlerTest extends TestCase
         $this->assertInstanceOf('\PDO', $method->invoke($storage));
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @dataProvider provideUrlDsnPairs
      */
@@ -399,7 +352,6 @@ class PdoSessionHandlerTest extends TestCase
         yield ['mssql://localhost:56/test', 'sqlsrv:server=localhost,56;Database=test'];
     }
 
->>>>>>> dev
     private function createStream($content)
     {
         $stream = tmpfile();
@@ -435,17 +387,10 @@ class MockPdo extends \PDO
         return parent::getAttribute($attribute);
     }
 
-<<<<<<< HEAD
-    public function prepare($statement, $driverOptions = array())
-    {
-        return is_callable($this->prepareResult)
-            ? call_user_func($this->prepareResult, $statement, $driverOptions)
-=======
     public function prepare($statement, $driverOptions = [])
     {
         return \is_callable($this->prepareResult)
             ? ($this->prepareResult)($statement, $driverOptions)
->>>>>>> dev
             : $this->prepareResult;
     }
 

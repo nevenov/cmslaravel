@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /**
  * Authors:
  * - Nate Whittaker
@@ -27,7 +20,6 @@ return array(
  * - Andreas Möller
  */
 return [
->>>>>>> dev
     'year' => ':count ปี',
     'y' => ':count ปี',
     'month' => ':count เดือน',
@@ -40,15 +32,6 @@ return [
     'h' => ':count ชั่วโมง',
     'minute' => ':count นาที',
     'min' => ':count นาที',
-<<<<<<< HEAD
-    'second' => ':count วินาที',
-    's' => ':count วินาที',
-    'ago' => ':timeที่แล้ว',
-    'from_now' => ':timeต่อจากนี้',
-    'after' => ':timeหลังจากนี้',
-    'before' => ':timeก่อน',
-);
-=======
     'second' => '{1}ไม่กี่วินาที|]1,Inf[:count วินาที',
     's' => ':count วินาที',
     'ago' => ':timeที่แล้ว',
@@ -79,4 +62,3 @@ return [
     'weekdays_min' => ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'],
     'list' => [', ', ' และ '],
 ];
->>>>>>> dev

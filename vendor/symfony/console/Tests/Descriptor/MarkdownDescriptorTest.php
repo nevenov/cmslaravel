@@ -12,11 +12,6 @@
 namespace Symfony\Component\Console\Tests\Descriptor;
 
 use Symfony\Component\Console\Descriptor\MarkdownDescriptor;
-<<<<<<< HEAD
-
-class MarkdownDescriptorTest extends AbstractDescriptorTest
-{
-=======
 use Symfony\Component\Console\Tests\Fixtures\DescriptorApplicationMbString;
 use Symfony\Component\Console\Tests\Fixtures\DescriptorCommandMbString;
 
@@ -38,7 +33,6 @@ class MarkdownDescriptorTest extends AbstractDescriptorTest
         ));
     }
 
->>>>>>> dev
     protected function getDescriptor()
     {
         return new MarkdownDescriptor();

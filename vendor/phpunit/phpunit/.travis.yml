@@ -1,12 +1,5 @@
 language: php
 
-<<<<<<< HEAD
-php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
-=======
 sudo: false
 
 addons:
@@ -21,32 +14,19 @@ php:
 
 matrix:
   fast_finish: true
->>>>>>> dev
 
 env:
   matrix:
     - DEPENDENCIES="high"
     - DEPENDENCIES="low"
-<<<<<<< HEAD
-
-sudo: false
-=======
   global:
     - DEFAULT_COMPOSER_FLAGS="--no-interaction --no-ansi --no-progress --no-suggest"
->>>>>>> dev
 
 before_install:
   - composer self-update
   - composer clear-cache
 
 install:
-<<<<<<< HEAD
-  - if [[ "$DEPENDENCIES" = 'high' ]]; then travis_retry composer update --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader --prefer-stable; fi
-  - if [[ "$DEPENDENCIES" = 'low' ]]; then travis_retry composer update --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader --prefer-stable --prefer-lowest; fi
-
-script:
-  - ./phpunit
-=======
   - if [[ "$DEPENDENCIES" = 'high' ]]; then travis_retry composer update $DEFAULT_COMPOSER_FLAGS; fi
   - if [[ "$DEPENDENCIES" = 'low' ]]; then travis_retry composer update $DEFAULT_COMPOSER_FLAGS --prefer-lowest; fi
 
@@ -56,19 +36,15 @@ before_script:
 
 script:
   - ./phpunit --coverage-clover=coverage.xml
->>>>>>> dev
   - ./phpunit --configuration ./build/travis-ci-fail.xml > /dev/null; if [ $? -eq 0 ]; then echo "SHOULD FAIL"; false; else echo "fail checked"; fi;
   - xmllint --noout --schema phpunit.xsd phpunit.xml
   - xmllint --noout --schema phpunit.xsd tests/_files/configuration.xml
   - xmllint --noout --schema phpunit.xsd tests/_files/configuration_empty.xml
   - xmllint --noout --schema phpunit.xsd tests/_files/configuration_xinclude.xml -xinclude
 
-<<<<<<< HEAD
-=======
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
->>>>>>> dev
 notifications:
   email: false
 

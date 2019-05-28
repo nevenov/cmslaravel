@@ -11,18 +11,11 @@
 
 namespace Symfony\Component\Console\Tests\Formatter;
 
-<<<<<<< HEAD
-use Symfony\Component\Console\Formatter\OutputFormatter;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-
-class OutputFormatterTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class OutputFormatterTest extends TestCase
->>>>>>> dev
 {
     public function testEmptyTag()
     {
@@ -35,12 +28,9 @@ class OutputFormatterTest extends TestCase
         $formatter = new OutputFormatter(true);
 
         $this->assertEquals('foo<bar', $formatter->format('foo\\<bar'));
-<<<<<<< HEAD
-=======
         $this->assertEquals('foo << bar', $formatter->format('foo << bar'));
         $this->assertEquals('foo << bar \\', $formatter->format('foo << bar \\'));
         $this->assertEquals("foo << \033[32mbar \\ baz\033[39m \\", $formatter->format('foo << <info>bar \\ baz</info> \\'));
->>>>>>> dev
         $this->assertEquals('<info>some info</info>', $formatter->format('\\<info>some info\\</info>'));
         $this->assertEquals('\\<info>some info\\</info>', OutputFormatter::escape('<info>some info</info>'));
 
@@ -166,8 +156,6 @@ class OutputFormatterTest extends TestCase
         $this->assertEquals("\033[34;41msome text\033[39;49m", $formatter->format('<fg=blue;bg=red>some text</fg=blue;bg=red>'));
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @param string      $tag
      * @param string|null $expected
@@ -218,7 +206,6 @@ class OutputFormatterTest extends TestCase
         ];
     }
 
->>>>>>> dev
     public function testNonStyleTag()
     {
         $formatter = new OutputFormatter(true);
@@ -262,12 +249,9 @@ class OutputFormatterTest extends TestCase
         $this->assertEquals(
             'some question', $formatter->format('<question>some question</question>')
         );
-<<<<<<< HEAD
-=======
         $this->assertEquals(
             'some text with inline style', $formatter->format('<fg=red>some text with inline style</>')
         );
->>>>>>> dev
 
         $formatter->setDecorated(true);
 
@@ -283,12 +267,9 @@ class OutputFormatterTest extends TestCase
         $this->assertEquals(
             "\033[30;46msome question\033[39;49m", $formatter->format('<question>some question</question>')
         );
-<<<<<<< HEAD
-=======
         $this->assertEquals(
             "\033[31msome text with inline style\033[39m", $formatter->format('<fg=red>some text with inline style</>')
         );
->>>>>>> dev
     }
 
     public function testContentWithLineBreaks()
@@ -341,8 +322,6 @@ more text
 EOF
         ));
     }
-<<<<<<< HEAD
-=======
 
     public function testFormatAndWrap()
     {
@@ -365,7 +344,6 @@ EOF
         $this->assertSame("pre \nfoo \nbar \nbaz \npost", $formatter->formatAndWrap('pre <error>foo bar baz</error> post', 4));
         $this->assertSame("pre f\noo ba\nr baz\npost", $formatter->formatAndWrap('pre <error>foo bar baz</error> post', 5));
     }
->>>>>>> dev
 }
 
 class TableCell

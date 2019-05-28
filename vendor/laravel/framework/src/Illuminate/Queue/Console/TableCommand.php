@@ -55,22 +55,6 @@ class TableCommand extends Command
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-    {
-        $table = $this->laravel['config']['queue.connections.database.table'];
-
-        $tableClassName = Str::studly($table);
-
-        $fullPath = $this->createBaseMigration($table);
-
-        $stub = str_replace(
-            ['{{table}}', '{{tableClassName}}'], [$table, $tableClassName], $this->files->get(__DIR__.'/stubs/jobs.stub')
-        );
-
-        $this->files->put($fullPath, $stub);
-
-=======
     public function handle()
     {
         $table = $this->laravel['config']['queue.connections.database.table'];
@@ -79,7 +63,6 @@ class TableCommand extends Command
             $this->createBaseMigration($table), $table, Str::studly($table)
         );
 
->>>>>>> dev
         $this->info('Migration created successfully!');
 
         $this->composer->dumpAutoloads();
@@ -93,13 +76,6 @@ class TableCommand extends Command
      */
     protected function createBaseMigration($table = 'jobs')
     {
-<<<<<<< HEAD
-        $name = 'create_'.$table.'_table';
-
-        $path = $this->laravel->databasePath().'/migrations';
-
-        return $this->laravel['migration.creator']->create($name, $path);
-=======
         return $this->laravel['migration.creator']->create(
             'create_'.$table.'_table', $this->laravel->databasePath().'/migrations'
         );
@@ -122,6 +98,5 @@ class TableCommand extends Command
         );
 
         $this->files->put($path, $stub);
->>>>>>> dev
     }
 }

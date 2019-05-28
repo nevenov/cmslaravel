@@ -2,10 +2,7 @@
 
 namespace Illuminate\Database\Console\Migrations;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Collection;
->>>>>>> dev
 use Illuminate\Database\Migrations\Migrator;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -36,11 +33,7 @@ class StatusCommand extends BaseCommand
      * Create a new migration rollback command instance.
      *
      * @param  \Illuminate\Database\Migrations\Migrator $migrator
-<<<<<<< HEAD
-     * @return \Illuminate\Database\Console\Migrations\StatusCommand
-=======
      * @return void
->>>>>>> dev
      */
     public function __construct(Migrator $migrator)
     {
@@ -54,62 +47,26 @@ class StatusCommand extends BaseCommand
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-    {
-        if (! $this->migrator->repositoryExists()) {
-            return $this->error('No migrations found.');
-        }
-
-        $this->migrator->setConnection($this->input->getOption('database'));
-
-        if (! is_null($path = $this->input->getOption('path'))) {
-            $path = $this->laravel->basePath().'/'.$path;
-        } else {
-            $path = $this->getMigrationPath();
-=======
     public function handle()
     {
         $this->migrator->setConnection($this->option('database'));
 
         if (! $this->migrator->repositoryExists()) {
             return $this->error('Migration table not found.');
->>>>>>> dev
         }
 
         $ran = $this->migrator->getRepository()->getRan();
 
-<<<<<<< HEAD
-        $migrations = [];
-
-        foreach ($this->getAllMigrationFiles($path) as $migration) {
-            $migrations[] = in_array($migration, $ran) ? ['<info>Y</info>', $migration] : ['<fg=red>N</fg=red>', $migration];
-        }
-
-        if (count($migrations) > 0) {
-            $this->table(['Ran?', 'Migration'], $migrations);
-=======
         $batches = $this->migrator->getRepository()->getMigrationBatches();
 
         if (count($migrations = $this->getStatusFor($ran, $batches)) > 0) {
             $this->table(['Ran?', 'Migration', 'Batch'], $migrations);
->>>>>>> dev
         } else {
             $this->error('No migrations found');
         }
     }
 
     /**
-<<<<<<< HEAD
-     * Get all of the migration files.
-     *
-     * @param  string  $path
-     * @return array
-     */
-    protected function getAllMigrationFiles($path)
-    {
-        return $this->migrator->getMigrationFiles($path);
-=======
      * Get the status for the given ran migrations.
      *
      * @param  array  $ran
@@ -136,7 +93,6 @@ class StatusCommand extends BaseCommand
     protected function getAllMigrationFiles()
     {
         return $this->migrator->getMigrationFiles($this->getMigrationPaths());
->>>>>>> dev
     }
 
     /**
@@ -147,17 +103,11 @@ class StatusCommand extends BaseCommand
     protected function getOptions()
     {
         return [
-<<<<<<< HEAD
-            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
-
-            ['path', null, InputOption::VALUE_OPTIONAL, 'The path of migrations files to use.'],
-=======
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use'],
 
             ['path', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The path(s) to the migrations files to use'],
 
             ['realpath', null, InputOption::VALUE_NONE, 'Indicate any provided migration file paths are pre-resolved absolute paths'],
->>>>>>> dev
         ];
     }
 }

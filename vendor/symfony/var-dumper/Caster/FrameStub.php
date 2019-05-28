@@ -21,11 +21,7 @@ class FrameStub extends EnumStub
     public $keepArgs;
     public $inTraceStub;
 
-<<<<<<< HEAD
-    public function __construct(array $frame, $keepArgs = true, $inTraceStub = false)
-=======
     public function __construct(array $frame, bool $keepArgs = true, bool $inTraceStub = false)
->>>>>>> dev
     {
         $this->value = $frame;
         $this->keepArgs = $keepArgs;

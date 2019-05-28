@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /*
  * Authors:
  * - Adam Brunner
@@ -25,7 +18,6 @@ return array(
 $huWeekEndings = ['vasárnap', 'hétfőn', 'kedden', 'szerdán', 'csütörtökön', 'pénteken', 'szombaton'];
 
 return [
->>>>>>> dev
     'year' => ':count év',
     'y' => ':count év',
     'month' => ':count hónap',
@@ -65,9 +57,6 @@ return [
     'hour_before' => ':count órával',
     'minute_before' => ':count perccel',
     'second_before' => ':count másodperccel',
-<<<<<<< HEAD
-);
-=======
     'months' => ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'],
     'months_short' => ['jan.', 'feb.', 'márc.', 'ápr.', 'máj.', 'jún.', 'júl.', 'aug.', 'szept.', 'okt.', 'nov.', 'dec.'],
     'weekdays' => ['vasárnap', 'hétfő', 'kedd', 'szerda', 'csütörtök', 'péntek', 'szombat'],
@@ -99,4 +88,3 @@ return [
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' és '],
 ];
->>>>>>> dev

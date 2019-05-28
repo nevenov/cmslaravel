@@ -3,25 +3,11 @@
 namespace Illuminate\Validation;
 
 use Illuminate\Support\ServiceProvider;
-<<<<<<< HEAD
-
-class ValidationServiceProvider extends ServiceProvider
-{
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
-    /**
-=======
 use Illuminate\Contracts\Support\DeferrableProvider;
 
 class ValidationServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
->>>>>>> dev
      * Register the service provider.
      *
      * @return void
@@ -43,17 +29,10 @@ class ValidationServiceProvider extends ServiceProvider implements DeferrablePro
         $this->app->singleton('validator', function ($app) {
             $validator = new Factory($app['translator'], $app);
 
-<<<<<<< HEAD
-            // The validation presence verifier is responsible for determining the existence
-            // of values in a given data collection, typically a relational database or
-            // other persistent data stores. And it is used to check for uniqueness.
-            if (isset($app['validation.presence'])) {
-=======
             // The validation presence verifier is responsible for determining the existence of
             // values in a given data collection which is typically a relational database or
             // other persistent data stores. It is used to check for "uniqueness" as well.
             if (isset($app['db'], $app['validation.presence'])) {
->>>>>>> dev
                 $validator->setPresenceVerifier($app['validation.presence']);
             }
 

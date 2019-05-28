@@ -2,25 +2,14 @@
 
 namespace Illuminate\Foundation\Testing\Concerns;
 
-<<<<<<< HEAD
-use Illuminate\Contracts\Console\Kernel;
-=======
 use Illuminate\Support\Arr;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\PendingCommand;
->>>>>>> dev
 
 trait InteractsWithConsole
 {
     /**
-<<<<<<< HEAD
-     * The last code returned by Artisan CLI.
-     *
-     * @var int
-     */
-    protected $code;
-=======
      * Indicates if the console output should be mocked.
      *
      * @var bool
@@ -40,20 +29,10 @@ trait InteractsWithConsole
      * @var array
      */
     public $expectedQuestions = [];
->>>>>>> dev
 
     /**
      * Call artisan command and return code.
      *
-<<<<<<< HEAD
-     * @param string  $command
-     * @param array   $parameters
-     * @return int
-     */
-    public function artisan($command, $parameters = [])
-    {
-        return $this->code = $this->app[Kernel::class]->call($command, $parameters);
-=======
      * @param  string  $command
      * @param  array  $parameters
      * @return \Illuminate\Foundation\Testing\PendingCommand|int
@@ -89,6 +68,5 @@ trait InteractsWithConsole
         $this->app->offsetUnset(OutputStyle::class);
 
         return $this;
->>>>>>> dev
     }
 }

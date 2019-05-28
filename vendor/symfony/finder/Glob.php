@@ -14,16 +14,6 @@ namespace Symfony\Component\Finder;
 /**
  * Glob matches globbing patterns against text.
  *
-<<<<<<< HEAD
- *   if match_glob("foo.*", "foo.bar") echo "matched\n";
- *
- * // prints foo.bar and foo.baz
- * $regex = glob_to_regex("foo.*");
- * for (array('foo.bar', 'foo.baz', 'foo', 'bar') as $t)
- * {
- *   if (/$regex/) echo "matched: $car\n";
- * }
-=======
  *     if match_glob("foo.*", "foo.bar") echo "matched\n";
  *
  *     // prints foo.bar and foo.baz
@@ -32,7 +22,6 @@ namespace Symfony\Component\Finder;
  *     {
  *         if (/$regex/) echo "matched: $car\n";
  *     }
->>>>>>> dev
  *
  * Glob implements glob(3) style matching that can be used to match
  * against text, rather than fetching names from a filesystem.
@@ -62,21 +51,6 @@ class Glob
         $escaping = false;
         $inCurlies = 0;
         $regex = '';
-<<<<<<< HEAD
-        $sizeGlob = strlen($glob);
-        for ($i = 0; $i < $sizeGlob; ++$i) {
-            $car = $glob[$i];
-            if ($firstByte) {
-                if ($strictLeadingDot && '.' !== $car) {
-                    $regex .= '(?=[^\.])';
-                }
-
-                $firstByte = false;
-            }
-
-            if ('/' === $car) {
-                $firstByte = true;
-=======
         $sizeGlob = \strlen($glob);
         for ($i = 0; $i < $sizeGlob; ++$i) {
             $car = $glob[$i];
@@ -102,7 +76,6 @@ class Glob
                 if ('/' === $delimiter) {
                     $car = str_replace('/', '\\/', $car);
                 }
->>>>>>> dev
             }
 
             if ($delimiter === $car || '.' === $car || '(' === $car || ')' === $car || '|' === $car || '+' === $car || '^' === $car || '$' === $car) {

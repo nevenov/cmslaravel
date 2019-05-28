@@ -4,10 +4,7 @@ namespace Illuminate\Cache\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Cache\CacheManager;
-<<<<<<< HEAD
-=======
 use Illuminate\Filesystem\Filesystem;
->>>>>>> dev
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -35,14 +32,6 @@ class ClearCommand extends Command
     protected $cache;
 
     /**
-<<<<<<< HEAD
-     * Create a new cache clear command instance.
-     *
-     * @param  \Illuminate\Cache\CacheManager  $cache
-     * @return void
-     */
-    public function __construct(CacheManager $cache)
-=======
      * The filesystem instance.
      *
      * @var \Illuminate\Filesystem\Filesystem
@@ -57,15 +46,11 @@ class ClearCommand extends Command
      * @return void
      */
     public function __construct(CacheManager $cache, Filesystem $files)
->>>>>>> dev
     {
         parent::__construct();
 
         $this->cache = $cache;
-<<<<<<< HEAD
-=======
         $this->files = $files;
->>>>>>> dev
     }
 
     /**
@@ -75,23 +60,6 @@ class ClearCommand extends Command
      */
     public function handle()
     {
-<<<<<<< HEAD
-        $tags = array_filter(explode(',', $this->option('tags')));
-
-        $cache = $this->cache->store($store = $this->argument('store'));
-
-        $this->laravel['events']->fire('cache:clearing', [$store, $tags]);
-
-        if (! empty($tags)) {
-            $cache->tags($tags)->flush();
-        } else {
-            $cache->flush();
-        }
-
-        $this->info('Cache cleared successfully.');
-
-        $this->laravel['events']->fire('cache:cleared', [$store, $tags]);
-=======
         $this->laravel['events']->dispatch(
             'cache:clearing', [$this->argument('store'), $this->tags()]
         );
@@ -149,7 +117,6 @@ class ClearCommand extends Command
     protected function tags()
     {
         return array_filter(explode(',', $this->option('tags')));
->>>>>>> dev
     }
 
     /**
@@ -160,11 +127,7 @@ class ClearCommand extends Command
     protected function getArguments()
     {
         return [
-<<<<<<< HEAD
-            ['store', InputArgument::OPTIONAL, 'The name of the store you would like to clear.'],
-=======
             ['store', InputArgument::OPTIONAL, 'The name of the store you would like to clear'],
->>>>>>> dev
         ];
     }
 
@@ -176,11 +139,7 @@ class ClearCommand extends Command
     protected function getOptions()
     {
         return [
-<<<<<<< HEAD
-            ['tags', null, InputOption::VALUE_OPTIONAL, 'The cache tags you would like to clear.', null],
-=======
             ['tags', null, InputOption::VALUE_OPTIONAL, 'The cache tags you would like to clear', null],
->>>>>>> dev
         ];
     }
 }

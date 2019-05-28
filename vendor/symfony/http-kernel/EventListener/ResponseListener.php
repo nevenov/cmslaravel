@@ -11,15 +11,9 @@
 
 namespace Symfony\Component\HttpKernel\EventListener;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-=======
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
->>>>>>> dev
 
 /**
  * ResponseListener fixes the Response headers based on the Request.
@@ -30,22 +24,13 @@ class ResponseListener implements EventSubscriberInterface
 {
     private $charset;
 
-<<<<<<< HEAD
-    public function __construct($charset)
-=======
     public function __construct(string $charset)
->>>>>>> dev
     {
         $this->charset = $charset;
     }
 
     /**
      * Filters the Response.
-<<<<<<< HEAD
-     *
-     * @param FilterResponseEvent $event A FilterResponseEvent instance
-=======
->>>>>>> dev
      */
     public function onKernelResponse(FilterResponseEvent $event)
     {
@@ -64,14 +49,8 @@ class ResponseListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-<<<<<<< HEAD
-        return array(
-            KernelEvents::RESPONSE => 'onKernelResponse',
-        );
-=======
         return [
             KernelEvents::RESPONSE => 'onKernelResponse',
         ];
->>>>>>> dev
     }
 }

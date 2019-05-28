@@ -7,15 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-
-/**
- * Base class for all test runners.
- *
- * @since Class available since Release 2.0.0
- */
-abstract class PHPUnit_Runner_BaseTestRunner
-=======
 namespace PHPUnit\Runner;
 
 use File_Iterator_Facade;
@@ -29,7 +20,6 @@ use ReflectionException;
  * Base class for all test runners.
  */
 abstract class BaseTestRunner
->>>>>>> dev
 {
     const STATUS_PASSED     = 0;
     const STATUS_SKIPPED    = 1;
@@ -37,28 +27,17 @@ abstract class BaseTestRunner
     const STATUS_FAILURE    = 3;
     const STATUS_ERROR      = 4;
     const STATUS_RISKY      = 5;
-<<<<<<< HEAD
-=======
     const STATUS_WARNING    = 6;
->>>>>>> dev
     const SUITE_METHODNAME  = 'suite';
 
     /**
      * Returns the loader to be used.
      *
-<<<<<<< HEAD
-     * @return PHPUnit_Runner_TestSuiteLoader
-     */
-    public function getLoader()
-    {
-        return new PHPUnit_Runner_StandardTestSuiteLoader;
-=======
      * @return TestSuiteLoader
      */
     public function getLoader()
     {
         return new StandardTestSuiteLoader;
->>>>>>> dev
     }
 
     /**
@@ -70,32 +49,19 @@ abstract class BaseTestRunner
      * @param string $suiteClassFile
      * @param mixed  $suffixes
      *
-<<<<<<< HEAD
-     * @return PHPUnit_Framework_Test
-     */
-    public function getTest($suiteClassName, $suiteClassFile = '', $suffixes = '')
-    {
-        if (is_dir($suiteClassName) &&
-            !is_file($suiteClassName . '.php') && empty($suiteClassFile)) {
-=======
      * @return Test|null
      */
     public function getTest($suiteClassName, $suiteClassFile = '', $suffixes = '')
     {
         if (\is_dir($suiteClassName) &&
             !\is_file($suiteClassName . '.php') && empty($suiteClassFile)) {
->>>>>>> dev
             $facade = new File_Iterator_Facade;
             $files  = $facade->getFilesAsArray(
                 $suiteClassName,
                 $suffixes
             );
 
-<<<<<<< HEAD
-            $suite = new PHPUnit_Framework_TestSuite($suiteClassName);
-=======
             $suite = new TestSuite($suiteClassName);
->>>>>>> dev
             $suite->addTestFiles($files);
 
             return $suite;
@@ -106,11 +72,7 @@ abstract class BaseTestRunner
                 $suiteClassName,
                 $suiteClassFile
             );
-<<<<<<< HEAD
-        } catch (PHPUnit_Framework_Exception $e) {
-=======
         } catch (Exception $e) {
->>>>>>> dev
             $this->runFailed($e->getMessage());
 
             return;
@@ -131,11 +93,7 @@ abstract class BaseTestRunner
                 $test = $suiteMethod->invoke(null, $testClass->getName());
             } catch (ReflectionException $e) {
                 $this->runFailed(
-<<<<<<< HEAD
-                    sprintf(
-=======
                     \sprintf(
->>>>>>> dev
                         "Failed to invoke suite() method.\n%s",
                         $e->getMessage()
                     )
@@ -145,15 +103,9 @@ abstract class BaseTestRunner
             }
         } catch (ReflectionException $e) {
             try {
-<<<<<<< HEAD
-                $test = new PHPUnit_Framework_TestSuite($testClass);
-            } catch (PHPUnit_Framework_Exception $e) {
-                $test = new PHPUnit_Framework_TestSuite;
-=======
                 $test = new TestSuite($testClass);
             } catch (Exception $e) {
                 $test = new TestSuite;
->>>>>>> dev
                 $test->setName($suiteClassName);
             }
         }

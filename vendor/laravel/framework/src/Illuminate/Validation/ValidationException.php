@@ -3,50 +3,26 @@
 namespace Illuminate\Validation;
 
 use Exception;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
->>>>>>> dev
 
 class ValidationException extends Exception
 {
     /**
      * The validator instance.
      *
-<<<<<<< HEAD
-     * @var \Illuminate\Validation\Validator
-=======
      * @var \Illuminate\Contracts\Validation\Validator
->>>>>>> dev
      */
     public $validator;
 
     /**
      * The recommended response to send to the client.
      *
-<<<<<<< HEAD
-     * @var \Illuminate\Http\Response|null
-=======
      * @var \Symfony\Component\HttpFoundation\Response|null
->>>>>>> dev
      */
     public $response;
 
     /**
-<<<<<<< HEAD
-     * Create a new exception instance.
-     *
-     * @param  \Illuminate\Validation\Validator  $validator
-     * @param  \Illuminate\Http\Response  $response
-     * @return void
-     */
-    public function __construct($validator, $response = null)
-    {
-        parent::__construct('The given data failed to pass validation.');
-
-        $this->response = $response;
-=======
      * The status code to use for the response.
      *
      * @var int
@@ -81,16 +57,10 @@ class ValidationException extends Exception
 
         $this->response = $response;
         $this->errorBag = $errorBag;
->>>>>>> dev
         $this->validator = $validator;
     }
 
     /**
-<<<<<<< HEAD
-     * Get the underlying response instance.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-=======
      * Create a new validation exception from a plain array of messages.
      *
      * @param  array  $messages
@@ -160,7 +130,6 @@ class ValidationException extends Exception
      * Get the underlying response instance.
      *
      * @return \Symfony\Component\HttpFoundation\Response|null
->>>>>>> dev
      */
     public function getResponse()
     {

@@ -11,18 +11,10 @@
 
 namespace Symfony\Component\HttpKernel\Bundle;
 
-<<<<<<< HEAD
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Finder\Finder;
-=======
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
->>>>>>> dev
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
 /**
@@ -38,48 +30,27 @@ abstract class Bundle implements BundleInterface
     protected $name;
     protected $extension;
     protected $path;
-<<<<<<< HEAD
-
-    /**
-     * Boots the Bundle.
-=======
     private $namespace;
 
     /**
      * {@inheritdoc}
->>>>>>> dev
      */
     public function boot()
     {
     }
 
     /**
-<<<<<<< HEAD
-     * Shutdowns the Bundle.
-=======
      * {@inheritdoc}
->>>>>>> dev
      */
     public function shutdown()
     {
     }
 
     /**
-<<<<<<< HEAD
-     * Builds the bundle.
-     *
-     * It is only ever called once when the cache is empty.
-     *
-     * This method can be overridden to register compilation passes,
-     * other extensions, ...
-     *
-     * @param ContainerBuilder $container A ContainerBuilder instance
-=======
      * {@inheritdoc}
      *
      * This method can be overridden to register compilation passes,
      * other extensions, ...
->>>>>>> dev
      */
     public function build(ContainerBuilder $container)
     {
@@ -99,11 +70,7 @@ abstract class Bundle implements BundleInterface
 
             if (null !== $extension) {
                 if (!$extension instanceof ExtensionInterface) {
-<<<<<<< HEAD
-                    throw new \LogicException(sprintf('Extension %s must implement Symfony\Component\DependencyInjection\Extension\ExtensionInterface.', get_class($extension)));
-=======
                     throw new \LogicException(sprintf('Extension %s must implement Symfony\Component\DependencyInjection\Extension\ExtensionInterface.', \get_class($extension)));
->>>>>>> dev
                 }
 
                 // check naming convention
@@ -111,14 +78,7 @@ abstract class Bundle implements BundleInterface
                 $expectedAlias = Container::underscore($basename);
 
                 if ($expectedAlias != $extension->getAlias()) {
-<<<<<<< HEAD
-                    throw new \LogicException(sprintf(
-                        'Users will expect the alias of the default extension of a bundle to be the underscored version of the bundle name ("%s"). You can override "Bundle::getContainerExtension()" if you want to use "%s" or another alias.',
-                        $expectedAlias, $extension->getAlias()
-                    ));
-=======
                     throw new \LogicException(sprintf('Users will expect the alias of the default extension of a bundle to be the underscored version of the bundle name ("%s"). You can override "Bundle::getContainerExtension()" if you want to use "%s" or another alias.', $expectedAlias, $extension->getAlias()));
->>>>>>> dev
                 }
 
                 $this->extension = $extension;
@@ -133,23 +93,6 @@ abstract class Bundle implements BundleInterface
     }
 
     /**
-<<<<<<< HEAD
-     * Gets the Bundle namespace.
-     *
-     * @return string The Bundle namespace
-     */
-    public function getNamespace()
-    {
-        $class = get_class($this);
-
-        return substr($class, 0, strrpos($class, '\\'));
-    }
-
-    /**
-     * Gets the Bundle directory path.
-     *
-     * @return string The Bundle absolute path
-=======
      * {@inheritdoc}
      */
     public function getNamespace()
@@ -163,94 +106,24 @@ abstract class Bundle implements BundleInterface
 
     /**
      * {@inheritdoc}
->>>>>>> dev
      */
     public function getPath()
     {
         if (null === $this->path) {
             $reflected = new \ReflectionObject($this);
-<<<<<<< HEAD
-            $this->path = dirname($reflected->getFileName());
-=======
             $this->path = \dirname($reflected->getFileName());
->>>>>>> dev
         }
 
         return $this->path;
     }
 
     /**
-<<<<<<< HEAD
-     * Returns the bundle parent name.
-     *
-     * @return string The Bundle parent name it overrides or null if no parent
-     */
-    public function getParent()
-    {
-    }
-
-    /**
-=======
->>>>>>> dev
      * Returns the bundle name (the class short name).
      *
      * @return string The Bundle name
      */
     final public function getName()
     {
-<<<<<<< HEAD
-        if (null !== $this->name) {
-            return $this->name;
-        }
-
-        $name = get_class($this);
-        $pos = strrpos($name, '\\');
-
-        return $this->name = false === $pos ? $name : substr($name, $pos + 1);
-    }
-
-    /**
-     * Finds and registers Commands.
-     *
-     * Override this method if your bundle commands do not follow the conventions:
-     *
-     * * Commands are in the 'Command' sub-directory
-     * * Commands extend Symfony\Component\Console\Command\Command
-     *
-     * @param Application $application An Application instance
-     */
-    public function registerCommands(Application $application)
-    {
-        if (!is_dir($dir = $this->getPath().'/Command')) {
-            return;
-        }
-
-        if (!class_exists('Symfony\Component\Finder\Finder')) {
-            throw new \RuntimeException('You need the symfony/finder component to register bundle commands.');
-        }
-
-        $finder = new Finder();
-        $finder->files()->name('*Command.php')->in($dir);
-
-        $prefix = $this->getNamespace().'\\Command';
-        foreach ($finder as $file) {
-            $ns = $prefix;
-            if ($relativePath = $file->getRelativePath()) {
-                $ns .= '\\'.str_replace('/', '\\', $relativePath);
-            }
-            $class = $ns.'\\'.$file->getBasename('.php');
-            if ($this->container) {
-                $alias = 'console.command.'.strtolower(str_replace('\\', '_', $class));
-                if ($this->container->has($alias)) {
-                    continue;
-                }
-            }
-            $r = new \ReflectionClass($class);
-            if ($r->isSubclassOf('Symfony\\Component\\Console\\Command\\Command') && !$r->isAbstract() && !$r->getConstructor()->getNumberOfRequiredParameters()) {
-                $application->add($r->newInstance());
-            }
-        }
-=======
         if (null === $this->name) {
             $this->parseClassName();
         }
@@ -260,7 +133,6 @@ abstract class Bundle implements BundleInterface
 
     public function registerCommands(Application $application)
     {
->>>>>>> dev
     }
 
     /**
@@ -286,8 +158,6 @@ abstract class Bundle implements BundleInterface
             return new $class();
         }
     }
-<<<<<<< HEAD
-=======
 
     private function parseClassName()
     {
@@ -297,5 +167,4 @@ abstract class Bundle implements BundleInterface
             $this->name = false === $pos ? static::class : substr(static::class, $pos + 1);
         }
     }
->>>>>>> dev
 }

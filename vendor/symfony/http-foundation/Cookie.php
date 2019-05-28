@@ -25,24 +25,6 @@ class Cookie
     protected $path;
     protected $secure;
     protected $httpOnly;
-<<<<<<< HEAD
-
-    /**
-     * Constructor.
-     *
-     * @param string                        $name     The name of the cookie
-     * @param string                        $value    The value of the cookie
-     * @param int|string|\DateTimeInterface $expire   The time the cookie expires
-     * @param string                        $path     The path on the server in which the cookie will be available on
-     * @param string                        $domain   The domain that the cookie is available to
-     * @param bool                          $secure   Whether the cookie should only be transmitted over a secure HTTPS connection from the client
-     * @param bool                          $httpOnly Whether the cookie will be made accessible only through the HTTP protocol
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function __construct($name, $value = null, $expire = 0, $path = '/', $domain = null, $secure = false, $httpOnly = true)
-    {
-=======
     private $raw;
     private $sameSite;
     private $secureDefault = false;
@@ -109,7 +91,6 @@ class Cookie
             @trigger_error(sprintf('The default value of the "$secure" and "$samesite" arguments of "%s"\'s constructor will respectively change from "false" to "null" and from "null" to "lax" in Symfony 5.0, you should define their values explicitly or use "Cookie::create()" instead.', __METHOD__), E_USER_DEPRECATED);
         }
 
->>>>>>> dev
         // from PHP source code
         if (preg_match("/[=,; \t\r\n\013\014]/", $name)) {
             throw new \InvalidArgumentException(sprintf('The cookie name "%s" contains invalid characters.', $name));
@@ -125,11 +106,7 @@ class Cookie
         } elseif (!is_numeric($expire)) {
             $expire = strtotime($expire);
 
-<<<<<<< HEAD
-            if (false === $expire || -1 === $expire) {
-=======
             if (false === $expire) {
->>>>>>> dev
                 throw new \InvalidArgumentException('The cookie expiration time is not valid.');
             }
         }
@@ -137,12 +114,6 @@ class Cookie
         $this->name = $name;
         $this->value = $value;
         $this->domain = $domain;
-<<<<<<< HEAD
-        $this->expire = $expire;
-        $this->path = empty($path) ? '/' : $path;
-        $this->secure = (bool) $secure;
-        $this->httpOnly = (bool) $httpOnly;
-=======
         $this->expire = 0 < $expire ? (int) $expire : 0;
         $this->path = empty($path) ? '/' : $path;
         $this->secure = $secure;
@@ -160,7 +131,6 @@ class Cookie
         }
 
         $this->sameSite = $sameSite;
->>>>>>> dev
     }
 
     /**
@@ -170,22 +140,6 @@ class Cookie
      */
     public function __toString()
     {
-<<<<<<< HEAD
-        $str = urlencode($this->getName()).'=';
-
-        if ('' === (string) $this->getValue()) {
-            $str .= 'deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001);
-        } else {
-            $str .= urlencode($this->getValue());
-
-            if ($this->getExpiresTime() !== 0) {
-                $str .= '; expires='.gmdate('D, d-M-Y H:i:s T', $this->getExpiresTime());
-            }
-        }
-
-        if ($this->path) {
-            $str .= '; path='.$this->path;
-=======
         $str = ($this->isRaw() ? $this->getName() : urlencode($this->getName())).'=';
 
         if ('' === (string) $this->getValue()) {
@@ -200,7 +154,6 @@ class Cookie
 
         if ($this->getPath()) {
             $str .= '; path='.$this->getPath();
->>>>>>> dev
         }
 
         if ($this->getDomain()) {
@@ -215,13 +168,10 @@ class Cookie
             $str .= '; httponly';
         }
 
-<<<<<<< HEAD
-=======
         if (null !== $this->getSameSite()) {
             $str .= '; samesite='.$this->getSameSite();
         }
 
->>>>>>> dev
         return $str;
     }
 
@@ -238,11 +188,7 @@ class Cookie
     /**
      * Gets the value of the cookie.
      *
-<<<<<<< HEAD
-     * @return string
-=======
      * @return string|null
->>>>>>> dev
      */
     public function getValue()
     {
@@ -252,11 +198,7 @@ class Cookie
     /**
      * Gets the domain that the cookie is available to.
      *
-<<<<<<< HEAD
-     * @return string
-=======
      * @return string|null
->>>>>>> dev
      */
     public function getDomain()
     {
@@ -274,8 +216,6 @@ class Cookie
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Gets the max-age attribute.
      *
      * @return int
@@ -288,7 +228,6 @@ class Cookie
     }
 
     /**
->>>>>>> dev
      * Gets the path on the server in which the cookie will be available on.
      *
      * @return string
@@ -305,11 +244,7 @@ class Cookie
      */
     public function isSecure()
     {
-<<<<<<< HEAD
-        return $this->secure;
-=======
         return $this->secure ?? $this->secureDefault;
->>>>>>> dev
     }
 
     /**
@@ -329,9 +264,6 @@ class Cookie
      */
     public function isCleared()
     {
-<<<<<<< HEAD
-        return $this->expire < time();
-=======
         return 0 !== $this->expire && $this->expire < time();
     }
 
@@ -361,6 +293,5 @@ class Cookie
     public function setSecureDefault(bool $default): void
     {
         $this->secureDefault = $default;
->>>>>>> dev
     }
 }

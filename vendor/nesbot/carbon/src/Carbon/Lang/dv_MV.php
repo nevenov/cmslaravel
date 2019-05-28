@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Ahmed Ali <ajaaibu@gmail.com>
@@ -13,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /*
  * Authors:
  * - Ahmed Ali
@@ -50,7 +43,6 @@ $weekdays = [
 ];
 
 return [
->>>>>>> dev
     'year' => '{0}އަހަރެއް|[1,Inf]:count އަހަރު',
     'y' => '{0}އަހަރެއް|[1,Inf]:count އަހަރު',
     'month' => '{0}މައްސަރެއް|[1,Inf]:count މަސް',
@@ -69,9 +61,6 @@ return [
     'from_now' => ':time ފަހުން',
     'after' => ':time ފަހުން',
     'before' => ':time ކުރި',
-<<<<<<< HEAD
-);
-=======
     'diff_yesterday' => 'އިއްޔެ',
     'diff_tomorrow' => 'މާދަމާ',
     'formats' => [
@@ -98,4 +87,3 @@ return [
     'weekdays_min' => ['އާދި', 'ހޯމަ', 'އަން', 'ބުދަ', 'ބުރާ', 'ހުކު', 'ހޮނި'],
     'list' => [', ', ' އަދި '],
 ];
->>>>>>> dev

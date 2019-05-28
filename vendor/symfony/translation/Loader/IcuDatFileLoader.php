@@ -11,17 +11,10 @@
 
 namespace Symfony\Component\Translation\Loader;
 
-<<<<<<< HEAD
-use Symfony\Component\Translation\MessageCatalogue;
-use Symfony\Component\Translation\Exception\InvalidResourceException;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
-use Symfony\Component\Config\Resource\FileResource;
-=======
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Symfony\Component\Translation\MessageCatalogue;
->>>>>>> dev
 
 /**
  * IcuResFileLoader loads translations from a resource bundle.
@@ -46,10 +39,6 @@ class IcuDatFileLoader extends IcuResFileLoader
         try {
             $rb = new \ResourceBundle($locale, $resource);
         } catch (\Exception $e) {
-<<<<<<< HEAD
-            // HHVM compatibility: constructor throws on invalid resource
-=======
->>>>>>> dev
             $rb = null;
         }
 

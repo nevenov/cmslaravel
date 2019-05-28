@@ -11,13 +11,6 @@
 
 namespace Symfony\Component\Console\Tests\Logger;
 
-<<<<<<< HEAD
-use Psr\Log\Test\LoggerInterfaceTest;
-use Psr\Log\LogLevel;
-use Symfony\Component\Console\Logger\ConsoleLogger;
-use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
-use Symfony\Component\Console\Output\OutputInterface;
-=======
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -25,20 +18,14 @@ use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
->>>>>>> dev
 
 /**
  * Console logger test.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
-<<<<<<< HEAD
- */
-class ConsoleLoggerTest extends LoggerInterfaceTest
-=======
  * @author Jordi Boggiano <j.boggiano@seld.be>
  */
 class ConsoleLoggerTest extends TestCase
->>>>>>> dev
 {
     /**
      * @var DummyOutput
@@ -46,21 +33,13 @@ class ConsoleLoggerTest extends TestCase
     protected $output;
 
     /**
-<<<<<<< HEAD
-     * {@inheritdoc}
-=======
      * @return LoggerInterface
->>>>>>> dev
      */
     public function getLogger()
     {
         $this->output = new DummyOutput(OutputInterface::VERBOSITY_VERBOSE);
 
-<<<<<<< HEAD
-        return new ConsoleLogger($this->output, array(
-=======
         return new ConsoleLogger($this->output, [
->>>>>>> dev
             LogLevel::EMERGENCY => OutputInterface::VERBOSITY_NORMAL,
             LogLevel::ALERT => OutputInterface::VERBOSITY_NORMAL,
             LogLevel::CRITICAL => OutputInterface::VERBOSITY_NORMAL,
@@ -69,13 +48,6 @@ class ConsoleLoggerTest extends TestCase
             LogLevel::NOTICE => OutputInterface::VERBOSITY_NORMAL,
             LogLevel::INFO => OutputInterface::VERBOSITY_NORMAL,
             LogLevel::DEBUG => OutputInterface::VERBOSITY_NORMAL,
-<<<<<<< HEAD
-        ));
-    }
-
-    /**
-     * {@inheritdoc}
-=======
         ]);
     }
 
@@ -83,14 +55,11 @@ class ConsoleLoggerTest extends TestCase
      * Return the log messages in order.
      *
      * @return string[]
->>>>>>> dev
      */
     public function getLogs()
     {
         return $this->output->getLogs();
     }
-<<<<<<< HEAD
-=======
 
     /**
      * @dataProvider provideOutputMappingParams
@@ -243,5 +212,4 @@ class DummyTest
     public function __toString()
     {
     }
->>>>>>> dev
 }

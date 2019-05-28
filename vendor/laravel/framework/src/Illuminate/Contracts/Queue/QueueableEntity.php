@@ -10,8 +10,6 @@ interface QueueableEntity
      * @return mixed
      */
     public function getQueueableId();
-<<<<<<< HEAD
-=======
 
     /**
      * Get the relationships for the entity.
@@ -26,5 +24,4 @@ interface QueueableEntity
      * @return string|null
      */
     public function getQueueableConnection();
->>>>>>> dev
 }

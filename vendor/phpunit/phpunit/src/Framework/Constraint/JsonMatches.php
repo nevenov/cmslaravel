@@ -7,15 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-
-/**
- * Asserts whether or not two JSON objects are equal.
- *
- * @since Class available since Release 3.7.0
- */
-class PHPUnit_Framework_Constraint_JsonMatches extends PHPUnit_Framework_Constraint
-=======
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\ExpectationFailedException;
@@ -26,7 +17,6 @@ use SebastianBergmann\Comparator\ComparisonFailure;
  * Asserts whether or not two JSON objects are equal.
  */
 class JsonMatches extends Constraint
->>>>>>> dev
 {
     /**
      * @var string
@@ -56,19 +46,6 @@ class JsonMatches extends Constraint
      */
     protected function matches($other)
     {
-<<<<<<< HEAD
-        $decodedOther = json_decode($other);
-        if (json_last_error()) {
-            return false;
-        }
-
-        $decodedValue = json_decode($this->value);
-        if (json_last_error()) {
-            return false;
-        }
-
-        return $decodedOther == $decodedValue;
-=======
         list($error, $recodedOther) = Json::canonicalize($other);
         if ($error) {
             return false;
@@ -119,7 +96,6 @@ class JsonMatches extends Constraint
         }
 
         parent::fail($other, $description, $comparisonFailure);
->>>>>>> dev
     }
 
     /**
@@ -129,11 +105,7 @@ class JsonMatches extends Constraint
      */
     public function toString()
     {
-<<<<<<< HEAD
-        return sprintf(
-=======
         return \sprintf(
->>>>>>> dev
             'matches JSON string "%s"',
             $this->value
         );

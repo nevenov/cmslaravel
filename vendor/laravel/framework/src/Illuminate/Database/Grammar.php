@@ -2,19 +2,13 @@
 
 namespace Illuminate\Database;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Traits\Macroable;
->>>>>>> dev
 use Illuminate\Database\Query\Expression;
 
 abstract class Grammar
 {
-<<<<<<< HEAD
-=======
     use Macroable;
 
->>>>>>> dev
     /**
      * The grammar table prefix.
      *
@@ -41,19 +35,11 @@ abstract class Grammar
      */
     public function wrapTable($table)
     {
-<<<<<<< HEAD
-        if ($this->isExpression($table)) {
-            return $this->getValue($table);
-        }
-
-        return $this->wrap($this->tablePrefix.$table, true);
-=======
         if (! $this->isExpression($table)) {
             return $this->wrap($this->tablePrefix.$table, true);
         }
 
         return $this->getValue($table);
->>>>>>> dev
     }
 
     /**
@@ -70,36 +56,6 @@ abstract class Grammar
         }
 
         // If the value being wrapped has a column alias we will need to separate out
-<<<<<<< HEAD
-        // the pieces so we can wrap each of the segments of the expression on it
-        // own, and then joins them both back together with the "as" connector.
-        if (strpos(strtolower($value), ' as ') !== false) {
-            $segments = explode(' ', $value);
-
-            if ($prefixAlias) {
-                $segments[2] = $this->tablePrefix.$segments[2];
-            }
-
-            return $this->wrap($segments[0]).' as '.$this->wrapValue($segments[2]);
-        }
-
-        $wrapped = [];
-
-        $segments = explode('.', $value);
-
-        // If the value is not an aliased table expression, we'll just wrap it like
-        // normal, so if there is more than one segment, we will wrap the first
-        // segments as if it was a table and the rest as just regular values.
-        foreach ($segments as $key => $segment) {
-            if ($key == 0 && count($segments) > 1) {
-                $wrapped[] = $this->wrapTable($segment);
-            } else {
-                $wrapped[] = $this->wrapValue($segment);
-            }
-        }
-
-        return implode('.', $wrapped);
-=======
         // the pieces so we can wrap each of the segments of the expression on its
         // own, and then join these both back together using the "as" connector.
         if (stripos($value, ' as ') !== false) {
@@ -145,7 +101,6 @@ abstract class Grammar
                             ? $this->wrapTable($segment)
                             : $this->wrapValue($segment);
         })->implode('.');
->>>>>>> dev
     }
 
     /**
@@ -156,19 +111,11 @@ abstract class Grammar
      */
     protected function wrapValue($value)
     {
-<<<<<<< HEAD
-        if ($value === '*') {
-            return $value;
-        }
-
-        return '"'.str_replace('"', '""', $value).'"';
-=======
         if ($value !== '*') {
             return '"'.str_replace('"', '""', $value).'"';
         }
 
         return $value;
->>>>>>> dev
     }
 
     /**
@@ -205,16 +152,6 @@ abstract class Grammar
     }
 
     /**
-<<<<<<< HEAD
-     * Get the value of a raw expression.
-     *
-     * @param  \Illuminate\Database\Query\Expression  $expression
-     * @return string
-     */
-    public function getValue($expression)
-    {
-        return $expression->getValue();
-=======
      * Quote the given string literal.
      *
      * @param  string|array  $value
@@ -227,7 +164,6 @@ abstract class Grammar
         }
 
         return "'$value'";
->>>>>>> dev
     }
 
     /**
@@ -242,8 +178,6 @@ abstract class Grammar
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Get the value of a raw expression.
      *
      * @param  \Illuminate\Database\Query\Expression  $expression
@@ -255,7 +189,6 @@ abstract class Grammar
     }
 
     /**
->>>>>>> dev
      * Get the format for database stored dates.
      *
      * @return string

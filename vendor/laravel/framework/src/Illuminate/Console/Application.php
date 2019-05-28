@@ -2,15 +2,6 @@
 
 namespace Illuminate\Console;
 
-<<<<<<< HEAD
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Container\Container;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Application as SymfonyApplication;
-use Symfony\Component\Console\Command\Command as SymfonyCommand;
-=======
 use Closure;
 use Illuminate\Support\ProcessUtils;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -27,7 +18,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
->>>>>>> dev
 use Illuminate\Contracts\Console\Application as ApplicationContract;
 
 class Application extends SymfonyApplication implements ApplicationContract
@@ -47,8 +37,6 @@ class Application extends SymfonyApplication implements ApplicationContract
     protected $lastOutput;
 
     /**
-<<<<<<< HEAD
-=======
      * The console application bootstrappers.
      *
      * @var array
@@ -63,7 +51,6 @@ class Application extends SymfonyApplication implements ApplicationContract
     protected $events;
 
     /**
->>>>>>> dev
      * Create a new Artisan console application.
      *
      * @param  \Illuminate\Contracts\Container\Container  $laravel
@@ -76,12 +63,6 @@ class Application extends SymfonyApplication implements ApplicationContract
         parent::__construct('Laravel Framework', $version);
 
         $this->laravel = $laravel;
-<<<<<<< HEAD
-        $this->setAutoExit(false);
-        $this->setCatchExceptions(false);
-
-        $events->fire(new Events\ArtisanStarting($this));
-=======
         $this->events = $events;
         $this->setAutoExit(false);
         $this->setCatchExceptions(false);
@@ -177,7 +158,6 @@ class Application extends SymfonyApplication implements ApplicationContract
     public static function forgetBootstrappers()
     {
         static::$bootstrappers = [];
->>>>>>> dev
     }
 
     /**
@@ -185,23 +165,6 @@ class Application extends SymfonyApplication implements ApplicationContract
      *
      * @param  string  $command
      * @param  array  $parameters
-<<<<<<< HEAD
-     * @return int
-     */
-    public function call($command, array $parameters = [])
-    {
-        $parameters = collect($parameters)->prepend($command);
-
-        $this->lastOutput = new BufferedOutput;
-
-        $this->setCatchExceptions(false);
-
-        $result = $this->run(new ArrayInput($parameters->toArray()), $this->lastOutput);
-
-        $this->setCatchExceptions(true);
-
-        return $result;
-=======
      * @param  \Symfony\Component\Console\Output\OutputInterface|null  $outputBuffer
      * @return int
      *
@@ -244,7 +207,6 @@ class Application extends SymfonyApplication implements ApplicationContract
         }
 
         return [$command, $input ?? null];
->>>>>>> dev
     }
 
     /**
@@ -254,13 +216,9 @@ class Application extends SymfonyApplication implements ApplicationContract
      */
     public function output()
     {
-<<<<<<< HEAD
-        return $this->lastOutput ? $this->lastOutput->fetch() : '';
-=======
         return $this->lastOutput && method_exists($this->lastOutput, 'fetch')
                         ? $this->lastOutput->fetch()
                         : '';
->>>>>>> dev
     }
 
     /**
@@ -318,11 +276,7 @@ class Application extends SymfonyApplication implements ApplicationContract
     }
 
     /**
-<<<<<<< HEAD
-     * Get the default input definitions for the applications.
-=======
      * Get the default input definition for the application.
->>>>>>> dev
      *
      * This is used to add the --env option to every available command.
      *
@@ -330,17 +284,9 @@ class Application extends SymfonyApplication implements ApplicationContract
      */
     protected function getDefaultInputDefinition()
     {
-<<<<<<< HEAD
-        $definition = parent::getDefaultInputDefinition();
-
-        $definition->addOption($this->getEnvironmentOption());
-
-        return $definition;
-=======
         return tap(parent::getDefaultInputDefinition(), function ($definition) {
             $definition->addOption($this->getEnvironmentOption());
         });
->>>>>>> dev
     }
 
     /**
@@ -350,11 +296,7 @@ class Application extends SymfonyApplication implements ApplicationContract
      */
     protected function getEnvironmentOption()
     {
-<<<<<<< HEAD
-        $message = 'The environment the command should run under.';
-=======
         $message = 'The environment the command should run under';
->>>>>>> dev
 
         return new InputOption('--env', null, InputOption::VALUE_OPTIONAL, $message);
     }

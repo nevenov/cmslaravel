@@ -19,11 +19,6 @@ trait Queueable
     public $queue;
 
     /**
-<<<<<<< HEAD
-     * The number of seconds before the job should be made available.
-     *
-     * @var \DateTime|int|null
-=======
      * The name of the connection the chain should be sent to.
      *
      * @var string|null
@@ -41,13 +36,10 @@ trait Queueable
      * The number of seconds before the job should be made available.
      *
      * @var \DateTimeInterface|\DateInterval|int|null
->>>>>>> dev
      */
     public $delay;
 
     /**
-<<<<<<< HEAD
-=======
      * The jobs that should run if this job is successful.
      *
      * @var array
@@ -55,7 +47,6 @@ trait Queueable
     public $chained = [];
 
     /**
->>>>>>> dev
      * Set the desired connection for the job.
      *
      * @param  string|null  $connection
@@ -82,11 +73,6 @@ trait Queueable
     }
 
     /**
-<<<<<<< HEAD
-     * Set the desired delay for the job.
-     *
-     * @param  int|null  $delay
-=======
      * Set the desired connection for the chain.
      *
      * @param  string|null  $connection
@@ -118,7 +104,6 @@ trait Queueable
      * Set the desired delay for the job.
      *
      * @param  \DateTimeInterface|\DateInterval|int|null  $delay
->>>>>>> dev
      * @return $this
      */
     public function delay($delay)
@@ -127,8 +112,6 @@ trait Queueable
 
         return $this;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Set the jobs that should run if this job is successful.
@@ -164,5 +147,4 @@ trait Queueable
             }));
         }
     }
->>>>>>> dev
 }

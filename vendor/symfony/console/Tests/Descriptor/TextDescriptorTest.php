@@ -12,11 +12,6 @@
 namespace Symfony\Component\Console\Tests\Descriptor;
 
 use Symfony\Component\Console\Descriptor\TextDescriptor;
-<<<<<<< HEAD
-
-class TextDescriptorTest extends AbstractDescriptorTest
-{
-=======
 use Symfony\Component\Console\Tests\Fixtures\DescriptorApplication2;
 use Symfony\Component\Console\Tests\Fixtures\DescriptorApplicationMbString;
 use Symfony\Component\Console\Tests\Fixtures\DescriptorCommandMbString;
@@ -46,7 +41,6 @@ class TextDescriptorTest extends AbstractDescriptorTest
         $this->assertDescription(file_get_contents(__DIR__.'/../Fixtures/application_filtered_namespace.txt'), $application, ['namespace' => 'command4']);
     }
 
->>>>>>> dev
     protected function getDescriptor()
     {
         return new TextDescriptor();

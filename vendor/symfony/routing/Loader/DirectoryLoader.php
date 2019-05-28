@@ -12,13 +12,8 @@
 namespace Symfony\Component\Routing\Loader;
 
 use Symfony\Component\Config\Loader\FileLoader;
-<<<<<<< HEAD
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Config\Resource\DirectoryResource;
-=======
 use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Routing\RouteCollection;
->>>>>>> dev
 
 class DirectoryLoader extends FileLoader
 {

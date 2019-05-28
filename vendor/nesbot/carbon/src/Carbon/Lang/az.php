@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,22 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-    'year' => ':count il',
-    'y' => ':count il',
-    'month' => ':count ay',
-    'm' => ':count ay',
-    'week' => ':count həftə',
-    'w' => ':count həftə',
-    'day' => ':count gün',
-    'd' => ':count gün',
-    'hour' => ':count saat',
-    'h' => ':count saat',
-    'minute' => ':count dəqiqə',
-    'min' => ':count dəqiqə',
-    'second' => ':count saniyə',
-=======
 /*
  * Authors:
  * - Josh Soref
@@ -60,7 +40,6 @@ return [
     'min' => ':count dəqiqə',
     'second' => ':count san.',
     'a_second' => '{1}birneçə saniyə|]1,Inf[:count saniyə',
->>>>>>> dev
     's' => ':count saniyə',
     'ago' => ':time əvvəl',
     'from_now' => ':time sonra',
@@ -75,9 +54,6 @@ return [
     'period_interval' => 'hər :interval',
     'period_start_date' => ':date tarixindən başlayaraq',
     'period_end_date' => ':date tarixinədək',
-<<<<<<< HEAD
-);
-=======
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
@@ -147,4 +123,3 @@ return [
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' və '],
 ];
->>>>>>> dev

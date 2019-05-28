@@ -32,11 +32,7 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
 
     public function getAcceptData()
     {
-<<<<<<< HEAD
-        $lessThan1 = array(
-=======
         $lessThan1 = [
->>>>>>> dev
             '.git',
             'test.py',
             'foo',
@@ -45,11 +41,6 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
             '.foo',
             '.bar',
             'foo bar',
-<<<<<<< HEAD
-        );
-
-        $lessThanOrEqualTo1 = array(
-=======
             'qux',
             'qux_0_1.php',
             'qux_1000_1.php',
@@ -60,7 +51,6 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
         ];
 
         $lessThanOrEqualTo1 = [
->>>>>>> dev
             '.git',
             'test.py',
             'foo',
@@ -73,11 +63,6 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
             '.bar',
             'foo bar',
             '.foo/bar',
-<<<<<<< HEAD
-        );
-
-        $graterThanOrEqualTo1 = array(
-=======
             'qux',
             'qux/baz_100_1.py',
             'qux/baz_1_2.py',
@@ -90,37 +75,19 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
         ];
 
         $graterThanOrEqualTo1 = [
->>>>>>> dev
             'toto/.git',
             'foo/bar.tmp',
             '.foo/.bar',
             '.foo/bar',
-<<<<<<< HEAD
-        );
-
-        $equalTo1 = array(
-=======
             'qux/baz_100_1.py',
             'qux/baz_1_2.py',
         ];
 
         $equalTo1 = [
->>>>>>> dev
             'toto/.git',
             'foo/bar.tmp',
             '.foo/.bar',
             '.foo/bar',
-<<<<<<< HEAD
-        );
-
-        return array(
-            array(0, 0, $this->toAbsolute($lessThan1)),
-            array(0, 1, $this->toAbsolute($lessThanOrEqualTo1)),
-            array(2, PHP_INT_MAX, array()),
-            array(1, PHP_INT_MAX, $this->toAbsolute($graterThanOrEqualTo1)),
-            array(1, 1, $this->toAbsolute($equalTo1)),
-        );
-=======
             'qux/baz_100_1.py',
             'qux/baz_1_2.py',
         ];
@@ -132,6 +99,5 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
             [1, PHP_INT_MAX, $this->toAbsolute($graterThanOrEqualTo1)],
             [1, 1, $this->toAbsolute($equalTo1)],
         ];
->>>>>>> dev
     }
 }

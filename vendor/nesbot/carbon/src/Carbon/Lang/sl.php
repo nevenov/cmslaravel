@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /*
  * Authors:
  * - Philippe Vaucher
@@ -35,7 +28,6 @@ return array(
  * - Anže Časar
  */
 return [
->>>>>>> dev
     'year' => ':count leto|:count leti|:count leta|:count let',
     'y' => ':count leto|:count leti|:count leta|:count let',
     'month' => ':count mesec|:count meseca|:count mesece|:count mesecev',
@@ -66,9 +58,6 @@ return [
     'diff_tomorrow' => 'jutri',
     'diff_before_yesterday' => 'predvčerajšnjim',
     'diff_after_tomorrow' => 'pojutrišnjem',
-<<<<<<< HEAD
-);
-=======
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'period_start_date' => 'od :date',
@@ -114,4 +103,3 @@ return [
     'list' => [', ', ' in '],
     'meridiem' => ['dopoldan', 'popoldan'],
 ];
->>>>>>> dev

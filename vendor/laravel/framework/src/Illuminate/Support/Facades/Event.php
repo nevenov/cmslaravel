@@ -2,9 +2,6 @@
 
 namespace Illuminate\Support\Facades;
 
-<<<<<<< HEAD
-/**
-=======
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Testing\Fakes\EventFake;
 
@@ -19,14 +16,11 @@ use Illuminate\Support\Testing\Fakes\EventFake;
  * @method static void forget(string $event)
  * @method static void forgetPushed()
  *
->>>>>>> dev
  * @see \Illuminate\Events\Dispatcher
  */
 class Event extends Facade
 {
     /**
-<<<<<<< HEAD
-=======
      * Replace the bound instance with a fake.
      *
      * @param  array|string  $eventsToFake
@@ -62,7 +56,6 @@ class Event extends Facade
     }
 
     /**
->>>>>>> dev
      * Get the registered name of the component.
      *
      * @return string

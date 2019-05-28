@@ -2,66 +2,15 @@
 
 namespace Illuminate\Http;
 
-<<<<<<< HEAD
-use Illuminate\Support\Traits\Macroable;
-=======
 use Illuminate\Support\Arr;
 use Illuminate\Container\Container;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
->>>>>>> dev
 use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
 
 class UploadedFile extends SymfonyUploadedFile
 {
-<<<<<<< HEAD
-    use Macroable;
-
-    /**
-     * Get the fully qualified path to the file.
-     *
-     * @return string
-     */
-    public function path()
-    {
-        return $this->getRealPath();
-    }
-
-    /**
-     * Get the file's extension.
-     *
-     * @return string
-     */
-    public function extension()
-    {
-        return $this->guessExtension();
-    }
-
-    /**
-     * Get the file's extension supplied by the client.
-     *
-     * @return string
-     */
-    public function clientExtension()
-    {
-        return $this->guessClientExtension();
-    }
-
-    /**
-     * Get a filename for the file that is the MD5 hash of the contents.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    public function hashName($path = null)
-    {
-        if ($path) {
-            $path = rtrim($path, '/').'/';
-        }
-
-        return $path.md5_file($this->path()).'.'.$this->extension();
-=======
     use FileHelpers, Macroable;
 
     /**
@@ -162,7 +111,6 @@ class UploadedFile extends SymfonyUploadedFile
     public function clientExtension()
     {
         return $this->guessClientExtension();
->>>>>>> dev
     }
 
     /**
@@ -178,16 +126,10 @@ class UploadedFile extends SymfonyUploadedFile
             $file->getPathname(),
             $file->getClientOriginalName(),
             $file->getClientMimeType(),
-<<<<<<< HEAD
-            $file->getClientSize(),
-=======
->>>>>>> dev
             $file->getError(),
             $test
         );
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Parse and format the given options.
@@ -203,5 +145,4 @@ class UploadedFile extends SymfonyUploadedFile
 
         return $options;
     }
->>>>>>> dev
 }

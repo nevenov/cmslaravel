@@ -3,8 +3,6 @@
 namespace Illuminate\Support\Facades;
 
 /**
-<<<<<<< HEAD
-=======
  * @method static mixed guard(string|null $name = null)
  * @method static void shouldUse(string $name);
  * @method static bool check()
@@ -26,7 +24,6 @@ namespace Illuminate\Support\Facades;
  * @method static \Illuminate\Auth\AuthManager extend(string $driver, \Closure $callback)
  * @method static \Illuminate\Auth\AuthManager provider(string $name, \Closure $callback)
  *
->>>>>>> dev
  * @see \Illuminate\Auth\AuthManager
  * @see \Illuminate\Contracts\Auth\Factory
  * @see \Illuminate\Contracts\Auth\Guard
@@ -43,8 +40,6 @@ class Auth extends Facade
     {
         return 'auth';
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Register the typical authentication routes for an application.
@@ -56,5 +51,4 @@ class Auth extends Facade
     {
         static::$app->make('router')->auth($options);
     }
->>>>>>> dev
 }

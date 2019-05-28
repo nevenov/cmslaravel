@@ -27,27 +27,16 @@ interface ConnectionInterface
      *
      * @param  string  $query
      * @param  array   $bindings
-<<<<<<< HEAD
-     * @return mixed
-     */
-    public function selectOne($query, $bindings = []);
-=======
      * @param  bool  $useReadPdo
      * @return mixed
      */
     public function selectOne($query, $bindings = [], $useReadPdo = true);
->>>>>>> dev
 
     /**
      * Run a select statement against the database.
      *
      * @param  string  $query
      * @param  array   $bindings
-<<<<<<< HEAD
-     * @return array
-     */
-    public function select($query, $bindings = []);
-=======
      * @param  bool  $useReadPdo
      * @return array
      */
@@ -62,7 +51,6 @@ interface ConnectionInterface
      * @return \Generator
      */
     public function cursor($query, $bindings = [], $useReadPdo = true);
->>>>>>> dev
 
     /**
      * Run an insert statement against the database.
@@ -129,19 +117,12 @@ interface ConnectionInterface
      * Execute a Closure within a transaction.
      *
      * @param  \Closure  $callback
-<<<<<<< HEAD
-=======
      * @param  int  $attempts
->>>>>>> dev
      * @return mixed
      *
      * @throws \Throwable
      */
-<<<<<<< HEAD
-    public function transaction(Closure $callback);
-=======
     public function transaction(Closure $callback, $attempts = 1);
->>>>>>> dev
 
     /**
      * Start a new database transaction.

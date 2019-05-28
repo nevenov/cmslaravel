@@ -11,17 +11,11 @@
 
 namespace Symfony\Component\Finder\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\Finder\Glob;
-
-class GlobTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\Glob;
 
 class GlobTest extends TestCase
->>>>>>> dev
 {
     public function testGlobToRegexDelimiters()
     {
@@ -30,8 +24,6 @@ class GlobTest extends TestCase
         $this->assertEquals('^\.[^/]*$', Glob::toRegex('.*', true, true, ''));
         $this->assertEquals('/^\.[^/]*$/', Glob::toRegex('.*', true, true, '/'));
     }
-<<<<<<< HEAD
-=======
 
     public function testGlobToRegexDoubleStarStrictDots()
     {
@@ -100,5 +92,4 @@ class GlobTest extends TestCase
 
         $this->assertSame(['one/.dot', 'one/a', 'one/b', 'one/b/c.neon', 'one/b/d.neon'], $match);
     }
->>>>>>> dev
 }

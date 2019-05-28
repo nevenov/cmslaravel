@@ -6,14 +6,9 @@ use Faker\Factory as FakerFactory;
 use Faker\Generator as FakerGenerator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
-<<<<<<< HEAD
-use Illuminate\Database\Eloquent\QueueEntityResolver;
-use Illuminate\Database\Connectors\ConnectionFactory;
-=======
 use Illuminate\Contracts\Queue\EntityResolver;
 use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Database\Eloquent\QueueEntityResolver;
->>>>>>> dev
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 
 class DatabaseServiceProvider extends ServiceProvider
@@ -39,12 +34,6 @@ class DatabaseServiceProvider extends ServiceProvider
     {
         Model::clearBootedModels();
 
-<<<<<<< HEAD
-        $this->registerEloquentFactory();
-
-        $this->registerQueueableEntityResolver();
-
-=======
         $this->registerConnectionServices();
 
         $this->registerEloquentFactory();
@@ -59,7 +48,6 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     protected function registerConnectionServices()
     {
->>>>>>> dev
         // The connection factory is used to create the actual connection instances on
         // the database. We will inject the factory into the manager so that it may
         // make the connections while they are actually needed and not of before.
@@ -86,16 +74,6 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     protected function registerEloquentFactory()
     {
-<<<<<<< HEAD
-        $this->app->singleton(FakerGenerator::class, function () {
-            return FakerFactory::create();
-        });
-
-        $this->app->singleton(EloquentFactory::class, function ($app) {
-            $faker = $app->make(FakerGenerator::class);
-
-            return EloquentFactory::construct($faker, database_path('factories'));
-=======
         $this->app->singleton(FakerGenerator::class, function ($app) {
             return FakerFactory::create($app['config']->get('app.faker_locale', 'en_US'));
         });
@@ -104,7 +82,6 @@ class DatabaseServiceProvider extends ServiceProvider
             return EloquentFactory::construct(
                 $app->make(FakerGenerator::class), $this->app->databasePath('factories')
             );
->>>>>>> dev
         });
     }
 
@@ -115,11 +92,7 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     protected function registerQueueableEntityResolver()
     {
-<<<<<<< HEAD
-        $this->app->singleton('Illuminate\Contracts\Queue\EntityResolver', function () {
-=======
         $this->app->singleton(EntityResolver::class, function () {
->>>>>>> dev
             return new QueueEntityResolver;
         });
     }

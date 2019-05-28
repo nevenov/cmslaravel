@@ -24,19 +24,6 @@ trait RetrievesMultipleKeys
     }
 
     /**
-<<<<<<< HEAD
-     * Store multiple items in the cache for a given number of minutes.
-     *
-     * @param  array  $values
-     * @param  int  $minutes
-     * @return void
-     */
-    public function putMany(array $values, $minutes)
-    {
-        foreach ($values as $key => $value) {
-            $this->put($key, $value, $minutes);
-        }
-=======
      * Store multiple items in the cache for a given number of seconds.
      *
      * @param  array  $values
@@ -54,6 +41,5 @@ trait RetrievesMultipleKeys
         }
 
         return $manyResult ?: false;
->>>>>>> dev
     }
 }

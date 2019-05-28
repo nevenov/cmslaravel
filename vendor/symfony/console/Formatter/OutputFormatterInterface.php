@@ -55,11 +55,8 @@ interface OutputFormatterInterface
      * @param string $name
      *
      * @return OutputFormatterStyleInterface
-<<<<<<< HEAD
-=======
      *
      * @throws \InvalidArgumentException When style isn't defined
->>>>>>> dev
      */
     public function getStyle($name);
 

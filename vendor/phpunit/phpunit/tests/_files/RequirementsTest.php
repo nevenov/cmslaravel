@@ -1,7 +1,4 @@
 <?php
-<<<<<<< HEAD
-class RequirementsTest extends PHPUnit_Framework_TestCase
-=======
 /*
  * This file is part of PHPUnit.
  *
@@ -13,7 +10,6 @@ class RequirementsTest extends PHPUnit_Framework_TestCase
 use PHPUnit\Framework\TestCase;
 
 class RequirementsTest extends TestCase
->>>>>>> dev
 {
     public function testOne()
     {
@@ -84,9 +80,6 @@ class RequirementsTest extends TestCase
     }
 
     /**
-<<<<<<< HEAD
-     * @requires OS Linux
-=======
      * @requires function testFunc2
      * @see https://github.com/sebastianbergmann/phpunit/issues/3459
      */
@@ -97,7 +90,6 @@ class RequirementsTest extends TestCase
     /**
      * @requires OS SunOS
      * @requires OSFAMILY Solaris
->>>>>>> dev
      */
     public function testEleven()
     {
@@ -108,16 +100,10 @@ class RequirementsTest extends TestCase
      * @requires PHPUnit 9-dev
      * @requires OS DOESNOTEXIST
      * @requires function testFuncOne
-<<<<<<< HEAD
-     * @requires function testFuncTwo
-     * @requires extension testExtOne
-     * @requires extension testExtTwo
-=======
      * @requires function testFunc2
      * @requires extension testExtOne
      * @requires extension testExt2
      * @requires extension testExtThree 2.0
->>>>>>> dev
      */
     public function testAllPossibleRequirements()
     {
@@ -173,10 +159,6 @@ class RequirementsTest extends TestCase
     }
 
     /**
-<<<<<<< HEAD
-     * @requires	  extension	  spl
-     * @requires	  OS	  .*
-=======
      * @requires OSFAMILY DOESNOTEXIST
      */
     public function testAlwaysSkip4()
@@ -186,13 +168,10 @@ class RequirementsTest extends TestCase
     /**
      * @requires extension spl
      * @requires OS .*
->>>>>>> dev
      */
     public function testSpace()
     {
     }
-<<<<<<< HEAD
-=======
 
     /**
      * @requires extension testExt 1.8.0
@@ -473,5 +452,4 @@ class RequirementsTest extends TestCase
     public function testVersionConstraintInvalidPhpUnitConstraint()
     {
     }
->>>>>>> dev
 }

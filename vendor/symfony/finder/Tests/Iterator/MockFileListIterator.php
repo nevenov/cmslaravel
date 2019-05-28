@@ -13,11 +13,7 @@ namespace Symfony\Component\Finder\Tests\Iterator;
 
 class MockFileListIterator extends \ArrayIterator
 {
-<<<<<<< HEAD
-    public function __construct(array $filesArray = array())
-=======
     public function __construct(array $filesArray = [])
->>>>>>> dev
     {
         $files = array_map(function ($file) { return new MockSplFileInfo($file); }, $filesArray);
         parent::__construct($files);

@@ -1,11 +1,7 @@
 <?php
-<<<<<<< HEAD
-class TemplateMethodsTest extends PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 
 class TemplateMethodsTest extends TestCase
->>>>>>> dev
 {
     public static function setUpBeforeClass()
     {
@@ -49,16 +45,9 @@ class TemplateMethodsTest extends TestCase
         print __METHOD__ . "\n";
     }
 
-<<<<<<< HEAD
-    protected function onNotSuccessfulTest(Exception $e)
-    {
-        print __METHOD__ . "\n";
-        throw $e;
-=======
     protected function onNotSuccessfulTest(Exception $t)
     {
         print __METHOD__ . "\n";
         throw $t;
->>>>>>> dev
     }
 }

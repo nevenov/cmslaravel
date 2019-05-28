@@ -29,11 +29,6 @@ abstract class AbstractSurrogateFragmentRenderer extends RoutableFragmentRendere
     private $signer;
 
     /**
-<<<<<<< HEAD
-     * Constructor.
-     *
-=======
->>>>>>> dev
      * The "fallback" strategy when surrogate is not available should always be an
      * instance of InlineFragmentRenderer.
      *
@@ -64,11 +59,6 @@ abstract class AbstractSurrogateFragmentRenderer extends RoutableFragmentRendere
      *
      * @see Symfony\Component\HttpKernel\HttpCache\SurrogateInterface
      */
-<<<<<<< HEAD
-    public function render($uri, Request $request, array $options = array())
-    {
-        if (!$this->surrogate || !$this->surrogate->hasSurrogateCapability($request)) {
-=======
     public function render($uri, Request $request, array $options = [])
     {
         if (!$this->surrogate || !$this->surrogate->hasSurrogateCapability($request)) {
@@ -76,7 +66,6 @@ abstract class AbstractSurrogateFragmentRenderer extends RoutableFragmentRendere
                 throw new \InvalidArgumentException('Passing non-scalar values as part of URI attributes to the ESI and SSI rendering strategies is not supported. Use a different rendering strategy or pass scalar values.');
             }
 
->>>>>>> dev
             return $this->inlineStrategy->render($uri, $request, $options);
         }
 
@@ -94,11 +83,7 @@ abstract class AbstractSurrogateFragmentRenderer extends RoutableFragmentRendere
         return new Response($tag);
     }
 
-<<<<<<< HEAD
-    private function generateSignedFragmentUri($uri, Request $request)
-=======
     private function generateSignedFragmentUri($uri, Request $request): string
->>>>>>> dev
     {
         if (null === $this->signer) {
             throw new \LogicException('You must use a URI when using the ESI rendering strategy or set a URL signer.');
@@ -107,9 +92,6 @@ abstract class AbstractSurrogateFragmentRenderer extends RoutableFragmentRendere
         // we need to sign the absolute URI, but want to return the path only.
         $fragmentUri = $this->signer->sign($this->generateFragmentUri($uri, $request, true));
 
-<<<<<<< HEAD
-        return substr($fragmentUri, strlen($request->getSchemeAndHttpHost()));
-=======
         return substr($fragmentUri, \strlen($request->getSchemeAndHttpHost()));
     }
 
@@ -124,6 +106,5 @@ abstract class AbstractSurrogateFragmentRenderer extends RoutableFragmentRendere
         }
 
         return false;
->>>>>>> dev
     }
 }

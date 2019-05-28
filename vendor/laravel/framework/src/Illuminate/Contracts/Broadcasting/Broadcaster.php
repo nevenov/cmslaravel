@@ -5,8 +5,6 @@ namespace Illuminate\Contracts\Broadcasting;
 interface Broadcaster
 {
     /**
-<<<<<<< HEAD
-=======
      * Authenticate the incoming request for a given channel.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -24,7 +22,6 @@ interface Broadcaster
     public function validAuthenticationResponse($request, $result);
 
     /**
->>>>>>> dev
      * Broadcast the given event.
      *
      * @param  array  $channels

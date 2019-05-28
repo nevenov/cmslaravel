@@ -11,15 +11,6 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\RequestMatcher;
-use Symfony\Component\HttpFoundation\Request;
-
-class RequestMatcherTest extends \PHPUnit_Framework_TestCase
-{
-    /**
-     * @dataProvider testMethodFixtures
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestMatcher;
@@ -28,7 +19,6 @@ class RequestMatcherTest extends TestCase
 {
     /**
      * @dataProvider getMethodData
->>>>>>> dev
      */
     public function testMethod($requestMethod, $matcherMethod, $isMatch)
     {
@@ -42,18 +32,6 @@ class RequestMatcherTest extends TestCase
         $this->assertSame($isMatch, $matcher->matches($request));
     }
 
-<<<<<<< HEAD
-    public function testMethodFixtures()
-    {
-        return array(
-            array('get', 'get', true),
-            array('get', array('get', 'post'), true),
-            array('get', 'post', false),
-            array('get', 'GET', true),
-            array('get', array('GET', 'POST'), true),
-            array('get', 'POST', false),
-        );
-=======
     public function getMethodData()
     {
         return [
@@ -64,17 +42,12 @@ class RequestMatcherTest extends TestCase
             ['get', ['GET', 'POST'], true],
             ['get', 'POST', false],
         ];
->>>>>>> dev
     }
 
     public function testScheme()
     {
         $httpRequest = $request = $request = Request::create('');
-<<<<<<< HEAD
-        $httpsRequest = $request = $request = Request::create('', 'get', array(), array(), array(), array('HTTPS' => 'on'));
-=======
         $httpsRequest = $request = $request = Request::create('', 'get', [], [], [], ['HTTPS' => 'on']);
->>>>>>> dev
 
         $matcher = new RequestMatcher();
         $matcher->matchScheme('https');
@@ -91,20 +64,12 @@ class RequestMatcherTest extends TestCase
     }
 
     /**
-<<<<<<< HEAD
-     * @dataProvider testHostFixture
-=======
      * @dataProvider getHostData
->>>>>>> dev
      */
     public function testHost($pattern, $isMatch)
     {
         $matcher = new RequestMatcher();
-<<<<<<< HEAD
-        $request = Request::create('', 'get', array(), array(), array(), array('HTTP_HOST' => 'foo.example.com'));
-=======
         $request = Request::create('', 'get', [], [], [], ['HTTP_HOST' => 'foo.example.com']);
->>>>>>> dev
 
         $matcher->matchHost($pattern);
         $this->assertSame($isMatch, $matcher->matches($request));
@@ -113,20 +78,6 @@ class RequestMatcherTest extends TestCase
         $this->assertSame($isMatch, $matcher->matches($request));
     }
 
-<<<<<<< HEAD
-    public function testHostFixture()
-    {
-        return array(
-            array('.*\.example\.com', true),
-            array('\.example\.com$', true),
-            array('^.*\.example\.com$', true),
-            array('.*\.sensio\.com', false),
-            array('.*\.example\.COM', true),
-            array('\.example\.COM$', true),
-            array('^.*\.example\.COM$', true),
-            array('.*\.sensio\.COM', false),
-        );
-=======
     public function testPort()
     {
         $matcher = new RequestMatcher();
@@ -154,7 +105,6 @@ class RequestMatcherTest extends TestCase
             ['^.*\.example\.COM$', true],
             ['.*\.sensio\.COM', false],
         ];
->>>>>>> dev
     }
 
     public function testPath()

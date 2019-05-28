@@ -11,18 +11,11 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\AcceptHeader;
-use Symfony\Component\HttpFoundation\AcceptHeaderItem;
-
-class AcceptHeaderTest extends \PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpFoundation\AcceptHeaderItem;
 
 class AcceptHeaderTest extends TestCase
->>>>>>> dev
 {
     public function testFirst()
     {
@@ -46,15 +39,6 @@ class AcceptHeaderTest extends TestCase
 
     public function provideFromStringData()
     {
-<<<<<<< HEAD
-        return array(
-            array('', array()),
-            array('gzip', array(new AcceptHeaderItem('gzip'))),
-            array('gzip,deflate,sdch', array(new AcceptHeaderItem('gzip'), new AcceptHeaderItem('deflate'), new AcceptHeaderItem('sdch'))),
-            array("gzip, deflate\t,sdch", array(new AcceptHeaderItem('gzip'), new AcceptHeaderItem('deflate'), new AcceptHeaderItem('sdch'))),
-            array('"this;should,not=matter"', array(new AcceptHeaderItem('this;should,not=matter'))),
-        );
-=======
         return [
             ['', []],
             ['gzip', [new AcceptHeaderItem('gzip')]],
@@ -62,7 +46,6 @@ class AcceptHeaderTest extends TestCase
             ["gzip, deflate\t,sdch", [new AcceptHeaderItem('gzip'), new AcceptHeaderItem('deflate'), new AcceptHeaderItem('sdch')]],
             ['"this;should,not=matter"', [new AcceptHeaderItem('this;should,not=matter')]],
         ];
->>>>>>> dev
     }
 
     /**
@@ -76,21 +59,12 @@ class AcceptHeaderTest extends TestCase
 
     public function provideToStringData()
     {
-<<<<<<< HEAD
-        return array(
-            array(array(), ''),
-            array(array(new AcceptHeaderItem('gzip')), 'gzip'),
-            array(array(new AcceptHeaderItem('gzip'), new AcceptHeaderItem('deflate'), new AcceptHeaderItem('sdch')), 'gzip,deflate,sdch'),
-            array(array(new AcceptHeaderItem('this;should,not=matter')), 'this;should,not=matter'),
-        );
-=======
         return [
             [[], ''],
             [[new AcceptHeaderItem('gzip')], 'gzip'],
             [[new AcceptHeaderItem('gzip'), new AcceptHeaderItem('deflate'), new AcceptHeaderItem('sdch')], 'gzip,deflate,sdch'],
             [[new AcceptHeaderItem('this;should,not=matter')], 'this;should,not=matter'],
         ];
->>>>>>> dev
     }
 
     /**
@@ -104,15 +78,9 @@ class AcceptHeaderTest extends TestCase
 
     public function provideFilterData()
     {
-<<<<<<< HEAD
-        return array(
-            array('fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4', '/fr.*/', array('fr-FR', 'fr')),
-        );
-=======
         return [
             ['fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4', '/fr.*/', ['fr-FR', 'fr']],
         ];
->>>>>>> dev
     }
 
     /**
@@ -126,13 +94,6 @@ class AcceptHeaderTest extends TestCase
 
     public function provideSortingData()
     {
-<<<<<<< HEAD
-        return array(
-            'quality has priority' => array('*;q=0.3,ISO-8859-1,utf-8;q=0.7',  array('ISO-8859-1', 'utf-8', '*')),
-            'order matters when q is equal' => array('*;q=0.3,ISO-8859-1;q=0.7,utf-8;q=0.7',  array('ISO-8859-1', 'utf-8', '*')),
-            'order matters when q is equal2' => array('*;q=0.3,utf-8;q=0.7,ISO-8859-1;q=0.7',  array('utf-8', 'ISO-8859-1', '*')),
-        );
-=======
         return [
             'quality has priority' => ['*;q=0.3,ISO-8859-1,utf-8;q=0.7', ['ISO-8859-1', 'utf-8', '*']],
             'order matters when q is equal' => ['*;q=0.3,ISO-8859-1;q=0.7,utf-8;q=0.7', ['ISO-8859-1', 'utf-8', '*']],
@@ -165,6 +126,5 @@ class AcceptHeaderTest extends TestCase
         yield ['*;q=0.3, ISO-8859-1;q=0.7, utf-8;q=0.7', '*', 0.3];
         yield ['*;q=0.3, ISO-8859-1;q=0.7, utf-8;q=0.7', 'utf-8', 0.7];
         yield ['*;q=0.3, ISO-8859-1;q=0.7, utf-8;q=0.7', 'SHIFT_JIS', 0.3];
->>>>>>> dev
     }
 }

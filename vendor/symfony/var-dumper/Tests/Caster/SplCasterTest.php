@@ -11,32 +11,20 @@
 
 namespace Symfony\Component\VarDumper\Tests\Caster;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-<<<<<<< HEAD
-class SplCasterTest extends \PHPUnit_Framework_TestCase
-=======
 class SplCasterTest extends TestCase
->>>>>>> dev
 {
     use VarDumperTestTrait;
 
     public function getCastFileInfoTests()
     {
-<<<<<<< HEAD
-        return array(
-            array(__FILE__, <<<'EOTXT'
-=======
         return [
             [__FILE__, <<<'EOTXT'
->>>>>>> dev
 SplFileInfo {
 %Apath: "%sCaster"
   filename: "SplCasterTest.php"
@@ -47,11 +35,7 @@ SplFileInfo {
   aTime: %s-%s-%d %d:%d:%d
   mTime: %s-%s-%d %d:%d:%d
   cTime: %s-%s-%d %d:%d:%d
-<<<<<<< HEAD
-  inode: %d
-=======
   inode: %i
->>>>>>> dev
   size: %d
   perms: 0%d
   owner: %d
@@ -65,13 +49,8 @@ SplFileInfo {
   link: false
 %A}
 EOTXT
-<<<<<<< HEAD
-            ),
-            array('https://google.com/about', <<<'EOTXT'
-=======
             ],
             ['https://google.com/about', <<<'EOTXT'
->>>>>>> dev
 SplFileInfo {
 %Apath: "https://google.com"
   filename: "about"
@@ -81,13 +60,8 @@ SplFileInfo {
   realPath: false
 %A}
 EOTXT
-<<<<<<< HEAD
-            ),
-        );
-=======
             ],
         ];
->>>>>>> dev
     }
 
     /** @dataProvider getCastFileInfoTests */
@@ -111,11 +85,7 @@ SplFileObject {
   aTime: %s-%s-%d %d:%d:%d
   mTime: %s-%s-%d %d:%d:%d
   cTime: %s-%s-%d %d:%d:%d
-<<<<<<< HEAD
-  inode: %d
-=======
   inode: %i
->>>>>>> dev
   size: %d
   perms: 0%d
   owner: %d
@@ -127,26 +97,15 @@ SplFileObject {
   file: true
   dir: false
   link: false
-<<<<<<< HEAD
-%AcsvControl: array:2 [
-    0 => ","
-    1 => """
-  ]
-=======
 %AcsvControl: array:%d [
     0 => ","
     1 => """
 %A]
->>>>>>> dev
   flags: DROP_NEW_LINE|SKIP_EMPTY
   maxLineLen: 0
   fstat: array:26 [
     "dev" => %d
-<<<<<<< HEAD
-    "ino" => %d
-=======
     "ino" => %i
->>>>>>> dev
     "nlink" => %d
     "rdev" => 0
     "blksize" => %i
@@ -159,8 +118,6 @@ SplFileObject {
 EOTXT;
         $this->assertDumpMatchesFormat($dump, $var);
     }
-<<<<<<< HEAD
-=======
 
     /**
      * @dataProvider provideCastSplDoublyLinkedList
@@ -247,5 +204,4 @@ EOTXT;
 class MyArrayIterator extends \ArrayIterator
 {
     private $foo = 123;
->>>>>>> dev
 }

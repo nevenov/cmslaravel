@@ -2,10 +2,7 @@
 
 namespace Illuminate\Foundation\Console;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Arr;
->>>>>>> dev
 use Illuminate\Console\Command;
 use League\Flysystem\MountManager;
 use Illuminate\Filesystem\Filesystem;
@@ -23,8 +20,6 @@ class VendorPublishCommand extends Command
     protected $files;
 
     /**
-<<<<<<< HEAD
-=======
      * The provider to publish.
      *
      * @var string
@@ -39,21 +34,14 @@ class VendorPublishCommand extends Command
     protected $tags = [];
 
     /**
->>>>>>> dev
      * The console command signature.
      *
      * @var string
      */
-<<<<<<< HEAD
-    protected $signature = 'vendor:publish {--force : Overwrite any existing files.}
-            {--provider= : The service provider that has assets you want to publish.}
-            {--tag=* : One or many tags that have assets you want to publish.}';
-=======
     protected $signature = 'vendor:publish {--force : Overwrite any existing files}
                     {--all : Publish assets for all service providers without prompt}
                     {--provider= : The service provider that has assets you want to publish}
                     {--tag=* : One or many tags that have assets you want to publish}';
->>>>>>> dev
 
     /**
      * The console command description.
@@ -80,17 +68,6 @@ class VendorPublishCommand extends Command
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-    {
-        $tags = $this->option('tag');
-
-        $tags = $tags ?: [null];
-
-        foreach ((array) $tags as $tag) {
-            $this->publishTag($tag);
-        }
-=======
     public function handle()
     {
         $this->determineWhatShouldBePublished();
@@ -170,7 +147,6 @@ class VendorPublishCommand extends Command
         } elseif ($type === 'Tag') {
             $this->tags = [$value];
         }
->>>>>>> dev
     }
 
     /**
@@ -179,29 +155,6 @@ class VendorPublishCommand extends Command
      * @param  string  $tag
      * @return mixed
      */
-<<<<<<< HEAD
-    private function publishTag($tag)
-    {
-        $paths = ServiceProvider::pathsToPublish(
-            $this->option('provider'), $tag
-        );
-
-        if (empty($paths)) {
-            return $this->comment("Nothing to publish for tag [{$tag}].");
-        }
-
-        foreach ($paths as $from => $to) {
-            if ($this->files->isFile($from)) {
-                $this->publishFile($from, $to);
-            } elseif ($this->files->isDirectory($from)) {
-                $this->publishDirectory($from, $to);
-            } else {
-                $this->error("Can't locate path: <{$from}>");
-            }
-        }
-
-        $this->info("Publishing complete for tag [{$tag}]!");
-=======
     protected function publishTag($tag)
     {
         foreach ($this->pathsToPublish($tag) as $from => $to) {
@@ -238,7 +191,6 @@ class VendorPublishCommand extends Command
         }
 
         $this->error("Can't locate path: <{$from}>");
->>>>>>> dev
     }
 
     /**
@@ -250,17 +202,6 @@ class VendorPublishCommand extends Command
      */
     protected function publishFile($from, $to)
     {
-<<<<<<< HEAD
-        if ($this->files->exists($to) && ! $this->option('force')) {
-            return;
-        }
-
-        $this->createParentDirectory(dirname($to));
-
-        $this->files->copy($from, $to);
-
-        $this->status($from, $to, 'File');
-=======
         if (! $this->files->exists($to) || $this->option('force')) {
             $this->createParentDirectory(dirname($to));
 
@@ -268,7 +209,6 @@ class VendorPublishCommand extends Command
 
             $this->status($from, $to, 'File');
         }
->>>>>>> dev
     }
 
     /**
@@ -280,13 +220,6 @@ class VendorPublishCommand extends Command
      */
     protected function publishDirectory($from, $to)
     {
-<<<<<<< HEAD
-        $manager = new MountManager([
-            'from' => new Flysystem(new LocalAdapter($from)),
-            'to' => new Flysystem(new LocalAdapter($to)),
-        ]);
-
-=======
         $this->moveManagedFiles(new MountManager([
             'from' => new Flysystem(new LocalAdapter($from)),
             'to' => new Flysystem(new LocalAdapter($to)),
@@ -303,17 +236,11 @@ class VendorPublishCommand extends Command
      */
     protected function moveManagedFiles($manager)
     {
->>>>>>> dev
         foreach ($manager->listContents('from://', true) as $file) {
             if ($file['type'] === 'file' && (! $manager->has('to://'.$file['path']) || $this->option('force'))) {
                 $manager->put('to://'.$file['path'], $manager->read('from://'.$file['path']));
             }
         }
-<<<<<<< HEAD
-
-        $this->status($from, $to, 'Directory');
-=======
->>>>>>> dev
     }
 
     /**

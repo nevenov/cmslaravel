@@ -19,29 +19,6 @@ namespace Symfony\Component\HttpFoundation\Session\Flash;
 class FlashBag implements FlashBagInterface
 {
     private $name = 'flashes';
-<<<<<<< HEAD
-
-    /**
-     * Flash messages.
-     *
-     * @var array
-     */
-    private $flashes = array();
-
-    /**
-     * The storage key for flashes in the session.
-     *
-     * @var string
-     */
-    private $storageKey;
-
-    /**
-     * Constructor.
-     *
-     * @param string $storageKey The key used to store flashes in the session
-     */
-    public function __construct($storageKey = '_sf2_flashes')
-=======
     private $flashes = [];
     private $storageKey;
 
@@ -49,7 +26,6 @@ class FlashBag implements FlashBagInterface
      * @param string $storageKey The key used to store flashes in the session
      */
     public function __construct(string $storageKey = '_symfony_flashes')
->>>>>>> dev
     {
         $this->storageKey = $storageKey;
     }
@@ -86,11 +62,7 @@ class FlashBag implements FlashBagInterface
     /**
      * {@inheritdoc}
      */
-<<<<<<< HEAD
-    public function peek($type, array $default = array())
-=======
     public function peek($type, array $default = [])
->>>>>>> dev
     {
         return $this->has($type) ? $this->flashes[$type] : $default;
     }
@@ -106,11 +78,7 @@ class FlashBag implements FlashBagInterface
     /**
      * {@inheritdoc}
      */
-<<<<<<< HEAD
-    public function get($type, array $default = array())
-=======
     public function get($type, array $default = [])
->>>>>>> dev
     {
         if (!$this->has($type)) {
             return $default;
@@ -129,11 +97,7 @@ class FlashBag implements FlashBagInterface
     public function all()
     {
         $return = $this->peekAll();
-<<<<<<< HEAD
-        $this->flashes = array();
-=======
         $this->flashes = [];
->>>>>>> dev
 
         return $return;
     }
@@ -159,11 +123,7 @@ class FlashBag implements FlashBagInterface
      */
     public function has($type)
     {
-<<<<<<< HEAD
-        return array_key_exists($type, $this->flashes) && $this->flashes[$type];
-=======
         return \array_key_exists($type, $this->flashes) && $this->flashes[$type];
->>>>>>> dev
     }
 
     /**

@@ -11,10 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Handler;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\TestCase;
->>>>>>> dev
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
@@ -26,22 +23,12 @@ use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
-<<<<<<< HEAD
-class NativeFileSessionHandlerTest extends \PHPUnit_Framework_TestCase
-{
-    public function testConstruct()
-    {
-        $storage = new NativeSessionStorage(array('name' => 'TESTING'), new NativeFileSessionHandler(sys_get_temp_dir()));
-
-        $this->assertEquals('files', $storage->getSaveHandler()->getSaveHandlerName());
-=======
 class NativeFileSessionHandlerTest extends TestCase
 {
     public function testConstruct()
     {
         $storage = new NativeSessionStorage(['name' => 'TESTING'], new NativeFileSessionHandler(sys_get_temp_dir()));
 
->>>>>>> dev
         $this->assertEquals('user', ini_get('session.save_handler'));
 
         $this->assertEquals(sys_get_temp_dir(), ini_get('session.save_path'));
@@ -64,19 +51,11 @@ class NativeFileSessionHandlerTest extends TestCase
     {
         $base = sys_get_temp_dir();
 
-<<<<<<< HEAD
-        return array(
-            array("$base/foo", "$base/foo", "$base/foo"),
-            array("5;$base/foo", "5;$base/foo", "$base/foo"),
-            array("5;0600;$base/foo", "5;0600;$base/foo", "$base/foo"),
-        );
-=======
         return [
             ["$base/foo", "$base/foo", "$base/foo"],
             ["5;$base/foo", "5;$base/foo", "$base/foo"],
             ["5;0600;$base/foo", "5;0600;$base/foo", "$base/foo"],
         ];
->>>>>>> dev
     }
 
     /**
@@ -90,11 +69,7 @@ class NativeFileSessionHandlerTest extends TestCase
     public function testConstructDefault()
     {
         $path = ini_get('session.save_path');
-<<<<<<< HEAD
-        $storage = new NativeSessionStorage(array('name' => 'TESTING'), new NativeFileSessionHandler());
-=======
         $storage = new NativeSessionStorage(['name' => 'TESTING'], new NativeFileSessionHandler());
->>>>>>> dev
 
         $this->assertEquals($path, ini_get('session.save_path'));
     }

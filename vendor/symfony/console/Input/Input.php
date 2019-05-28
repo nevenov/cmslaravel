@@ -25,23 +25,6 @@ use Symfony\Component\Console\Exception\RuntimeException;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-<<<<<<< HEAD
-abstract class Input implements InputInterface
-{
-    /**
-     * @var InputDefinition
-     */
-    protected $definition;
-    protected $options = array();
-    protected $arguments = array();
-    protected $interactive = true;
-
-    /**
-     * Constructor.
-     *
-     * @param InputDefinition|null $definition A InputDefinition instance
-     */
-=======
 abstract class Input implements InputInterface, StreamableInputInterface
 {
     protected $definition;
@@ -50,7 +33,6 @@ abstract class Input implements InputInterface, StreamableInputInterface
     protected $arguments = [];
     protected $interactive = true;
 
->>>>>>> dev
     public function __construct(InputDefinition $definition = null)
     {
         if (null === $definition) {
@@ -66,13 +48,8 @@ abstract class Input implements InputInterface, StreamableInputInterface
      */
     public function bind(InputDefinition $definition)
     {
-<<<<<<< HEAD
-        $this->arguments = array();
-        $this->options = array();
-=======
         $this->arguments = [];
         $this->options = [];
->>>>>>> dev
         $this->definition = $definition;
 
         $this->parse();
@@ -92,17 +69,10 @@ abstract class Input implements InputInterface, StreamableInputInterface
         $givenArguments = $this->arguments;
 
         $missingArguments = array_filter(array_keys($definition->getArguments()), function ($argument) use ($definition, $givenArguments) {
-<<<<<<< HEAD
-            return !array_key_exists($argument, $givenArguments) && $definition->getArgument($argument)->isRequired();
-        });
-
-        if (count($missingArguments) > 0) {
-=======
             return !\array_key_exists($argument, $givenArguments) && $definition->getArgument($argument)->isRequired();
         });
 
         if (\count($missingArguments) > 0) {
->>>>>>> dev
             throw new RuntimeException(sprintf('Not enough arguments (missing: "%s").', implode(', ', $missingArguments)));
         }
     }
@@ -180,11 +150,7 @@ abstract class Input implements InputInterface, StreamableInputInterface
             throw new InvalidArgumentException(sprintf('The "%s" option does not exist.', $name));
         }
 
-<<<<<<< HEAD
-        return isset($this->options[$name]) ? $this->options[$name] : $this->definition->getOption($name)->getDefault();
-=======
         return \array_key_exists($name, $this->options) ? $this->options[$name] : $this->definition->getOption($name)->getDefault();
->>>>>>> dev
     }
 
     /**
@@ -218,8 +184,6 @@ abstract class Input implements InputInterface, StreamableInputInterface
     {
         return preg_match('{^[\w-]+$}', $token) ? $token : escapeshellarg($token);
     }
-<<<<<<< HEAD
-=======
 
     /**
      * {@inheritdoc}
@@ -236,5 +200,4 @@ abstract class Input implements InputInterface, StreamableInputInterface
     {
         return $this->stream;
     }
->>>>>>> dev
 }

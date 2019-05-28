@@ -1,8 +1,6 @@
 CHANGELOG
 =========
 
-<<<<<<< HEAD
-=======
 4.2.0
 -----
 
@@ -54,7 +52,6 @@ CHANGELOG
 
  * Deprecated the backup feature of the file dumper classes.
 
->>>>>>> dev
 3.0.0
 -----
 

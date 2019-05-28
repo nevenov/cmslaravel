@@ -22,20 +22,6 @@ namespace Symfony\Component\Routing\Annotation;
 class Route
 {
     private $path;
-<<<<<<< HEAD
-    private $name;
-    private $requirements = array();
-    private $options = array();
-    private $defaults = array();
-    private $host;
-    private $methods = array();
-    private $schemes = array();
-    private $condition;
-
-    /**
-     * Constructor.
-     *
-=======
     private $localizedPaths = [];
     private $name;
     private $requirements = [];
@@ -47,24 +33,12 @@ class Route
     private $condition;
 
     /**
->>>>>>> dev
      * @param array $data An array of key/value parameters
      *
      * @throws \BadMethodCallException
      */
     public function __construct(array $data)
     {
-<<<<<<< HEAD
-        if (isset($data['value'])) {
-            $data['path'] = $data['value'];
-            unset($data['value']);
-        }
-
-        foreach ($data as $key => $value) {
-            $method = 'set'.str_replace('_', '', $key);
-            if (!method_exists($this, $method)) {
-                throw new \BadMethodCallException(sprintf('Unknown property "%s" on annotation "%s".', $key, get_class($this)));
-=======
         if (isset($data['localized_paths'])) {
             throw new \BadMethodCallException(sprintf('Unknown property "localized_paths" on annotation "%s".', \get_class($this)));
         }
@@ -83,7 +57,6 @@ class Route
             $method = 'set'.str_replace('_', '', $key);
             if (!method_exists($this, $method)) {
                 throw new \BadMethodCallException(sprintf('Unknown property "%s" on annotation "%s".', $key, \get_class($this)));
->>>>>>> dev
             }
             $this->$method($value);
         }
@@ -99,8 +72,6 @@ class Route
         return $this->path;
     }
 
-<<<<<<< HEAD
-=======
     public function setLocalizedPaths(array $localizedPaths)
     {
         $this->localizedPaths = $localizedPaths;
@@ -111,7 +82,6 @@ class Route
         return $this->localizedPaths;
     }
 
->>>>>>> dev
     public function setHost($pattern)
     {
         $this->host = $pattern;
@@ -164,11 +134,7 @@ class Route
 
     public function setSchemes($schemes)
     {
-<<<<<<< HEAD
-        $this->schemes = is_array($schemes) ? $schemes : array($schemes);
-=======
         $this->schemes = \is_array($schemes) ? $schemes : [$schemes];
->>>>>>> dev
     }
 
     public function getSchemes()
@@ -178,11 +144,7 @@ class Route
 
     public function setMethods($methods)
     {
-<<<<<<< HEAD
-        $this->methods = is_array($methods) ? $methods : array($methods);
-=======
         $this->methods = \is_array($methods) ? $methods : [$methods];
->>>>>>> dev
     }
 
     public function getMethods()

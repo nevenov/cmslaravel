@@ -11,14 +11,6 @@
 
 namespace Symfony\Component\VarDumper\Cloner;
 
-<<<<<<< HEAD
-/**
- * @author Nicolas Grekas <p@tchwork.com>
- */
-class Data
-{
-    private $data;
-=======
 use Symfony\Component\VarDumper\Caster\Caster;
 
 /**
@@ -29,17 +21,12 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     private $data;
     private $position = 0;
     private $key = 0;
->>>>>>> dev
     private $maxDepth = 20;
     private $maxItemsPerDepth = -1;
     private $useRefHandles = -1;
 
     /**
-<<<<<<< HEAD
-     * @param array $data A array as returned by ClonerInterface::cloneVar()
-=======
      * @param array $data An array as returned by ClonerInterface::cloneVar()
->>>>>>> dev
      */
     public function __construct(array $data)
     {
@@ -47,13 +34,6 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
-<<<<<<< HEAD
-     * @return array The raw data structure
-     */
-    public function getRawData()
-    {
-        return $this->data;
-=======
      * @return string The type of the value
      */
     public function getType()
@@ -181,7 +161,6 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
         }
 
         return sprintf('%s (count=%d)', $this->getType(), \count($value));
->>>>>>> dev
     }
 
     /**
@@ -230,8 +209,6 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Seeks to a specific key in nested data structures.
      *
      * @param string|int $key The key to seek to
@@ -280,18 +257,12 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
->>>>>>> dev
      * Dumps data with a DumperInterface dumper.
      */
     public function dump(DumperInterface $dumper)
     {
-<<<<<<< HEAD
-        $refs = array(0);
-        $this->dumpItem($dumper, new Cursor(), $refs, $this->data[0][0]);
-=======
         $refs = [0];
         $this->dumpItem($dumper, new Cursor(), $refs, $this->data[$this->position][$this->key]);
->>>>>>> dev
     }
 
     /**
@@ -310,15 +281,11 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
         $firstSeen = true;
 
         if (!$item instanceof Stub) {
-<<<<<<< HEAD
-            $type = gettype($item);
-=======
             $cursor->attr = [];
             $type = \gettype($item);
             if ($item && 'array' === $type) {
                 $item = $this->getStub($item);
             }
->>>>>>> dev
         } elseif (Stub::TYPE_REF === $item->type) {
             if ($item->handle) {
                 if (!isset($refs[$r = $item->handle - (PHP_INT_MAX >> 1)])) {
@@ -330,14 +297,9 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
                 $cursor->hardRefHandle = $this->useRefHandles & $item->handle;
                 $cursor->hardRefCount = $item->refCount;
             }
-<<<<<<< HEAD
-            $type = $item->class ?: gettype($item->value);
-            $item = $item->value;
-=======
             $cursor->attr = $item->attr;
             $type = $item->class ?: \gettype($item->value);
             $item = $this->getStub($item->value);
->>>>>>> dev
         }
         if ($item instanceof Stub) {
             if ($item->refCount) {
@@ -350,10 +312,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
             }
             $cursor->softRefHandle = $this->useRefHandles & $item->handle;
             $cursor->softRefCount = $item->refCount;
-<<<<<<< HEAD
-=======
             $cursor->attr = $item->attr;
->>>>>>> dev
             $cut = $item->cut;
 
             if ($item->position && $firstSeen) {
@@ -361,21 +320,12 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
 
                 if ($cursor->stop) {
                     if ($cut >= 0) {
-<<<<<<< HEAD
-                        $cut += count($children);
-                    }
-                    $children = array();
-                }
-            } else {
-                $children = array();
-=======
                         $cut += \count($children);
                     }
                     $children = [];
                 }
             } else {
                 $children = [];
->>>>>>> dev
             }
             switch ($item->type) {
                 case Stub::TYPE_STRING:
@@ -386,22 +336,12 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
                     $item = clone $item;
                     $item->type = $item->class;
                     $item->class = $item->value;
-<<<<<<< HEAD
-                    // No break;
-=======
                     // no break
->>>>>>> dev
                 case Stub::TYPE_OBJECT:
                 case Stub::TYPE_RESOURCE:
                     $withChildren = $children && $cursor->depth !== $this->maxDepth && $this->maxItemsPerDepth;
                     $dumper->enterHash($cursor, $item->type, $item->class, $withChildren);
                     if ($withChildren) {
-<<<<<<< HEAD
-                        $cut = $this->dumpChildren($dumper, $cursor, $refs, $children, $cut, $item->type);
-                    } elseif ($children && 0 <= $cut) {
-                        $cut += count($children);
-                    }
-=======
                         if ($cursor->skipChildren) {
                             $withChildren = false;
                             $cut = -1;
@@ -412,7 +352,6 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
                         $cut += \count($children);
                     }
                     $cursor->skipChildren = false;
->>>>>>> dev
                     $dumper->leaveHash($cursor, $item->type, $item->class, $withChildren, $cut);
                     break;
 
@@ -438,36 +377,21 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * @param array           $children     The children to dump
      * @param int             $hashCut      The number of items removed from the original hash
      * @param string          $hashType     A Cursor::HASH_* const
-<<<<<<< HEAD
-     *
-     * @return int The final number of removed items
-     */
-    private function dumpChildren($dumper, $parentCursor, &$refs, $children, $hashCut, $hashType)
-=======
      * @param bool            $dumpKeys     Whether keys should be dumped or not
      *
      * @return int The final number of removed items
      */
     private function dumpChildren($dumper, $parentCursor, &$refs, $children, $hashCut, $hashType, $dumpKeys)
->>>>>>> dev
     {
         $cursor = clone $parentCursor;
         ++$cursor->depth;
         $cursor->hashType = $hashType;
         $cursor->hashIndex = 0;
-<<<<<<< HEAD
-        $cursor->hashLength = count($children);
-        $cursor->hashCut = $hashCut;
-        foreach ($children as $key => $child) {
-            $cursor->hashKeyIsBinary = isset($key[0]) && !preg_match('//u', $key);
-            $cursor->hashKey = $key;
-=======
         $cursor->hashLength = \count($children);
         $cursor->hashCut = $hashCut;
         foreach ($children as $key => $child) {
             $cursor->hashKeyIsBinary = isset($key[0]) && !preg_match('//u', $key);
             $cursor->hashKey = $dumpKeys ? $key : null;
->>>>>>> dev
             $this->dumpItem($dumper, $cursor, $refs, $child);
             if (++$cursor->hashIndex === $this->maxItemsPerDepth || $cursor->stop) {
                 $parentCursor->stop = true;
@@ -478,8 +402,6 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
 
         return $hashCut;
     }
-<<<<<<< HEAD
-=======
 
     private function getStub($item)
     {
@@ -498,5 +420,4 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
 
         return $stub;
     }
->>>>>>> dev
 }

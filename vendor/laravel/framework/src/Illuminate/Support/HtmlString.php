@@ -25,11 +25,7 @@ class HtmlString implements Htmlable
     }
 
     /**
-<<<<<<< HEAD
-     * Get the the HTML string.
-=======
      * Get the HTML string.
->>>>>>> dev
      *
      * @return string
      */
@@ -39,11 +35,7 @@ class HtmlString implements Htmlable
     }
 
     /**
-<<<<<<< HEAD
-     * Get the the HTML string.
-=======
      * Get the HTML string.
->>>>>>> dev
      *
      * @return string
      */

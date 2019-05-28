@@ -39,9 +39,6 @@ class ResourceRegistrar
      *
      * @var bool
      */
-<<<<<<< HEAD
-    protected static $singularParameters = false;
-=======
     protected static $singularParameters = true;
 
     /**
@@ -53,7 +50,6 @@ class ResourceRegistrar
         'create' => 'create',
         'edit' => 'edit',
     ];
->>>>>>> dev
 
     /**
      * Create a new resource registrar instance.
@@ -72,11 +68,7 @@ class ResourceRegistrar
      * @param  string  $name
      * @param  string  $controller
      * @param  array   $options
-<<<<<<< HEAD
-     * @return void
-=======
      * @return \Illuminate\Routing\RouteCollection
->>>>>>> dev
      */
     public function register($name, $controller, array $options = [])
     {
@@ -100,11 +92,6 @@ class ResourceRegistrar
 
         $defaults = $this->resourceDefaults;
 
-<<<<<<< HEAD
-        foreach ($this->getResourceMethods($defaults, $options) as $m) {
-            $this->{'addResource'.ucfirst($m)}($name, $base, $controller, $options);
-        }
-=======
         $collection = new RouteCollection;
 
         foreach ($this->getResourceMethods($defaults, $options) as $m) {
@@ -114,7 +101,6 @@ class ResourceRegistrar
         }
 
         return $collection;
->>>>>>> dev
     }
 
     /**
@@ -127,11 +113,7 @@ class ResourceRegistrar
      */
     protected function prefixedResource($name, $controller, array $options)
     {
-<<<<<<< HEAD
-        list($name, $prefix) = $this->getResourcePrefix($name);
-=======
         [$name, $prefix] = $this->getResourcePrefix($name);
->>>>>>> dev
 
         // We need to extract the base resource from the resource name. Nested resources
         // are supported in the framework, but we need to know what name to use for a
@@ -170,133 +152,6 @@ class ResourceRegistrar
      */
     protected function getResourceMethods($defaults, $options)
     {
-<<<<<<< HEAD
-        if (isset($options['only'])) {
-            return array_intersect($defaults, (array) $options['only']);
-        } elseif (isset($options['except'])) {
-            return array_diff($defaults, (array) $options['except']);
-        }
-
-        return $defaults;
-    }
-
-    /**
-     * Get the base resource URI for a given resource.
-     *
-     * @param  string  $resource
-     * @return string
-     */
-    public function getResourceUri($resource)
-    {
-        if (! Str::contains($resource, '.')) {
-            return $resource;
-        }
-
-        // Once we have built the base URI, we'll remove the parameter holder for this
-        // base resource name so that the individual route adders can suffix these
-        // paths however they need to, as some do not have any parameters at all.
-        $segments = explode('.', $resource);
-
-        $uri = $this->getNestedResourceUri($segments);
-
-        return str_replace('/{'.$this->getResourceWildcard(end($segments)).'}', '', $uri);
-    }
-
-    /**
-     * Get the URI for a nested resource segment array.
-     *
-     * @param  array   $segments
-     * @return string
-     */
-    protected function getNestedResourceUri(array $segments)
-    {
-        // We will spin through the segments and create a place-holder for each of the
-        // resource segments, as well as the resource itself. Then we should get an
-        // entire string for the resource URI that contains all nested resources.
-        return implode('/', array_map(function ($s) {
-            return $s.'/{'.$this->getResourceWildcard($s).'}';
-        }, $segments));
-    }
-
-    /**
-     * Get the action array for a resource route.
-     *
-     * @param  string  $resource
-     * @param  string  $controller
-     * @param  string  $method
-     * @param  array   $options
-     * @return array
-     */
-    protected function getResourceAction($resource, $controller, $method, $options)
-    {
-        $name = $this->getResourceName($resource, $method, $options);
-
-        return ['as' => $name, 'uses' => $controller.'@'.$method];
-    }
-
-    /**
-     * Get the name for a given resource.
-     *
-     * @param  string  $resource
-     * @param  string  $method
-     * @param  array   $options
-     * @return string
-     */
-    protected function getResourceName($resource, $method, $options)
-    {
-        if (isset($options['names'][$method])) {
-            return $options['names'][$method];
-        }
-
-        // If a global prefix has been assigned to all names for this resource, we will
-        // grab that so we can prepend it onto the name when we create this name for
-        // the resource action. Otherwise we'll just use an empty string for here.
-        $prefix = isset($options['as']) ? $options['as'].'.' : '';
-
-        if (! $this->router->hasGroupStack()) {
-            return $prefix.$resource.'.'.$method;
-        }
-
-        return $this->getGroupResourceName($prefix, $resource, $method);
-    }
-
-    /**
-     * Get the resource name for a grouped resource.
-     *
-     * @param  string  $prefix
-     * @param  string  $resource
-     * @param  string  $method
-     * @return string
-     */
-    protected function getGroupResourceName($prefix, $resource, $method)
-    {
-        $group = trim(str_replace('/', '.', $this->router->getLastGroupPrefix()), '.');
-
-        if (empty($group)) {
-            return trim("{$prefix}{$resource}.{$method}", '.');
-        }
-
-        return trim("{$prefix}{$group}.{$resource}.{$method}", '.');
-    }
-
-    /**
-     * Format a resource parameter for usage.
-     *
-     * @param  string  $value
-     * @return string
-     */
-    public function getResourceWildcard($value)
-    {
-        if (isset($this->parameters[$value])) {
-            $value = $this->parameters[$value];
-        } elseif (isset(static::$parameterMap[$value])) {
-            $value = static::$parameterMap[$value];
-        } elseif ($this->parameters === 'singular' || static::$singularParameters) {
-            $value = Str::singular($value);
-        }
-
-        return str_replace('-', '_', $value);
-=======
         $methods = $defaults;
 
         if (isset($options['only'])) {
@@ -308,7 +163,6 @@ class ResourceRegistrar
         }
 
         return $methods;
->>>>>>> dev
     }
 
     /**
@@ -340,11 +194,7 @@ class ResourceRegistrar
      */
     protected function addResourceCreate($name, $base, $controller, $options)
     {
-<<<<<<< HEAD
-        $uri = $this->getResourceUri($name).'/create';
-=======
         $uri = $this->getResourceUri($name).'/'.static::$verbs['create'];
->>>>>>> dev
 
         $action = $this->getResourceAction($name, $controller, 'create', $options);
 
@@ -398,11 +248,7 @@ class ResourceRegistrar
      */
     protected function addResourceEdit($name, $base, $controller, $options)
     {
-<<<<<<< HEAD
-        $uri = $this->getResourceUri($name).'/{'.$base.'}/edit';
-=======
         $uri = $this->getResourceUri($name).'/{'.$base.'}/'.static::$verbs['edit'];
->>>>>>> dev
 
         $action = $this->getResourceAction($name, $controller, 'edit', $options);
 
@@ -446,10 +292,6 @@ class ResourceRegistrar
     }
 
     /**
-<<<<<<< HEAD
-     * Set or unset the unmapped global parameters to singular.
-     *
-=======
      * Get the base resource URI for a given resource.
      *
      * @param  string  $resource
@@ -563,7 +405,6 @@ class ResourceRegistrar
      * Set or unset the unmapped global parameters to singular.
      *
      * @param  bool  $singular
->>>>>>> dev
      * @return void
      */
     public static function singularParameters($singular = true)
@@ -591,8 +432,6 @@ class ResourceRegistrar
     {
         static::$parameterMap = $parameters;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get or set the action verbs used in the resource URIs.
@@ -608,5 +447,4 @@ class ResourceRegistrar
             static::$verbs = array_merge(static::$verbs, $verbs);
         }
     }
->>>>>>> dev
 }

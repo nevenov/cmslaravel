@@ -1,13 +1,9 @@
 <?php
 require_once 'BankAccount.php';
 
-<<<<<<< HEAD
-class BankAccountTest extends PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 
 class BankAccountTest extends TestCase
->>>>>>> dev
 {
     protected $ba;
 

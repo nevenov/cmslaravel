@@ -7,34 +7,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-=======
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\Comparator\ComparisonFailure;
->>>>>>> dev
 
 /**
  * Constraint that asserts that the array it is evaluated for has a specified subset.
  *
  * Uses array_replace_recursive() to check if a key value subset is part of the
  * subject array.
-<<<<<<< HEAD
- *
- * @since Class available since Release 4.4.0
- */
-class PHPUnit_Framework_Constraint_ArraySubset extends PHPUnit_Framework_Constraint
-{
-    /**
-     * @var array|ArrayAccess
-=======
  */
 class ArraySubset extends Constraint
 {
     /**
      * @var array|\Traversable
->>>>>>> dev
      */
     protected $subset;
 
@@ -44,53 +31,18 @@ class ArraySubset extends Constraint
     protected $strict;
 
     /**
-<<<<<<< HEAD
-     * @param array|ArrayAccess $subset
-     * @param bool              $strict Check for object identity
-=======
      * @param array|\Traversable $subset
      * @param bool               $strict Check for object identity
->>>>>>> dev
      */
     public function __construct($subset, $strict = false)
     {
         parent::__construct();
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
         $this->strict = $strict;
         $this->subset = $subset;
     }
 
     /**
-<<<<<<< HEAD
-     * Evaluates the constraint for parameter $other. Returns true if the
-     * constraint is met, false otherwise.
-     *
-     * @param array|ArrayAccess $other Array or ArrayAccess object to evaluate.
-     *
-     * @return bool
-     */
-    protected function matches($other)
-    {
-        //type cast $other & $this->subset as an array to allow 
-        //support in standard array functions.
-        if($other instanceof ArrayAccess) {
-            $other = (array) $other;
-        }
-
-        if($this->subset instanceof ArrayAccess) {
-            $this->subset = (array) $this->subset;
-        }
-
-        $patched = array_replace_recursive($other, $this->subset);
-
-        if ($this->strict) {
-            return $other === $patched;
-        } else {
-            return $other == $patched;
-=======
      * Evaluates the constraint for parameter $other
      *
      * If $returnResult is set to false (the default), an exception is thrown
@@ -136,7 +88,6 @@ class ArraySubset extends Constraint
             );
 
             $this->fail($other, $description, $f);
->>>>>>> dev
         }
     }
 
@@ -164,8 +115,6 @@ class ArraySubset extends Constraint
     {
         return 'an array ' . $this->toString();
     }
-<<<<<<< HEAD
-=======
 
     /**
      * @param array|\Traversable $other
@@ -189,5 +138,4 @@ class ArraySubset extends Constraint
         // Keep BC even if we know that array would not be the expected one
         return (array) $other;
     }
->>>>>>> dev
 }

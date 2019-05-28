@@ -2,9 +2,6 @@
 
 namespace Illuminate\Support\Facades;
 
-<<<<<<< HEAD
-/**
-=======
 use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
 
 /**
@@ -14,7 +11,6 @@ use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
  * @method static array all()
  * @method static string output()
  *
->>>>>>> dev
  * @see \Illuminate\Contracts\Console\Kernel
  */
 class Artisan extends Facade
@@ -26,10 +22,6 @@ class Artisan extends Facade
      */
     protected static function getFacadeAccessor()
     {
-<<<<<<< HEAD
-        return 'Illuminate\Contracts\Console\Kernel';
-=======
         return ConsoleKernelContract::class;
->>>>>>> dev
     }
 }

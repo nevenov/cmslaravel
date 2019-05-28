@@ -39,8 +39,6 @@ interface Gate
     public function before(callable $callback);
 
     /**
-<<<<<<< HEAD
-=======
      * Register a callback to run after all Gate checks.
      *
      * @param  callable  $callback
@@ -49,7 +47,6 @@ interface Gate
     public function after(callable $callback);
 
     /**
->>>>>>> dev
      * Determine if the given ability should be granted for the current user.
      *
      * @param  string  $ability
@@ -68,15 +65,6 @@ interface Gate
     public function denies($ability, $arguments = []);
 
     /**
-<<<<<<< HEAD
-     * Determine if the given ability should be granted.
-     *
-     * @param  string  $ability
-     * @param  array|mixed  $arguments
-     * @return bool
-     */
-    public function check($ability, $arguments = []);
-=======
      * Determine if all of the given abilities should be granted for the current user.
      *
      * @param  iterable|string  $abilities
@@ -123,7 +111,6 @@ interface Gate
      * @throws \InvalidArgumentException
      */
     public function getPolicyFor($class);
->>>>>>> dev
 
     /**
      * Get a guard instance for the given user.
@@ -132,8 +119,6 @@ interface Gate
      * @return static
      */
     public function forUser($user);
-<<<<<<< HEAD
-=======
 
     /**
      * Get all of the defined abilities.
@@ -141,5 +126,4 @@ interface Gate
      * @return array
      */
     public function abilities();
->>>>>>> dev
 }

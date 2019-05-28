@@ -7,31 +7,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-=======
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\ExpectationFailedException;
->>>>>>> dev
 
 /**
  * Constraint that asserts that the Traversable it is applied to contains
  * only values of a given type.
-<<<<<<< HEAD
- *
- * @since Class available since Release 3.1.4
- */
-class PHPUnit_Framework_Constraint_TraversableContainsOnly extends PHPUnit_Framework_Constraint
-{
-    /**
-     * @var PHPUnit_Framework_Constraint
-=======
  */
 class TraversableContainsOnly extends Constraint
 {
     /**
      * @var Constraint
->>>>>>> dev
      */
     protected $constraint;
 
@@ -49,15 +36,9 @@ class TraversableContainsOnly extends Constraint
         parent::__construct();
 
         if ($isNativeType) {
-<<<<<<< HEAD
-            $this->constraint = new PHPUnit_Framework_Constraint_IsType($type);
-        } else {
-            $this->constraint = new PHPUnit_Framework_Constraint_IsInstanceOf(
-=======
             $this->constraint = new IsType($type);
         } else {
             $this->constraint = new IsInstanceOf(
->>>>>>> dev
                 $type
             );
         }
@@ -81,11 +62,7 @@ class TraversableContainsOnly extends Constraint
      *
      * @return mixed
      *
-<<<<<<< HEAD
-     * @throws PHPUnit_Framework_ExpectationFailedException
-=======
      * @throws ExpectationFailedException
->>>>>>> dev
      */
     public function evaluate($other, $description = '', $returnResult = false)
     {
@@ -94,10 +71,7 @@ class TraversableContainsOnly extends Constraint
         foreach ($other as $item) {
             if (!$this->constraint->evaluate($item, '', true)) {
                 $success = false;
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
                 break;
             }
         }

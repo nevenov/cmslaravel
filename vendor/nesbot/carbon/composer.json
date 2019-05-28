@@ -20,22 +20,6 @@
             "homepage": "http://nesbot.com"
         }
     ],
-<<<<<<< HEAD
-    "require": {
-        "php": ">=5.3.9",
-        "symfony/translation": "~2.6 || ~3.0 || ~4.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^4.8.35 || ^5.7"
-    },
-    "suggest": {
-        "friendsofphp/php-cs-fixer": "Needed for the `composer phpcs` command. Allow to automatically fix code style.",
-        "phpstan/phpstan": "Needed for the `composer phpstan` command. Allow to detect potential errors."
-    },
-    "autoload": {
-        "psr-4": {
-            "": "src/"
-=======
     "minimum-stability": "dev",
     "require": {
         "php": "^7.1.8 || ^8.0",
@@ -53,7 +37,6 @@
     "autoload": {
         "psr-4": {
             "Carbon\\": "src/Carbon/"
->>>>>>> dev
         }
     },
     "autoload-dev": {
@@ -62,10 +45,7 @@
         }
     },
     "config": {
-<<<<<<< HEAD
-=======
         "process-timeout": 0,
->>>>>>> dev
         "sort-packages": true
     },
     "scripts": {
@@ -73,17 +53,11 @@
             "@phpunit",
             "@phpcs"
         ],
-<<<<<<< HEAD
-        "phpunit": "phpunit --verbose --coverage-clover=coverage.xml",
-        "phpcs": "php-cs-fixer fix -v --diff --dry-run",
-        "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests"
-=======
         "phpunit": "phpunit --verbose",
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
         "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests",
         "phpmd": "phpmd src text /phpmd.xml",
         "phpdoc": "php phpdoc.php"
->>>>>>> dev
     },
     "extra": {
         "laravel": {

@@ -27,20 +27,6 @@ class JsonResponse extends Response
     protected $data;
     protected $callback;
 
-<<<<<<< HEAD
-    // Encode <, >, ', &, and " for RFC4627-compliant JSON, which may also be embedded into HTML.
-    // 15 === JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
-    protected $encodingOptions = 15;
-
-    /**
-     * Constructor.
-     *
-     * @param mixed $data    The response data
-     * @param int   $status  The response status code
-     * @param array $headers An array of response headers
-     */
-    public function __construct($data = null, $status = 200, $headers = array())
-=======
     // Encode <, >, ', &, and " characters in the JSON, making it also safe to be embedded into HTML.
     // 15 === JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
     const DEFAULT_ENCODING_OPTIONS = 15;
@@ -54,7 +40,6 @@ class JsonResponse extends Response
      * @param bool  $json    If the data is already a JSON string
      */
     public function __construct($data = null, int $status = 200, array $headers = [], bool $json = false)
->>>>>>> dev
     {
         parent::__construct('', $status, $headers);
 
@@ -62,15 +47,6 @@ class JsonResponse extends Response
             $data = new \ArrayObject();
         }
 
-<<<<<<< HEAD
-        $this->setData($data);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function create($data = null, $status = 200, $headers = array())
-=======
         $json ? $this->setJson($data) : $this->setData($data);
     }
 
@@ -89,14 +65,11 @@ class JsonResponse extends Response
      * @return static
      */
     public static function create($data = null, $status = 200, $headers = [])
->>>>>>> dev
     {
         return new static($data, $status, $headers);
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Make easier the creation of JsonResponse from raw json.
      */
     public static function fromJsonString($data = null, $status = 200, $headers = [])
@@ -105,29 +78,17 @@ class JsonResponse extends Response
     }
 
     /**
->>>>>>> dev
      * Sets the JSONP callback.
      *
      * @param string|null $callback The JSONP callback or null to use none
      *
-<<<<<<< HEAD
-     * @return JsonResponse
-=======
      * @return $this
->>>>>>> dev
      *
      * @throws \InvalidArgumentException When the callback name is not valid
      */
     public function setCallback($callback = null)
     {
         if (null !== $callback) {
-<<<<<<< HEAD
-            // taken from http://www.geekality.net/2011/08/03/valid-javascript-identifier/
-            $pattern = '/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u';
-            $parts = explode('.', $callback);
-            foreach ($parts as $part) {
-                if (!preg_match($pattern, $part)) {
-=======
             // partially taken from http://www.geekality.net/2011/08/03/valid-javascript-identifier/
             // partially taken from https://github.com/willdurand/JsonpCallbackValidator
             //      JsonpCallbackValidator is released under the MIT License. See https://github.com/willdurand/JsonpCallbackValidator/blob/v1.1.0/LICENSE for details.
@@ -141,7 +102,6 @@ class JsonResponse extends Response
             $parts = explode('.', $callback);
             foreach ($parts as $part) {
                 if (!preg_match($pattern, $part) || \in_array($part, $reserved, true)) {
->>>>>>> dev
                     throw new \InvalidArgumentException('The callback name is not valid.');
                 }
             }
@@ -153,8 +113,6 @@ class JsonResponse extends Response
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Sets a raw string containing a JSON document to be sent.
      *
      * @param string $json
@@ -171,36 +129,10 @@ class JsonResponse extends Response
     }
 
     /**
->>>>>>> dev
      * Sets the data to be sent as JSON.
      *
      * @param mixed $data
      *
-<<<<<<< HEAD
-     * @return JsonResponse
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function setData($data = array())
-    {
-        if (defined('HHVM_VERSION')) {
-            // HHVM does not trigger any warnings and let exceptions
-            // thrown from a JsonSerializable object pass through.
-            // If only PHP did the same...
-            $data = json_encode($data, $this->encodingOptions);
-        } else {
-            try {
-                // PHP 5.4 and up wrap exceptions thrown by JsonSerializable
-                // objects in a new exception that needs to be removed.
-                // Fortunately, PHP 5.5 and up do not trigger any warning anymore.
-                $data = json_encode($data, $this->encodingOptions);
-            } catch (\Exception $e) {
-                if ('Exception' === get_class($e) && 0 === strpos($e->getMessage(), 'Failed calling ')) {
-                    throw $e->getPrevious() ?: $e;
-                }
-                throw $e;
-            }
-=======
      * @return $this
      *
      * @throws \InvalidArgumentException
@@ -214,20 +146,13 @@ class JsonResponse extends Response
                 throw $e->getPrevious() ?: $e;
             }
             throw $e;
->>>>>>> dev
         }
 
         if (JSON_ERROR_NONE !== json_last_error()) {
             throw new \InvalidArgumentException(json_last_error_msg());
         }
 
-<<<<<<< HEAD
-        $this->data = $data;
-
-        return $this->update();
-=======
         return $this->setJson($data);
->>>>>>> dev
     }
 
     /**
@@ -245,11 +170,7 @@ class JsonResponse extends Response
      *
      * @param int $encodingOptions
      *
-<<<<<<< HEAD
-     * @return JsonResponse
-=======
      * @return $this
->>>>>>> dev
      */
     public function setEncodingOptions($encodingOptions)
     {
@@ -261,11 +182,7 @@ class JsonResponse extends Response
     /**
      * Updates the content and headers according to the JSON data and callback.
      *
-<<<<<<< HEAD
-     * @return JsonResponse
-=======
      * @return $this
->>>>>>> dev
      */
     protected function update()
     {

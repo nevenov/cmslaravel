@@ -7,15 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-
-/**
- * Utility methods to load PHP sourcefiles.
- *
- * @since Class available since Release 2.3.0
- */
-class PHPUnit_Util_Fileloader
-=======
 namespace PHPUnit\Util;
 
 use PHPUnit\Framework\Exception;
@@ -24,7 +15,6 @@ use PHPUnit\Framework\Exception;
  * Utility methods to load PHP sourcefiles.
  */
 class Fileloader
->>>>>>> dev
 {
     /**
      * Checks if a PHP sourcefile is readable.
@@ -34,17 +24,6 @@ class Fileloader
      *
      * @return string
      *
-<<<<<<< HEAD
-     * @throws PHPUnit_Framework_Exception
-     */
-    public static function checkAndLoad($filename)
-    {
-        $includePathFilename = stream_resolve_include_path($filename);
-
-        if (!$includePathFilename || !is_readable($includePathFilename)) {
-            throw new PHPUnit_Framework_Exception(
-                sprintf('Cannot open file "%s".' . "\n", $filename)
-=======
      * @throws Exception
      */
     public static function checkAndLoad($filename)
@@ -63,7 +42,6 @@ class Fileloader
         if (!$includePathFilename || !$isReadable || $includePathFilename === $localFile) {
             throw new Exception(
                 \sprintf('Cannot open file "%s".' . "\n", $filename)
->>>>>>> dev
             );
         }
 
@@ -78,20 +56,6 @@ class Fileloader
      * @param string $filename
      *
      * @return mixed
-<<<<<<< HEAD
-     *
-     * @since  Method available since Release 3.0.0
-     */
-    public static function load($filename)
-    {
-        $oldVariableNames = array_keys(get_defined_vars());
-
-        include_once $filename;
-
-        $newVariables     = get_defined_vars();
-        $newVariableNames = array_diff(
-            array_keys($newVariables),
-=======
      */
     public static function load($filename)
     {
@@ -102,7 +66,6 @@ class Fileloader
         $newVariables     = \get_defined_vars();
         $newVariableNames = \array_diff(
             \array_keys($newVariables),
->>>>>>> dev
             $oldVariableNames
         );
 

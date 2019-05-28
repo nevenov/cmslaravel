@@ -3,8 +3,6 @@
 namespace Illuminate\Support\Facades;
 
 /**
-<<<<<<< HEAD
-=======
  * @method static void compile($path = null)
  * @method static string getPath()
  * @method static void setPath($path)
@@ -22,7 +20,6 @@ namespace Illuminate\Support\Facades;
  * @method static void withDoubleEncoding()
  * @method static void withoutDoubleEncoding()
  *
->>>>>>> dev
  * @see \Illuminate\View\Compilers\BladeCompiler
  */
 class Blade extends Facade
@@ -34,10 +31,6 @@ class Blade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-<<<<<<< HEAD
-        return static::$app['view']->getEngineResolver()->resolve('blade')->getCompiler();
-=======
         return 'blade.compiler';
->>>>>>> dev
     }
 }

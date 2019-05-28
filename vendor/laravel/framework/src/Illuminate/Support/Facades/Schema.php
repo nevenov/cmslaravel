@@ -3,8 +3,6 @@
 namespace Illuminate\Support\Facades;
 
 /**
-<<<<<<< HEAD
-=======
  * @method static \Illuminate\Database\Schema\Builder create(string $table, \Closure $callback)
  * @method static \Illuminate\Database\Schema\Builder drop(string $table)
  * @method static \Illuminate\Database\Schema\Builder dropIfExists(string $table)
@@ -15,7 +13,6 @@ namespace Illuminate\Support\Facades;
  * @method static \Illuminate\Database\Schema\Builder enableForeignKeyConstraints()
  * @method static void registerCustomDoctrineType(string $class, string $name, string $type)
  *
->>>>>>> dev
  * @see \Illuminate\Database\Schema\Builder
  */
 class Schema extends Facade

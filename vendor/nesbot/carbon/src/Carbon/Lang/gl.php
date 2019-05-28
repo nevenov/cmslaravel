@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,21 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-    'year' => ':count ano|:count anos',
-    'month' => ':count mes|:count meses',
-    'week' => ':count semana|:count semanas',
-    'day' => ':count día|:count días',
-    'hour' => ':count hora|:count horas',
-    'minute' => ':count minuto|:count minutos',
-    'second' => ':count segundo|:count segundos',
-    'ago' => 'fai :time',
-    'from_now' => 'dentro de :time',
-    'after' => ':time despois',
-    'before' => ':time antes',
-);
-=======
 /*
  * Authors:
  * - François B
@@ -105,4 +86,3 @@ return [
     'list' => [', ', ' e '],
     'meridiem' => ['a.m.', 'p.m.'],
 ];
->>>>>>> dev

@@ -23,11 +23,6 @@ class HtmlDumper extends CliDumper
 {
     public static $defaultOutput = 'php://output';
 
-<<<<<<< HEAD
-    protected $dumpHeader;
-    protected $dumpPrefix = '<pre class=sf-dump id=%s data-indent-pad="%s">';
-    protected $dumpSuffix = '</pre><script>Sfdump("%s")</script>';
-=======
     protected static $themes = [
         'dark' => [
             'default' => 'background-color:#18171B; color:#FF8400; line-height:1.2em; font:12px Menlo, Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: break-all',
@@ -66,27 +61,10 @@ class HtmlDumper extends CliDumper
     protected $dumpHeader;
     protected $dumpPrefix = '<pre class=sf-dump id=%s data-indent-pad="%s">';
     protected $dumpSuffix = '</pre><script>Sfdump(%s)</script>';
->>>>>>> dev
     protected $dumpId = 'sf-dump';
     protected $colors = true;
     protected $headerIsDumped = false;
     protected $lastDepth = -1;
-<<<<<<< HEAD
-    protected $styles = array(
-        'default' => 'background-color:#18171B; color:#FF8400; line-height:1.2em; font:12px Menlo, Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: normal',
-        'num' => 'font-weight:bold; color:#1299DA',
-        'const' => 'font-weight:bold',
-        'str' => 'font-weight:bold; color:#56DB3A',
-        'note' => 'color:#1299DA',
-        'ref' => 'color:#A0A0A0',
-        'public' => 'color:#FFFFFF',
-        'protected' => 'color:#FFFFFF',
-        'private' => 'color:#FFFFFF',
-        'meta' => 'color:#B729D9',
-        'key' => 'color:#56DB3A',
-        'index' => 'color:#1299DA',
-    );
-=======
     protected $styles;
 
     private $displayOptions = [
@@ -95,47 +73,21 @@ class HtmlDumper extends CliDumper
         'fileLinkFormat' => null,
     ];
     private $extraDisplayOptions = [];
->>>>>>> dev
 
     /**
      * {@inheritdoc}
      */
-<<<<<<< HEAD
-    public function __construct($output = null, $charset = null)
-    {
-        AbstractDumper::__construct($output, $charset);
-        $this->dumpId = 'sf-dump-'.mt_rand();
-=======
     public function __construct($output = null, string $charset = null, int $flags = 0)
     {
         AbstractDumper::__construct($output, $charset, $flags);
         $this->dumpId = 'sf-dump-'.mt_rand();
         $this->displayOptions['fileLinkFormat'] = ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format');
         $this->styles = static::$themes['dark'] ?? self::$themes['dark'];
->>>>>>> dev
     }
 
     /**
      * {@inheritdoc}
      */
-<<<<<<< HEAD
-    public function setOutput($output)
-    {
-        if ($output !== $prev = parent::setOutput($output)) {
-            $this->headerIsDumped = false;
-        }
-
-        return $prev;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setStyles(array $styles)
-    {
-        $this->headerIsDumped = false;
-        $this->styles = $styles + $this->styles;
-=======
     public function setStyles(array $styles)
     {
         $this->headerIsDumped = false;
@@ -160,7 +112,6 @@ class HtmlDumper extends CliDumper
     {
         $this->headerIsDumped = false;
         $this->displayOptions = $displayOptions + $this->displayOptions;
->>>>>>> dev
     }
 
     /**
@@ -188,12 +139,6 @@ class HtmlDumper extends CliDumper
     /**
      * {@inheritdoc}
      */
-<<<<<<< HEAD
-    public function dump(Data $data, $output = null)
-    {
-        parent::dump($data, $output);
-        $this->dumpId = 'sf-dump-'.mt_rand();
-=======
     public function dump(Data $data, $output = null, array $extraDisplayOptions = [])
     {
         $this->extraDisplayOptions = $extraDisplayOptions;
@@ -201,7 +146,6 @@ class HtmlDumper extends CliDumper
         $this->dumpId = 'sf-dump-'.mt_rand();
 
         return $result;
->>>>>>> dev
     }
 
     /**
@@ -209,21 +153,13 @@ class HtmlDumper extends CliDumper
      */
     protected function getDumpHeader()
     {
-<<<<<<< HEAD
-        $this->headerIsDumped = true;
-=======
         $this->headerIsDumped = null !== $this->outputStream ? $this->outputStream : $this->lineDumper;
->>>>>>> dev
 
         if (null !== $this->dumpHeader) {
             return $this->dumpHeader;
         }
 
-<<<<<<< HEAD
-        $line = <<<'EOHTML'
-=======
         $line = str_replace('{$options}', json_encode($this->displayOptions, JSON_FORCE_OBJECT), <<<'EOHTML'
->>>>>>> dev
 <script>
 Sfdump = window.Sfdump || (function (doc) {
 
@@ -250,27 +186,16 @@ if (!doc.addEventListener) {
 function toggle(a, recursive) {
     var s = a.nextSibling || {}, oldClass = s.className, arrow, newClass;
 
-<<<<<<< HEAD
-    if ('sf-dump-compact' == oldClass) {
-        arrow = '▼';
-        newClass = 'sf-dump-expanded';
-    } else if ('sf-dump-expanded' == oldClass) {
-=======
     if (/\bsf-dump-compact\b/.test(oldClass)) {
         arrow = '▼';
         newClass = 'sf-dump-expanded';
     } else if (/\bsf-dump-expanded\b/.test(oldClass)) {
->>>>>>> dev
         arrow = '▶';
         newClass = 'sf-dump-compact';
     } else {
         return false;
     }
 
-<<<<<<< HEAD
-    a.lastChild.innerHTML = arrow;
-    s.className = newClass;
-=======
     if (doc.createEvent && s.dispatchEvent) {
         var event = doc.createEvent('Event');
         event.initEvent('sf-dump-expanded' === newClass ? 'sfbeforedumpexpand' : 'sfbeforedumpcollapse', true, false);
@@ -280,17 +205,12 @@ function toggle(a, recursive) {
 
     a.lastChild.innerHTML = arrow;
     s.className = s.className.replace(/\bsf-dump-(compact|expanded)\b/, newClass);
->>>>>>> dev
 
     if (recursive) {
         try {
             a = s.querySelectorAll('.'+oldClass);
             for (s = 0; s < a.length; ++s) {
-<<<<<<< HEAD
-                if (a[s].className !== newClass) {
-=======
                 if (-1 == a[s].className.indexOf(newClass)) {
->>>>>>> dev
                     a[s].className = newClass;
                     a[s].previousSibling.lastChild.innerHTML = arrow;
                 }
@@ -302,11 +222,6 @@ function toggle(a, recursive) {
     return true;
 };
 
-<<<<<<< HEAD
-return function (root) {
-    root = doc.getElementById(root);
-
-=======
 function collapse(a, recursive) {
     var s = a.nextSibling || {}, oldClass = s.className;
 
@@ -398,26 +313,20 @@ return function (root, x) {
         options[i] = x[i];
     }
 
->>>>>>> dev
     function a(e, f) {
         addEventListener(root, e, function (e) {
             if ('A' == e.target.tagName) {
                 f(e.target, e);
             } else if ('A' == e.target.parentNode.tagName) {
                 f(e.target.parentNode, e);
-<<<<<<< HEAD
-=======
             } else if (e.target.nextElementSibling && 'A' == e.target.nextElementSibling.tagName) {
                 f(e.target.nextElementSibling, e, true);
->>>>>>> dev
             }
         });
     };
     function isCtrlKey(e) {
         return e.ctrlKey || e.metaKey;
     }
-<<<<<<< HEAD
-=======
     function xpathString(str) {
         var parts = str.match(/[^'"]+|['"]/g).map(function (part) {
             if ("'" == part)  {
@@ -435,32 +344,22 @@ return function (root, x) {
     function xpathHasClass(className) {
         return "contains(concat(' ', normalize-space(@class), ' '), ' " + className +" ')";
     }
->>>>>>> dev
     addEventListener(root, 'mouseover', function (e) {
         if ('' != refStyle.innerHTML) {
             refStyle.innerHTML = '';
         }
     });
-<<<<<<< HEAD
-    a('mouseover', function (a) {
-        if (a = idRx.exec(a.className)) {
-=======
     a('mouseover', function (a, e, c) {
         if (c) {
             e.target.style.cursor = "pointer";
         } else if (a = idRx.exec(a.className)) {
->>>>>>> dev
             try {
                 refStyle.innerHTML = 'pre.sf-dump .'+a[0]+'{background-color: #B729D9; color: #FFF !important; border-radius: 2px}';
             } catch (e) {
             }
         }
     });
-<<<<<<< HEAD
-    a('click', function (a, e) {
-=======
     a('click', function (a, e, c) {
->>>>>>> dev
         if (/\bsf-dump-toggle\b/.test(a.className)) {
             e.preventDefault();
             if (!toggle(a, isCtrlKey(e))) {
@@ -476,21 +375,13 @@ return function (root, x) {
                 if (f && t && f[0] !== t[0]) {
                     r.innerHTML = r.innerHTML.replace(new RegExp('^'+f[0].replace(rxEsc, '\\$1'), 'mg'), t[0]);
                 }
-<<<<<<< HEAD
-                if ('sf-dump-compact' == r.className) {
-=======
                 if (/\bsf-dump-compact\b/.test(r.className)) {
->>>>>>> dev
                     toggle(s, isCtrlKey(e));
                 }
             }
 
-<<<<<<< HEAD
-            if (doc.getSelection) {
-=======
             if (c) {
             } else if (doc.getSelection) {
->>>>>>> dev
                 try {
                     doc.getSelection().removeAllRanges();
                 } catch (e) {
@@ -499,19 +390,6 @@ return function (root, x) {
             } else {
                 doc.selection.empty();
             }
-<<<<<<< HEAD
-        }
-    });
-
-    var indentRx = new RegExp('^('+(root.getAttribute('data-indent-pad') || '  ').replace(rxEsc, '\\$1')+')+', 'm'),
-        elt = root.getElementsByTagName('A'),
-        len = elt.length,
-        i = 0,
-        t = [];
-
-    while (i < len) t.push(elt[i++]);
-
-=======
         } else if (/\bsf-dump-str-toggle\b/.test(a.className)) {
             e.preventDefault();
             e = a.parentNode.parentNode;
@@ -519,29 +397,16 @@ return function (root, x) {
         }
     });
 
->>>>>>> dev
     elt = root.getElementsByTagName('SAMP');
     len = elt.length;
     i = 0;
 
     while (i < len) t.push(elt[i++]);
-<<<<<<< HEAD
-
-    root = t;
-    len = t.length;
-    i = t = 0;
-
-    while (i < len) {
-        elt = root[i];
-        if ("SAMP" == elt.tagName) {
-            elt.className = "sf-dump-expanded";
-=======
     len = t.length;
 
     for (i = 0; i < len; ++i) {
         elt = t[i];
         if ('SAMP' == elt.tagName) {
->>>>>>> dev
             a = elt.previousSibling || {};
             if ('A' != a.tagName) {
                 a = doc.createElement('A');
@@ -553,12 +418,6 @@ return function (root, x) {
             a.title = (a.title ? a.title+'\n[' : '[')+keyHint+'+click] Expand all children';
             a.innerHTML += '<span>▼</span>';
             a.className += ' sf-dump-toggle';
-<<<<<<< HEAD
-            if ('sf-dump' != elt.parentNode.className) {
-                toggle(a);
-            }
-        } else if ("sf-dump-ref" == elt.className && (a = elt.getAttribute('href'))) {
-=======
 
             x = 1;
             if ('sf-dump' != elt.parentNode.className) {
@@ -571,22 +430,15 @@ return function (root, x) {
                 toggle(a);
             }
         } else if (/\bsf-dump-ref\b/.test(elt.className) && (a = elt.getAttribute('href'))) {
->>>>>>> dev
             a = a.substr(1);
             elt.className += ' '+a;
 
             if (/[\[{]$/.test(elt.previousSibling.nodeValue)) {
                 a = a != elt.nextSibling.id && doc.getElementById(a);
                 try {
-<<<<<<< HEAD
-                    t = a.nextSibling;
-                    elt.appendChild(a);
-                    t.parentNode.insertBefore(a, t);
-=======
                     s = a.nextSibling;
                     elt.appendChild(a);
                     s.parentNode.insertBefore(a, s);
->>>>>>> dev
                     if (/^[@#]/.test(elt.innerHTML)) {
                         elt.innerHTML += ' <span>▶</span>';
                     } else {
@@ -602,9 +454,6 @@ return function (root, x) {
                 }
             }
         }
-<<<<<<< HEAD
-        ++i;
-=======
     }
 
     if (doc.evaluate && Array.from && root.children.length > 1) {
@@ -784,23 +633,15 @@ return function (root, x) {
             }
         }
     } catch (e) {
->>>>>>> dev
     }
 };
 
 })(document);
-<<<<<<< HEAD
-</script>
-<style>
-=======
 </script><style>
->>>>>>> dev
 pre.sf-dump {
     display: block;
     white-space: pre;
     padding: 5px;
-<<<<<<< HEAD
-=======
     overflow: initial !important;
 }
 pre.sf-dump:after {
@@ -809,7 +650,6 @@ pre.sf-dump:after {
    display: block;
    height: 0;
    clear: both;
->>>>>>> dev
 }
 pre.sf-dump span {
     display: inline;
@@ -827,13 +667,6 @@ pre.sf-dump a {
     cursor: pointer;
     border: 0;
     outline: none;
-<<<<<<< HEAD
-}
-EOHTML;
-
-        foreach ($this->styles as $class => $style) {
-            $line .= 'pre.sf-dump'.('default' !== $class ? ' .sf-dump-'.$class : '').'{'.$style.'}';
-=======
     color: inherit;
 }
 pre.sf-dump .sf-dump-ellipsis {
@@ -941,7 +774,6 @@ EOHTML
 
         foreach ($this->styles as $class => $style) {
             $line .= 'pre.sf-dump'.('default' === $class ? ', pre.sf-dump' : '').' .sf-dump-'.$class.'{'.$style.'}';
->>>>>>> dev
         }
 
         return $this->dumpHeader = preg_replace('/\s+/', ' ', $line).'</style>'.$this->dumpHeader;
@@ -954,9 +786,6 @@ EOHTML
     {
         parent::enterHash($cursor, $type, $class, false);
 
-<<<<<<< HEAD
-        if ($hasChild) {
-=======
         if ($cursor->skipChildren) {
             $cursor->skipChildren = false;
             $eol = ' class=sf-dump-compact>';
@@ -969,21 +798,13 @@ EOHTML
 
         if ($hasChild) {
             $this->line .= '<samp';
->>>>>>> dev
             if ($cursor->refIndex) {
                 $r = Cursor::HASH_OBJECT !== $type ? 1 - (Cursor::HASH_RESOURCE !== $type) : 2;
                 $r .= $r && 0 < $cursor->softRefHandle ? $cursor->softRefHandle : $cursor->refIndex;
 
-<<<<<<< HEAD
-                $this->line .= sprintf('<samp id=%s-ref%s>', $this->dumpId, $r);
-            } else {
-                $this->line .= '<samp>';
-            }
-=======
                 $this->line .= sprintf(' id=%s-ref%s', $this->dumpId, $r);
             }
             $this->line .= $eol;
->>>>>>> dev
             $this->dumpLine($cursor->depth);
         }
     }
@@ -1003,21 +824,13 @@ EOHTML
     /**
      * {@inheritdoc}
      */
-<<<<<<< HEAD
-    protected function style($style, $value, $attr = array())
-=======
     protected function style($style, $value, $attr = [])
->>>>>>> dev
     {
         if ('' === $value) {
             return '';
         }
 
-<<<<<<< HEAD
-        $v = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-=======
         $v = esc($value);
->>>>>>> dev
 
         if ('ref' === $style) {
             if (empty($attr['count'])) {
@@ -1028,52 +841,16 @@ EOHTML
             return sprintf('<a class=sf-dump-ref href=#%s-ref%s title="%d occurrences">%s</a>', $this->dumpId, $r, 1 + $attr['count'], $v);
         }
 
-<<<<<<< HEAD
-        if ('const' === $style && array_key_exists('value', $attr)) {
-            $style .= sprintf(' title="%s"', htmlspecialchars(json_encode($attr['value']), ENT_QUOTES, 'UTF-8'));
-        } elseif ('public' === $style) {
-            $style .= sprintf(' title="%s"', empty($attr['dynamic']) ? 'Public property' : 'Runtime added dynamic property');
-        } elseif ('str' === $style && 1 < $attr['length']) {
-            $style .= sprintf(' title="%s%s characters"', $attr['length'], $attr['binary'] ? ' binary or non-UTF-8' : '');
-=======
         if ('const' === $style && isset($attr['value'])) {
             $style .= sprintf(' title="%s"', esc(is_scalar($attr['value']) ? $attr['value'] : json_encode($attr['value'])));
         } elseif ('public' === $style) {
             $style .= sprintf(' title="%s"', empty($attr['dynamic']) ? 'Public property' : 'Runtime added dynamic property');
         } elseif ('str' === $style && 1 < $attr['length']) {
             $style .= sprintf(' title="%d%s characters"', $attr['length'], $attr['binary'] ? ' binary or non-UTF-8' : '');
->>>>>>> dev
         } elseif ('note' === $style && false !== $c = strrpos($v, '\\')) {
             return sprintf('<abbr title="%s" class=sf-dump-%s>%s</abbr>', $v, $style, substr($v, $c + 1));
         } elseif ('protected' === $style) {
             $style .= ' title="Protected property"';
-<<<<<<< HEAD
-        } elseif ('private' === $style) {
-            $style .= sprintf(' title="Private property defined in class:&#10;`%s`"', $attr['class']);
-        }
-
-        $map = static::$controlCharsMap;
-        $style = "<span class=sf-dump-{$style}>";
-        $v = preg_replace_callback(static::$controlCharsRx, function ($c) use ($map, $style) {
-            $s = '</span>';
-            $c = $c[$i = 0];
-            do {
-                $s .= isset($map[$c[$i]]) ? $map[$c[$i]] : sprintf('\x%02X', ord($c[$i]));
-            } while (isset($c[++$i]));
-
-            return $s.$style;
-        }, $v, -1, $cchrCount);
-
-        if ($cchrCount && '<' === $v[0]) {
-            $v = substr($v, 7);
-        } else {
-            $v = $style.$v;
-        }
-        if ($cchrCount && '>' === substr($v, -1)) {
-            $v = substr($v, 0, -strlen($style));
-        } else {
-            $v .= '</span>';
-=======
         } elseif ('meta' === $style && isset($attr['title'])) {
             $style .= sprintf(' title="%s"', esc($this->utf8Encode($attr['title'])));
         } elseif ('private' === $style) {
@@ -1129,7 +906,6 @@ EOHTML
         }
         if (isset($attr['lang'])) {
             $v = sprintf('<code class="%s">%s</code>', esc($attr['lang']), $v);
->>>>>>> dev
         }
 
         return $v;
@@ -1143,25 +919,17 @@ EOHTML
         if (-1 === $this->lastDepth) {
             $this->line = sprintf($this->dumpPrefix, $this->dumpId, $this->indentPad).$this->line;
         }
-<<<<<<< HEAD
-        if (!$this->headerIsDumped) {
-=======
         if ($this->headerIsDumped !== (null !== $this->outputStream ? $this->outputStream : $this->lineDumper)) {
->>>>>>> dev
             $this->line = $this->getDumpHeader().$this->line;
         }
 
         if (-1 === $depth) {
-<<<<<<< HEAD
-            $this->line .= sprintf($this->dumpSuffix, $this->dumpId);
-=======
             $args = ['"'.$this->dumpId.'"'];
             if ($this->extraDisplayOptions) {
                 $args[] = json_encode($this->extraDisplayOptions, JSON_FORCE_OBJECT);
             }
             // Replace is for BC
             $this->line .= sprintf(str_replace('"%s"', '%s', $this->dumpSuffix), implode(', ', $args));
->>>>>>> dev
         }
         $this->lastDepth = $depth;
 
@@ -1172,8 +940,6 @@ EOHTML
         }
         AbstractDumper::dumpLine($depth);
     }
-<<<<<<< HEAD
-=======
 
     private function getSourceLink($file, $line)
     {
@@ -1190,5 +956,4 @@ EOHTML
 function esc($str)
 {
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
->>>>>>> dev
 }

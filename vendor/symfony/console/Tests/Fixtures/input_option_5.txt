@@ -1,6 +1,2 @@
   <info>-o, --option_name=OPTION_NAME</info>  multiline
-<<<<<<< HEAD
-                                              option description
-=======
                                  option description
->>>>>>> dev

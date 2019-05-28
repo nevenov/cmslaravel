@@ -3,9 +3,6 @@
 namespace Illuminate\Support\Facades;
 
 /**
-<<<<<<< HEAD
- * @see \Illuminate\Foundation\Application
-=======
  * @method static string version()
  * @method static string basePath()
  * @method static string environment()
@@ -19,7 +16,6 @@ namespace Illuminate\Support\Facades;
  * @method static string getCachedServicesPath()
  *
  * @see \Illuminate\Contracts\Foundation\Application
->>>>>>> dev
  */
 class App extends Facade
 {

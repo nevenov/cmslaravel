@@ -13,15 +13,9 @@ namespace Symfony\Component\Finder\Tests\Iterator;
 
 class Iterator implements \Iterator
 {
-<<<<<<< HEAD
-    protected $values = array();
-
-    public function __construct(array $values = array())
-=======
     protected $values = [];
 
     public function __construct(array $values = [])
->>>>>>> dev
     {
         foreach ($values as $value) {
             $this->attach(new \SplFileInfo($value));

@@ -18,11 +18,7 @@ class TokenGuard implements Guard
     protected $request;
 
     /**
-<<<<<<< HEAD
-     * The name of the field on the request containing the API token.
-=======
      * The name of the query string item from the request containing the API token.
->>>>>>> dev
      *
      * @var string
      */
@@ -36,8 +32,6 @@ class TokenGuard implements Guard
     protected $storageKey;
 
     /**
-<<<<<<< HEAD
-=======
      * Indicates if the API token is hashed in storage.
      *
      * @var bool
@@ -45,21 +39,10 @@ class TokenGuard implements Guard
     protected $hash = false;
 
     /**
->>>>>>> dev
      * Create a new authentication guard.
      *
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
      * @param  \Illuminate\Http\Request  $request
-<<<<<<< HEAD
-     * @return void
-     */
-    public function __construct(UserProvider $provider, Request $request)
-    {
-        $this->request = $request;
-        $this->provider = $provider;
-        $this->inputKey = 'api_token';
-        $this->storageKey = 'api_token';
-=======
      * @param  string  $inputKey
      * @param  string  $storageKey
      * @param  bool  $hash
@@ -77,7 +60,6 @@ class TokenGuard implements Guard
         $this->provider = $provider;
         $this->inputKey = $inputKey;
         $this->storageKey = $storageKey;
->>>>>>> dev
     }
 
     /**
@@ -99,15 +81,9 @@ class TokenGuard implements Guard
         $token = $this->getTokenForRequest();
 
         if (! empty($token)) {
-<<<<<<< HEAD
-            $user = $this->provider->retrieveByCredentials(
-                [$this->storageKey => $token]
-            );
-=======
             $user = $this->provider->retrieveByCredentials([
                 $this->storageKey => $this->hash ? hash('sha256', $token) : $token,
             ]);
->>>>>>> dev
         }
 
         return $this->user = $user;
@@ -118,11 +94,6 @@ class TokenGuard implements Guard
      *
      * @return string
      */
-<<<<<<< HEAD
-    protected function getTokenForRequest()
-    {
-        $token = $this->request->input($this->inputKey);
-=======
     public function getTokenForRequest()
     {
         $token = $this->request->query($this->inputKey);
@@ -130,7 +101,6 @@ class TokenGuard implements Guard
         if (empty($token)) {
             $token = $this->request->input($this->inputKey);
         }
->>>>>>> dev
 
         if (empty($token)) {
             $token = $this->request->bearerToken();

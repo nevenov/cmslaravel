@@ -3,18 +3,12 @@
 namespace Illuminate\Queue\Console;
 
 use Illuminate\Console\Command;
-<<<<<<< HEAD
-
-class RestartCommand extends Command
-{
-=======
 use Illuminate\Support\InteractsWithTime;
 
 class RestartCommand extends Command
 {
     use InteractsWithTime;
 
->>>>>>> dev
     /**
      * The console command name.
      *
@@ -34,15 +28,9 @@ class RestartCommand extends Command
      *
      * @return void
      */
-<<<<<<< HEAD
-    public function fire()
-    {
-        $this->laravel['cache']->forever('illuminate:queue:restart', time());
-=======
     public function handle()
     {
         $this->laravel['cache']->forever('illuminate:queue:restart', $this->currentTime());
->>>>>>> dev
 
         $this->info('Broadcasting queue restart signal.');
     }

@@ -2,19 +2,13 @@
 
 namespace Illuminate\Http;
 
-<<<<<<< HEAD
-use Illuminate\Http\Exception\HttpResponseException;
-=======
 use Exception;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Illuminate\Http\Exceptions\HttpResponseException;
->>>>>>> dev
 
 trait ResponseTrait
 {
     /**
-<<<<<<< HEAD
-=======
      * The original content of the response.
      *
      * @var mixed
@@ -29,7 +23,6 @@ trait ResponseTrait
     public $exception;
 
     /**
->>>>>>> dev
      * Get the status code for the response.
      *
      * @return int
@@ -50,18 +43,6 @@ trait ResponseTrait
     }
 
     /**
-<<<<<<< HEAD
-     * Set a header on the Response.
-     *
-     * @param  string  $key
-     * @param  string  $value
-     * @param  bool    $replace
-     * @return $this
-     */
-    public function header($key, $value, $replace = true)
-    {
-        $this->headers->set($key, $value, $replace);
-=======
      * Get the original response content.
      *
      * @return mixed
@@ -84,7 +65,6 @@ trait ResponseTrait
     public function header($key, $values, $replace = true)
     {
         $this->headers->set($key, $values, $replace);
->>>>>>> dev
 
         return $this;
     }
@@ -92,13 +72,6 @@ trait ResponseTrait
     /**
      * Add an array of headers to the response.
      *
-<<<<<<< HEAD
-     * @param  array  $headers
-     * @return $this
-     */
-    public function withHeaders(array $headers)
-    {
-=======
      * @param  \Symfony\Component\HttpFoundation\HeaderBag|array  $headers
      * @return $this
      */
@@ -108,7 +81,6 @@ trait ResponseTrait
             $headers = $headers->all();
         }
 
->>>>>>> dev
         foreach ($headers as $key => $value) {
             $this->headers->set($key, $value);
         }
@@ -145,11 +117,6 @@ trait ResponseTrait
     }
 
     /**
-<<<<<<< HEAD
-     * Throws the response in a HttpResponseException instance.
-     *
-     * @throws \Illuminate\Http\Exception\HttpResponseException
-=======
      * Get the callback of the response.
      *
      * @return string|null
@@ -176,7 +143,6 @@ trait ResponseTrait
      * Throws the response in a HttpResponseException instance.
      *
      * @throws \Illuminate\Http\Exceptions\HttpResponseException
->>>>>>> dev
      */
     public function throwResponse()
     {

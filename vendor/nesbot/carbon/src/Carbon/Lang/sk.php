@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,23 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-    'year' => 'rok|:count roky|:count rokov',
-    'y' => 'rok|:count roky|:count rokov',
-    'month' => 'mesiac|:count mesiace|:count mesiacov',
-    'm' => 'mesiac|:count mesiace|:count mesiacov',
-    'week' => 'týždeň|:count týždne|:count týždňov',
-    'w' => 'týždeň|:count týždne|:count týždňov',
-    'day' => 'deň|:count dni|:count dní',
-    'd' => 'deň|:count dni|:count dní',
-    'hour' => 'hodinu|:count hodiny|:count hodín',
-    'h' => 'hodinu|:count hodiny|:count hodín',
-    'minute' => 'minútu|:count minúty|:count minút',
-    'min' => 'minútu|:count minúty|:count minút',
-    'second' => 'sekundu|:count sekundy|:count sekúnd',
-    's' => 'sekundu|:count sekundy|:count sekúnd',
-=======
 /*
  * Authors:
  * - Philippe Vaucher
@@ -68,7 +47,6 @@ return [
     'min' => ':count min',
     'second' => 'sekundu|:count sekundy|:count sekúnd',
     's' => ':count s',
->>>>>>> dev
     'ago' => 'pred :time',
     'from_now' => 'za :time',
     'after' => 'o :time neskôr',
@@ -80,9 +58,6 @@ return [
     'hour_ago' => 'hodinou|:count hodinami|:count hodinami',
     'minute_ago' => 'minútou|:count minútami|:count minútami',
     'second_ago' => 'sekundou|:count sekundami|:count sekundami',
-<<<<<<< HEAD
-);
-=======
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' a '],
@@ -101,4 +76,3 @@ return [
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'máj', 'jún', 'júl', 'aug', 'sep', 'okt', 'nov', 'dec'],
     'meridiem' => ['dopoludnia', 'popoludní'],
 ];
->>>>>>> dev

@@ -1,11 +1,7 @@
 <?php
 
 /** Docblock */
-<<<<<<< HEAD
-interface Foo
-=======
 interface FooInterface
->>>>>>> dev
 {
     public function bar();
 }

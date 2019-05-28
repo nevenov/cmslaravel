@@ -3,11 +3,6 @@
 namespace DummyNamespace;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-
-use DummyRootNamespaceHttp\Requests;
-=======
->>>>>>> dev
 use DummyRootNamespaceHttp\Controllers\Controller;
 
 class DummyClass extends Controller

@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-/*
-=======
 /**
->>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -13,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-return array(
-=======
 /*
  * Authors:
  * - Philippe Vaucher
@@ -37,7 +30,6 @@ return array(
  * - Kavacky
  */
 return [
->>>>>>> dev
     'year' => '0 gadiem|:count gada|:count gadiem',
     'y' => '0 gadiem|:count gada|:count gadiem',
     'month' => '0 mēnešiem|:count mēneša|:count mēnešiem',
@@ -72,9 +64,6 @@ return [
     'hour_before' => '0 stundas|:count stundu|:count stundas',
     'minute_before' => '0 minūtes|:count minūti|:count minūtes',
     'second_before' => '0 sekundes|:count sekundi|:count sekundes',
-<<<<<<< HEAD
-);
-=======
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' un '],
@@ -93,4 +82,3 @@ return [
     'months_short' => ['Janv', 'Febr', 'Marts', 'Apr', 'Maijs', 'Jūn', 'Jūl', 'Aug', 'Sept', 'Okt', 'Nov', 'Dec'],
     'meridiem' => ['priekšpusdiena', 'pēcpusdiena'],
 ];
->>>>>>> dev

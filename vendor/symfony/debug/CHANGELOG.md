@@ -1,8 +1,6 @@
 CHANGELOG
 =========
 
-<<<<<<< HEAD
-=======
 4.0.0
 -----
 
@@ -26,7 +24,6 @@ CHANGELOG
   `integer` and `float`.
 
 
->>>>>>> dev
 3.0.0
 -----
 

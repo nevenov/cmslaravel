@@ -5,8 +5,6 @@ namespace Illuminate\Auth;
 trait Authenticatable
 {
     /**
-<<<<<<< HEAD
-=======
      * The column name of the "remember me" token.
      *
      * @var string
@@ -14,7 +12,6 @@ trait Authenticatable
     protected $rememberTokenName = 'remember_token';
 
     /**
->>>>>>> dev
      * Get the name of the unique identifier for the user.
      *
      * @return string
@@ -31,11 +28,7 @@ trait Authenticatable
      */
     public function getAuthIdentifier()
     {
-<<<<<<< HEAD
-        return $this->getKey();
-=======
         return $this->{$this->getAuthIdentifierName()};
->>>>>>> dev
     }
 
     /**
@@ -51,13 +44,6 @@ trait Authenticatable
     /**
      * Get the token value for the "remember me" session.
      *
-<<<<<<< HEAD
-     * @return string
-     */
-    public function getRememberToken()
-    {
-        return $this->{$this->getRememberTokenName()};
-=======
      * @return string|null
      */
     public function getRememberToken()
@@ -65,7 +51,6 @@ trait Authenticatable
         if (! empty($this->getRememberTokenName())) {
             return (string) $this->{$this->getRememberTokenName()};
         }
->>>>>>> dev
     }
 
     /**
@@ -76,13 +61,9 @@ trait Authenticatable
      */
     public function setRememberToken($value)
     {
-<<<<<<< HEAD
-        $this->{$this->getRememberTokenName()} = $value;
-=======
         if (! empty($this->getRememberTokenName())) {
             $this->{$this->getRememberTokenName()} = $value;
         }
->>>>>>> dev
     }
 
     /**
@@ -92,10 +73,6 @@ trait Authenticatable
      */
     public function getRememberTokenName()
     {
-<<<<<<< HEAD
-        return 'remember_token';
-=======
         return $this->rememberTokenName;
->>>>>>> dev
     }
 }

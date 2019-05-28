@@ -2,17 +2,6 @@
 
 namespace Illuminate\Broadcasting\Broadcasters;
 
-<<<<<<< HEAD
-use Pusher;
-use Illuminate\Contracts\Broadcasting\Broadcaster;
-
-class PusherBroadcaster implements Broadcaster
-{
-    /**
-     * The Pusher SDK instance.
-     *
-     * @var \Pusher
-=======
 use Pusher\Pusher;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -27,18 +16,13 @@ class PusherBroadcaster extends Broadcaster
      * The Pusher SDK instance.
      *
      * @var \Pusher\Pusher
->>>>>>> dev
      */
     protected $pusher;
 
     /**
      * Create a new broadcaster instance.
      *
-<<<<<<< HEAD
-     * @param  \Pusher  $pusher
-=======
      * @param  \Pusher\Pusher  $pusher
->>>>>>> dev
      * @return void
      */
     public function __construct(Pusher $pusher)
@@ -47,13 +31,6 @@ class PusherBroadcaster extends Broadcaster
     }
 
     /**
-<<<<<<< HEAD
-     * {@inheritdoc}
-     */
-    public function broadcast(array $channels, $event, array $payload = [])
-    {
-        $this->pusher->trigger($channels, $event, $payload);
-=======
      * Authenticate the incoming request for a given channel.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -142,17 +119,12 @@ class PusherBroadcaster extends Broadcaster
         throw new BroadcastException(
             is_bool($response) ? 'Failed to connect to Pusher.' : $response['body']
         );
->>>>>>> dev
     }
 
     /**
      * Get the Pusher SDK instance.
      *
-<<<<<<< HEAD
-     * @return \Pusher
-=======
      * @return \Pusher\Pusher
->>>>>>> dev
      */
     public function getPusher()
     {

@@ -7,22 +7,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
-
-/**
- * Tests for the BankAccount class.
- *
- * @since      Class available since Release 2.3.0
- */
-class BankAccountWithCustomExtensionTest extends PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for the BankAccount class.
  */
 class BankAccountWithCustomExtensionTest extends TestCase
->>>>>>> dev
 {
     protected $ba;
 

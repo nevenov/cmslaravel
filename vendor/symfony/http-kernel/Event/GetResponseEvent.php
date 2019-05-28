@@ -24,24 +24,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class GetResponseEvent extends KernelEvent
 {
-<<<<<<< HEAD
-    /**
-     * The response object.
-     *
-     * @var Response
-     */
-=======
->>>>>>> dev
     private $response;
 
     /**
      * Returns the response object.
      *
-<<<<<<< HEAD
-     * @return Response
-=======
      * @return Response|null
->>>>>>> dev
      */
     public function getResponse()
     {
@@ -50,11 +38,6 @@ class GetResponseEvent extends KernelEvent
 
     /**
      * Sets a response and stops event propagation.
-<<<<<<< HEAD
-     *
-     * @param Response $response
-=======
->>>>>>> dev
      */
     public function setResponse(Response $response)
     {

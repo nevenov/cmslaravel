@@ -38,14 +38,6 @@ trait InteractsWithQueue
     /**
      * Fail the job from the queue.
      *
-<<<<<<< HEAD
-     * @return void
-     */
-    public function failed()
-    {
-        if ($this->job) {
-            return $this->job->failed();
-=======
      * @param  \Throwable  $exception
      * @return void
      */
@@ -53,7 +45,6 @@ trait InteractsWithQueue
     {
         if ($this->job) {
             $this->job->fail($exception);
->>>>>>> dev
         }
     }
 

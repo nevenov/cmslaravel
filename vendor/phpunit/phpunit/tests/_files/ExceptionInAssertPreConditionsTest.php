@@ -1,11 +1,7 @@
 <?php
-<<<<<<< HEAD
-class ExceptionInAssertPreConditionsTest extends PHPUnit_Framework_TestCase
-=======
 use PHPUnit\Framework\TestCase;
 
 class ExceptionInAssertPreConditionsTest extends TestCase
->>>>>>> dev
 {
     public $setUp                = false;
     public $assertPreConditions  = false;

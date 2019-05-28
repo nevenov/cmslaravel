@@ -2,11 +2,7 @@
 
 namespace Illuminate\Database;
 
-<<<<<<< HEAD
-use Exception;
-=======
 use Throwable;
->>>>>>> dev
 use Illuminate\Support\Str;
 
 trait DetectsLostConnections
@@ -14,17 +10,10 @@ trait DetectsLostConnections
     /**
      * Determine if the given exception was caused by a lost connection.
      *
-<<<<<<< HEAD
-     * @param  \Exception  $e
-     * @return bool
-     */
-    protected function causedByLostConnection(Exception $e)
-=======
      * @param  \Throwable  $e
      * @return bool
      */
     protected function causedByLostConnection(Throwable $e)
->>>>>>> dev
     {
         $message = $e->getMessage();
 
@@ -39,8 +28,6 @@ trait DetectsLostConnections
             'SSL connection has been closed unexpectedly',
             'Error writing data to the connection',
             'Resource deadlock avoided',
-<<<<<<< HEAD
-=======
             'Transaction() on null',
             'child connection forced to terminate due to client_idle_limit',
             'query_wait_timeout',
@@ -51,7 +38,6 @@ trait DetectsLostConnections
             'Packets out of order. Expected',
             'Adaptive Server connection failed',
             'Communication link failure',
->>>>>>> dev
         ]);
     }
 }
