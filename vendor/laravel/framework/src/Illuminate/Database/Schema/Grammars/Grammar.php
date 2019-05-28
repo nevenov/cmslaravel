@@ -3,6 +3,7 @@
 namespace Illuminate\Database\Schema\Grammars;
 
 use RuntimeException;
+<<<<<<< HEAD
 use Doctrine\DBAL\Types\Type;
 use Illuminate\Support\Fluent;
 use Doctrine\DBAL\Schema\Table;
@@ -10,6 +11,11 @@ use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\TableDiff;
 use Illuminate\Database\Connection;
 use Doctrine\DBAL\Schema\Comparator;
+=======
+use Illuminate\Support\Fluent;
+use Doctrine\DBAL\Schema\TableDiff;
+use Illuminate\Database\Connection;
+>>>>>>> dev
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Grammar as BaseGrammar;
@@ -18,6 +24,23 @@ use Doctrine\DBAL\Schema\AbstractSchemaManager as SchemaManager;
 abstract class Grammar extends BaseGrammar
 {
     /**
+<<<<<<< HEAD
+=======
+     * If this Grammar supports schema changes wrapped in a transaction.
+     *
+     * @var bool
+     */
+    protected $transactions = false;
+
+    /**
+     * The commands to be executed outside of create or alter command.
+     *
+     * @var array
+     */
+    protected $fluentCommands = [];
+
+    /**
+>>>>>>> dev
      * Compile a rename column command.
      *
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
@@ -27,6 +50,7 @@ abstract class Grammar extends BaseGrammar
      */
     public function compileRenameColumn(Blueprint $blueprint, Fluent $command, Connection $connection)
     {
+<<<<<<< HEAD
         $schema = $connection->getDoctrineSchemaManager();
 
         $table = $this->getTablePrefix().$blueprint->getTable();
@@ -69,6 +93,24 @@ abstract class Grammar extends BaseGrammar
         $tableDiff->renamedColumns = [$command->from => $newColumn];
 
         return $tableDiff;
+=======
+        return RenameColumn::compile($this, $blueprint, $command, $connection);
+    }
+
+    /**
+     * Compile a change column command into a series of SQL statements.
+     *
+     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
+     * @param  \Illuminate\Support\Fluent  $command
+     * @param  \Illuminate\Database\Connection $connection
+     * @return array
+     *
+     * @throws \RuntimeException
+     */
+    public function compileChange(Blueprint $blueprint, Fluent $command, Connection $connection)
+    {
+        return ChangeColumn::compile($this, $blueprint, $command, $connection);
+>>>>>>> dev
     }
 
     /**
@@ -80,6 +122,7 @@ abstract class Grammar extends BaseGrammar
      */
     public function compileForeign(Blueprint $blueprint, Fluent $command)
     {
+<<<<<<< HEAD
         $table = $this->wrapTable($blueprint);
 
         $index = $this->wrap($command->index);
@@ -96,6 +139,24 @@ abstract class Grammar extends BaseGrammar
         $sql = "alter table {$table} add constraint {$index} ";
 
         $sql .= "foreign key ({$columns}) references {$on} ({$onColumns})";
+=======
+        // We need to prepare several of the elements of the foreign key definition
+        // before we can create the SQL, such as wrapping the tables and convert
+        // an array of columns to comma-delimited strings for the SQL queries.
+        $sql = sprintf('alter table %s add constraint %s ',
+            $this->wrapTable($blueprint),
+            $this->wrap($command->index)
+        );
+
+        // Once we have the initial portion of the SQL statement we will add on the
+        // key name, table name, and referenced columns. These will complete the
+        // main portion of the SQL statement and this SQL will almost be done.
+        $sql .= sprintf('foreign key (%s) references %s (%s)',
+            $this->columnize($command->columns),
+            $this->wrapTable($command->on),
+            $this->columnize((array) $command->references)
+        );
+>>>>>>> dev
 
         // Once we have the basic foreign key creation statement constructed we can
         // build out the syntax for what should happen on an update or delete of
@@ -134,6 +195,33 @@ abstract class Grammar extends BaseGrammar
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get the SQL for the column data type.
+     *
+     * @param  \Illuminate\Support\Fluent  $column
+     * @return string
+     */
+    protected function getType(Fluent $column)
+    {
+        return $this->{'type'.ucfirst($column->type)}($column);
+    }
+
+    /**
+     * Create the column definition for a generated, computed column type.
+     *
+     * @param  \Illuminate\Support\Fluent  $column
+     * @return void
+     *
+     * @throws \RuntimeException
+     */
+    protected function typeComputed(Fluent $column)
+    {
+        throw new RuntimeException('This database driver does not support the computed type.');
+    }
+
+    /**
+>>>>>>> dev
      * Add the column modifiers to the definition.
      *
      * @param  string  $sql
@@ -183,6 +271,7 @@ abstract class Grammar extends BaseGrammar
     }
 
     /**
+<<<<<<< HEAD
      * Get the SQL for the column data type.
      *
      * @param  \Illuminate\Support\Fluent  $column
@@ -194,6 +283,8 @@ abstract class Grammar extends BaseGrammar
     }
 
     /**
+=======
+>>>>>>> dev
      * Add a prefix to an array of values.
      *
      * @param  string  $prefix
@@ -215,6 +306,7 @@ abstract class Grammar extends BaseGrammar
      */
     public function wrapTable($table)
     {
+<<<<<<< HEAD
         if ($table instanceof Blueprint) {
             $table = $table->getTable();
         }
@@ -232,6 +324,25 @@ abstract class Grammar extends BaseGrammar
         }
 
         return parent::wrap($value, $prefixAlias);
+=======
+        return parent::wrapTable(
+            $table instanceof Blueprint ? $table->getTable() : $table
+        );
+    }
+
+    /**
+     * Wrap a value in keyword identifiers.
+     *
+     * @param  \Illuminate\Database\Query\Expression|string  $value
+     * @param  bool    $prefixAlias
+     * @return string
+     */
+    public function wrap($value, $prefixAlias = false)
+    {
+        return parent::wrap(
+            $value instanceof Fluent ? $value->name : $value, $prefixAlias
+        );
+>>>>>>> dev
     }
 
     /**
@@ -246,11 +357,17 @@ abstract class Grammar extends BaseGrammar
             return $value;
         }
 
+<<<<<<< HEAD
         if (is_bool($value)) {
             return "'".(int) $value."'";
         }
 
         return "'".strval($value)."'";
+=======
+        return is_bool($value)
+                    ? "'".(int) $value."'"
+                    : "'".(string) $value."'";
+>>>>>>> dev
     }
 
     /**
@@ -260,6 +377,7 @@ abstract class Grammar extends BaseGrammar
      * @param  \Doctrine\DBAL\Schema\AbstractSchemaManager  $schema
      * @return \Doctrine\DBAL\Schema\TableDiff
      */
+<<<<<<< HEAD
     protected function getDoctrineTableDiff(Blueprint $blueprint, SchemaManager $schema)
     {
         $table = $this->getTablePrefix().$blueprint->getTable();
@@ -455,5 +573,34 @@ abstract class Grammar extends BaseGrammar
     protected function mapFluentValueToDoctrine($option, $value)
     {
         return $option == 'notnull' ? ! $value : $value;
+=======
+    public function getDoctrineTableDiff(Blueprint $blueprint, SchemaManager $schema)
+    {
+        $table = $this->getTablePrefix().$blueprint->getTable();
+
+        return tap(new TableDiff($table), function ($tableDiff) use ($schema, $table) {
+            $tableDiff->fromTable = $schema->listTableDetails($table);
+        });
+    }
+
+    /**
+     * Get the fluent commands for the grammar.
+     *
+     * @return array
+     */
+    public function getFluentCommands()
+    {
+        return $this->fluentCommands;
+    }
+
+    /**
+     * Check if this Grammar supports schema changes wrapped in a transaction.
+     *
+     * @return bool
+     */
+    public function supportsSchemaTransactions()
+    {
+        return $this->transactions;
+>>>>>>> dev
     }
 }

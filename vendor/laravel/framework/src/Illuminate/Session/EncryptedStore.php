@@ -42,7 +42,11 @@ class EncryptedStore extends Store
         try {
             return $this->encrypter->decrypt($data);
         } catch (DecryptException $e) {
+<<<<<<< HEAD
             return json_encode([]);
+=======
+            return serialize([]);
+>>>>>>> dev
         }
     }
 

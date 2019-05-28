@@ -2,9 +2,13 @@
 
 namespace Illuminate\Cache;
 
+<<<<<<< HEAD
 use Illuminate\Contracts\Cache\Store;
 
 class ApcStore extends TaggableStore implements Store
+=======
+class ApcStore extends TaggableStore
+>>>>>>> dev
 {
     use RetrievesMultipleKeys;
 
@@ -51,6 +55,7 @@ class ApcStore extends TaggableStore implements Store
     }
 
     /**
+<<<<<<< HEAD
      * Store an item in the cache for a given number of minutes.
      *
      * @param  string  $key
@@ -61,6 +66,18 @@ class ApcStore extends TaggableStore implements Store
     public function put($key, $value, $minutes)
     {
         $this->apc->put($this->prefix.$key, $value, $minutes * 60);
+=======
+     * Store an item in the cache for a given number of seconds.
+     *
+     * @param  string  $key
+     * @param  mixed   $value
+     * @param  int  $seconds
+     * @return bool
+     */
+    public function put($key, $value, $seconds)
+    {
+        return $this->apc->put($this->prefix.$key, $value, $seconds);
+>>>>>>> dev
     }
 
     /**
@@ -92,11 +109,19 @@ class ApcStore extends TaggableStore implements Store
      *
      * @param  string  $key
      * @param  mixed   $value
+<<<<<<< HEAD
      * @return void
      */
     public function forever($key, $value)
     {
         $this->put($key, $value, 0);
+=======
+     * @return bool
+     */
+    public function forever($key, $value)
+    {
+        return $this->put($key, $value, 0);
+>>>>>>> dev
     }
 
     /**
@@ -113,11 +138,19 @@ class ApcStore extends TaggableStore implements Store
     /**
      * Remove all items from the cache.
      *
+<<<<<<< HEAD
      * @return void
      */
     public function flush()
     {
         $this->apc->flush();
+=======
+     * @return bool
+     */
+    public function flush()
+    {
+        return $this->apc->flush();
+>>>>>>> dev
     }
 
     /**

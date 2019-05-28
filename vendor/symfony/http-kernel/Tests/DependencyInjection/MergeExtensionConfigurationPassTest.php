@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel\Tests\DependencyInjection;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 
 class MergeExtensionConfigurationPassTest extends \PHPUnit_Framework_TestCase
@@ -60,5 +61,42 @@ class MergeExtensionConfigurationPassTest extends \PHPUnit_Framework_TestCase
 
         $configPass = new MergeExtensionConfigurationPass(array('loaded', 'notloaded'));
         $configPass->process($container);
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
+
+class MergeExtensionConfigurationPassTest extends TestCase
+{
+    public function testAutoloadMainExtension()
+    {
+        $container = new ContainerBuilder();
+        $container->registerExtension(new LoadedExtension());
+        $container->registerExtension(new NotLoadedExtension());
+        $container->loadFromExtension('loaded', []);
+
+        $configPass = new MergeExtensionConfigurationPass(['loaded', 'not_loaded']);
+        $configPass->process($container);
+
+        $this->assertTrue($container->hasDefinition('loaded.foo'));
+        $this->assertTrue($container->hasDefinition('not_loaded.bar'));
+    }
+}
+
+class LoadedExtension extends Extension
+{
+    public function load(array $configs, ContainerBuilder $container)
+    {
+        $container->register('loaded.foo');
+    }
+}
+
+class NotLoadedExtension extends Extension
+{
+    public function load(array $configs, ContainerBuilder $container)
+    {
+        $container->register('not_loaded.bar');
+>>>>>>> dev
     }
 }

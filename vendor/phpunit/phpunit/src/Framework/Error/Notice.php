@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 /**
  * Wrapper for PHP notices.
@@ -19,6 +20,11 @@
  * @since Class available since Release 3.3.0
  */
 class PHPUnit_Framework_Error_Notice extends PHPUnit_Framework_Error
+=======
+namespace PHPUnit\Framework\Error;
+
+class Notice extends Error
+>>>>>>> dev
 {
     public static $enabled = true;
 }

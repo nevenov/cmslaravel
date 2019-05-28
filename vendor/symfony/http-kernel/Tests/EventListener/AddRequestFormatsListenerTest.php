@@ -11,8 +11,14 @@
 
 namespace Symfony\Component\HttpKernel\Tests\EventListener;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\EventListener\AddRequestFormatsListener;
 use Symfony\Component\HttpFoundation\Request;
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\EventListener\AddRequestFormatsListener;
+>>>>>>> dev
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -20,7 +26,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @author Gildas Quemener <gildas.quemener@gmail.com>
  */
+<<<<<<< HEAD
 class AddRequestFormatsListenerTest extends \PHPUnit_Framework_TestCase
+=======
+class AddRequestFormatsListenerTest extends TestCase
+>>>>>>> dev
 {
     /**
      * @var AddRequestFormatsListener
@@ -29,7 +39,11 @@ class AddRequestFormatsListenerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+<<<<<<< HEAD
         $this->listener = new AddRequestFormatsListener(array('csv' => array('text/csv', 'text/plain')));
+=======
+        $this->listener = new AddRequestFormatsListener(['csv' => ['text/csv', 'text/plain']]);
+>>>>>>> dev
     }
 
     protected function tearDown()
@@ -45,7 +59,11 @@ class AddRequestFormatsListenerTest extends \PHPUnit_Framework_TestCase
     public function testRegisteredEvent()
     {
         $this->assertEquals(
+<<<<<<< HEAD
             array(KernelEvents::REQUEST => 'onKernelRequest'),
+=======
+            [KernelEvents::REQUEST => ['onKernelRequest', 1]],
+>>>>>>> dev
             AddRequestFormatsListener::getSubscribedEvents()
         );
     }
@@ -57,14 +75,22 @@ class AddRequestFormatsListenerTest extends \PHPUnit_Framework_TestCase
 
         $request->expects($this->once())
             ->method('setFormat')
+<<<<<<< HEAD
             ->with('csv', array('text/csv', 'text/plain'));
+=======
+            ->with('csv', ['text/csv', 'text/plain']);
+>>>>>>> dev
 
         $this->listener->onKernelRequest($event);
     }
 
     protected function getRequestMock()
     {
+<<<<<<< HEAD
         return $this->getMock('Symfony\Component\HttpFoundation\Request');
+=======
+        return $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')->getMock();
+>>>>>>> dev
     }
 
     protected function getGetResponseEventMock(Request $request)

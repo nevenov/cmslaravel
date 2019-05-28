@@ -11,7 +11,13 @@
 
 namespace Symfony\Component\Routing\Tests\Loader;
 
+<<<<<<< HEAD
 abstract class AbstractAnnotationLoaderTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+
+abstract class AbstractAnnotationLoaderTest extends TestCase
+>>>>>>> dev
 {
     public function getReader()
     {
@@ -24,7 +30,11 @@ abstract class AbstractAnnotationLoaderTest extends \PHPUnit_Framework_TestCase
     public function getClassLoader($reader)
     {
         return $this->getMockBuilder('Symfony\Component\Routing\Loader\AnnotationClassLoader')
+<<<<<<< HEAD
             ->setConstructorArgs(array($reader))
+=======
+            ->setConstructorArgs([$reader])
+>>>>>>> dev
             ->getMockForAbstractClass()
         ;
     }

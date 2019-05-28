@@ -33,6 +33,22 @@ class ComposerScripts
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Handle the post-autoload-dump Composer event.
+     *
+     * @param  \Composer\Script\Event  $event
+     * @return void
+     */
+    public static function postAutoloadDump(Event $event)
+    {
+        require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
+
+        static::clearCompiled();
+    }
+
+    /**
+>>>>>>> dev
      * Clear the cached Laravel bootstrapping files.
      *
      * @return void
@@ -41,6 +57,7 @@ class ComposerScripts
     {
         $laravel = new Application(getcwd());
 
+<<<<<<< HEAD
         if (file_exists($compiledPath = $laravel->getCachedCompilePath())) {
             @unlink($compiledPath);
         }
@@ -48,5 +65,14 @@ class ComposerScripts
         if (file_exists($servicesPath = $laravel->getCachedServicesPath())) {
             @unlink($servicesPath);
         }
+=======
+        if (file_exists($servicesPath = $laravel->getCachedServicesPath())) {
+            @unlink($servicesPath);
+        }
+
+        if (file_exists($packagesPath = $laravel->getCachedPackagesPath())) {
+            @unlink($packagesPath);
+        }
+>>>>>>> dev
     }
 }

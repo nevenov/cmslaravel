@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 /**
  * Constraint that checks whether a variable is empty().
@@ -14,6 +15,16 @@
  * @since Class available since Release 3.5.0
  */
 class PHPUnit_Framework_Constraint_IsEmpty extends PHPUnit_Framework_Constraint
+=======
+namespace PHPUnit\Framework\Constraint;
+
+use Countable;
+
+/**
+ * Constraint that checks whether a variable is empty().
+ */
+class IsEmpty extends Constraint
+>>>>>>> dev
 {
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
@@ -26,7 +37,11 @@ class PHPUnit_Framework_Constraint_IsEmpty extends PHPUnit_Framework_Constraint
     protected function matches($other)
     {
         if ($other instanceof Countable) {
+<<<<<<< HEAD
             return count($other) === 0;
+=======
+            return \count($other) === 0;
+>>>>>>> dev
         }
 
         return empty($other);
@@ -54,9 +69,15 @@ class PHPUnit_Framework_Constraint_IsEmpty extends PHPUnit_Framework_Constraint
      */
     protected function failureDescription($other)
     {
+<<<<<<< HEAD
         $type = gettype($other);
 
         return sprintf(
+=======
+        $type = \gettype($other);
+
+        return \sprintf(
+>>>>>>> dev
             '%s %s %s',
             $type[0] == 'a' || $type[0] == 'o' ? 'an' : 'a',
             $type,

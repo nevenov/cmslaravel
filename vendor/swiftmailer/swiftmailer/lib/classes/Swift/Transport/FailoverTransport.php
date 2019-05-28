@@ -20,7 +20,11 @@ class Swift_Transport_FailoverTransport extends Swift_Transport_LoadBalancedTran
      *
      * @var Swift_Transport
      */
+<<<<<<< HEAD
     private $_currentTransport;
+=======
+    private $currentTransport;
+>>>>>>> dev
 
     // needed as __construct is called from elsewhere explicitly
     public function __construct()
@@ -29,11 +33,33 @@ class Swift_Transport_FailoverTransport extends Swift_Transport_LoadBalancedTran
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * {@inheritdoc}
+     */
+    public function ping()
+    {
+        $maxTransports = count($this->transports);
+        for ($i = 0; $i < $maxTransports
+            && $transport = $this->getNextTransport(); ++$i) {
+            if ($transport->ping()) {
+                return true;
+            } else {
+                $this->killCurrentTransport();
+            }
+        }
+
+        return count($this->transports) > 0;
+    }
+
+    /**
+>>>>>>> dev
      * Send the given Message.
      *
      * Recipient/sender data will be retrieved from the Message API.
      * The return value is the number of recipients who were accepted for delivery.
      *
+<<<<<<< HEAD
      * @param Swift_Mime_Message $message
      * @param string[]           $failedRecipients An array of failures by-reference
      *
@@ -47,22 +73,48 @@ class Swift_Transport_FailoverTransport extends Swift_Transport_LoadBalancedTran
 
         for ($i = 0; $i < $maxTransports
             && $transport = $this->_getNextTransport(); ++$i) {
+=======
+     * @param string[] $failedRecipients An array of failures by-reference
+     *
+     * @return int
+     */
+    public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
+    {
+        $maxTransports = count($this->transports);
+        $sent = 0;
+        $this->lastUsedTransport = null;
+
+        for ($i = 0; $i < $maxTransports
+            && $transport = $this->getNextTransport(); ++$i) {
+>>>>>>> dev
             try {
                 if (!$transport->isStarted()) {
                     $transport->start();
                 }
 
                 if ($sent = $transport->send($message, $failedRecipients)) {
+<<<<<<< HEAD
                     $this->_lastUsedTransport = $transport;
+=======
+                    $this->lastUsedTransport = $transport;
+>>>>>>> dev
 
                     return $sent;
                 }
             } catch (Swift_TransportException $e) {
+<<<<<<< HEAD
                 $this->_killCurrentTransport();
             }
         }
 
         if (count($this->_transports) == 0) {
+=======
+                $this->killCurrentTransport();
+            }
+        }
+
+        if (0 == count($this->transports)) {
+>>>>>>> dev
             throw new Swift_TransportException(
                 'All Transports in FailoverTransport failed, or no Transports available'
                 );
@@ -71,6 +123,7 @@ class Swift_Transport_FailoverTransport extends Swift_Transport_LoadBalancedTran
         return $sent;
     }
 
+<<<<<<< HEAD
     protected function _getNextTransport()
     {
         if (!isset($this->_currentTransport)) {
@@ -84,5 +137,20 @@ class Swift_Transport_FailoverTransport extends Swift_Transport_LoadBalancedTran
     {
         $this->_currentTransport = null;
         parent::_killCurrentTransport();
+=======
+    protected function getNextTransport()
+    {
+        if (!isset($this->currentTransport)) {
+            $this->currentTransport = parent::getNextTransport();
+        }
+
+        return $this->currentTransport;
+    }
+
+    protected function killCurrentTransport()
+    {
+        $this->currentTransport = null;
+        parent::killCurrentTransport();
+>>>>>>> dev
     }
 }

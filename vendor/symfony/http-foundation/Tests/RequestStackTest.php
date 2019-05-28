@@ -11,10 +11,18 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class RequestStackTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+
+class RequestStackTest extends TestCase
+>>>>>>> dev
 {
     public function testGetCurrentRequest()
     {

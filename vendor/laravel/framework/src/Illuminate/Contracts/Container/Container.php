@@ -3,8 +3,14 @@
 namespace Illuminate\Contracts\Container;
 
 use Closure;
+<<<<<<< HEAD
 
 interface Container
+=======
+use Psr\Container\ContainerInterface;
+
+interface Container extends ContainerInterface
+>>>>>>> dev
 {
     /**
      * Determine if the given abstract type has been bound.
@@ -20,6 +26,11 @@ interface Container
      * @param  string  $abstract
      * @param  string  $alias
      * @return void
+<<<<<<< HEAD
+=======
+     *
+     * @throws \LogicException
+>>>>>>> dev
      */
     public function alias($abstract, $alias);
 
@@ -35,15 +46,24 @@ interface Container
     /**
      * Resolve all of the bindings for a given tag.
      *
+<<<<<<< HEAD
      * @param  array  $tag
      * @return array
+=======
+     * @param  string  $tag
+     * @return iterable
+>>>>>>> dev
      */
     public function tagged($tag);
 
     /**
      * Register a binding with the container.
      *
+<<<<<<< HEAD
      * @param  string|array  $abstract
+=======
+     * @param  string  $abstract
+>>>>>>> dev
      * @param  \Closure|string|null  $concrete
      * @param  bool  $shared
      * @return void
@@ -63,7 +83,11 @@ interface Container
     /**
      * Register a shared binding in the container.
      *
+<<<<<<< HEAD
      * @param  string|array  $abstract
+=======
+     * @param  string  $abstract
+>>>>>>> dev
      * @param  \Closure|string|null  $concrete
      * @return void
      */
@@ -85,24 +109,69 @@ interface Container
      *
      * @param  string  $abstract
      * @param  mixed   $instance
+<<<<<<< HEAD
      * @return void
+=======
+     * @return mixed
+>>>>>>> dev
      */
     public function instance($abstract, $instance);
 
     /**
+<<<<<<< HEAD
      * Define a contextual binding.
      *
      * @param  string  $concrete
+=======
+     * Add a contextual binding to the container.
+     *
+     * @param  string  $concrete
+     * @param  string  $abstract
+     * @param  \Closure|string  $implementation
+     * @return void
+     */
+    public function addContextualBinding($concrete, $abstract, $implementation);
+
+    /**
+     * Define a contextual binding.
+     *
+     * @param  string|array  $concrete
+>>>>>>> dev
      * @return \Illuminate\Contracts\Container\ContextualBindingBuilder
      */
     public function when($concrete);
 
     /**
+<<<<<<< HEAD
      * Resolve the given type from the container.
      *
      * @param  string  $abstract
      * @param  array   $parameters
      * @return mixed
+=======
+     * Get a closure to resolve the given type from the container.
+     *
+     * @param  string  $abstract
+     * @return \Closure
+     */
+    public function factory($abstract);
+
+    /**
+     * Flush the container of all bindings and resolved instances.
+     *
+     * @return void
+     */
+    public function flush();
+
+    /**
+     * Resolve the given type from the container.
+     *
+     * @param  string  $abstract
+     * @param  array  $parameters
+     * @return mixed
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+>>>>>>> dev
      */
     public function make($abstract, array $parameters = []);
 
@@ -127,7 +196,11 @@ interface Container
     /**
      * Register a new resolving callback.
      *
+<<<<<<< HEAD
      * @param  string    $abstract
+=======
+     * @param  \Closure|string  $abstract
+>>>>>>> dev
      * @param  \Closure|null  $callback
      * @return void
      */
@@ -136,7 +209,11 @@ interface Container
     /**
      * Register a new after resolving callback.
      *
+<<<<<<< HEAD
      * @param  string    $abstract
+=======
+     * @param  \Closure|string  $abstract
+>>>>>>> dev
      * @param  \Closure|null  $callback
      * @return void
      */

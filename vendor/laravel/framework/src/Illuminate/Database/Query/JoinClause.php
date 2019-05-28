@@ -3,9 +3,14 @@
 namespace Illuminate\Database\Query;
 
 use Closure;
+<<<<<<< HEAD
 use InvalidArgumentException;
 
 class JoinClause
+=======
+
+class JoinClause extends Builder
+>>>>>>> dev
 {
     /**
      * The type of join being performed.
@@ -22,6 +27,7 @@ class JoinClause
     public $table;
 
     /**
+<<<<<<< HEAD
      * The "on" clauses for the join.
      *
      * @var array
@@ -34,18 +40,65 @@ class JoinClause
      * @var array
      */
     public $bindings = [];
+=======
+     * The connection of the parent query builder.
+     *
+     * @var \Illuminate\Database\ConnectionInterface
+     */
+    protected $parentConnection;
+
+    /**
+     * The grammar of the parent query builder.
+     *
+     * @var \Illuminate\Database\Query\Grammars\Grammar
+     */
+    protected $parentGrammar;
+
+    /**
+     * The processor of the parent query builder.
+     *
+     * @var \Illuminate\Database\Query\Processors\Processor
+     */
+    protected $parentProcessor;
+
+    /**
+     * The class name of the parent query builder.
+     *
+     * @var string
+     */
+    protected $parentClass;
+>>>>>>> dev
 
     /**
      * Create a new join clause instance.
      *
+<<<<<<< HEAD
+=======
+     * @param  \Illuminate\Database\Query\Builder $parentQuery
+>>>>>>> dev
      * @param  string  $type
      * @param  string  $table
      * @return void
      */
+<<<<<<< HEAD
     public function __construct($type, $table)
     {
         $this->type = $type;
         $this->table = $table;
+=======
+    public function __construct(Builder $parentQuery, $type, $table)
+    {
+        $this->type = $type;
+        $this->table = $table;
+        $this->parentClass = get_class($parentQuery);
+        $this->parentGrammar = $parentQuery->getGrammar();
+        $this->parentProcessor = $parentQuery->getProcessor();
+        $this->parentConnection = $parentQuery->getConnection();
+
+        parent::__construct(
+            $this->parentConnection, $this->parentGrammar, $this->parentProcessor
+        );
+>>>>>>> dev
     }
 
     /**
@@ -58,17 +111,25 @@ class JoinClause
      *
      * will produce the following SQL:
      *
+<<<<<<< HEAD
      * on `contacts`.`user_id` = `users`.`id`  and `contacts`.`info_id` = `info`.`id`
+=======
+     * on `contacts`.`user_id` = `users`.`id` and `contacts`.`info_id` = `info`.`id`
+>>>>>>> dev
      *
      * @param  \Closure|string  $first
      * @param  string|null  $operator
      * @param  string|null  $second
      * @param  string  $boolean
+<<<<<<< HEAD
      * @param  bool  $where
+=======
+>>>>>>> dev
      * @return $this
      *
      * @throws \InvalidArgumentException
      */
+<<<<<<< HEAD
     public function on($first, $operator = null, $second = null, $boolean = 'and', $where = false)
     {
         if ($first instanceof Closure) {
@@ -92,6 +153,15 @@ class JoinClause
         $this->clauses[] = compact('first', 'operator', 'second', 'boolean', 'where', 'nested');
 
         return $this;
+=======
+    public function on($first, $operator = null, $second = null, $boolean = 'and')
+    {
+        if ($first instanceof Closure) {
+            return $this->whereNested($first, $boolean);
+        }
+
+        return $this->whereColumn($first, $operator, $second, $boolean);
+>>>>>>> dev
     }
 
     /**
@@ -108,6 +178,7 @@ class JoinClause
     }
 
     /**
+<<<<<<< HEAD
      * Add an "on where" clause to the join.
      *
      * @param  \Closure|string  $first
@@ -249,5 +320,36 @@ class JoinClause
         }
 
         return $this;
+=======
+     * Get a new instance of the join clause builder.
+     *
+     * @return \Illuminate\Database\Query\JoinClause
+     */
+    public function newQuery()
+    {
+        return new static($this->newParentQuery(), $this->type, $this->table);
+    }
+
+    /**
+     * Create a new query instance for sub-query.
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    protected function forSubQuery()
+    {
+        return $this->newParentQuery()->newQuery();
+    }
+
+    /**
+     * Create a new parent query instance.
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    protected function newParentQuery()
+    {
+        $class = $this->parentClass;
+
+        return new $class($this->parentConnection, $this->parentGrammar, $this->parentProcessor);
+>>>>>>> dev
     }
 }

@@ -3,6 +3,7 @@
 namespace Illuminate\Session\Middleware;
 
 use Closure;
+<<<<<<< HEAD
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -10,6 +11,14 @@ use Illuminate\Session\SessionManager;
 use Illuminate\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Illuminate\Session\CookieSessionHandler;
+=======
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Session\SessionManager;
+use Illuminate\Contracts\Session\Session;
+use Symfony\Component\HttpFoundation\Cookie;
+>>>>>>> dev
 use Symfony\Component\HttpFoundation\Response;
 
 class StartSession
@@ -22,6 +31,7 @@ class StartSession
     protected $manager;
 
     /**
+<<<<<<< HEAD
      * Indicates if the session was handled for the current request.
      *
      * @var bool
@@ -29,6 +39,8 @@ class StartSession
     protected $sessionHandled = false;
 
     /**
+=======
+>>>>>>> dev
      * Create a new session middleware.
      *
      * @param  \Illuminate\Session\SessionManager  $manager
@@ -48,11 +60,18 @@ class StartSession
      */
     public function handle($request, Closure $next)
     {
+<<<<<<< HEAD
         $this->sessionHandled = true;
+=======
+        if (! $this->sessionConfigured()) {
+            return $next($request);
+        }
+>>>>>>> dev
 
         // If a session driver has been configured, we will need to start the session here
         // so that the data is ready for an application. Note that the Laravel sessions
         // do not make use of PHP "native" sessions in any way since they are crappy.
+<<<<<<< HEAD
         if ($this->sessionConfigured()) {
             $session = $this->startSession($request);
 
@@ -71,11 +90,30 @@ class StartSession
 
             $this->addCookieToResponse($response, $session);
         }
+=======
+        $request->setLaravelSession(
+            $session = $this->startSession($request)
+        );
+
+        $this->collectGarbage($session);
+
+        $response = $next($request);
+
+        $this->storeCurrentUrl($request, $session);
+
+        $this->addCookieToResponse($response, $session);
+
+        // Again, if the session has been configured we will need to close out the session
+        // so that the attributes may be persisted to some storage medium. We will also
+        // add the session identifier cookie to the application response headers now.
+        $this->saveSession($request);
+>>>>>>> dev
 
         return $response;
     }
 
     /**
+<<<<<<< HEAD
      * Perform any final actions for the request lifecycle.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -104,12 +142,27 @@ class StartSession
         $session->start();
 
         return $session;
+=======
+     * Start the session for the given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\Session\Session
+     */
+    protected function startSession(Request $request)
+    {
+        return tap($this->getSession($request), function ($session) use ($request) {
+            $session->setRequestOnHandler($request);
+
+            $session->start();
+        });
+>>>>>>> dev
     }
 
     /**
      * Get the session implementation from the manager.
      *
      * @param  \Illuminate\Http\Request  $request
+<<<<<<< HEAD
      * @return \Illuminate\Session\SessionInterface
      */
     public function getSession(Request $request)
@@ -133,15 +186,31 @@ class StartSession
         if ($request->method() === 'GET' && $request->route() && ! $request->ajax()) {
             $session->setPreviousUrl($request->fullUrl());
         }
+=======
+     * @return \Illuminate\Contracts\Session\Session
+     */
+    public function getSession(Request $request)
+    {
+        return tap($this->manager->driver(), function ($session) use ($request) {
+            $session->setId($request->cookies->get($session->getName()));
+        });
+>>>>>>> dev
     }
 
     /**
      * Remove the garbage from the session if necessary.
      *
+<<<<<<< HEAD
      * @param  \Illuminate\Session\SessionInterface  $session
      * @return void
      */
     protected function collectGarbage(SessionInterface $session)
+=======
+     * @param  \Illuminate\Contracts\Session\Session  $session
+     * @return void
+     */
+    protected function collectGarbage(Session $session)
+>>>>>>> dev
     {
         $config = $this->manager->getSessionConfig();
 
@@ -165,6 +234,7 @@ class StartSession
     }
 
     /**
+<<<<<<< HEAD
      * Add the session cookie to the application response.
      *
      * @param  \Symfony\Component\HttpFoundation\Response  $response
@@ -182,30 +252,90 @@ class StartSession
                 $session->getName(), $session->getId(), $this->getCookieExpirationDate(),
                 $config['path'], $config['domain'], Arr::get($config, 'secure', false),
                 Arr::get($config, 'http_only', true)
+=======
+     * Store the current URL for the request if necessary.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Contracts\Session\Session  $session
+     * @return void
+     */
+    protected function storeCurrentUrl(Request $request, $session)
+    {
+        if ($request->method() === 'GET' &&
+            $request->route() &&
+            ! $request->ajax() &&
+            ! $request->prefetch()) {
+            $session->setPreviousUrl($request->fullUrl());
+        }
+    }
+
+    /**
+     * Add the session cookie to the application response.
+     *
+     * @param  \Symfony\Component\HttpFoundation\Response  $response
+     * @param  \Illuminate\Contracts\Session\Session  $session
+     * @return void
+     */
+    protected function addCookieToResponse(Response $response, Session $session)
+    {
+        if ($this->sessionIsPersistent($config = $this->manager->getSessionConfig())) {
+            $response->headers->setCookie(new Cookie(
+                $session->getName(), $session->getId(), $this->getCookieExpirationDate(),
+                $config['path'], $config['domain'], $config['secure'] ?? false,
+                $config['http_only'] ?? true, false, $config['same_site'] ?? null
+>>>>>>> dev
             ));
         }
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Save the session data to storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function saveSession($request)
+    {
+        $this->manager->driver()->save();
+    }
+
+    /**
+>>>>>>> dev
      * Get the session lifetime in seconds.
      *
      * @return int
      */
     protected function getSessionLifetimeInSeconds()
     {
+<<<<<<< HEAD
         return Arr::get($this->manager->getSessionConfig(), 'lifetime') * 60;
+=======
+        return ($this->manager->getSessionConfig()['lifetime'] ?? null) * 60;
+>>>>>>> dev
     }
 
     /**
      * Get the cookie lifetime in seconds.
      *
+<<<<<<< HEAD
      * @return int
+=======
+     * @return \DateTimeInterface|int
+>>>>>>> dev
      */
     protected function getCookieExpirationDate()
     {
         $config = $this->manager->getSessionConfig();
 
+<<<<<<< HEAD
         return $config['expire_on_close'] ? 0 : Carbon::now()->addMinutes($config['lifetime']);
+=======
+        return $config['expire_on_close'] ? 0 : Date::instance(
+            Carbon::now()->addRealMinutes($config['lifetime'])
+        );
+>>>>>>> dev
     }
 
     /**
@@ -215,7 +345,11 @@ class StartSession
      */
     protected function sessionConfigured()
     {
+<<<<<<< HEAD
         return ! is_null(Arr::get($this->manager->getSessionConfig(), 'driver'));
+=======
+        return ! is_null($this->manager->getSessionConfig()['driver'] ?? null);
+>>>>>>> dev
     }
 
     /**
@@ -230,6 +364,7 @@ class StartSession
 
         return ! in_array($config['driver'], [null, 'array']);
     }
+<<<<<<< HEAD
 
     /**
      * Determine if the session is using cookie sessions.
@@ -244,4 +379,6 @@ class StartSession
 
         return $this->manager->driver()->getHandler() instanceof CookieSessionHandler;
     }
+=======
+>>>>>>> dev
 }

@@ -13,7 +13,13 @@ class MorphMany extends MorphOneOrMany
      */
     public function getResults()
     {
+<<<<<<< HEAD
         return $this->query->get();
+=======
+        return ! is_null($this->getParentKey())
+                ? $this->query->get()
+                : $this->related->newCollection();
+>>>>>>> dev
     }
 
     /**

@@ -18,7 +18,11 @@ trait DispatchesJobs
     }
 
     /**
+<<<<<<< HEAD
      * Dispatch a command to its appropriate handler in the current process.
+=======
+     * Dispatch a job to its appropriate handler in the current process.
+>>>>>>> dev
      *
      * @param  mixed  $job
      * @return mixed

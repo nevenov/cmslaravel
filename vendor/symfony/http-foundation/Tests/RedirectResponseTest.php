@@ -11,9 +11,16 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class RedirectResponseTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+class RedirectResponseTest extends TestCase
+>>>>>>> dev
 {
     public function testGenerateMetaRedirect()
     {
@@ -21,7 +28,11 @@ class RedirectResponseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, preg_match(
             '#<meta http-equiv="refresh" content="\d+;url=foo\.bar" />#',
+<<<<<<< HEAD
             preg_replace(array('/\s+/', '/\'/'), array(' ', '"'), $response->getContent())
+=======
+            preg_replace(['/\s+/', '/\'/'], [' ', '"'], $response->getContent())
+>>>>>>> dev
         ));
     }
 
@@ -80,4 +91,20 @@ class RedirectResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
         $this->assertEquals(301, $response->getStatusCode());
     }
+<<<<<<< HEAD
+=======
+
+    public function testCacheHeaders()
+    {
+        $response = new RedirectResponse('foo.bar', 301);
+        $this->assertFalse($response->headers->hasCacheControlDirective('no-cache'));
+
+        $response = new RedirectResponse('foo.bar', 301, ['cache-control' => 'max-age=86400']);
+        $this->assertFalse($response->headers->hasCacheControlDirective('no-cache'));
+        $this->assertTrue($response->headers->hasCacheControlDirective('max-age'));
+
+        $response = new RedirectResponse('foo.bar', 302);
+        $this->assertTrue($response->headers->hasCacheControlDirective('no-cache'));
+    }
+>>>>>>> dev
 }

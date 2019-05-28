@@ -50,7 +50,11 @@ class MockArraySessionStorage implements SessionStorageInterface
     /**
      * @var array
      */
+<<<<<<< HEAD
     protected $data = array();
+=======
+    protected $data = [];
+>>>>>>> dev
 
     /**
      * @var MetadataBag
@@ -58,6 +62,7 @@ class MockArraySessionStorage implements SessionStorageInterface
     protected $metadataBag;
 
     /**
+<<<<<<< HEAD
      * @var array
      */
     protected $bags;
@@ -69,16 +74,26 @@ class MockArraySessionStorage implements SessionStorageInterface
      * @param MetadataBag $metaBag MetadataBag instance
      */
     public function __construct($name = 'MOCKSESSID', MetadataBag $metaBag = null)
+=======
+     * @var array|SessionBagInterface[]
+     */
+    protected $bags = [];
+
+    public function __construct(string $name = 'MOCKSESSID', MetadataBag $metaBag = null)
+>>>>>>> dev
     {
         $this->name = $name;
         $this->setMetadataBag($metaBag);
     }
 
+<<<<<<< HEAD
     /**
      * Sets the session data.
      *
      * @param array $array
      */
+=======
+>>>>>>> dev
     public function setSessionData(array $array)
     {
         $this->data = $array;
@@ -177,7 +192,11 @@ class MockArraySessionStorage implements SessionStorageInterface
         }
 
         // clear out the session
+<<<<<<< HEAD
         $this->data = array();
+=======
+        $this->data = [];
+>>>>>>> dev
 
         // reconnect the bags to the session
         $this->loadSession();
@@ -215,11 +234,14 @@ class MockArraySessionStorage implements SessionStorageInterface
         return $this->started;
     }
 
+<<<<<<< HEAD
     /**
      * Sets the MetadataBag.
      *
      * @param MetadataBag $bag
      */
+=======
+>>>>>>> dev
     public function setMetadataBag(MetadataBag $bag = null)
     {
         if (null === $bag) {
@@ -254,11 +276,19 @@ class MockArraySessionStorage implements SessionStorageInterface
 
     protected function loadSession()
     {
+<<<<<<< HEAD
         $bags = array_merge($this->bags, array($this->metadataBag));
 
         foreach ($bags as $bag) {
             $key = $bag->getStorageKey();
             $this->data[$key] = isset($this->data[$key]) ? $this->data[$key] : array();
+=======
+        $bags = array_merge($this->bags, [$this->metadataBag]);
+
+        foreach ($bags as $bag) {
+            $key = $bag->getStorageKey();
+            $this->data[$key] = isset($this->data[$key]) ? $this->data[$key] : [];
+>>>>>>> dev
             $bag->initialize($this->data[$key]);
         }
 

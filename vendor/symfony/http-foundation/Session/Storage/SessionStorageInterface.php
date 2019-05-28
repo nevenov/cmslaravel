@@ -26,7 +26,11 @@ interface SessionStorageInterface
      *
      * @return bool True if started
      *
+<<<<<<< HEAD
      * @throws \RuntimeException If something goes wrong starting the session.
+=======
+     * @throws \RuntimeException if something goes wrong starting the session
+>>>>>>> dev
      */
     public function start();
 
@@ -104,8 +108,13 @@ interface SessionStorageInterface
      * a real PHP session would interfere with testing, in which case
      * it should actually persist the session data if required.
      *
+<<<<<<< HEAD
      * @throws \RuntimeException If the session is saved without being started, or if the session
      *                           is already closed.
+=======
+     * @throws \RuntimeException if the session is saved without being started, or if the session
+     *                           is already closed
+>>>>>>> dev
      */
     public function save();
 
@@ -127,8 +136,11 @@ interface SessionStorageInterface
 
     /**
      * Registers a SessionBagInterface for use.
+<<<<<<< HEAD
      *
      * @param SessionBagInterface $bag
+=======
+>>>>>>> dev
      */
     public function registerBag(SessionBagInterface $bag);
 

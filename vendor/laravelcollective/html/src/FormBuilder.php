@@ -2,6 +2,7 @@
 
 namespace Collective\Html;
 
+<<<<<<< HEAD
 use DateTime;
 use BadMethodCallException;
 use Illuminate\Http\Request;
@@ -11,6 +12,20 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Session\SessionInterface;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Routing\UrlGenerator;
+=======
+use BadMethodCallException;
+use DateTime;
+use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Traits\Macroable;
+>>>>>>> dev
 
 class FormBuilder
 {
@@ -48,9 +63,21 @@ class FormBuilder
     protected $csrfToken;
 
     /**
+<<<<<<< HEAD
      * The session store implementation.
      *
      * @var \Illuminate\Session\SessionInterface
+=======
+     * Consider Request variables while auto fill.
+     * @var bool
+     */
+    protected $considerRequest = false;
+
+    /**
+     * The session store implementation.
+     *
+     * @var \Illuminate\Contracts\Session\Session
+>>>>>>> dev
      */
     protected $session;
 
@@ -91,6 +118,17 @@ class FormBuilder
      */
     protected $skipValueTypes = ['file', 'password', 'checkbox', 'radio'];
 
+<<<<<<< HEAD
+=======
+
+    /**
+     * Input Type.
+     *
+     * @var null
+     */
+    protected $type = null;
+
+>>>>>>> dev
     /**
      * Create a new form builder instance.
      *
@@ -98,6 +136,10 @@ class FormBuilder
      * @param  \Illuminate\Contracts\Routing\UrlGenerator $url
      * @param  \Illuminate\Contracts\View\Factory         $view
      * @param  string                                     $csrfToken
+<<<<<<< HEAD
+=======
+     * @param  Request                                    $request
+>>>>>>> dev
      */
     public function __construct(HtmlBuilder $html, UrlGenerator $url, Factory $view, $csrfToken, Request $request = null)
     {
@@ -117,7 +159,11 @@ class FormBuilder
      */
     public function open(array $options = [])
     {
+<<<<<<< HEAD
         $method = array_get($options, 'method', 'post');
+=======
+        $method = Arr::get($options, 'method', 'post');
+>>>>>>> dev
 
         // We need to extract the proper method from the attributes. If the method is
         // something other than GET or POST we'll use POST since we will spoof the
@@ -142,7 +188,11 @@ class FormBuilder
         // is used to spoof requests for this PUT, PATCH, etc. methods on forms.
         $attributes = array_merge(
 
+<<<<<<< HEAD
           $attributes, array_except($options, $this->reserved)
+=======
+          $attributes, Arr::except($options, $this->reserved)
+>>>>>>> dev
 
         );
 
@@ -182,6 +232,19 @@ class FormBuilder
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get the current model instance on the form builder.
+     *
+     * @return mixed $model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+>>>>>>> dev
      * Close the current form.
      *
      * @return string
@@ -202,7 +265,11 @@ class FormBuilder
      */
     public function token()
     {
+<<<<<<< HEAD
         $token = ! empty($this->csrfToken) ? $this->csrfToken : $this->session->getToken();
+=======
+        $token = ! empty($this->csrfToken) ? $this->csrfToken : $this->session->token();
+>>>>>>> dev
 
         return $this->hidden('_token', $token);
     }
@@ -257,6 +324,11 @@ class FormBuilder
      */
     public function input($type, $name, $value = null, $options = [])
     {
+<<<<<<< HEAD
+=======
+        $this->type = $type;
+
+>>>>>>> dev
         if (! isset($options['name'])) {
             $options['name'] = $name;
         }
@@ -308,6 +380,23 @@ class FormBuilder
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Create a range input field.
+     *
+     * @param  string $name
+     * @param  string $value
+     * @param  array  $options
+     *
+     * @return \Illuminate\Support\HtmlString
+     */
+    public function range($name, $value = null, $options = [])
+    {
+        return $this->input('range', $name, $value, $options);
+    }
+
+    /**
+>>>>>>> dev
      * Create a hidden input field.
      *
      * @param  string $name
@@ -322,6 +411,23 @@ class FormBuilder
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Create a search input field.
+     *
+     * @param  string $name
+     * @param  string $value
+     * @param  array  $options
+     *
+     * @return \Illuminate\Support\HtmlString
+     */
+    public function search($name, $value = null, $options = [])
+    {
+        return $this->input('search', $name, $value, $options);
+    }
+
+    /**
+>>>>>>> dev
      * Create an e-mail input field.
      *
      * @param  string $name
@@ -428,6 +534,13 @@ class FormBuilder
      */
     public function time($name, $value = null, $options = [])
     {
+<<<<<<< HEAD
+=======
+        if ($value instanceof DateTime) {
+            $value = $value->format('H:i');
+        }
+
+>>>>>>> dev
         return $this->input('time', $name, $value, $options);
     }
 
@@ -446,6 +559,27 @@ class FormBuilder
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Create a week input field.
+     *
+     * @param  string $name
+     * @param  string $value
+     * @param  array  $options
+     *
+     * @return \Illuminate\Support\HtmlString
+     */
+    public function week($name, $value = null, $options = [])
+    {
+        if ($value instanceof DateTime) {
+            $value = $value->format('Y-\WW');
+        }
+
+        return $this->input('week', $name, $value, $options);
+    }
+
+    /**
+>>>>>>> dev
      * Create a file input field.
      *
      * @param  string $name
@@ -469,6 +603,11 @@ class FormBuilder
      */
     public function textarea($name, $value = null, $options = [])
     {
+<<<<<<< HEAD
+=======
+        $this->type = 'textarea';
+
+>>>>>>> dev
         if (! isset($options['name'])) {
             $options['name'] = $name;
         }
@@ -489,7 +628,11 @@ class FormBuilder
         // the element. Then we'll create the final textarea elements HTML for us.
         $options = $this->html->attributes($options);
 
+<<<<<<< HEAD
         return $this->toHtmlString('<textarea' . $options . '>' . e($value) . '</textarea>');
+=======
+        return $this->toHtmlString('<textarea' . $options . '>' . e($value, false). '</textarea>');
+>>>>>>> dev
     }
 
     /**
@@ -508,9 +651,15 @@ class FormBuilder
         // If the "size" attribute was not specified, we will just look for the regular
         // columns and rows attributes, using sane defaults if these do not exist on
         // the attributes array. We'll then return this entire options array back.
+<<<<<<< HEAD
         $cols = array_get($options, 'cols', 50);
 
         $rows = array_get($options, 'rows', 10);
+=======
+        $cols = Arr::get($options, 'cols', 50);
+
+        $rows = Arr::get($options, 'rows', 10);
+>>>>>>> dev
 
         return array_merge($options, compact('cols', 'rows'));
     }
@@ -534,6 +683,7 @@ class FormBuilder
      *
      * @param  string $name
      * @param  array  $list
+<<<<<<< HEAD
      * @param  string $selected
      * @param  array  $options
      *
@@ -541,15 +691,41 @@ class FormBuilder
      */
     public function select($name, $list = [], $selected = null, $options = [])
     {
+=======
+     * @param  string|bool $selected
+     * @param  array  $selectAttributes
+     * @param  array  $optionsAttributes
+     * @param  array  $optgroupsAttributes
+     *
+     * @return \Illuminate\Support\HtmlString
+     */
+    public function select(
+        $name,
+        $list = [],
+        $selected = null,
+        array $selectAttributes = [],
+        array $optionsAttributes = [],
+        array $optgroupsAttributes = []
+    ) {
+        $this->type = 'select';
+
+>>>>>>> dev
         // When building a select box the "value" attribute is really the selected one
         // so we will use that when checking the model or session for a value which
         // should provide a convenient method of re-populating the forms on post.
         $selected = $this->getValueAttribute($name, $selected);
 
+<<<<<<< HEAD
         $options['id'] = $this->getIdAttribute($name, $options);
 
         if (! isset($options['name'])) {
             $options['name'] = $name;
+=======
+        $selectAttributes['id'] = $this->getIdAttribute($name, $selectAttributes);
+
+        if (! isset($selectAttributes['name'])) {
+            $selectAttributes['name'] = $name;
+>>>>>>> dev
         }
 
         // We will simply loop through the options and build an HTML value for each of
@@ -557,6 +733,7 @@ class FormBuilder
         // all together into one single HTML element that can be put on the form.
         $html = [];
 
+<<<<<<< HEAD
         if (isset($options['placeholder'])) {
             $html[] = $this->placeholderOption($options['placeholder'], $selected);
             unset($options['placeholder']);
@@ -564,16 +741,35 @@ class FormBuilder
 
         foreach ($list as $value => $display) {
             $html[] = $this->getSelectOption($display, $value, $selected);
+=======
+        if (isset($selectAttributes['placeholder'])) {
+            $html[] = $this->placeholderOption($selectAttributes['placeholder'], $selected);
+            unset($selectAttributes['placeholder']);
+        }
+
+        foreach ($list as $value => $display) {
+            $optionAttributes = $optionsAttributes[$value] ?? [];
+            $optgroupAttributes = $optgroupsAttributes[$value] ?? [];
+            $html[] = $this->getSelectOption($display, $value, $selected, $optionAttributes, $optgroupAttributes);
+>>>>>>> dev
         }
 
         // Once we have all of this HTML, we can join this into a single element after
         // formatting the attributes into an HTML "attributes" string, then we will
         // build out a final select statement, which will contain all the values.
+<<<<<<< HEAD
         $options = $this->html->attributes($options);
 
         $list = implode('', $html);
 
         return $this->toHtmlString("<select{$options}>{$list}</select>");
+=======
+        $selectAttributes = $this->html->attributes($selectAttributes);
+
+        $list = implode('', $html);
+
+        return $this->toHtmlString("<select{$selectAttributes}>{$list}</select>");
+>>>>>>> dev
     }
 
     /**
@@ -637,6 +833,7 @@ class FormBuilder
      * @param  string $display
      * @param  string $value
      * @param  string $selected
+<<<<<<< HEAD
      *
      * @return \Illuminate\Support\HtmlString
      */
@@ -647,6 +844,20 @@ class FormBuilder
         }
 
         return $this->option($display, $value, $selected);
+=======
+     * @param  array  $attributes
+     * @param  array  $optgroupAttributes
+     *
+     * @return \Illuminate\Support\HtmlString
+     */
+    public function getSelectOption($display, $value, $selected, array $attributes = [], array $optgroupAttributes = [])
+    {
+        if (is_iterable($display)) {
+            return $this->optionGroup($display, $value, $selected, $optgroupAttributes, $attributes);
+        }
+
+        return $this->option($display, $value, $selected, $attributes);
+>>>>>>> dev
     }
 
     /**
@@ -655,6 +866,7 @@ class FormBuilder
      * @param  array  $list
      * @param  string $label
      * @param  string $selected
+<<<<<<< HEAD
      *
      * @return \Illuminate\Support\HtmlString
      */
@@ -667,6 +879,27 @@ class FormBuilder
         }
 
         return $this->toHtmlString('<optgroup label="' . e($label) . '">' . implode('', $html) . '</optgroup>');
+=======
+     * @param  array  $attributes
+     * @param  array  $optionsAttributes
+     * @param  integer  $level
+     *
+     * @return \Illuminate\Support\HtmlString
+     */
+    protected function optionGroup($list, $label, $selected, array $attributes = [], array $optionsAttributes = [], $level = 0)
+    {
+        $html = [];
+        $space = str_repeat("&nbsp;", $level);
+        foreach ($list as $value => $display) {
+            $optionAttributes = $optionsAttributes[$value] ?? [];
+            if (is_iterable($display)) {
+                $html[] = $this->optionGroup($display, $value, $selected, $attributes, $optionAttributes, $level+5);
+            } else {
+                $html[] = $this->option($space.$display, $value, $selected, $optionAttributes);
+            }
+        }
+        return $this->toHtmlString('<optgroup label="' . e($space.$label, false) . '"' . $this->html->attributes($attributes) . '>' . implode('', $html) . '</optgroup>');
+>>>>>>> dev
     }
 
     /**
@@ -675,6 +908,7 @@ class FormBuilder
      * @param  string $display
      * @param  string $value
      * @param  string $selected
+<<<<<<< HEAD
      *
      * @return \Illuminate\Support\HtmlString
      */
@@ -685,6 +919,24 @@ class FormBuilder
         $options = ['value' => $value, 'selected' => $selected];
 
         return $this->toHtmlString('<option' . $this->html->attributes($options) . '>' . e($display) . '</option>');
+=======
+     * @param  array  $attributes
+     *
+     * @return \Illuminate\Support\HtmlString
+     */
+    protected function option($display, $value, $selected, array $attributes = [])
+    {
+        $selected = $this->getSelectedValue($value, $selected);
+
+        $options = array_merge(['value' => $value, 'selected' => $selected], $attributes);
+
+        $string = '<option' . $this->html->attributes($options) . '>';
+        if ($display !== null) {
+            $string .= e($display, false) . '</option>';
+        }
+
+        return $this->toHtmlString($string);
+>>>>>>> dev
     }
 
     /**
@@ -699,10 +951,19 @@ class FormBuilder
     {
         $selected = $this->getSelectedValue(null, $selected);
 
+<<<<<<< HEAD
         $options = compact('selected');
         $options['value'] = '';
 
         return $this->toHtmlString('<option' . $this->html->attributes($options) . '>' . e($display) . '</option>');
+=======
+        $options = [
+            'selected' => $selected,
+            'value' => '',
+        ];
+
+        return $this->toHtmlString('<option' . $this->html->attributes($options) . '>' . e($display, false) . '</option>');
+>>>>>>> dev
     }
 
     /**
@@ -716,10 +977,21 @@ class FormBuilder
     protected function getSelectedValue($value, $selected)
     {
         if (is_array($selected)) {
+<<<<<<< HEAD
             return in_array($value, $selected, true) ? 'selected' : null;
         }
 
         return ((string) $value == (string) $selected) ? 'selected' : null;
+=======
+            return in_array($value, $selected, true) || in_array((string) $value, $selected, true) ? 'selected' : null;
+        } elseif ($selected instanceof Collection) {
+            return $selected->contains($value) ? 'selected' : null;
+        }
+        if (is_int($value) && is_bool($selected)) {
+            return (bool)$value === $selected;
+        }
+        return ((string) $value === (string) $selected) ? 'selected' : null;
+>>>>>>> dev
     }
 
     /**
@@ -769,6 +1041,11 @@ class FormBuilder
      */
     protected function checkable($type, $name, $value, $checked, $options)
     {
+<<<<<<< HEAD
+=======
+        $this->type = $type;
+
+>>>>>>> dev
         $checked = $this->getCheckedState($type, $name, $value, $checked);
 
         if ($checked) {
@@ -798,7 +1075,11 @@ class FormBuilder
                 return $this->getRadioCheckedState($name, $value, $checked);
 
             default:
+<<<<<<< HEAD
                 return $this->getValueAttribute($name) == $value;
+=======
+                return $this->compareValues($name, $value);
+>>>>>>> dev
         }
     }
 
@@ -819,7 +1100,11 @@ class FormBuilder
             return false;
         }
 
+<<<<<<< HEAD
         if ($this->missingOldAndModel($name) && !$request) {
+=======
+        if ($this->missingOldAndModel($name) && is_null($request)) {
+>>>>>>> dev
             return $checked;
         }
 
@@ -851,6 +1136,23 @@ class FormBuilder
             return $checked;
         }
 
+<<<<<<< HEAD
+=======
+        return $this->compareValues($name, $value);
+    }
+
+    /**
+     * Determine if the provide value loosely compares to the value assigned to the field.
+     * Use loose comparison because Laravel model casting may be in affect and therefore
+     * 1 == true and 0 == false.
+     *
+     * @param  string $name
+     * @param  string $value
+     * @return bool
+     */
+    protected function compareValues($name, $value)
+    {
+>>>>>>> dev
         return $this->getValueAttribute($name) == $value;
     }
 
@@ -896,6 +1198,27 @@ class FormBuilder
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Create a month input field.
+     *
+     * @param  string $name
+     * @param  string $value
+     * @param  array  $options
+     *
+     * @return \Illuminate\Support\HtmlString
+     */
+    public function month($name, $value = null, $options = [])
+    {
+        if ($value instanceof DateTime) {
+            $value = $value->format('Y-m');
+        }
+
+        return $this->input('month', $name, $value, $options);
+    }
+
+    /**
+>>>>>>> dev
      * Create a color input field.
      *
      * @param  string $name
@@ -940,6 +1263,53 @@ class FormBuilder
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Create a datalist box field.
+     *
+     * @param  string $id
+     * @param  array  $list
+     *
+     * @return \Illuminate\Support\HtmlString
+     */
+    public function datalist($id, $list = [])
+    {
+        $this->type = 'datalist';
+
+        $attributes['id'] = $id;
+
+        $html = [];
+
+        if ($this->isAssociativeArray($list)) {
+            foreach ($list as $value => $display) {
+                $html[] = $this->option($display, $value, null, []);
+            }
+        } else {
+            foreach ($list as $value) {
+                $html[] = $this->option($value, $value, null, []);
+            }
+        }
+
+        $attributes = $this->html->attributes($attributes);
+
+        $list = implode('', $html);
+
+        return $this->toHtmlString("<datalist{$attributes}>{$list}</datalist>");
+    }
+
+    /**
+     * Determine if an array is associative.
+     *
+     * @param  array $array
+     * @return bool
+     */
+    protected function isAssociativeArray($array)
+    {
+        return (array_values($array) !== $array);
+    }
+
+    /**
+>>>>>>> dev
      * Parse the form action method.
      *
      * @param  string $method
@@ -950,7 +1320,11 @@ class FormBuilder
     {
         $method = strtoupper($method);
 
+<<<<<<< HEAD
         return $method != 'GET' ? 'POST' : $method;
+=======
+        return $method !== 'GET' ? 'POST' : $method;
+>>>>>>> dev
     }
 
     /**
@@ -1052,7 +1426,11 @@ class FormBuilder
         // If the method is something other than GET we will go ahead and attach the
         // CSRF token to the form, as this can't hurt and is convenient to simply
         // always have available on every form the developers creates for them.
+<<<<<<< HEAD
         if ($method != 'GET') {
+=======
+        if ($method !== 'GET') {
+>>>>>>> dev
             $appendage .= $this->token();
         }
 
@@ -1092,12 +1470,37 @@ class FormBuilder
             return $value;
         }
 
+<<<<<<< HEAD
         if (! is_null($this->old($name)) && $name != '_method') {
             return $this->old($name);
         }
 
         $request = $this->request($name);
         if (!is_null($request)) {
+=======
+        $old = $this->old($name);
+
+        if (! is_null($old) && $name !== '_method') {
+            return $old;
+        }
+
+        if (function_exists('app')) {
+            $hasNullMiddleware = app("Illuminate\Contracts\Http\Kernel")
+                ->hasMiddleware(ConvertEmptyStringsToNull::class);
+
+            if ($hasNullMiddleware
+                && is_null($old)
+                && is_null($value)
+                && !is_null($this->view->shared('errors'))
+                && count($this->view->shared('errors')) > 0
+            ) {
+                return null;
+            }
+        }
+
+        $request = $this->request($name);
+        if (! is_null($request) && $name != '_method') {
+>>>>>>> dev
             return $request;
         }
 
@@ -1111,12 +1514,31 @@ class FormBuilder
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Take Request in fill process
+     * @param bool $consider
+     */
+    public function considerRequest($consider = true)
+    {
+        $this->considerRequest = $consider;
+    }
+
+    /**
+>>>>>>> dev
      * Get value from current Request
      * @param $name
      * @return array|null|string
      */
     protected function request($name)
     {
+<<<<<<< HEAD
+=======
+        if (!$this->considerRequest) {
+            return null;
+        }
+
+>>>>>>> dev
         if (!isset($this->request)) {
             return null;
         }
@@ -1133,8 +1555,15 @@ class FormBuilder
      */
     protected function getModelValueAttribute($name)
     {
+<<<<<<< HEAD
         if (method_exists($this->model, 'getFormValue')) {
             return $this->model->getFormValue($this->transformKey($name));
+=======
+        $key = $this->transformKey($name);
+
+        if (method_exists($this->model, 'getFormValue')) {
+            return $this->model->getFormValue($key);
+>>>>>>> dev
         }
 
         return data_get($this->model, $this->transformKey($name));
@@ -1150,7 +1579,29 @@ class FormBuilder
     public function old($name)
     {
         if (isset($this->session)) {
+<<<<<<< HEAD
             return $this->session->getOldInput($this->transformKey($name));
+=======
+            $key = $this->transformKey($name);
+            $payload = $this->session->getOldInput($key);
+
+            if (!is_array($payload)) {
+                return $payload;
+            }
+
+            if (!in_array($this->type, ['select', 'checkbox'])) {
+                if (!isset($this->payload[$key])) {
+                    $this->payload[$key] = collect($payload);
+                }
+
+                if (!empty($this->payload[$key])) {
+                    $value = $this->payload[$key]->shift();
+                    return $value;
+                }
+            }
+
+            return $payload;
+>>>>>>> dev
         }
     }
 
@@ -1161,7 +1612,11 @@ class FormBuilder
      */
     public function oldInputIsEmpty()
     {
+<<<<<<< HEAD
         return (isset($this->session) && count($this->session->getOldInput()) == 0);
+=======
+        return (isset($this->session) && count((array) $this->session->getOldInput()) === 0);
+>>>>>>> dev
     }
 
     /**
@@ -1191,7 +1646,11 @@ class FormBuilder
     /**
      * Get the session store implementation.
      *
+<<<<<<< HEAD
      * @return  \Illuminate\Session\SessionInterface  $session
+=======
+     * @return  \Illuminate\Contracts\Session\Session  $session
+>>>>>>> dev
      */
     public function getSessionStore()
     {
@@ -1201,11 +1660,19 @@ class FormBuilder
     /**
      * Set the session store implementation.
      *
+<<<<<<< HEAD
      * @param  \Illuminate\Session\SessionInterface $session
      *
      * @return $this
      */
     public function setSessionStore(SessionInterface $session)
+=======
+     * @param  \Illuminate\Contracts\Session\Session $session
+     *
+     * @return $this
+     */
+    public function setSessionStore(Session $session)
+>>>>>>> dev
     {
         $this->session = $session;
 

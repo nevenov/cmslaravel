@@ -21,7 +21,11 @@ class RouteCollection implements Countable, IteratorAggregate
     protected $routes = [];
 
     /**
+<<<<<<< HEAD
      * An flattened array of all of the routes.
+=======
+     * A flattened array of all of the routes.
+>>>>>>> dev
      *
      * @var array
      */
@@ -64,7 +68,11 @@ class RouteCollection implements Countable, IteratorAggregate
      */
     protected function addToCollections($route)
     {
+<<<<<<< HEAD
         $domainAndUri = $route->domain().$route->getUri();
+=======
+        $domainAndUri = $route->getDomain().$route->uri();
+>>>>>>> dev
 
         foreach ($route->methods() as $method) {
             $this->routes[$method][$domainAndUri] = $route;
@@ -84,24 +92,52 @@ class RouteCollection implements Countable, IteratorAggregate
         // If the route has a name, we will add it to the name look-up table so that we
         // will quickly be able to find any route associate with a name and not have
         // to iterate through every route every time we need to perform a look-up.
+<<<<<<< HEAD
         $action = $route->getAction();
 
         if (isset($action['as'])) {
             $this->nameList[$action['as']] = $route;
+=======
+        if ($name = $route->getName()) {
+            $this->nameList[$name] = $route;
+>>>>>>> dev
         }
 
         // When the route is routing to a controller we will also store the action that
         // is used by the route. This will let us reverse route to controllers while
         // processing a request and easily generate URLs to the given controllers.
+<<<<<<< HEAD
+=======
+        $action = $route->getAction();
+
+>>>>>>> dev
         if (isset($action['controller'])) {
             $this->addToActionList($action, $route);
         }
     }
 
     /**
+<<<<<<< HEAD
      * Refresh the name look-up table.
      *
      * This is done in case any names are fluently defined.
+=======
+     * Add a route to the controller action dictionary.
+     *
+     * @param  array  $action
+     * @param  \Illuminate\Routing\Route  $route
+     * @return void
+     */
+    protected function addToActionList($action, $route)
+    {
+        $this->actionList[trim($action['controller'], '\\')] = $route;
+    }
+
+    /**
+     * Refresh the name look-up table.
+     *
+     * This is done in case any names are fluently defined or if routes are overwritten.
+>>>>>>> dev
      *
      * @return void
      */
@@ -117,6 +153,7 @@ class RouteCollection implements Countable, IteratorAggregate
     }
 
     /**
+<<<<<<< HEAD
      * Add a route to the controller action dictionary.
      *
      * @param  array  $action
@@ -126,6 +163,23 @@ class RouteCollection implements Countable, IteratorAggregate
     protected function addToActionList($action, $route)
     {
         $this->actionList[trim($action['controller'], '\\')] = $route;
+=======
+     * Refresh the action look-up table.
+     *
+     * This is done in case any actions are overwritten with new controllers.
+     *
+     * @return void
+     */
+    public function refreshActionLookups()
+    {
+        $this->actionList = [];
+
+        foreach ($this->allRoutes as $route) {
+            if (isset($route->getAction()['controller'])) {
+                $this->addToActionList($route->getAction(), $route);
+            }
+        }
+>>>>>>> dev
     }
 
     /**
@@ -143,7 +197,11 @@ class RouteCollection implements Countable, IteratorAggregate
         // First, we will see if we can find a matching route for this current request
         // method. If we can, great, we can just return it so that it can be called
         // by the consumer. Otherwise we will check for routes with another verb.
+<<<<<<< HEAD
         $route = $this->check($routes, $request);
+=======
+        $route = $this->matchAgainstRoutes($routes, $request);
+>>>>>>> dev
 
         if (! is_null($route)) {
             return $route->bind($request);
@@ -162,6 +220,28 @@ class RouteCollection implements Countable, IteratorAggregate
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Determine if a route in the array matches the request.
+     *
+     * @param  array  $routes
+     * @param  \Illuminate\Http\Request  $request
+     * @param  bool  $includingMethod
+     * @return \Illuminate\Routing\Route|null
+     */
+    protected function matchAgainstRoutes(array $routes, $request, $includingMethod = true)
+    {
+        [$fallbacks, $routes] = collect($routes)->partition(function ($route) {
+            return $route->isFallback;
+        });
+
+        return $routes->merge($fallbacks)->first(function ($value) use ($request, $includingMethod) {
+            return $value->matches($request, $includingMethod);
+        });
+    }
+
+    /**
+>>>>>>> dev
      * Determine if any routes match on another HTTP verb.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -177,7 +257,11 @@ class RouteCollection implements Countable, IteratorAggregate
         $others = [];
 
         foreach ($methods as $method) {
+<<<<<<< HEAD
             if (! is_null($this->check($this->get($method), $request, false))) {
+=======
+            if (! is_null($this->matchAgainstRoutes($this->get($method), $request, false))) {
+>>>>>>> dev
                 $others[] = $method;
             }
         }
@@ -196,23 +280,36 @@ class RouteCollection implements Countable, IteratorAggregate
      */
     protected function getRouteForMethods($request, array $methods)
     {
+<<<<<<< HEAD
         if ($request->method() == 'OPTIONS') {
+=======
+        if ($request->method() === 'OPTIONS') {
+>>>>>>> dev
             return (new Route('OPTIONS', $request->path(), function () use ($methods) {
                 return new Response('', 200, ['Allow' => implode(',', $methods)]);
             }))->bind($request);
         }
 
+<<<<<<< HEAD
         $this->methodNotAllowed($methods);
+=======
+        $this->methodNotAllowed($methods, $request->method());
+>>>>>>> dev
     }
 
     /**
      * Throw a method not allowed HTTP exception.
      *
      * @param  array  $others
+<<<<<<< HEAD
+=======
+     * @param  string  $method
+>>>>>>> dev
      * @return void
      *
      * @throws \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException
      */
+<<<<<<< HEAD
     protected function methodNotAllowed(array $others)
     {
         throw new MethodNotAllowedHttpException($others);
@@ -235,17 +332,37 @@ class RouteCollection implements Countable, IteratorAggregate
 
     /**
      * Get all of the routes in the collection.
+=======
+    protected function methodNotAllowed(array $others, $method)
+    {
+        throw new MethodNotAllowedHttpException(
+            $others,
+            sprintf(
+                'The %s method is not supported for this route. Supported methods: %s.',
+                $method,
+                implode(', ', $others)
+            )
+        );
+    }
+
+    /**
+     * Get routes from the collection by method.
+>>>>>>> dev
      *
      * @param  string|null  $method
      * @return array
      */
     public function get($method = null)
     {
+<<<<<<< HEAD
         if (is_null($method)) {
             return $this->getRoutes();
         }
 
         return Arr::get($this->routes, $method, []);
+=======
+        return is_null($method) ? $this->getRoutes() : Arr::get($this->routes, $method, []);
+>>>>>>> dev
     }
 
     /**
@@ -267,7 +384,11 @@ class RouteCollection implements Countable, IteratorAggregate
      */
     public function getByName($name)
     {
+<<<<<<< HEAD
         return isset($this->nameList[$name]) ? $this->nameList[$name] : null;
+=======
+        return $this->nameList[$name] ?? null;
+>>>>>>> dev
     }
 
     /**
@@ -278,7 +399,11 @@ class RouteCollection implements Countable, IteratorAggregate
      */
     public function getByAction($action)
     {
+<<<<<<< HEAD
         return isset($this->actionList[$action]) ? $this->actionList[$action] : null;
+=======
+        return $this->actionList[$action] ?? null;
+>>>>>>> dev
     }
 
     /**
@@ -302,6 +427,19 @@ class RouteCollection implements Countable, IteratorAggregate
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get all of the routes keyed by their name.
+     *
+     * @return array
+     */
+    public function getRoutesByName()
+    {
+        return $this->nameList;
+    }
+
+    /**
+>>>>>>> dev
      * Get an iterator for the items.
      *
      * @return \ArrayIterator

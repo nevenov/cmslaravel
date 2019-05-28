@@ -4,6 +4,10 @@ namespace Illuminate\Auth;
 
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Auth\UserProvider;
+<<<<<<< HEAD
+=======
+use Illuminate\Contracts\Support\Arrayable;
+>>>>>>> dev
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
@@ -68,12 +72,21 @@ class DatabaseUserProvider implements UserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
+<<<<<<< HEAD
         $user = $this->conn->table($this->table)
             ->where('id', $identifier)
             ->where('remember_token', $token)
             ->first();
 
         return $this->getGenericUser($user);
+=======
+        $user = $this->getGenericUser(
+            $this->conn->table($this->table)->find($identifier)
+        );
+
+        return $user && $user->getRememberToken() && hash_equals($user->getRememberToken(), $token)
+                    ? $user : null;
+>>>>>>> dev
     }
 
     /**
@@ -86,8 +99,13 @@ class DatabaseUserProvider implements UserProvider
     public function updateRememberToken(UserContract $user, $token)
     {
         $this->conn->table($this->table)
+<<<<<<< HEAD
                 ->where('id', $user->getAuthIdentifier())
                 ->update(['remember_token' => $token]);
+=======
+                ->where($user->getAuthIdentifierName(), $user->getAuthIdentifier())
+                ->update([$user->getRememberTokenName() => $token]);
+>>>>>>> dev
     }
 
     /**
@@ -98,13 +116,32 @@ class DatabaseUserProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
+<<<<<<< HEAD
+=======
+        if (empty($credentials) ||
+           (count($credentials) === 1 &&
+            array_key_exists('password', $credentials))) {
+            return;
+        }
+
+>>>>>>> dev
         // First we will add each credential element to the query as a where clause.
         // Then we can execute the query and, if we found a user, return it in a
         // generic "user" object that will be utilized by the Guard instances.
         $query = $this->conn->table($this->table);
 
         foreach ($credentials as $key => $value) {
+<<<<<<< HEAD
             if (! Str::contains($key, 'password')) {
+=======
+            if (Str::contains($key, 'password')) {
+                continue;
+            }
+
+            if (is_array($value) || $value instanceof Arrayable) {
+                $query->whereIn($key, $value);
+            } else {
+>>>>>>> dev
                 $query->where($key, $value);
             }
         }
@@ -125,7 +162,11 @@ class DatabaseUserProvider implements UserProvider
      */
     protected function getGenericUser($user)
     {
+<<<<<<< HEAD
         if ($user !== null) {
+=======
+        if (! is_null($user)) {
+>>>>>>> dev
             return new GenericUser((array) $user);
         }
     }
@@ -139,8 +180,14 @@ class DatabaseUserProvider implements UserProvider
      */
     public function validateCredentials(UserContract $user, array $credentials)
     {
+<<<<<<< HEAD
         $plain = $credentials['password'];
 
         return $this->hasher->check($plain, $user->getAuthPassword());
+=======
+        return $this->hasher->check(
+            $credentials['password'], $user->getAuthPassword()
+        );
+>>>>>>> dev
     }
 }

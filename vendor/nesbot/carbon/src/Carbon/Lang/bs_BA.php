@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 /*
+=======
+/**
+>>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -8,6 +12,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 return array(
     'year' => ':count godina|:count godine|:count godina',
@@ -29,3 +34,6 @@ return array(
     'after' => 'nakon :time',
     'before' => ':time ranije',
 );
+=======
+return require __DIR__.'/bs.php';
+>>>>>>> dev

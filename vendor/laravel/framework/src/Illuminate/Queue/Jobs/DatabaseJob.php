@@ -2,8 +2,13 @@
 
 namespace Illuminate\Queue\Jobs;
 
+<<<<<<< HEAD
 use Illuminate\Queue\DatabaseQueue;
 use Illuminate\Container\Container;
+=======
+use Illuminate\Container\Container;
+use Illuminate\Queue\DatabaseQueue;
+>>>>>>> dev
 use Illuminate\Contracts\Queue\Job as JobContract;
 
 class DatabaseJob extends Job implements JobContract
@@ -18,7 +23,11 @@ class DatabaseJob extends Job implements JobContract
     /**
      * The database job payload.
      *
+<<<<<<< HEAD
      * @var \StdClass
+=======
+     * @var \stdClass
+>>>>>>> dev
      */
     protected $job;
 
@@ -27,16 +36,26 @@ class DatabaseJob extends Job implements JobContract
      *
      * @param  \Illuminate\Container\Container  $container
      * @param  \Illuminate\Queue\DatabaseQueue  $database
+<<<<<<< HEAD
      * @param  \StdClass  $job
      * @param  string  $queue
      * @return void
      */
     public function __construct(Container $container, DatabaseQueue $database, $job, $queue)
+=======
+     * @param  \stdClass  $job
+     * @param  string  $connectionName
+     * @param  string  $queue
+     * @return void
+     */
+    public function __construct(Container $container, DatabaseQueue $database, $job, $connectionName, $queue)
+>>>>>>> dev
     {
         $this->job = $job;
         $this->queue = $queue;
         $this->database = $database;
         $this->container = $container;
+<<<<<<< HEAD
     }
 
     /**
@@ -47,6 +66,24 @@ class DatabaseJob extends Job implements JobContract
     public function fire()
     {
         $this->resolveAndFire(json_decode($this->job->payload, true));
+=======
+        $this->connectionName = $connectionName;
+    }
+
+    /**
+     * Release the job back into the queue.
+     *
+     * @param  int  $delay
+     * @return mixed
+     */
+    public function release($delay = 0)
+    {
+        parent::release($delay);
+
+        $this->delete();
+
+        return $this->database->release($this->queue, $this->job, $delay);
+>>>>>>> dev
     }
 
     /**
@@ -62,6 +99,7 @@ class DatabaseJob extends Job implements JobContract
     }
 
     /**
+<<<<<<< HEAD
      * Release the job back into the queue.
      *
      * @param  int  $delay
@@ -77,6 +115,8 @@ class DatabaseJob extends Job implements JobContract
     }
 
     /**
+=======
+>>>>>>> dev
      * Get the number of times the job has been attempted.
      *
      * @return int
@@ -105,6 +145,7 @@ class DatabaseJob extends Job implements JobContract
     {
         return $this->job->payload;
     }
+<<<<<<< HEAD
 
     /**
      * Get the IoC container instance.
@@ -135,4 +176,6 @@ class DatabaseJob extends Job implements JobContract
     {
         return $this->job;
     }
+=======
+>>>>>>> dev
 }

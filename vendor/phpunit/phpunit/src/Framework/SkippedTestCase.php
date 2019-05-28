@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 /**
  * A skipped test case
@@ -14,6 +15,14 @@
  * @since Class available since Release 4.3.0
  */
 class PHPUnit_Framework_SkippedTestCase extends PHPUnit_Framework_TestCase
+=======
+namespace PHPUnit\Framework;
+
+/**
+ * A skipped test case
+ */
+class SkippedTestCase extends TestCase
+>>>>>>> dev
 {
     /**
      * @var string
@@ -55,7 +64,11 @@ class PHPUnit_Framework_SkippedTestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
+<<<<<<< HEAD
      * @throws PHPUnit_Framework_Exception
+=======
+     * @throws Exception
+>>>>>>> dev
      */
     protected function runTest()
     {

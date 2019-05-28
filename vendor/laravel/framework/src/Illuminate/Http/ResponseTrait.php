@@ -2,11 +2,34 @@
 
 namespace Illuminate\Http;
 
+<<<<<<< HEAD
 use Illuminate\Http\Exception\HttpResponseException;
+=======
+use Exception;
+use Symfony\Component\HttpFoundation\HeaderBag;
+use Illuminate\Http\Exceptions\HttpResponseException;
+>>>>>>> dev
 
 trait ResponseTrait
 {
     /**
+<<<<<<< HEAD
+=======
+     * The original content of the response.
+     *
+     * @var mixed
+     */
+    public $original;
+
+    /**
+     * The exception that triggered the error response (if applicable).
+     *
+     * @var \Exception|null
+     */
+    public $exception;
+
+    /**
+>>>>>>> dev
      * Get the status code for the response.
      *
      * @return int
@@ -27,6 +50,7 @@ trait ResponseTrait
     }
 
     /**
+<<<<<<< HEAD
      * Set a header on the Response.
      *
      * @param  string  $key
@@ -37,6 +61,30 @@ trait ResponseTrait
     public function header($key, $value, $replace = true)
     {
         $this->headers->set($key, $value, $replace);
+=======
+     * Get the original response content.
+     *
+     * @return mixed
+     */
+    public function getOriginalContent()
+    {
+        $original = $this->original;
+
+        return $original instanceof self ? $original->{__FUNCTION__}() : $original;
+    }
+
+    /**
+     * Set a header on the Response.
+     *
+     * @param  string  $key
+     * @param  array|string  $values
+     * @param  bool    $replace
+     * @return $this
+     */
+    public function header($key, $values, $replace = true)
+    {
+        $this->headers->set($key, $values, $replace);
+>>>>>>> dev
 
         return $this;
     }
@@ -44,11 +92,23 @@ trait ResponseTrait
     /**
      * Add an array of headers to the response.
      *
+<<<<<<< HEAD
      * @param  array  $headers
      * @return $this
      */
     public function withHeaders(array $headers)
     {
+=======
+     * @param  \Symfony\Component\HttpFoundation\HeaderBag|array  $headers
+     * @return $this
+     */
+    public function withHeaders($headers)
+    {
+        if ($headers instanceof HeaderBag) {
+            $headers = $headers->all();
+        }
+
+>>>>>>> dev
         foreach ($headers as $key => $value) {
             $this->headers->set($key, $value);
         }
@@ -85,9 +145,38 @@ trait ResponseTrait
     }
 
     /**
+<<<<<<< HEAD
      * Throws the response in a HttpResponseException instance.
      *
      * @throws \Illuminate\Http\Exception\HttpResponseException
+=======
+     * Get the callback of the response.
+     *
+     * @return string|null
+     */
+    public function getCallback()
+    {
+        return $this->callback ?? null;
+    }
+
+    /**
+     * Set the exception to attach to the response.
+     *
+     * @param  \Exception  $e
+     * @return $this
+     */
+    public function withException(Exception $e)
+    {
+        $this->exception = $e;
+
+        return $this;
+    }
+
+    /**
+     * Throws the response in a HttpResponseException instance.
+     *
+     * @throws \Illuminate\Http\Exceptions\HttpResponseException
+>>>>>>> dev
      */
     public function throwResponse()
     {

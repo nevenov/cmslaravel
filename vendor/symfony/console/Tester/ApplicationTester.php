@@ -13,9 +13,12 @@ namespace Symfony\Component\Console\Tester;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
+<<<<<<< HEAD
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
+=======
+>>>>>>> dev
 
 /**
  * Eases the testing of console applications.
@@ -29,6 +32,7 @@ use Symfony\Component\Console\Output\StreamOutput;
  */
 class ApplicationTester
 {
+<<<<<<< HEAD
     private $application;
     private $input;
     private $output;
@@ -39,6 +43,14 @@ class ApplicationTester
      *
      * @param Application $application An Application instance to test
      */
+=======
+    use TesterTrait;
+
+    private $application;
+    private $input;
+    private $statusCode;
+
+>>>>>>> dev
     public function __construct(Application $application)
     {
         $this->application = $application;
@@ -49,22 +61,34 @@ class ApplicationTester
      *
      * Available options:
      *
+<<<<<<< HEAD
      *  * interactive: Sets the input interactive flag
      *  * decorated:   Sets the output decorated flag
      *  * verbosity:   Sets the output verbosity flag
+=======
+     *  * interactive:               Sets the input interactive flag
+     *  * decorated:                 Sets the output decorated flag
+     *  * verbosity:                 Sets the output verbosity flag
+     *  * capture_stderr_separately: Make output of stdOut and stdErr separately available
+>>>>>>> dev
      *
      * @param array $input   An array of arguments and options
      * @param array $options An array of options
      *
      * @return int The command exit code
      */
+<<<<<<< HEAD
     public function run(array $input, $options = array())
+=======
+    public function run(array $input, $options = [])
+>>>>>>> dev
     {
         $this->input = new ArrayInput($input);
         if (isset($options['interactive'])) {
             $this->input->setInteractive($options['interactive']);
         }
 
+<<<<<<< HEAD
         $this->output = new StreamOutput(fopen('php://memory', 'w', false));
         if (isset($options['decorated'])) {
             $this->output->setDecorated($options['decorated']);
@@ -123,6 +147,21 @@ class ApplicationTester
      */
     public function getStatusCode()
     {
+=======
+        $shellInteractive = getenv('SHELL_INTERACTIVE');
+
+        if ($this->inputs) {
+            $this->input->setStream(self::createStream($this->inputs));
+            putenv('SHELL_INTERACTIVE=1');
+        }
+
+        $this->initOutput($options);
+
+        $this->statusCode = $this->application->run($this->input, $this->output);
+
+        putenv($shellInteractive ? "SHELL_INTERACTIVE=$shellInteractive" : 'SHELL_INTERACTIVE');
+
+>>>>>>> dev
         return $this->statusCode;
     }
 }

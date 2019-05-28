@@ -32,6 +32,10 @@ class TraceableEventDispatcher implements TraceableEventDispatcherInterface
     private $callStack;
     private $dispatcher;
     private $wrappedListeners;
+<<<<<<< HEAD
+=======
+    private $orphanedEvents;
+>>>>>>> dev
 
     public function __construct(EventDispatcherInterface $dispatcher, Stopwatch $stopwatch, LoggerInterface $logger = null)
     {
@@ -39,6 +43,10 @@ class TraceableEventDispatcher implements TraceableEventDispatcherInterface
         $this->stopwatch = $stopwatch;
         $this->logger = $logger;
         $this->wrappedListeners = [];
+<<<<<<< HEAD
+=======
+        $this->orphanedEvents = [];
+>>>>>>> dev
     }
 
     /**
@@ -219,9 +227,21 @@ class TraceableEventDispatcher implements TraceableEventDispatcherInterface
         return $notCalled;
     }
 
+<<<<<<< HEAD
     public function reset()
     {
         $this->callStack = null;
+=======
+    public function getOrphanedEvents(): array
+    {
+        return $this->orphanedEvents;
+    }
+
+    public function reset()
+    {
+        $this->callStack = null;
+        $this->orphanedEvents = [];
+>>>>>>> dev
     }
 
     /**
@@ -234,7 +254,11 @@ class TraceableEventDispatcher implements TraceableEventDispatcherInterface
      */
     public function __call($method, $arguments)
     {
+<<<<<<< HEAD
         return \call_user_func_array([$this->dispatcher, $method], $arguments);
+=======
+        return $this->dispatcher->{$method}(...$arguments);
+>>>>>>> dev
     }
 
     /**
@@ -259,6 +283,15 @@ class TraceableEventDispatcher implements TraceableEventDispatcherInterface
 
     private function preProcess($eventName)
     {
+<<<<<<< HEAD
+=======
+        if (!$this->dispatcher->hasListeners($eventName)) {
+            $this->orphanedEvents[] = $eventName;
+
+            return;
+        }
+
+>>>>>>> dev
         foreach ($this->dispatcher->getListeners($eventName) as $listener) {
             $priority = $this->getListenerPriority($eventName, $listener);
             $wrappedListener = new WrappedListener($listener instanceof WrappedListener ? $listener->getWrappedListener() : $listener, null, $this->stopwatch, $this);

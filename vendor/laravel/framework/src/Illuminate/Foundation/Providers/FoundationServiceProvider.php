@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Providers;
 
+<<<<<<< HEAD
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Http\FormRequest;
@@ -45,10 +46,62 @@ class FoundationServiceProvider extends ServiceProvider
             $this->initializeRequest($request, $app['request']);
 
             $request->setContainer($app)->setRedirector($app->make(Redirector::class));
+=======
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\AggregateServiceProvider;
+
+class FoundationServiceProvider extends AggregateServiceProvider
+{
+    /**
+     * The provider class names.
+     *
+     * @var array
+     */
+    protected $providers = [
+        FormRequestServiceProvider::class,
+    ];
+
+    /**
+     * Boot the service provider.
+     */
+    public function boot()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../Exceptions/views' => $this->app->resourcePath('views/errors/'),
+            ], 'laravel-errors');
+        }
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        parent::register();
+
+        $this->registerRequestValidation();
+        $this->registerRequestSignatureValidation();
+    }
+
+    /**
+     * Register the "validate" macro on the request.
+     *
+     * @return void
+     */
+    public function registerRequestValidation()
+    {
+        Request::macro('validate', function (array $rules, ...$params) {
+            return validator()->validate($this->all(), $rules, ...$params);
+>>>>>>> dev
         });
     }
 
     /**
+<<<<<<< HEAD
      * Initialize the form request with data from the given request.
      *
      * @param  \Illuminate\Foundation\Http\FormRequest  $form
@@ -73,5 +126,16 @@ class FoundationServiceProvider extends ServiceProvider
         $form->setUserResolver($current->getUserResolver());
 
         $form->setRouteResolver($current->getRouteResolver());
+=======
+     * Register the "hasValidSignature" macro on the request.
+     *
+     * @return void
+     */
+    public function registerRequestSignatureValidation()
+    {
+        Request::macro('hasValidSignature', function ($absolute = true) {
+            return URL::hasValidSignature($this, $absolute);
+        });
+>>>>>>> dev
     }
 }

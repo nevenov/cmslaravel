@@ -2,15 +2,23 @@
 
 namespace Illuminate\Routing;
 
+<<<<<<< HEAD
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
 
 class ControllerDispatcher
+=======
+use Illuminate\Container\Container;
+use Illuminate\Routing\Contracts\ControllerDispatcher as ControllerDispatcherContract;
+
+class ControllerDispatcher implements ControllerDispatcherContract
+>>>>>>> dev
 {
     use RouteDependencyResolverTrait;
 
     /**
+<<<<<<< HEAD
      * The router instance.
      *
      * @var \Illuminate\Routing\Router
@@ -19,6 +27,9 @@ class ControllerDispatcher
 
     /**
      * The IoC container instance.
+=======
+     * The container instance.
+>>>>>>> dev
      *
      * @var \Illuminate\Container\Container
      */
@@ -27,6 +38,7 @@ class ControllerDispatcher
     /**
      * Create a new controller dispatcher instance.
      *
+<<<<<<< HEAD
      * @param  \Illuminate\Routing\Router  $router
      * @param  \Illuminate\Container\Container  $container
      * @return void
@@ -35,6 +47,13 @@ class ControllerDispatcher
                                 Container $container = null)
     {
         $this->router = $router;
+=======
+     * @param  \Illuminate\Container\Container  $container
+     * @return void
+     */
+    public function __construct(Container $container)
+    {
+>>>>>>> dev
         $this->container = $container;
     }
 
@@ -42,6 +61,7 @@ class ControllerDispatcher
      * Dispatch a request to a given controller and method.
      *
      * @param  \Illuminate\Routing\Route  $route
+<<<<<<< HEAD
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $controller
      * @param  string  $method
@@ -94,11 +114,29 @@ class ControllerDispatcher
                             $request, $this->call($instance, $route, $method)
                         );
                     });
+=======
+     * @param  mixed  $controller
+     * @param  string  $method
+     * @return mixed
+     */
+    public function dispatch(Route $route, $controller, $method)
+    {
+        $parameters = $this->resolveClassMethodDependencies(
+            $route->parametersWithoutNulls(), $controller, $method
+        );
+
+        if (method_exists($controller, 'callAction')) {
+            return $controller->callAction($method, $parameters);
+        }
+
+        return $controller->{$method}(...array_values($parameters));
+>>>>>>> dev
     }
 
     /**
      * Get the middleware for the controller instance.
      *
+<<<<<<< HEAD
      * @param  \Illuminate\Routing\Controller  $instance
      * @param  string  $method
      * @return array
@@ -114,6 +152,21 @@ class ControllerDispatcher
         }
 
         return $results->flatten()->all();
+=======
+     * @param  \Illuminate\Routing\Controller  $controller
+     * @param  string  $method
+     * @return array
+     */
+    public function getMiddleware($controller, $method)
+    {
+        if (! method_exists($controller, 'getMiddleware')) {
+            return [];
+        }
+
+        return collect($controller->getMiddleware())->reject(function ($data) use ($method) {
+            return static::methodExcludedByOptions($method, $data['options']);
+        })->pluck('middleware')->all();
+>>>>>>> dev
     }
 
     /**
@@ -123,11 +176,16 @@ class ControllerDispatcher
      * @param  array  $options
      * @return bool
      */
+<<<<<<< HEAD
     public function methodExcludedByOptions($method, array $options)
+=======
+    protected static function methodExcludedByOptions($method, array $options)
+>>>>>>> dev
     {
         return (isset($options['only']) && ! in_array($method, (array) $options['only'])) ||
             (! empty($options['except']) && in_array($method, (array) $options['except']));
     }
+<<<<<<< HEAD
 
     /**
      * Call the given controller instance method.
@@ -145,4 +203,6 @@ class ControllerDispatcher
 
         return $instance->callAction($method, $parameters);
     }
+=======
+>>>>>>> dev
 }

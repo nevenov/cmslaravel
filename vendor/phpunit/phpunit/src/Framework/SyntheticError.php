@@ -8,12 +8,21 @@
  * file that was distributed with this source code.
  */
 
+<<<<<<< HEAD
 /**
  * Creates a synthetic failed assertion.
  *
  * @since Class available since Release 3.5.0
  */
 class PHPUnit_Framework_SyntheticError extends PHPUnit_Framework_AssertionFailedError
+=======
+namespace PHPUnit\Framework;
+
+/**
+ * Creates a synthetic failed assertion.
+ */
+class SyntheticError extends AssertionFailedError
+>>>>>>> dev
 {
     /**
      * The synthetic file.
@@ -34,7 +43,11 @@ class PHPUnit_Framework_SyntheticError extends PHPUnit_Framework_AssertionFailed
      *
      * @var array
      */
+<<<<<<< HEAD
     protected $syntheticTrace = array();
+=======
+    protected $syntheticTrace = [];
+>>>>>>> dev
 
     /**
      * Constructor.

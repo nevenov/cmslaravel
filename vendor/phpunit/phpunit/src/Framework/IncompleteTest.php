@@ -8,6 +8,7 @@
  * file that was distributed with this source code.
  */
 
+<<<<<<< HEAD
 /**
  * A marker interface for marking any exception/error as result of an unit
  * test as incomplete implementation or currently not implemented.
@@ -15,5 +16,14 @@
  * @since Interface available since Release 2.0.0
  */
 interface PHPUnit_Framework_IncompleteTest
+=======
+namespace PHPUnit\Framework;
+
+/**
+ * A marker interface for marking any exception/error as result of an unit
+ * test as incomplete implementation or currently not implemented.
+ */
+interface IncompleteTest
+>>>>>>> dev
 {
 }

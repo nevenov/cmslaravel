@@ -20,8 +20,13 @@ namespace Symfony\Component\Console\Helper;
  */
 class DebugFormatterHelper extends Helper
 {
+<<<<<<< HEAD
     private $colors = array('black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'default');
     private $started = array();
+=======
+    private $colors = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'default'];
+    private $started = [];
+>>>>>>> dev
     private $count = -1;
 
     /**
@@ -35,7 +40,11 @@ class DebugFormatterHelper extends Helper
      */
     public function start($id, $message, $prefix = 'RUN')
     {
+<<<<<<< HEAD
         $this->started[$id] = array('border' => ++$this->count % count($this->colors));
+=======
+        $this->started[$id] = ['border' => ++$this->count % \count($this->colors)];
+>>>>>>> dev
 
         return sprintf("%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n", $this->getBorder($id), $prefix, $message);
     }

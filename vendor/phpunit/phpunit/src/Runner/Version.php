@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php
+=======
+<?php declare(strict_types=1);
+>>>>>>> dev
 /*
  * This file is part of PHPUnit.
  *
@@ -8,6 +12,7 @@
  * file that was distributed with this source code.
  */
 
+<<<<<<< HEAD
 use SebastianBergmann\Version;
 
 /**
@@ -16,6 +21,16 @@ use SebastianBergmann\Version;
  * @since Class available since Release 2.0.0
  */
 class PHPUnit_Runner_Version
+=======
+namespace PHPUnit\Runner;
+
+use SebastianBergmann\Version as VersionId;
+
+/**
+ * This class defines the current version of PHPUnit.
+ */
+class Version
+>>>>>>> dev
 {
     private static $pharVersion;
     private static $version;
@@ -32,7 +47,11 @@ class PHPUnit_Runner_Version
         }
 
         if (self::$version === null) {
+<<<<<<< HEAD
             $version       = new Version('4.8.36', dirname(dirname(__DIR__)));
+=======
+            $version       = new VersionId('6.5.14', \dirname(\dirname(__DIR__)));
+>>>>>>> dev
             self::$version = $version->getVersion();
         }
 
@@ -41,6 +60,7 @@ class PHPUnit_Runner_Version
 
     /**
      * @return string
+<<<<<<< HEAD
      *
      * @since Method available since Release 4.8.13
      */
@@ -49,11 +69,22 @@ class PHPUnit_Runner_Version
         if (strpos(self::id(), '-')) {
             $tmp     = explode('-', self::id());
             $version = $tmp[0];
+=======
+     */
+    public static function series()
+    {
+        if (\strpos(self::id(), '-')) {
+            $version = \explode('-', self::id())[0];
+>>>>>>> dev
         } else {
             $version = self::id();
         }
 
+<<<<<<< HEAD
         return implode('.', array_slice(explode('.', $version), 0, 2));
+=======
+        return \implode('.', \array_slice(\explode('.', $version), 0, 2));
+>>>>>>> dev
     }
 
     /**
@@ -66,12 +97,19 @@ class PHPUnit_Runner_Version
 
     /**
      * @return string
+<<<<<<< HEAD
      *
      * @since  Method available since Release 4.0.0
      */
     public static function getReleaseChannel()
     {
         if (strpos(self::$pharVersion, '-') !== false) {
+=======
+     */
+    public static function getReleaseChannel()
+    {
+        if (\strpos(self::$pharVersion, '-') !== false) {
+>>>>>>> dev
             return '-nightly';
         }
 

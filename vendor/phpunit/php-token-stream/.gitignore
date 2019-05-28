@@ -1,4 +1,7 @@
 /.idea
 /composer.lock
+<<<<<<< HEAD
 /composer.phar
+=======
+>>>>>>> dev
 /vendor

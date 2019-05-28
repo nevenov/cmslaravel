@@ -1,6 +1,10 @@
 <?php
 /*
+<<<<<<< HEAD
  * This file is part of the Exporter package.
+=======
+ * This file is part of the exporter package.
+>>>>>>> dev
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -38,8 +42,14 @@ class Exporter
      *  - Carriage returns and newlines are normalized to \n
      *  - Recursion and repeated rendering is treated properly
      *
+<<<<<<< HEAD
      * @param  mixed  $value
      * @param  int    $indentation The indentation level of the 2nd+ line
+=======
+     * @param mixed $value
+     * @param int   $indentation The indentation level of the 2nd+ line
+     *
+>>>>>>> dev
      * @return string
      */
     public function export($value, $indentation = 0)
@@ -48,19 +58,30 @@ class Exporter
     }
 
     /**
+<<<<<<< HEAD
      * @param  mixed   $data
      * @param  Context $context
+=======
+     * @param mixed   $data
+     * @param Context $context
+     *
+>>>>>>> dev
      * @return string
      */
     public function shortenedRecursiveExport(&$data, Context $context = null)
     {
+<<<<<<< HEAD
         $result   = array();
+=======
+        $result   = [];
+>>>>>>> dev
         $exporter = new self();
 
         if (!$context) {
             $context = new Context;
         }
 
+<<<<<<< HEAD
         $context->add($data);
 
         foreach ($data as $key => $value) {
@@ -70,14 +91,28 @@ class Exporter
                 }
 
                 else {
+=======
+        $array = $data;
+        $context->add($data);
+
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                if ($context->contains($data[$key]) !== false) {
+                    $result[] = '*RECURSION*';
+                } else {
+>>>>>>> dev
                     $result[] = sprintf(
                         'array(%s)',
                         $this->shortenedRecursiveExport($data[$key], $context)
                     );
                 }
+<<<<<<< HEAD
             }
 
             else {
+=======
+            } else {
+>>>>>>> dev
                 $result[] = $exporter->shortenedExport($value);
             }
         }
@@ -94,14 +129,25 @@ class Exporter
      * Newlines are replaced by the visible string '\n'.
      * Contents of arrays and objects (if any) are replaced by '...'.
      *
+<<<<<<< HEAD
      * @param  mixed  $value
      * @return string
+=======
+     * @param mixed $value
+     *
+     * @return string
+     *
+>>>>>>> dev
      * @see    SebastianBergmann\Exporter\Exporter::export
      */
     public function shortenedExport($value)
     {
         if (is_string($value)) {
+<<<<<<< HEAD
             $string = $this->export($value);
+=======
+            $string = str_replace("\n", '', $this->export($value));
+>>>>>>> dev
 
             if (function_exists('mb_strlen')) {
                 if (mb_strlen($string) > 40) {
@@ -113,7 +159,11 @@ class Exporter
                 }
             }
 
+<<<<<<< HEAD
             return str_replace("\n", '\n', $string);
+=======
+            return $string;
+>>>>>>> dev
         }
 
         if (is_object($value)) {
@@ -138,7 +188,12 @@ class Exporter
      * Converts an object to an array containing all of its private, protected
      * and public properties.
      *
+<<<<<<< HEAD
      * @param  mixed $value
+=======
+     * @param mixed $value
+     *
+>>>>>>> dev
      * @return array
      */
     public function toArray($value)
@@ -147,7 +202,11 @@ class Exporter
             return (array) $value;
         }
 
+<<<<<<< HEAD
         $array = array();
+=======
+        $array = [];
+>>>>>>> dev
 
         foreach ((array) $value as $key => $val) {
             // properties are transformed to keys in the following way:
@@ -183,10 +242,17 @@ class Exporter
             }
 
             foreach ($value as $key => $val) {
+<<<<<<< HEAD
                 $array[spl_object_hash($val)] = array(
                     'obj' => $val,
                     'inf' => $value->getInfo(),
                 );
+=======
+                $array[spl_object_hash($val)] = [
+                    'obj' => $val,
+                    'inf' => $value->getInfo(),
+                ];
+>>>>>>> dev
             }
         }
 
@@ -196,10 +262,19 @@ class Exporter
     /**
      * Recursive implementation of export
      *
+<<<<<<< HEAD
      * @param  mixed                                       $value       The value to export
      * @param  int                                         $indentation The indentation level of the 2nd+ line
      * @param  \SebastianBergmann\RecursionContext\Context $processed   Previously processed objects
      * @return string
+=======
+     * @param mixed                                       $value       The value to export
+     * @param int                                         $indentation The indentation level of the 2nd+ line
+     * @param \SebastianBergmann\RecursionContext\Context $processed   Previously processed objects
+     *
+     * @return string
+     *
+>>>>>>> dev
      * @see    SebastianBergmann\Exporter\Exporter::export
      */
     protected function recursiveExport(&$value, $indentation, $processed = null)
@@ -235,7 +310,17 @@ class Exporter
             }
 
             return "'" .
+<<<<<<< HEAD
             str_replace(array("\r\n", "\n\r", "\r"), array("\n", "\n", "\n"), $value) .
+=======
+            str_replace('<lf>', "\n",
+                str_replace(
+                    ["\r\n", "\n\r", "\r", "\n"],
+                    ['\r\n<lf>', '\n\r<lf>', '\r<lf>', '\n<lf>'],
+                    $value
+                )
+            ) .
+>>>>>>> dev
             "'";
         }
 
@@ -250,11 +335,20 @@ class Exporter
                 return 'Array &' . $key;
             }
 
+<<<<<<< HEAD
             $key    = $processed->add($value);
             $values = '';
 
             if (count($value) > 0) {
                 foreach ($value as $k => $v) {
+=======
+            $array  = $value;
+            $key    = $processed->add($value);
+            $values = '';
+
+            if (count($array) > 0) {
+                foreach ($array as $k => $v) {
+>>>>>>> dev
                     $values .= sprintf(
                         '%s    %s => %s' . "\n",
                         $whitespace,

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 /**
  * XML helpers.
@@ -71,6 +72,24 @@ class PHPUnit_Util_XML
     }
 
     /**
+=======
+namespace PHPUnit\Util;
+
+use DOMCharacterData;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMText;
+use PHPUnit\Framework\Exception;
+use ReflectionClass;
+
+/**
+ * XML helpers.
+ */
+class Xml
+{
+    /**
+>>>>>>> dev
      * Load an $actual document into a DOMDocument.  This is called
      * from the selector assertions.
      *
@@ -91,8 +110,11 @@ class PHPUnit_Util_XML
      * @param bool               $strict
      *
      * @return DOMDocument
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.3.0
+=======
+>>>>>>> dev
      */
     public static function load($actual, $isHtml = false, $filename = '', $xinclude = false, $strict = false)
     {
@@ -100,26 +122,46 @@ class PHPUnit_Util_XML
             return $actual;
         }
 
+<<<<<<< HEAD
         if (!is_string($actual)) {
             throw new PHPUnit_Framework_Exception('Could not load XML from ' . gettype($actual));
         }
 
         if ($actual === '') {
             throw new PHPUnit_Framework_Exception('Could not load XML from empty string');
+=======
+        if (!\is_string($actual)) {
+            throw new Exception('Could not load XML from ' . \gettype($actual));
+        }
+
+        if ($actual === '') {
+            throw new Exception('Could not load XML from empty string');
+>>>>>>> dev
         }
 
         // Required for XInclude on Windows.
         if ($xinclude) {
+<<<<<<< HEAD
             $cwd = getcwd();
             @chdir(dirname($filename));
+=======
+            $cwd = \getcwd();
+            @\chdir(\dirname($filename));
+>>>>>>> dev
         }
 
         $document                     = new DOMDocument;
         $document->preserveWhiteSpace = false;
 
+<<<<<<< HEAD
         $internal  = libxml_use_internal_errors(true);
         $message   = '';
         $reporting = error_reporting(0);
+=======
+        $internal  = \libxml_use_internal_errors(true);
+        $message   = '';
+        $reporting = \error_reporting(0);
+>>>>>>> dev
 
         if ('' !== $filename) {
             // Necessary for xinclude
@@ -136,6 +178,7 @@ class PHPUnit_Util_XML
             $document->xinclude();
         }
 
+<<<<<<< HEAD
         foreach (libxml_get_errors() as $error) {
             $message .= "\n" . $error->message;
         }
@@ -145,29 +188,56 @@ class PHPUnit_Util_XML
 
         if ($xinclude) {
             @chdir($cwd);
+=======
+        foreach (\libxml_get_errors() as $error) {
+            $message .= "\n" . $error->message;
+        }
+
+        \libxml_use_internal_errors($internal);
+        \error_reporting($reporting);
+
+        if (isset($cwd)) {
+            @\chdir($cwd);
+>>>>>>> dev
         }
 
         if ($loaded === false || ($strict && $message !== '')) {
             if ($filename !== '') {
+<<<<<<< HEAD
                 throw new PHPUnit_Framework_Exception(
                     sprintf(
+=======
+                throw new Exception(
+                    \sprintf(
+>>>>>>> dev
                         'Could not load "%s".%s',
                         $filename,
                         $message != '' ? "\n" . $message : ''
                     )
                 );
+<<<<<<< HEAD
             } else {
                 if ($message === '') {
                     $message = 'Could not load XML for unknown reason';
                 }
                 throw new PHPUnit_Framework_Exception($message);
             }
+=======
+            }
+
+            if ($message === '') {
+                $message = 'Could not load XML for unknown reason';
+            }
+
+            throw new Exception($message);
+>>>>>>> dev
         }
 
         return $document;
     }
 
     /**
+<<<<<<< HEAD
      * @param DOMNode $node
      *
      * @return string
@@ -187,12 +257,42 @@ class PHPUnit_Util_XML
         }
 
         return $result;
+=======
+     * Loads an XML (or HTML) file into a DOMDocument object.
+     *
+     * @param string $filename
+     * @param bool   $isHtml
+     * @param bool   $xinclude
+     * @param bool   $strict
+     *
+     * @return DOMDocument
+     */
+    public static function loadFile($filename, $isHtml = false, $xinclude = false, $strict = false)
+    {
+        $reporting = \error_reporting(0);
+        $contents  = \file_get_contents($filename);
+        \error_reporting($reporting);
+
+        if ($contents === false) {
+            throw new Exception(
+                \sprintf(
+                    'Could not read "%s".',
+                    $filename
+                )
+            );
+        }
+
+        return self::load($contents, $isHtml, $filename, $xinclude, $strict);
+>>>>>>> dev
     }
 
     /**
      * @param DOMNode $node
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.3.0
+=======
+>>>>>>> dev
      */
     public static function removeCharacterDataNodes(DOMNode $node)
     {
@@ -206,13 +306,42 @@ class PHPUnit_Util_XML
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Escapes a string for the use in XML documents
+     * Any Unicode character is allowed, excluding the surrogate blocks, FFFE,
+     * and FFFF (not even as character reference).
+     * See http://www.w3.org/TR/xml/#charsets
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    public static function prepareString($string)
+    {
+        return \preg_replace(
+            '/[\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]/',
+            '',
+            \htmlspecialchars(
+                self::convertToUtf8($string),
+                ENT_QUOTES,
+                'UTF-8'
+            )
+        );
+    }
+
+    /**
+>>>>>>> dev
      * "Convert" a DOMElement object into a PHP variable.
      *
      * @param DOMElement $element
      *
      * @return mixed
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.4.0
+=======
+>>>>>>> dev
      */
     public static function xmlToVariable(DOMElement $element)
     {
@@ -220,7 +349,11 @@ class PHPUnit_Util_XML
 
         switch ($element->tagName) {
             case 'array':
+<<<<<<< HEAD
                 $variable = array();
+=======
+                $variable = [];
+>>>>>>> dev
 
                 foreach ($element->childNodes as $entry) {
                     if (!$entry instanceof DOMElement || $entry->tagName !== 'element') {
@@ -240,14 +373,23 @@ class PHPUnit_Util_XML
                         $variable[] = $value;
                     }
                 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
                 break;
 
             case 'object':
                 $className = $element->getAttribute('class');
 
                 if ($element->hasChildNodes()) {
+<<<<<<< HEAD
                     $arguments       = $element->childNodes->item(1)->childNodes;
                     $constructorArgs = array();
+=======
+                    $arguments       = $element->childNodes->item(0)->childNodes;
+                    $constructorArgs = [];
+>>>>>>> dev
 
                     foreach ($arguments as $argument) {
                         if ($argument instanceof DOMElement) {
@@ -260,10 +402,19 @@ class PHPUnit_Util_XML
                 } else {
                     $variable = new $className;
                 }
+<<<<<<< HEAD
                 break;
 
             case 'boolean':
                 $variable = $element->textContent == 'true' ? true : false;
+=======
+
+                break;
+
+            case 'boolean':
+                $variable = $element->textContent == 'true';
+
+>>>>>>> dev
                 break;
 
             case 'integer':
@@ -271,7 +422,12 @@ class PHPUnit_Util_XML
             case 'string':
                 $variable = $element->textContent;
 
+<<<<<<< HEAD
                 settype($variable, $element->tagName);
+=======
+                \settype($variable, $element->tagName);
+
+>>>>>>> dev
                 break;
         }
 
@@ -279,6 +435,7 @@ class PHPUnit_Util_XML
     }
 
     /**
+<<<<<<< HEAD
      * Validate list of keys in the associative array.
      *
      * @param array $hash
@@ -942,5 +1099,58 @@ class PHPUnit_Util_XML
         }
 
         return str_replace('  ', ' ', $result);
+=======
+     * Converts a string to UTF-8 encoding.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    private static function convertToUtf8($string)
+    {
+        if (!self::isUtf8($string)) {
+            if (\function_exists('mb_convert_encoding')) {
+                return \mb_convert_encoding($string, 'UTF-8');
+            }
+
+            return \utf8_encode($string);
+        }
+
+        return $string;
+    }
+
+    /**
+     * Checks a string for UTF-8 encoding.
+     *
+     * @param string $string
+     *
+     * @return bool
+     */
+    private static function isUtf8($string)
+    {
+        $length = \strlen($string);
+
+        for ($i = 0; $i < $length; $i++) {
+            if (\ord($string[$i]) < 0x80) {
+                $n = 0;
+            } elseif ((\ord($string[$i]) & 0xE0) == 0xC0) {
+                $n = 1;
+            } elseif ((\ord($string[$i]) & 0xF0) == 0xE0) {
+                $n = 2;
+            } elseif ((\ord($string[$i]) & 0xF0) == 0xF0) {
+                $n = 3;
+            } else {
+                return false;
+            }
+
+            for ($j = 0; $j < $n; $j++) {
+                if ((++$i == $length) || ((\ord($string[$i]) & 0xC0) != 0x80)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+>>>>>>> dev
     }
 }

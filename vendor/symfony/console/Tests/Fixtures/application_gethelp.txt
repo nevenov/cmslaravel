@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 <info>Console Tool</info>
+=======
+Console Tool
+>>>>>>> dev

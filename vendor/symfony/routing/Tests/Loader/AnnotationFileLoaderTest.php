@@ -11,9 +11,15 @@
 
 namespace Symfony\Component\Routing\Tests\Loader;
 
+<<<<<<< HEAD
 use Symfony\Component\Routing\Loader\AnnotationFileLoader;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Annotation\Route;
+=======
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Loader\AnnotationFileLoader;
+>>>>>>> dev
 
 class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
 {
@@ -35,9 +41,12 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
         $this->loader->load(__DIR__.'/../Fixtures/AnnotatedClasses/FooClass.php');
     }
 
+<<<<<<< HEAD
     /**
      * @requires PHP 5.4
      */
+=======
+>>>>>>> dev
     public function testLoadTraitWithClassConstant()
     {
         $this->reader->expects($this->never())->method('getClassAnnotation');
@@ -46,6 +55,7 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
     }
 
     /**
+<<<<<<< HEAD
      * @requires PHP 5.6
      */
     public function testLoadVariadic()
@@ -54,10 +64,48 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
         $this->reader->expects($this->once())->method('getClassAnnotation');
         $this->reader->expects($this->once())->method('getMethodAnnotations')
             ->will($this->returnValue(array($route)));
+=======
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Did you forgot to add the "<?php" start tag at the beginning of the file?
+     */
+    public function testLoadFileWithoutStartTag()
+    {
+        $this->loader->load(__DIR__.'/../Fixtures/OtherAnnotatedClasses/NoStartTagClass.php');
+    }
+
+    public function testLoadVariadic()
+    {
+        $route = new Route(['path' => '/path/to/{id}']);
+        $this->reader->expects($this->once())->method('getClassAnnotation');
+        $this->reader->expects($this->once())->method('getMethodAnnotations')
+            ->will($this->returnValue([$route]));
+>>>>>>> dev
 
         $this->loader->load(__DIR__.'/../Fixtures/OtherAnnotatedClasses/VariadicClass.php');
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @requires PHP 7.0
+     */
+    public function testLoadAnonymousClass()
+    {
+        $this->reader->expects($this->never())->method('getClassAnnotation');
+        $this->reader->expects($this->never())->method('getMethodAnnotations');
+
+        $this->loader->load(__DIR__.'/../Fixtures/OtherAnnotatedClasses/AnonymousClassInTrait.php');
+    }
+
+    public function testLoadAbstractClass()
+    {
+        $this->reader->expects($this->never())->method('getClassAnnotation');
+        $this->reader->expects($this->never())->method('getMethodAnnotations');
+
+        $this->loader->load(__DIR__.'/../Fixtures/AnnotatedClasses/AbstractClass.php');
+    }
+
+>>>>>>> dev
     public function testSupports()
     {
         $fixture = __DIR__.'/../Fixtures/annotated.php';

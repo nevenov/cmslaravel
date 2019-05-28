@@ -3,6 +3,12 @@
 namespace Illuminate\Database\Schema;
 
 use Closure;
+<<<<<<< HEAD
+=======
+use LogicException;
+use RuntimeException;
+use Doctrine\DBAL\Types\Type;
+>>>>>>> dev
 use Illuminate\Database\Connection;
 
 class Builder
@@ -29,6 +35,16 @@ class Builder
     protected $resolver;
 
     /**
+<<<<<<< HEAD
+=======
+     * The default string length for migrations.
+     *
+     * @var int
+     */
+    public static $defaultStringLength = 255;
+
+    /**
+>>>>>>> dev
      * Create a new database Schema manager.
      *
      * @param  \Illuminate\Database\Connection  $connection
@@ -41,6 +57,20 @@ class Builder
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Set the default string length for migrations.
+     *
+     * @param  int  $length
+     * @return void
+     */
+    public static function defaultStringLength($length)
+    {
+        static::$defaultStringLength = $length;
+    }
+
+    /**
+>>>>>>> dev
      * Determine if the given table exists.
      *
      * @param  string  $table
@@ -48,11 +78,19 @@ class Builder
      */
     public function hasTable($table)
     {
+<<<<<<< HEAD
         $sql = $this->grammar->compileTableExists();
 
         $table = $this->connection->getTablePrefix().$table;
 
         return count($this->connection->select($sql, [$table])) > 0;
+=======
+        $table = $this->connection->getTablePrefix().$table;
+
+        return count($this->connection->selectFromWriteConnection(
+            $this->grammar->compileTableExists(), [$table]
+        )) > 0;
+>>>>>>> dev
     }
 
     /**
@@ -64,9 +102,15 @@ class Builder
      */
     public function hasColumn($table, $column)
     {
+<<<<<<< HEAD
         $column = strtolower($column);
 
         return in_array($column, array_map('strtolower', $this->getColumnListing($table)));
+=======
+        return in_array(
+            strtolower($column), array_map('strtolower', $this->getColumnListing($table))
+        );
+>>>>>>> dev
     }
 
     /**
@@ -111,9 +155,15 @@ class Builder
      */
     public function getColumnListing($table)
     {
+<<<<<<< HEAD
         $table = $this->connection->getTablePrefix().$table;
 
         $results = $this->connection->select($this->grammar->compileColumnExists($table));
+=======
+        $results = $this->connection->selectFromWriteConnection($this->grammar->compileColumnListing(
+            $this->connection->getTablePrefix().$table
+        ));
+>>>>>>> dev
 
         return $this->connection->getPostProcessor()->processColumnListing($results);
     }
@@ -123,7 +173,11 @@ class Builder
      *
      * @param  string    $table
      * @param  \Closure  $callback
+<<<<<<< HEAD
      * @return \Illuminate\Database\Schema\Blueprint
+=======
+     * @return void
+>>>>>>> dev
      */
     public function table($table, Closure $callback)
     {
@@ -135,6 +189,7 @@ class Builder
      *
      * @param  string    $table
      * @param  \Closure  $callback
+<<<<<<< HEAD
      * @return \Illuminate\Database\Schema\Blueprint
      */
     public function create($table, Closure $callback)
@@ -146,12 +201,24 @@ class Builder
         $callback($blueprint);
 
         $this->build($blueprint);
+=======
+     * @return void
+     */
+    public function create($table, Closure $callback)
+    {
+        $this->build(tap($this->createBlueprint($table), function ($blueprint) use ($callback) {
+            $blueprint->create();
+
+            $callback($blueprint);
+        }));
+>>>>>>> dev
     }
 
     /**
      * Drop a table from the schema.
      *
      * @param  string  $table
+<<<<<<< HEAD
      * @return \Illuminate\Database\Schema\Blueprint
      */
     public function drop($table)
@@ -161,12 +228,22 @@ class Builder
         $blueprint->drop();
 
         $this->build($blueprint);
+=======
+     * @return void
+     */
+    public function drop($table)
+    {
+        $this->build(tap($this->createBlueprint($table), function ($blueprint) {
+            $blueprint->drop();
+        }));
+>>>>>>> dev
     }
 
     /**
      * Drop a table from the schema if it exists.
      *
      * @param  string  $table
+<<<<<<< HEAD
      * @return \Illuminate\Database\Schema\Blueprint
      */
     public function dropIfExists($table)
@@ -176,6 +253,51 @@ class Builder
         $blueprint->dropIfExists();
 
         $this->build($blueprint);
+=======
+     * @return void
+     */
+    public function dropIfExists($table)
+    {
+        $this->build(tap($this->createBlueprint($table), function ($blueprint) {
+            $blueprint->dropIfExists();
+        }));
+    }
+
+    /**
+     * Drop all tables from the database.
+     *
+     * @return void
+     *
+     * @throws \LogicException
+     */
+    public function dropAllTables()
+    {
+        throw new LogicException('This database driver does not support dropping all tables.');
+    }
+
+    /**
+     * Drop all views from the database.
+     *
+     * @return void
+     *
+     * @throws \LogicException
+     */
+    public function dropAllViews()
+    {
+        throw new LogicException('This database driver does not support dropping all views.');
+    }
+
+    /**
+     * Drop all types from the database.
+     *
+     * @return void
+     *
+     * @throws \LogicException
+     */
+    public function dropAllTypes()
+    {
+        throw new LogicException('This database driver does not support dropping all types.');
+>>>>>>> dev
     }
 
     /**
@@ -183,6 +305,7 @@ class Builder
      *
      * @param  string  $from
      * @param  string  $to
+<<<<<<< HEAD
      * @return \Illuminate\Database\Schema\Blueprint
      */
     public function rename($from, $to)
@@ -192,6 +315,15 @@ class Builder
         $blueprint->rename($to);
 
         $this->build($blueprint);
+=======
+     * @return void
+     */
+    public function rename($from, $to)
+    {
+        $this->build(tap($this->createBlueprint($from), function ($blueprint) use ($to) {
+            $blueprint->rename($to);
+        }));
+>>>>>>> dev
     }
 
     /**
@@ -238,11 +370,51 @@ class Builder
      */
     protected function createBlueprint($table, Closure $callback = null)
     {
+<<<<<<< HEAD
         if (isset($this->resolver)) {
             return call_user_func($this->resolver, $table, $callback);
         }
 
         return new Blueprint($table, $callback);
+=======
+        $prefix = $this->connection->getConfig('prefix_indexes')
+                    ? $this->connection->getConfig('prefix')
+                    : '';
+
+        if (isset($this->resolver)) {
+            return call_user_func($this->resolver, $table, $callback, $prefix);
+        }
+
+        return new Blueprint($table, $callback, $prefix);
+    }
+
+    /**
+     * Register a custom Doctrine mapping type.
+     *
+     * @param  string  $class
+     * @param  string  $name
+     * @param  string  $type
+     * @return void
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function registerCustomDoctrineType($class, $name, $type)
+    {
+        if (! $this->connection->isDoctrineAvailable()) {
+            throw new RuntimeException(
+                'Registering a custom Doctrine type requires Doctrine DBAL (doctrine/dbal).'
+            );
+        }
+
+        if (! Type::hasType($name)) {
+            Type::addType($name, $class);
+
+            $this->connection
+                ->getDoctrineSchemaManager()
+                ->getDatabasePlatform()
+                ->registerDoctrineTypeMapping($type, $name);
+        }
+>>>>>>> dev
     }
 
     /**

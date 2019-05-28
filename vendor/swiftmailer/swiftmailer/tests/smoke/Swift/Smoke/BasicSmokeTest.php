@@ -7,10 +7,17 @@ class Swift_Smoke_BasicSmokeTest extends SwiftMailerSmokeTestCase
 {
     public function testBasicSending()
     {
+<<<<<<< HEAD
         $mailer = $this->_getMailer();
         $message = Swift_Message::newInstance()
             ->setSubject('[Swift Mailer] BasicSmokeTest')
             ->setFrom(array(SWIFT_SMOKE_EMAIL_ADDRESS => 'Swift Mailer'))
+=======
+        $mailer = $this->getMailer();
+        $message = (new Swift_Message())
+            ->setSubject('[Swift Mailer] BasicSmokeTest')
+            ->setFrom([SWIFT_SMOKE_EMAIL_ADDRESS => 'Swift Mailer'])
+>>>>>>> dev
             ->setTo(SWIFT_SMOKE_EMAIL_ADDRESS)
             ->setBody('One, two, three, four, five...'.PHP_EOL.
                 'six, seven, eight...'

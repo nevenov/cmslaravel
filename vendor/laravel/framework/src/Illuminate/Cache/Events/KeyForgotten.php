@@ -2,6 +2,7 @@
 
 namespace Illuminate\Cache\Events;
 
+<<<<<<< HEAD
 class KeyForgotten
 {
     /**
@@ -30,4 +31,9 @@ class KeyForgotten
         $this->key = $key;
         $this->tags = $tags;
     }
+=======
+class KeyForgotten extends CacheEvent
+{
+    //
+>>>>>>> dev
 }

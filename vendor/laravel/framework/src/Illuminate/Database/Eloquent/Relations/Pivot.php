@@ -3,6 +3,7 @@
 namespace Illuminate\Database\Eloquent\Relations;
 
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Builder;
 
 class Pivot extends Model
@@ -27,6 +28,20 @@ class Pivot extends Model
      * @var string
      */
     protected $otherKey;
+=======
+use Illuminate\Database\Eloquent\Relations\Concerns\AsPivot;
+
+class Pivot extends Model
+{
+    use AsPivot;
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+>>>>>>> dev
 
     /**
      * The attributes that aren't mass assignable.
@@ -34,6 +49,7 @@ class Pivot extends Model
      * @var array
      */
     protected $guarded = [];
+<<<<<<< HEAD
 
     /**
      * Create a new pivot model instance.
@@ -189,4 +205,6 @@ class Pivot extends Model
     {
         return $this->parent->getUpdatedAtColumn();
     }
+=======
+>>>>>>> dev
 }

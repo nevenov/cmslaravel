@@ -17,23 +17,41 @@ class FilecontentFilterIteratorTest extends IteratorTestCase
 {
     public function testAccept()
     {
+<<<<<<< HEAD
         $inner = new MockFileListIterator(array('test.txt'));
         $iterator = new FilecontentFilterIterator($inner, array(), array());
         $this->assertIterator(array('test.txt'), $iterator);
+=======
+        $inner = new MockFileListIterator(['test.txt']);
+        $iterator = new FilecontentFilterIterator($inner, [], []);
+        $this->assertIterator(['test.txt'], $iterator);
+>>>>>>> dev
     }
 
     public function testDirectory()
     {
+<<<<<<< HEAD
         $inner = new MockFileListIterator(array('directory'));
         $iterator = new FilecontentFilterIterator($inner, array('directory'), array());
         $this->assertIterator(array(), $iterator);
+=======
+        $inner = new MockFileListIterator(['directory']);
+        $iterator = new FilecontentFilterIterator($inner, ['directory'], []);
+        $this->assertIterator([], $iterator);
+>>>>>>> dev
     }
 
     public function testUnreadableFile()
     {
+<<<<<<< HEAD
         $inner = new MockFileListIterator(array('file r-'));
         $iterator = new FilecontentFilterIterator($inner, array('file r-'), array());
         $this->assertIterator(array(), $iterator);
+=======
+        $inner = new MockFileListIterator(['file r-']);
+        $iterator = new FilecontentFilterIterator($inner, ['file r-'], []);
+        $this->assertIterator([], $iterator);
+>>>>>>> dev
     }
 
     /**
@@ -49,6 +67,7 @@ class FilecontentFilterIteratorTest extends IteratorTestCase
     {
         $inner = new MockFileListIterator();
 
+<<<<<<< HEAD
         $inner[] = new MockSplFileInfo(array(
             'name' => 'a.txt',
             'contents' => 'Lorem ipsum...',
@@ -82,5 +101,40 @@ class FilecontentFilterIteratorTest extends IteratorTestCase
             array($inner, array('ipsum'), array(), array('a.txt')),
             array($inner, array('i', 'amet'), array('Lorem', 'amet'), array('b.yml')),
         );
+=======
+        $inner[] = new MockSplFileInfo([
+            'name' => 'a.txt',
+            'contents' => 'Lorem ipsum...',
+            'type' => 'file',
+            'mode' => 'r+', ]
+        );
+
+        $inner[] = new MockSplFileInfo([
+            'name' => 'b.yml',
+            'contents' => 'dolor sit...',
+            'type' => 'file',
+            'mode' => 'r+', ]
+        );
+
+        $inner[] = new MockSplFileInfo([
+            'name' => 'some/other/dir/third.php',
+            'contents' => 'amet...',
+            'type' => 'file',
+            'mode' => 'r+', ]
+        );
+
+        $inner[] = new MockSplFileInfo([
+            'name' => 'unreadable-file.txt',
+            'contents' => false,
+            'type' => 'file',
+            'mode' => 'r+', ]
+        );
+
+        return [
+            [$inner, ['.'], [], ['a.txt', 'b.yml', 'some/other/dir/third.php']],
+            [$inner, ['ipsum'], [], ['a.txt']],
+            [$inner, ['i', 'amet'], ['Lorem', 'amet'], ['b.yml']],
+        ];
+>>>>>>> dev
     }
 }

@@ -2,7 +2,10 @@
 
 namespace {{namespace}}Http\Controllers;
 
+<<<<<<< HEAD
 use {{namespace}}Http\Requests;
+=======
+>>>>>>> dev
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -20,7 +23,11 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+<<<<<<< HEAD
      * @return \Illuminate\Http\Response
+=======
+     * @return \Illuminate\Contracts\Support\Renderable
+>>>>>>> dev
      */
     public function index()
     {

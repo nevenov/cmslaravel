@@ -30,6 +30,7 @@ class ProcessUtils
     }
 
     /**
+<<<<<<< HEAD
      * Escapes a string to be used as a shell argument.
      *
      * @param string $argument The argument that will be escaped
@@ -75,6 +76,8 @@ class ProcessUtils
     }
 
     /**
+=======
+>>>>>>> dev
      * Validates and normalizes a Process input.
      *
      * @param string $caller The name of method call that validates the input
@@ -87,24 +90,48 @@ class ProcessUtils
     public static function validateInput($caller, $input)
     {
         if (null !== $input) {
+<<<<<<< HEAD
             if (is_resource($input)) {
                 return $input;
             }
             if (is_string($input)) {
+=======
+            if (\is_resource($input)) {
+                return $input;
+            }
+            if (\is_string($input)) {
+>>>>>>> dev
                 return $input;
             }
             if (is_scalar($input)) {
                 return (string) $input;
             }
+<<<<<<< HEAD
 
             throw new InvalidArgumentException(sprintf('%s only accepts strings or stream resources.', $caller));
+=======
+            if ($input instanceof Process) {
+                return $input->getIterator($input::ITER_SKIP_ERR);
+            }
+            if ($input instanceof \Iterator) {
+                return $input;
+            }
+            if ($input instanceof \Traversable) {
+                return new \IteratorIterator($input);
+            }
+
+            throw new InvalidArgumentException(sprintf('%s only accepts strings, Traversable objects or stream resources.', $caller));
+>>>>>>> dev
         }
 
         return $input;
     }
+<<<<<<< HEAD
 
     private static function isSurroundedBy($arg, $char)
     {
         return 2 < strlen($arg) && $char === $arg[0] && $char === $arg[strlen($arg) - 1];
     }
+=======
+>>>>>>> dev
 }

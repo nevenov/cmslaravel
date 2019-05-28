@@ -3,6 +3,7 @@
 namespace Illuminate\Translation;
 
 use Illuminate\Support\ServiceProvider;
+<<<<<<< HEAD
 
 class TranslationServiceProvider extends ServiceProvider
 {
@@ -14,6 +15,13 @@ class TranslationServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
+=======
+use Illuminate\Contracts\Support\DeferrableProvider;
+
+class TranslationServiceProvider extends ServiceProvider implements DeferrableProvider
+{
+    /**
+>>>>>>> dev
      * Register the service provider.
      *
      * @return void

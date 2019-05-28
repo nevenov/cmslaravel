@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Proxy;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy;
 
 // Note until PHPUnit_Mock_Objects 1.2 is released you cannot mock abstracts due to
@@ -45,13 +46,22 @@ class ConcreteSessionHandlerInterfaceProxy extends AbstractProxy implements \Ses
     {
     }
 }
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy;
+use Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy;
+>>>>>>> dev
 
 /**
  * Test class for AbstractProxy.
  *
  * @author Drak <drak@zikula.org>
  */
+<<<<<<< HEAD
 class AbstractProxyTest extends \PHPUnit_Framework_TestCase
+=======
+class AbstractProxyTest extends TestCase
+>>>>>>> dev
 {
     /**
      * @var AbstractProxy
@@ -60,7 +70,11 @@ class AbstractProxyTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+<<<<<<< HEAD
         $this->proxy = new ConcreteProxy();
+=======
+        $this->proxy = $this->getMockForAbstractClass(AbstractProxy::class);
+>>>>>>> dev
     }
 
     protected function tearDown()
@@ -76,7 +90,11 @@ class AbstractProxyTest extends \PHPUnit_Framework_TestCase
     public function testIsSessionHandlerInterface()
     {
         $this->assertFalse($this->proxy->isSessionHandlerInterface());
+<<<<<<< HEAD
         $sh = new ConcreteSessionHandlerInterfaceProxy();
+=======
+        $sh = new SessionHandlerProxy(new \SessionHandler());
+>>>>>>> dev
         $this->assertTrue($sh->isSessionHandlerInterface());
     }
 

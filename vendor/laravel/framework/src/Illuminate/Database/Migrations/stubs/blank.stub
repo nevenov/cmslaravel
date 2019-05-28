@@ -1,5 +1,9 @@
 <?php
 
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\Schema;
+>>>>>>> dev
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 

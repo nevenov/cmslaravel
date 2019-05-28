@@ -2,16 +2,25 @@
 
 namespace Illuminate\Foundation\Testing\Concerns;
 
+<<<<<<< HEAD
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use PHPUnit_Framework_Assert as PHPUnit;
 use PHPUnit_Framework_ExpectationFailedException;
+=======
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Testing\TestResponse;
+use Illuminate\Contracts\Http\Kernel as HttpKernel;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+>>>>>>> dev
 use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
 
 trait MakesHttpRequests
 {
+<<<<<<< HEAD
     use InteractsWithPages;
 
     /**
@@ -27,6 +36,14 @@ trait MakesHttpRequests
      * @var string
      */
     protected $currentUri;
+=======
+    /**
+     * Additional headers for the request.
+     *
+     * @var array
+     */
+    protected $defaultHeaders = [];
+>>>>>>> dev
 
     /**
      * Additional server variables for the request.
@@ -36,6 +53,7 @@ trait MakesHttpRequests
     protected $serverVariables = [];
 
     /**
+<<<<<<< HEAD
      * Disable middleware for the test.
      *
      * @return $this
@@ -71,11 +89,29 @@ trait MakesHttpRequests
         $this->call(
             $method, $uri, [], [], $files, $this->transformHeadersToServerVars($headers), $content
         );
+=======
+     * Indicates whether redirects should be followed.
+     *
+     * @var bool
+     */
+    protected $followRedirects = false;
+
+    /**
+     * Define additional headers to be sent with the request.
+     *
+     * @param  array $headers
+     * @return $this
+     */
+    public function withHeaders(array $headers)
+    {
+        $this->defaultHeaders = array_merge($this->defaultHeaders, $headers);
+>>>>>>> dev
 
         return $this;
     }
 
     /**
+<<<<<<< HEAD
      * Extract the file uploads from the given data array.
      *
      * @param  array  $data
@@ -108,11 +144,23 @@ trait MakesHttpRequests
         $server = $this->transformHeadersToServerVars($headers);
 
         $this->call('GET', $uri, [], [], [], $server);
+=======
+     * Add a header to be sent with the request.
+     *
+     * @param  string $name
+     * @param  string $value
+     * @return $this
+     */
+    public function withHeader(string $name, string $value)
+    {
+        $this->defaultHeaders[$name] = $value;
+>>>>>>> dev
 
         return $this;
     }
 
     /**
+<<<<<<< HEAD
      * Visit the given URI with a POST request.
      *
      * @param  string  $uri
@@ -125,11 +173,21 @@ trait MakesHttpRequests
         $server = $this->transformHeadersToServerVars($headers);
 
         $this->call('POST', $uri, $data, [], [], $server);
+=======
+     * Flush all the configured headers.
+     *
+     * @return $this
+     */
+    public function flushHeaders()
+    {
+        $this->defaultHeaders = [];
+>>>>>>> dev
 
         return $this;
     }
 
     /**
+<<<<<<< HEAD
      * Visit the given URI with a PUT request.
      *
      * @param  string  $uri
@@ -142,11 +200,22 @@ trait MakesHttpRequests
         $server = $this->transformHeadersToServerVars($headers);
 
         $this->call('PUT', $uri, $data, [], [], $server);
+=======
+     * Define a set of server variables to be sent with the requests.
+     *
+     * @param  array  $server
+     * @return $this
+     */
+    public function withServerVariables(array $server)
+    {
+        $this->serverVariables = $server;
+>>>>>>> dev
 
         return $this;
     }
 
     /**
+<<<<<<< HEAD
      * Visit the given URI with a PATCH request.
      *
      * @param  string  $uri
@@ -176,11 +245,35 @@ trait MakesHttpRequests
         $server = $this->transformHeadersToServerVars($headers);
 
         $this->call('DELETE', $uri, $data, [], [], $server);
+=======
+     * Disable middleware for the test.
+     *
+     * @param  string|array  $middleware
+     * @return $this
+     */
+    public function withoutMiddleware($middleware = null)
+    {
+        if (is_null($middleware)) {
+            $this->app->instance('middleware.disable', true);
+
+            return $this;
+        }
+
+        foreach ((array) $middleware as $abstract) {
+            $this->app->instance($abstract, new class {
+                public function handle($request, $next)
+                {
+                    return $next($request);
+                }
+            });
+        }
+>>>>>>> dev
 
         return $this;
     }
 
     /**
+<<<<<<< HEAD
      * Send the given request through the application.
      *
      * This method allows you to fully customize the entire Request object.
@@ -193,11 +286,30 @@ trait MakesHttpRequests
         $this->currentUri = $request->fullUrl();
 
         $this->response = $this->app->prepareResponse($this->app->handle($request));
+=======
+     * Enable the given middleware for the test.
+     *
+     * @param  string|array  $middleware
+     * @return $this
+     */
+    public function withMiddleware($middleware = null)
+    {
+        if (is_null($middleware)) {
+            unset($this->app['middleware.disable']);
+
+            return $this;
+        }
+
+        foreach ((array) $middleware as $abstract) {
+            unset($this->app[$abstract]);
+        }
+>>>>>>> dev
 
         return $this;
     }
 
     /**
+<<<<<<< HEAD
      * Assert that the response contains JSON.
      *
      * @param  array|null  $data
@@ -485,6 +597,194 @@ trait MakesHttpRequests
         $this->serverVariables = $server;
 
         return $this;
+=======
+     * Automatically follow any redirects returned from the response.
+     *
+     * @return $this
+     */
+    public function followingRedirects()
+    {
+        $this->followRedirects = true;
+
+        return $this;
+    }
+
+    /**
+     * Set the referer header and previous URL session value in order to simulate a previous request.
+     *
+     * @param  string  $url
+     * @return $this
+     */
+    public function from(string $url)
+    {
+        $this->app['session']->setPreviousUrl($url);
+
+        return $this->withHeader('referer', $url);
+    }
+
+    /**
+     * Visit the given URI with a GET request.
+     *
+     * @param  string  $uri
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function get($uri, array $headers = [])
+    {
+        $server = $this->transformHeadersToServerVars($headers);
+
+        return $this->call('GET', $uri, [], [], [], $server);
+    }
+
+    /**
+     * Visit the given URI with a GET request, expecting a JSON response.
+     *
+     * @param  string  $uri
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function getJson($uri, array $headers = [])
+    {
+        return $this->json('GET', $uri, [], $headers);
+    }
+
+    /**
+     * Visit the given URI with a POST request.
+     *
+     * @param  string  $uri
+     * @param  array  $data
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function post($uri, array $data = [], array $headers = [])
+    {
+        $server = $this->transformHeadersToServerVars($headers);
+
+        return $this->call('POST', $uri, $data, [], [], $server);
+    }
+
+    /**
+     * Visit the given URI with a POST request, expecting a JSON response.
+     *
+     * @param  string  $uri
+     * @param  array  $data
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function postJson($uri, array $data = [], array $headers = [])
+    {
+        return $this->json('POST', $uri, $data, $headers);
+    }
+
+    /**
+     * Visit the given URI with a PUT request.
+     *
+     * @param  string  $uri
+     * @param  array  $data
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function put($uri, array $data = [], array $headers = [])
+    {
+        $server = $this->transformHeadersToServerVars($headers);
+
+        return $this->call('PUT', $uri, $data, [], [], $server);
+    }
+
+    /**
+     * Visit the given URI with a PUT request, expecting a JSON response.
+     *
+     * @param  string  $uri
+     * @param  array  $data
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function putJson($uri, array $data = [], array $headers = [])
+    {
+        return $this->json('PUT', $uri, $data, $headers);
+    }
+
+    /**
+     * Visit the given URI with a PATCH request.
+     *
+     * @param  string  $uri
+     * @param  array  $data
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function patch($uri, array $data = [], array $headers = [])
+    {
+        $server = $this->transformHeadersToServerVars($headers);
+
+        return $this->call('PATCH', $uri, $data, [], [], $server);
+    }
+
+    /**
+     * Visit the given URI with a PATCH request, expecting a JSON response.
+     *
+     * @param  string  $uri
+     * @param  array  $data
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function patchJson($uri, array $data = [], array $headers = [])
+    {
+        return $this->json('PATCH', $uri, $data, $headers);
+    }
+
+    /**
+     * Visit the given URI with a DELETE request.
+     *
+     * @param  string  $uri
+     * @param  array  $data
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function delete($uri, array $data = [], array $headers = [])
+    {
+        $server = $this->transformHeadersToServerVars($headers);
+
+        return $this->call('DELETE', $uri, $data, [], [], $server);
+    }
+
+    /**
+     * Visit the given URI with a DELETE request, expecting a JSON response.
+     *
+     * @param  string  $uri
+     * @param  array  $data
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function deleteJson($uri, array $data = [], array $headers = [])
+    {
+        return $this->json('DELETE', $uri, $data, $headers);
+    }
+
+    /**
+     * Call the given URI with a JSON request.
+     *
+     * @param  string  $method
+     * @param  string  $uri
+     * @param  array  $data
+     * @param  array  $headers
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function json($method, $uri, array $data = [], array $headers = [])
+    {
+        $files = $this->extractFilesFromDataArray($data);
+
+        $content = json_encode($data);
+
+        $headers = array_merge([
+            'CONTENT_LENGTH' => mb_strlen($content, '8bit'),
+            'CONTENT_TYPE' => 'application/json',
+            'Accept' => 'application/json',
+        ], $headers);
+
+        return $this->call(
+            $method, $uri, [], [], $files, $this->transformHeadersToServerVars($headers), $content
+        );
+>>>>>>> dev
     }
 
     /**
@@ -492,6 +792,7 @@ trait MakesHttpRequests
      *
      * @param  string  $method
      * @param  string  $uri
+<<<<<<< HEAD
      * @param  array   $parameters
      * @param  array   $cookies
      * @param  array   $files
@@ -576,6 +877,37 @@ trait MakesHttpRequests
         $uri = $this->app['url']->route($name, $routeParameters);
 
         return $this->response = $this->call($method, $uri, $parameters, $cookies, $files, $server, $content);
+=======
+     * @param  array  $parameters
+     * @param  array  $cookies
+     * @param  array  $files
+     * @param  array  $server
+     * @param  string  $content
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function call($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
+    {
+        $kernel = $this->app->make(HttpKernel::class);
+
+        $files = array_merge($files, $this->extractFilesFromDataArray($parameters));
+
+        $symfonyRequest = SymfonyRequest::create(
+            $this->prepareUrlForRequest($uri), $method, $parameters,
+            $cookies, $files, array_replace($this->serverVariables, $server), $content
+        );
+
+        $response = $kernel->handle(
+            $request = Request::createFromBase($symfonyRequest)
+        );
+
+        if ($this->followRedirects) {
+            $response = $this->followRedirects($response);
+        }
+
+        $kernel->terminate($request, $response);
+
+        return $this->createTestResponse($response);
+>>>>>>> dev
     }
 
     /**
@@ -591,7 +923,11 @@ trait MakesHttpRequests
         }
 
         if (! Str::startsWith($uri, 'http')) {
+<<<<<<< HEAD
             $uri = $this->baseUrl.'/'.$uri;
+=======
+            $uri = config('app.url').'/'.$uri;
+>>>>>>> dev
         }
 
         return trim($uri, '/');
@@ -605,6 +941,7 @@ trait MakesHttpRequests
      */
     protected function transformHeadersToServerVars(array $headers)
     {
+<<<<<<< HEAD
         $server = [];
         $prefix = 'HTTP_';
 
@@ -772,5 +1109,82 @@ trait MakesHttpRequests
         }
 
         dd($content);
+=======
+        return collect(array_merge($this->defaultHeaders, $headers))->mapWithKeys(function ($value, $name) {
+            $name = strtr(strtoupper($name), '-', '_');
+
+            return [$this->formatServerHeaderKey($name) => $value];
+        })->all();
+    }
+
+    /**
+     * Format the header name for the server array.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function formatServerHeaderKey($name)
+    {
+        if (! Str::startsWith($name, 'HTTP_') && $name !== 'CONTENT_TYPE' && $name !== 'REMOTE_ADDR') {
+            return 'HTTP_'.$name;
+        }
+
+        return $name;
+    }
+
+    /**
+     * Extract the file uploads from the given data array.
+     *
+     * @param  array  $data
+     * @return array
+     */
+    protected function extractFilesFromDataArray(&$data)
+    {
+        $files = [];
+
+        foreach ($data as $key => $value) {
+            if ($value instanceof SymfonyUploadedFile) {
+                $files[$key] = $value;
+
+                unset($data[$key]);
+            }
+
+            if (is_array($value)) {
+                $files[$key] = $this->extractFilesFromDataArray($value);
+
+                $data[$key] = $value;
+            }
+        }
+
+        return $files;
+    }
+
+    /**
+     * Follow a redirect chain until a non-redirect is received.
+     *
+     * @param  \Illuminate\Http\Response  $response
+     * @return \Illuminate\Http\Response|\Illuminate\Foundation\Testing\TestResponse
+     */
+    protected function followRedirects($response)
+    {
+        while ($response->isRedirect()) {
+            $response = $this->get($response->headers->get('Location'));
+        }
+
+        $this->followRedirects = false;
+
+        return $response;
+    }
+
+    /**
+     * Create the test response instance from the given response.
+     *
+     * @param  \Illuminate\Http\Response  $response
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    protected function createTestResponse($response)
+    {
+        return TestResponse::fromBaseResponse($response);
+>>>>>>> dev
     }
 }

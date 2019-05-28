@@ -11,9 +11,15 @@
 
 namespace Symfony\Component\HttpKernel\Fragment;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+=======
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+>>>>>>> dev
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 /**
@@ -29,17 +35,28 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 class FragmentHandler
 {
     private $debug;
+<<<<<<< HEAD
     private $renderers = array();
     private $requestStack;
 
     /**
      * Constructor.
      *
+=======
+    private $renderers = [];
+    private $requestStack;
+
+    /**
+>>>>>>> dev
      * @param RequestStack                $requestStack The Request stack that controls the lifecycle of requests
      * @param FragmentRendererInterface[] $renderers    An array of FragmentRendererInterface instances
      * @param bool                        $debug        Whether the debug mode is enabled or not
      */
+<<<<<<< HEAD
     public function __construct(RequestStack $requestStack, array $renderers = array(), $debug = false)
+=======
+    public function __construct(RequestStack $requestStack, array $renderers = [], bool $debug = false)
+>>>>>>> dev
     {
         $this->requestStack = $requestStack;
         foreach ($renderers as $renderer) {
@@ -50,8 +67,11 @@ class FragmentHandler
 
     /**
      * Adds a renderer.
+<<<<<<< HEAD
      *
      * @param FragmentRendererInterface $renderer A FragmentRendererInterface instance
+=======
+>>>>>>> dev
      */
     public function addRenderer(FragmentRendererInterface $renderer)
     {
@@ -74,7 +94,11 @@ class FragmentHandler
      * @throws \InvalidArgumentException when the renderer does not exist
      * @throws \LogicException           when no master request is being handled
      */
+<<<<<<< HEAD
     public function render($uri, $renderer = 'inline', array $options = array())
+=======
+    public function render($uri, $renderer = 'inline', array $options = [])
+>>>>>>> dev
     {
         if (!isset($options['ignore_errors'])) {
             $options['ignore_errors'] = !$this->debug;
@@ -97,8 +121,11 @@ class FragmentHandler
      * When the Response is a StreamedResponse, the content is streamed immediately
      * instead of being returned.
      *
+<<<<<<< HEAD
      * @param Response $response A Response instance
      *
+=======
+>>>>>>> dev
      * @return string|null The Response content or null when the Response is streamed
      *
      * @throws \RuntimeException when the Response is not successful

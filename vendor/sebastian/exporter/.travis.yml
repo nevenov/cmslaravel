@@ -1,5 +1,6 @@
 language: php
 
+<<<<<<< HEAD
 before_script:
   - composer self-update
   - composer install --no-interaction --prefer-source --dev
@@ -21,3 +22,29 @@ notifications:
     on_failure: always
     on_start: false
 
+=======
+php:
+  - 7.0
+  - 7.0snapshot
+  - 7.1
+  - 7.1snapshot
+  - master
+
+sudo: false
+
+before_install:
+  - composer self-update
+  - composer clear-cache
+
+install:
+  - travis_retry composer update --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader --prefer-stable
+
+script:
+  - ./vendor/bin/phpunit --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email: false
+>>>>>>> dev

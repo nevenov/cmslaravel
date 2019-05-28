@@ -3,9 +3,14 @@
 namespace Illuminate\Broadcasting\Broadcasters;
 
 use Psr\Log\LoggerInterface;
+<<<<<<< HEAD
 use Illuminate\Contracts\Broadcasting\Broadcaster;
 
 class LogBroadcaster implements Broadcaster
+=======
+
+class LogBroadcaster extends Broadcaster
+>>>>>>> dev
 {
     /**
      * The logger implementation.
@@ -28,9 +33,31 @@ class LogBroadcaster implements Broadcaster
     /**
      * {@inheritdoc}
      */
+<<<<<<< HEAD
     public function broadcast(array $channels, $event, array $payload = [])
     {
         $channels = implode(', ', $channels);
+=======
+    public function auth($request)
+    {
+        //
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validAuthenticationResponse($request, $result)
+    {
+        //
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function broadcast(array $channels, $event, array $payload = [])
+    {
+        $channels = implode(', ', $this->formatChannels($channels));
+>>>>>>> dev
 
         $payload = json_encode($payload, JSON_PRETTY_PRINT);
 

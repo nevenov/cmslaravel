@@ -2,8 +2,13 @@
 
 namespace Illuminate\Database\Eloquent\Relations;
 
+<<<<<<< HEAD
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+=======
+use Illuminate\Support\Str;
+use InvalidArgumentException;
+>>>>>>> dev
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,6 +16,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BelongsToMany extends Relation
 {
+<<<<<<< HEAD
+=======
+    use Concerns\InteractsWithPivotTable;
+
+>>>>>>> dev
     /**
      * The intermediate table for the relation.
      *
@@ -23,14 +33,36 @@ class BelongsToMany extends Relation
      *
      * @var string
      */
+<<<<<<< HEAD
     protected $foreignKey;
+=======
+    protected $foreignPivotKey;
+>>>>>>> dev
 
     /**
      * The associated key of the relation.
      *
      * @var string
      */
+<<<<<<< HEAD
     protected $otherKey;
+=======
+    protected $relatedPivotKey;
+
+    /**
+     * The key name of the parent model.
+     *
+     * @var string
+     */
+    protected $parentKey;
+
+    /**
+     * The key name of the related model.
+     *
+     * @var string
+     */
+    protected $relatedKey;
+>>>>>>> dev
 
     /**
      * The "name" of the relationship.
@@ -61,6 +93,7 @@ class BelongsToMany extends Relation
     protected $pivotWhereIns = [];
 
     /**
+<<<<<<< HEAD
      * The custom pivot table column for the created_at timestamp.
      *
      * @var string
@@ -438,6 +471,119 @@ class BelongsToMany extends Relation
     protected function hasPivotColumn($column)
     {
         return in_array($column, $this->pivotColumns);
+=======
+     * The default values for the pivot columns.
+     *
+     * @var array
+     */
+    protected $pivotValues = [];
+
+    /**
+     * Indicates if timestamps are available on the pivot table.
+     *
+     * @var bool
+     */
+    public $withTimestamps = false;
+
+    /**
+     * The custom pivot table column for the created_at timestamp.
+     *
+     * @var string
+     */
+    protected $pivotCreatedAt;
+
+    /**
+     * The custom pivot table column for the updated_at timestamp.
+     *
+     * @var string
+     */
+    protected $pivotUpdatedAt;
+
+    /**
+     * The class name of the custom pivot model to use for the relationship.
+     *
+     * @var string
+     */
+    protected $using;
+
+    /**
+     * The name of the accessor to use for the "pivot" relationship.
+     *
+     * @var string
+     */
+    protected $accessor = 'pivot';
+
+    /**
+     * The count of self joins.
+     *
+     * @var int
+     */
+    protected static $selfJoinCount = 0;
+
+    /**
+     * Create a new belongs to many relationship instance.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Model  $parent
+     * @param  string  $table
+     * @param  string  $foreignPivotKey
+     * @param  string  $relatedPivotKey
+     * @param  string  $parentKey
+     * @param  string  $relatedKey
+     * @param  string  $relationName
+     * @return void
+     */
+    public function __construct(Builder $query, Model $parent, $table, $foreignPivotKey,
+                                $relatedPivotKey, $parentKey, $relatedKey, $relationName = null)
+    {
+        $this->parentKey = $parentKey;
+        $this->relatedKey = $relatedKey;
+        $this->relationName = $relationName;
+        $this->relatedPivotKey = $relatedPivotKey;
+        $this->foreignPivotKey = $foreignPivotKey;
+        $this->table = $this->resolveTableName($table);
+
+        parent::__construct($query, $parent);
+    }
+
+    /**
+     * Attempt to resolve the intermediate table name from the given string.
+     *
+     * @param  string  $table
+     * @return string
+     */
+    protected function resolveTableName($table)
+    {
+        if (! Str::contains($table, '\\') || ! class_exists($table)) {
+            return $table;
+        }
+
+        $model = new $table;
+
+        if (! $model instanceof Model) {
+            return $table;
+        }
+
+        if ($model instanceof Pivot) {
+            $this->using($table);
+        }
+
+        return $model->getTable();
+    }
+
+    /**
+     * Set the base constraints on the relation query.
+     *
+     * @return void
+     */
+    public function addConstraints()
+    {
+        $this->performJoin();
+
+        if (static::$constraints) {
+            $this->addWhereConstraints();
+        }
+>>>>>>> dev
     }
 
     /**
@@ -446,7 +592,11 @@ class BelongsToMany extends Relation
      * @param  \Illuminate\Database\Eloquent\Builder|null  $query
      * @return $this
      */
+<<<<<<< HEAD
     protected function setJoin($query = null)
+=======
+    protected function performJoin($query = null)
+>>>>>>> dev
     {
         $query = $query ?: $this->query;
 
@@ -455,9 +605,15 @@ class BelongsToMany extends Relation
         // model instance. Then we can set the "where" for the parent models.
         $baseTable = $this->related->getTable();
 
+<<<<<<< HEAD
         $key = $baseTable.'.'.$this->related->getKeyName();
 
         $query->join($this->table, $key, '=', $this->getOtherKey());
+=======
+        $key = $baseTable.'.'.$this->relatedKey;
+
+        $query->join($this->table, $key, '=', $this->getQualifiedRelatedPivotKeyName());
+>>>>>>> dev
 
         return $this;
     }
@@ -467,11 +623,19 @@ class BelongsToMany extends Relation
      *
      * @return $this
      */
+<<<<<<< HEAD
     protected function setWhere()
     {
         $foreign = $this->getForeignKey();
 
         $this->query->where($foreign, '=', $this->parent->getKey());
+=======
+    protected function addWhereConstraints()
+    {
+        $this->query->where(
+            $this->getQualifiedForeignPivotKeyName(), '=', $this->parent->{$this->parentKey}
+        );
+>>>>>>> dev
 
         return $this;
     }
@@ -484,7 +648,16 @@ class BelongsToMany extends Relation
      */
     public function addEagerConstraints(array $models)
     {
+<<<<<<< HEAD
         $this->query->whereIn($this->getForeignKey(), $this->getKeys($models));
+=======
+        $whereIn = $this->whereInMethod($this->parent, $this->parentKey);
+
+        $this->query->{$whereIn}(
+            $this->getQualifiedForeignPivotKeyName(),
+            $this->getKeys($models, $this->parentKey)
+        );
+>>>>>>> dev
     }
 
     /**
@@ -519,10 +692,17 @@ class BelongsToMany extends Relation
         // children back to their parent using the dictionary and the keys on the
         // the parent models. Then we will return the hydrated models back out.
         foreach ($models as $model) {
+<<<<<<< HEAD
             if (isset($dictionary[$key = $model->getKey()])) {
                 $collection = $this->related->newCollection($dictionary[$key]);
 
                 $model->setRelation($relation, $collection);
+=======
+            if (isset($dictionary[$key = $model->{$this->parentKey}])) {
+                $model->setRelation(
+                    $relation, $this->related->newCollection($dictionary[$key])
+                );
+>>>>>>> dev
             }
         }
 
@@ -537,21 +717,29 @@ class BelongsToMany extends Relation
      */
     protected function buildDictionary(Collection $results)
     {
+<<<<<<< HEAD
         $foreign = $this->foreignKey;
 
+=======
+>>>>>>> dev
         // First we will build a dictionary of child models keyed by the foreign key
         // of the relation so that we will easily and quickly match them to their
         // parents without having a possibly slow inner loops for every models.
         $dictionary = [];
 
         foreach ($results as $result) {
+<<<<<<< HEAD
             $dictionary[$result->pivot->$foreign][] = $result;
+=======
+            $dictionary[$result->{$this->accessor}->{$this->foreignPivotKey}][] = $result;
+>>>>>>> dev
         }
 
         return $dictionary;
     }
 
     /**
+<<<<<<< HEAD
      * Touch all of the related models for the relationship.
      *
      * E.g.: Touch all roles associated with this user.
@@ -681,6 +869,126 @@ class BelongsToMany extends Relation
         }
 
         throw (new ModelNotFoundException)->setModel(get_class($this->parent));
+=======
+     * Get the class being used for pivot models.
+     *
+     * @return string
+     */
+    public function getPivotClass()
+    {
+        return $this->using ?? Pivot::class;
+    }
+
+    /**
+     * Specify the custom pivot model to use for the relationship.
+     *
+     * @param  string  $class
+     * @return $this
+     */
+    public function using($class)
+    {
+        $this->using = $class;
+
+        return $this;
+    }
+
+    /**
+     * Specify the custom pivot accessor to use for the relationship.
+     *
+     * @param  string  $accessor
+     * @return $this
+     */
+    public function as($accessor)
+    {
+        $this->accessor = $accessor;
+
+        return $this;
+    }
+
+    /**
+     * Set a where clause for a pivot table column.
+     *
+     * @param  string  $column
+     * @param  string  $operator
+     * @param  mixed   $value
+     * @param  string  $boolean
+     * @return $this
+     */
+    public function wherePivot($column, $operator = null, $value = null, $boolean = 'and')
+    {
+        $this->pivotWheres[] = func_get_args();
+
+        return $this->where($this->table.'.'.$column, $operator, $value, $boolean);
+    }
+
+    /**
+     * Set a "where in" clause for a pivot table column.
+     *
+     * @param  string  $column
+     * @param  mixed   $values
+     * @param  string  $boolean
+     * @param  bool    $not
+     * @return $this
+     */
+    public function wherePivotIn($column, $values, $boolean = 'and', $not = false)
+    {
+        $this->pivotWhereIns[] = func_get_args();
+
+        return $this->whereIn($this->table.'.'.$column, $values, $boolean, $not);
+    }
+
+    /**
+     * Set an "or where" clause for a pivot table column.
+     *
+     * @param  string  $column
+     * @param  string  $operator
+     * @param  mixed   $value
+     * @return $this
+     */
+    public function orWherePivot($column, $operator = null, $value = null)
+    {
+        return $this->wherePivot($column, $operator, $value, 'or');
+    }
+
+    /**
+     * Set a where clause for a pivot table column.
+     *
+     * In addition, new pivot records will receive this value.
+     *
+     * @param  string|array  $column
+     * @param  mixed  $value
+     * @return $this
+     */
+    public function withPivotValue($column, $value = null)
+    {
+        if (is_array($column)) {
+            foreach ($column as $name => $value) {
+                $this->withPivotValue($name, $value);
+            }
+
+            return $this;
+        }
+
+        if (is_null($value)) {
+            throw new InvalidArgumentException('The provided value may not be null.');
+        }
+
+        $this->pivotValues[] = compact('column', 'value');
+
+        return $this->wherePivot($column, '=', $value);
+    }
+
+    /**
+     * Set an "or where in" clause for a pivot table column.
+     *
+     * @param  string  $column
+     * @param  mixed   $values
+     * @return $this
+     */
+    public function orWherePivotIn($column, $values)
+    {
+        return $this->wherePivotIn($column, $values, 'or');
+>>>>>>> dev
     }
 
     /**
@@ -693,7 +1001,11 @@ class BelongsToMany extends Relation
     public function findOrNew($id, $columns = ['*'])
     {
         if (is_null($instance = $this->find($id, $columns))) {
+<<<<<<< HEAD
             $instance = $this->getRelated()->newInstance();
+=======
+            $instance = $this->related->newInstance();
+>>>>>>> dev
         }
 
         return $instance;
@@ -754,6 +1066,7 @@ class BelongsToMany extends Relation
     }
 
     /**
+<<<<<<< HEAD
      * Create a new instance of the related model.
      *
      * @param  array  $attributes
@@ -1107,6 +1420,301 @@ class BelongsToMany extends Relation
         }
 
         return $results;
+=======
+     * Find a related model by its primary key.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|null
+     */
+    public function find($id, $columns = ['*'])
+    {
+        return is_array($id) ? $this->findMany($id, $columns) : $this->where(
+            $this->getRelated()->getQualifiedKeyName(), '=', $id
+        )->first($columns);
+    }
+
+    /**
+     * Find multiple related models by their primary keys.
+     *
+     * @param  mixed  $ids
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany($ids, $columns = ['*'])
+    {
+        return empty($ids) ? $this->getRelated()->newCollection() : $this->whereIn(
+            $this->getRelated()->getQualifiedKeyName(), $ids
+        )->get($columns);
+    }
+
+    /**
+     * Find a related model by its primary key or throw an exception.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function findOrFail($id, $columns = ['*'])
+    {
+        $result = $this->find($id, $columns);
+
+        if (is_array($id)) {
+            if (count($result) === count(array_unique($id))) {
+                return $result;
+            }
+        } elseif (! is_null($result)) {
+            return $result;
+        }
+
+        throw (new ModelNotFoundException)->setModel(get_class($this->related), $id);
+    }
+
+    /**
+     * Execute the query and get the first result.
+     *
+     * @param  array   $columns
+     * @return mixed
+     */
+    public function first($columns = ['*'])
+    {
+        $results = $this->take(1)->get($columns);
+
+        return count($results) > 0 ? $results->first() : null;
+    }
+
+    /**
+     * Execute the query and get the first result or throw an exception.
+     *
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Model|static
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function firstOrFail($columns = ['*'])
+    {
+        if (! is_null($model = $this->first($columns))) {
+            return $model;
+        }
+
+        throw (new ModelNotFoundException)->setModel(get_class($this->related));
+    }
+
+    /**
+     * Get the results of the relationship.
+     *
+     * @return mixed
+     */
+    public function getResults()
+    {
+        return ! is_null($this->parent->{$this->parentKey})
+                ? $this->get()
+                : $this->related->newCollection();
+    }
+
+    /**
+     * Execute the query as a "select" statement.
+     *
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function get($columns = ['*'])
+    {
+        // First we'll add the proper select columns onto the query so it is run with
+        // the proper columns. Then, we will get the results and hydrate out pivot
+        // models with the result of those columns as a separate model relation.
+        $builder = $this->query->applyScopes();
+
+        $columns = $builder->getQuery()->columns ? [] : $columns;
+
+        $models = $builder->addSelect(
+            $this->shouldSelect($columns)
+        )->getModels();
+
+        $this->hydratePivotRelation($models);
+
+        // If we actually found models we will also eager load any relationships that
+        // have been specified as needing to be eager loaded. This will solve the
+        // n + 1 query problem for the developer and also increase performance.
+        if (count($models) > 0) {
+            $models = $builder->eagerLoadRelations($models);
+        }
+
+        return $this->related->newCollection($models);
+    }
+
+    /**
+     * Get the select columns for the relation query.
+     *
+     * @param  array  $columns
+     * @return array
+     */
+    protected function shouldSelect(array $columns = ['*'])
+    {
+        if ($columns == ['*']) {
+            $columns = [$this->related->getTable().'.*'];
+        }
+
+        return array_merge($columns, $this->aliasedPivotColumns());
+    }
+
+    /**
+     * Get the pivot columns for the relation.
+     *
+     * "pivot_" is prefixed ot each column for easy removal later.
+     *
+     * @return array
+     */
+    protected function aliasedPivotColumns()
+    {
+        $defaults = [$this->foreignPivotKey, $this->relatedPivotKey];
+
+        return collect(array_merge($defaults, $this->pivotColumns))->map(function ($column) {
+            return $this->table.'.'.$column.' as pivot_'.$column;
+        })->unique()->all();
+    }
+
+    /**
+     * Get a paginator for the "select" statement.
+     *
+     * @param  int  $perPage
+     * @param  array  $columns
+     * @param  string  $pageName
+     * @param  int|null  $page
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
+    {
+        $this->query->addSelect($this->shouldSelect($columns));
+
+        return tap($this->query->paginate($perPage, $columns, $pageName, $page), function ($paginator) {
+            $this->hydratePivotRelation($paginator->items());
+        });
+    }
+
+    /**
+     * Paginate the given query into a simple paginator.
+     *
+     * @param  int  $perPage
+     * @param  array  $columns
+     * @param  string  $pageName
+     * @param  int|null  $page
+     * @return \Illuminate\Contracts\Pagination\Paginator
+     */
+    public function simplePaginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
+    {
+        $this->query->addSelect($this->shouldSelect($columns));
+
+        return tap($this->query->simplePaginate($perPage, $columns, $pageName, $page), function ($paginator) {
+            $this->hydratePivotRelation($paginator->items());
+        });
+    }
+
+    /**
+     * Chunk the results of the query.
+     *
+     * @param  int  $count
+     * @param  callable  $callback
+     * @return bool
+     */
+    public function chunk($count, callable $callback)
+    {
+        $this->query->addSelect($this->shouldSelect());
+
+        return $this->query->chunk($count, function ($results) use ($callback) {
+            $this->hydratePivotRelation($results->all());
+
+            return $callback($results);
+        });
+    }
+
+    /**
+     * Chunk the results of a query by comparing numeric IDs.
+     *
+     * @param  int  $count
+     * @param  callable  $callback
+     * @param  string|null  $column
+     * @param  string|null  $alias
+     * @return bool
+     */
+    public function chunkById($count, callable $callback, $column = null, $alias = null)
+    {
+        $this->query->addSelect($this->shouldSelect());
+
+        $column = $column ?? $this->getRelated()->qualifyColumn(
+            $this->getRelatedKeyName()
+        );
+
+        $alias = $alias ?? $this->getRelatedKeyName();
+
+        return $this->query->chunkById($count, function ($results) use ($callback) {
+            $this->hydratePivotRelation($results->all());
+
+            return $callback($results);
+        }, $column, $alias);
+    }
+
+    /**
+     * Execute a callback over each item while chunking.
+     *
+     * @param  callable  $callback
+     * @param  int  $count
+     * @return bool
+     */
+    public function each(callable $callback, $count = 1000)
+    {
+        return $this->chunk($count, function ($results) use ($callback) {
+            foreach ($results as $key => $value) {
+                if ($callback($value, $key) === false) {
+                    return false;
+                }
+            }
+        });
+    }
+
+    /**
+     * Hydrate the pivot table relationship on the models.
+     *
+     * @param  array  $models
+     * @return void
+     */
+    protected function hydratePivotRelation(array $models)
+    {
+        // To hydrate the pivot relationship, we will just gather the pivot attributes
+        // and create a new Pivot model, which is basically a dynamic model that we
+        // will set the attributes, table, and connections on it so it will work.
+        foreach ($models as $model) {
+            $model->setRelation($this->accessor, $this->newExistingPivot(
+                $this->migratePivotAttributes($model)
+            ));
+        }
+    }
+
+    /**
+     * Get the pivot attributes from a model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return array
+     */
+    protected function migratePivotAttributes(Model $model)
+    {
+        $values = [];
+
+        foreach ($model->getAttributes() as $key => $value) {
+            // To get the pivots attributes we will just take any of the attributes which
+            // begin with "pivot_" and add those to this arrays, as well as unsetting
+            // them from the parent's models since they exist in a different table.
+            if (strpos($key, 'pivot_') === 0) {
+                $values[substr($key, 6)] = $value;
+
+                unset($model->$key);
+            }
+        }
+
+        return $values;
+>>>>>>> dev
     }
 
     /**
@@ -1142,6 +1750,7 @@ class BelongsToMany extends Relation
      */
     protected function guessInverseRelation()
     {
+<<<<<<< HEAD
         return Str::camel(Str::plural(class_basename($this->getParent())));
     }
 
@@ -1224,6 +1833,179 @@ class BelongsToMany extends Relation
         $this->pivotColumns = array_merge($this->pivotColumns, $columns);
 
         return $this;
+=======
+        return Str::camel(Str::pluralStudly(class_basename($this->getParent())));
+    }
+
+    /**
+     * Touch all of the related models for the relationship.
+     *
+     * E.g.: Touch all roles associated with this user.
+     *
+     * @return void
+     */
+    public function touch()
+    {
+        $key = $this->getRelated()->getKeyName();
+
+        $columns = [
+            $this->related->getUpdatedAtColumn() => $this->related->freshTimestampString(),
+        ];
+
+        // If we actually have IDs for the relation, we will run the query to update all
+        // the related model's timestamps, to make sure these all reflect the changes
+        // to the parent models. This will help us keep any caching synced up here.
+        if (count($ids = $this->allRelatedIds()) > 0) {
+            $this->getRelated()->newQueryWithoutRelationships()->whereIn($key, $ids)->update($columns);
+        }
+    }
+
+    /**
+     * Get all of the IDs for the related models.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function allRelatedIds()
+    {
+        return $this->newPivotQuery()->pluck($this->relatedPivotKey);
+    }
+
+    /**
+     * Save a new model and attach it to the parent model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  array  $pivotAttributes
+     * @param  bool   $touch
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function save(Model $model, array $pivotAttributes = [], $touch = true)
+    {
+        $model->save(['touch' => false]);
+
+        $this->attach($model, $pivotAttributes, $touch);
+
+        return $model;
+    }
+
+    /**
+     * Save an array of new models and attach them to the parent model.
+     *
+     * @param  \Illuminate\Support\Collection|array  $models
+     * @param  array  $pivotAttributes
+     * @return array
+     */
+    public function saveMany($models, array $pivotAttributes = [])
+    {
+        foreach ($models as $key => $model) {
+            $this->save($model, (array) ($pivotAttributes[$key] ?? []), false);
+        }
+
+        $this->touchIfTouching();
+
+        return $models;
+    }
+
+    /**
+     * Create a new instance of the related model.
+     *
+     * @param  array  $attributes
+     * @param  array  $joining
+     * @param  bool   $touch
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function create(array $attributes = [], array $joining = [], $touch = true)
+    {
+        $instance = $this->related->newInstance($attributes);
+
+        // Once we save the related model, we need to attach it to the base model via
+        // through intermediate table so we'll use the existing "attach" method to
+        // accomplish this which will insert the record and any more attributes.
+        $instance->save(['touch' => false]);
+
+        $this->attach($instance, $joining, $touch);
+
+        return $instance;
+    }
+
+    /**
+     * Create an array of new instances of the related models.
+     *
+     * @param  array  $records
+     * @param  array  $joinings
+     * @return array
+     */
+    public function createMany(array $records, array $joinings = [])
+    {
+        $instances = [];
+
+        foreach ($records as $key => $record) {
+            $instances[] = $this->create($record, (array) ($joinings[$key] ?? []), false);
+        }
+
+        $this->touchIfTouching();
+
+        return $instances;
+    }
+
+    /**
+     * Add the constraints for a relationship query.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
+     * @param  array|mixed  $columns
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function getRelationExistenceQuery(Builder $query, Builder $parentQuery, $columns = ['*'])
+    {
+        if ($parentQuery->getQuery()->from == $query->getQuery()->from) {
+            return $this->getRelationExistenceQueryForSelfJoin($query, $parentQuery, $columns);
+        }
+
+        $this->performJoin($query);
+
+        return parent::getRelationExistenceQuery($query, $parentQuery, $columns);
+    }
+
+    /**
+     * Add the constraints for a relationship query on the same table.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
+     * @param  array|mixed  $columns
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function getRelationExistenceQueryForSelfJoin(Builder $query, Builder $parentQuery, $columns = ['*'])
+    {
+        $query->select($columns);
+
+        $query->from($this->related->getTable().' as '.$hash = $this->getRelationCountHash());
+
+        $this->related->setTable($hash);
+
+        $this->performJoin($query);
+
+        return parent::getRelationExistenceQuery($query, $parentQuery, $columns);
+    }
+
+    /**
+     * Get the key for comparing against the parent key in "has" query.
+     *
+     * @return string
+     */
+    public function getExistenceCompareKey()
+    {
+        return $this->getQualifiedForeignPivotKeyName();
+    }
+
+    /**
+     * Get a relationship join table hash.
+     *
+     * @return string
+     */
+    public function getRelationCountHash()
+    {
+        return 'laravel_reserved_'.static::$selfJoinCount++;
+>>>>>>> dev
     }
 
     /**
@@ -1231,10 +2013,19 @@ class BelongsToMany extends Relation
      *
      * @param  mixed  $createdAt
      * @param  mixed  $updatedAt
+<<<<<<< HEAD
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function withTimestamps($createdAt = null, $updatedAt = null)
     {
+=======
+     * @return $this
+     */
+    public function withTimestamps($createdAt = null, $updatedAt = null)
+    {
+        $this->withTimestamps = true;
+
+>>>>>>> dev
         $this->pivotCreatedAt = $createdAt;
         $this->pivotUpdatedAt = $updatedAt;
 
@@ -1262,6 +2053,7 @@ class BelongsToMany extends Relation
     }
 
     /**
+<<<<<<< HEAD
      * Get the related model's updated at column name.
      *
      * @return string
@@ -1299,6 +2091,75 @@ class BelongsToMany extends Relation
     public function getOtherKey()
     {
         return $this->table.'.'.$this->otherKey;
+=======
+     * Get the foreign key for the relation.
+     *
+     * @return string
+     */
+    public function getForeignPivotKeyName()
+    {
+        return $this->foreignPivotKey;
+    }
+
+    /**
+     * Get the fully qualified foreign key for the relation.
+     *
+     * @return string
+     */
+    public function getQualifiedForeignPivotKeyName()
+    {
+        return $this->table.'.'.$this->foreignPivotKey;
+    }
+
+    /**
+     * Get the "related key" for the relation.
+     *
+     * @return string
+     */
+    public function getRelatedPivotKeyName()
+    {
+        return $this->relatedPivotKey;
+    }
+
+    /**
+     * Get the fully qualified "related key" for the relation.
+     *
+     * @return string
+     */
+    public function getQualifiedRelatedPivotKeyName()
+    {
+        return $this->table.'.'.$this->relatedPivotKey;
+    }
+
+    /**
+     * Get the parent key for the relationship.
+     *
+     * @return string
+     */
+    public function getParentKeyName()
+    {
+        return $this->parentKey;
+    }
+
+    /**
+     * Get the fully qualified parent key name for the relation.
+     *
+     * @return string
+     */
+    public function getQualifiedParentKeyName()
+    {
+        return $this->parent->qualifyColumn($this->parentKey);
+    }
+
+    /**
+     * Get the related key for the relationship.
+     *
+     * @return string
+     */
+    public function getRelatedKeyName()
+    {
+        return $this->relatedKey;
+>>>>>>> dev
     }
 
     /**
@@ -1320,4 +2181,17 @@ class BelongsToMany extends Relation
     {
         return $this->relationName;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Get the name of the pivot accessor for this relationship.
+     *
+     * @return string
+     */
+    public function getPivotAccessor()
+    {
+        return $this->accessor;
+    }
+>>>>>>> dev
 }

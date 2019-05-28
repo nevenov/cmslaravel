@@ -20,9 +20,21 @@ use Symfony\Component\VarDumper\Cloner\Stub;
  */
 class ConstStub extends Stub
 {
+<<<<<<< HEAD
     public function __construct($name, $value)
+=======
+    public function __construct(string $name, $value)
+>>>>>>> dev
     {
         $this->class = $name;
         $this->value = $value;
     }
+<<<<<<< HEAD
+=======
+
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
+>>>>>>> dev
 }

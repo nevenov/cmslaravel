@@ -38,19 +38,38 @@ class MorphToMany extends BelongsToMany
      * @param  \Illuminate\Database\Eloquent\Model  $parent
      * @param  string  $name
      * @param  string  $table
+<<<<<<< HEAD
      * @param  string  $foreignKey
      * @param  string  $otherKey
+=======
+     * @param  string  $foreignPivotKey
+     * @param  string  $relatedPivotKey
+     * @param  string  $parentKey
+     * @param  string  $relatedKey
+>>>>>>> dev
      * @param  string  $relationName
      * @param  bool  $inverse
      * @return void
      */
+<<<<<<< HEAD
     public function __construct(Builder $query, Model $parent, $name, $table, $foreignKey, $otherKey, $relationName = null, $inverse = false)
+=======
+    public function __construct(Builder $query, Model $parent, $name, $table, $foreignPivotKey,
+                                $relatedPivotKey, $parentKey, $relatedKey, $relationName = null, $inverse = false)
+>>>>>>> dev
     {
         $this->inverse = $inverse;
         $this->morphType = $name.'_type';
         $this->morphClass = $inverse ? $query->getModel()->getMorphClass() : $parent->getMorphClass();
 
+<<<<<<< HEAD
         parent::__construct($query, $parent, $table, $foreignKey, $otherKey, $relationName);
+=======
+        parent::__construct(
+            $query, $parent, $table, $foreignPivotKey,
+            $relatedPivotKey, $parentKey, $relatedKey, $relationName
+        );
+>>>>>>> dev
     }
 
     /**
@@ -58,9 +77,15 @@ class MorphToMany extends BelongsToMany
      *
      * @return $this
      */
+<<<<<<< HEAD
     protected function setWhere()
     {
         parent::setWhere();
+=======
+    protected function addWhereConstraints()
+    {
+        parent::addWhereConstraints();
+>>>>>>> dev
 
         $this->query->where($this->table.'.'.$this->morphType, $this->morphClass);
 
@@ -68,6 +93,7 @@ class MorphToMany extends BelongsToMany
     }
 
     /**
+<<<<<<< HEAD
      * Add the constraints for a relationship count query.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -83,6 +109,8 @@ class MorphToMany extends BelongsToMany
     }
 
     /**
+=======
+>>>>>>> dev
      * Set the constraints for an eager load of the relation.
      *
      * @param  array  $models
@@ -102,11 +130,34 @@ class MorphToMany extends BelongsToMany
      * @param  bool  $timed
      * @return array
      */
+<<<<<<< HEAD
     protected function createAttachRecord($id, $timed)
     {
         $record = parent::createAttachRecord($id, $timed);
 
         return Arr::add($record, $this->morphType, $this->morphClass);
+=======
+    protected function baseAttachRecord($id, $timed)
+    {
+        return Arr::add(
+            parent::baseAttachRecord($id, $timed), $this->morphType, $this->morphClass
+        );
+    }
+
+    /**
+     * Add the constraints for a relationship count query.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
+     * @param  array|mixed  $columns
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function getRelationExistenceQuery(Builder $query, Builder $parentQuery, $columns = ['*'])
+    {
+        return parent::getRelationExistenceQuery($query, $parentQuery, $columns)->where(
+            $this->table.'.'.$this->morphType, $this->morphClass
+        );
+>>>>>>> dev
     }
 
     /**
@@ -116,9 +167,13 @@ class MorphToMany extends BelongsToMany
      */
     protected function newPivotQuery()
     {
+<<<<<<< HEAD
         $query = parent::newPivotQuery();
 
         return $query->where($this->morphType, $this->morphClass);
+=======
+        return parent::newPivotQuery()->where($this->morphType, $this->morphClass);
+>>>>>>> dev
     }
 
     /**
@@ -130,9 +185,18 @@ class MorphToMany extends BelongsToMany
      */
     public function newPivot(array $attributes = [], $exists = false)
     {
+<<<<<<< HEAD
         $pivot = new MorphPivot($this->parent, $attributes, $this->table, $exists);
 
         $pivot->setPivotKeys($this->foreignKey, $this->otherKey)
+=======
+        $using = $this->using;
+
+        $pivot = $using ? $using::fromRawAttributes($this->parent, $attributes, $this->table, $exists)
+                        : MorphPivot::fromAttributes($this->parent, $attributes, $this->table, $exists);
+
+        $pivot->setPivotKeys($this->foreignPivotKey, $this->relatedPivotKey)
+>>>>>>> dev
               ->setMorphType($this->morphType)
               ->setMorphClass($this->morphClass);
 
@@ -140,6 +204,25 @@ class MorphToMany extends BelongsToMany
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get the pivot columns for the relation.
+     *
+     * "pivot_" is prefixed at each column for easy removal later.
+     *
+     * @return array
+     */
+    protected function aliasedPivotColumns()
+    {
+        $defaults = [$this->foreignPivotKey, $this->relatedPivotKey, $this->morphType];
+
+        return collect(array_merge($defaults, $this->pivotColumns))->map(function ($column) {
+            return $this->table.'.'.$column.' as pivot_'.$column;
+        })->unique()->all();
+    }
+
+    /**
+>>>>>>> dev
      * Get the foreign key "type" name.
      *
      * @return string
@@ -158,4 +241,17 @@ class MorphToMany extends BelongsToMany
     {
         return $this->morphClass;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Get the indicator for a reverse relationship.
+     *
+     * @return bool
+     */
+    public function getInverse()
+    {
+        return $this->inverse;
+    }
+>>>>>>> dev
 }

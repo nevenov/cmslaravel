@@ -11,9 +11,15 @@
 
 namespace Symfony\Component\HttpKernel\Event;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+=======
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+>>>>>>> dev
 
 /**
  * Allows to execute logic after a response was sent.

@@ -26,10 +26,17 @@ interface TokenRepositoryInterface
     /**
      * Delete a token record.
      *
+<<<<<<< HEAD
      * @param  string  $token
      * @return void
      */
     public function delete($token);
+=======
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @return void
+     */
+    public function delete(CanResetPasswordContract $user);
+>>>>>>> dev
 
     /**
      * Delete expired tokens.

@@ -11,10 +11,23 @@
 
 namespace Symfony\Component\Translation;
 
+<<<<<<< HEAD
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
  */
 class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInterface
+=======
+use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
+use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+/**
+ * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
+ */
+class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorInterface, TranslatorBagInterface, WarmableInterface
+>>>>>>> dev
 {
     const MESSAGE_DEFINED = 0;
     const MESSAGE_MISSING = 1;
@@ -25,18 +38,32 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
      */
     private $translator;
 
+<<<<<<< HEAD
     /**
      * @var array
      */
     private $messages = array();
+=======
+    private $messages = [];
+>>>>>>> dev
 
     /**
      * @param TranslatorInterface $translator The translator must implement TranslatorBagInterface
      */
+<<<<<<< HEAD
     public function __construct(TranslatorInterface $translator)
     {
         if (!$translator instanceof TranslatorBagInterface) {
             throw new \InvalidArgumentException(sprintf('The Translator "%s" must implement TranslatorInterface and TranslatorBagInterface.', get_class($translator)));
+=======
+    public function __construct($translator)
+    {
+        if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface) {
+            throw new \TypeError(sprintf('Argument 1 passed to %s() must be an instance of %s, %s given.', __METHOD__, TranslatorInterface::class, \is_object($translator) ? \get_class($translator) : \gettype($translator)));
+        }
+        if (!$translator instanceof TranslatorBagInterface || !$translator instanceof LocaleAwareInterface) {
+            throw new InvalidArgumentException(sprintf('The Translator "%s" must implement TranslatorInterface, TranslatorBagInterface and LocaleAwareInterface.', \get_class($translator)));
+>>>>>>> dev
         }
 
         $this->translator = $translator;
@@ -45,7 +72,11 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     /**
      * {@inheritdoc}
      */
+<<<<<<< HEAD
     public function trans($id, array $parameters = array(), $domain = null, $locale = null)
+=======
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
+>>>>>>> dev
     {
         $trans = $this->translator->trans($id, $parameters, $domain, $locale);
         $this->collectMessage($locale, $domain, $id, $trans, $parameters);
@@ -55,11 +86,26 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
 
     /**
      * {@inheritdoc}
+<<<<<<< HEAD
      */
     public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
     {
         $trans = $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
         $this->collectMessage($locale, $domain, $id, $trans, $parameters, $number);
+=======
+     *
+     * @deprecated since Symfony 4.2, use the trans() method instead with a %count% parameter
+     */
+    public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null)
+    {
+        if ($this->translator instanceof TranslatorInterface) {
+            $trans = $this->translator->trans($id, ['%count%' => $number] + $parameters, $domain, $locale);
+        }
+
+        $trans = $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
+
+        $this->collectMessage($locale, $domain, $id, $trans, ['%count%' => $number] + $parameters);
+>>>>>>> dev
 
         return $trans;
     }
@@ -89,11 +135,42 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * {@inheritdoc}
+     */
+    public function warmUp($cacheDir)
+    {
+        if ($this->translator instanceof WarmableInterface) {
+            $this->translator->warmUp($cacheDir);
+        }
+    }
+
+    /**
+     * Gets the fallback locales.
+     *
+     * @return array The fallback locales
+     */
+    public function getFallbackLocales()
+    {
+        if ($this->translator instanceof Translator || method_exists($this->translator, 'getFallbackLocales')) {
+            return $this->translator->getFallbackLocales();
+        }
+
+        return [];
+    }
+
+    /**
+>>>>>>> dev
      * Passes through all unknown calls onto the translator object.
      */
     public function __call($method, $args)
     {
+<<<<<<< HEAD
         return call_user_func_array(array($this->translator, $method), $args);
+=======
+        return $this->translator->{$method}(...$args);
+>>>>>>> dev
     }
 
     /**
@@ -110,9 +187,14 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
      * @param string      $id
      * @param string      $translation
      * @param array|null  $parameters
+<<<<<<< HEAD
      * @param int|null    $number
      */
     private function collectMessage($locale, $domain, $id, $translation, $parameters = array(), $number = null)
+=======
+     */
+    private function collectMessage($locale, $domain, $id, $translation, $parameters = [])
+>>>>>>> dev
     {
         if (null === $domain) {
             $domain = 'messages';
@@ -139,14 +221,24 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
             $state = self::MESSAGE_MISSING;
         }
 
+<<<<<<< HEAD
         $this->messages[] = array(
+=======
+        $this->messages[] = [
+>>>>>>> dev
             'locale' => $locale,
             'domain' => $domain,
             'id' => $id,
             'translation' => $translation,
             'parameters' => $parameters,
+<<<<<<< HEAD
             'transChoiceNumber' => $number,
             'state' => $state,
         );
+=======
+            'state' => $state,
+            'transChoiceNumber' => isset($parameters['%count%']) && is_numeric($parameters['%count%']) ? $parameters['%count%'] : null,
+        ];
+>>>>>>> dev
     }
 }

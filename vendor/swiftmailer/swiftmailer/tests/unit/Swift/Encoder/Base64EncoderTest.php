@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 class Swift_Encoder_Base64EncoderTest extends \PHPUnit_Framework_TestCase
 {
     private $_encoder;
@@ -7,6 +8,15 @@ class Swift_Encoder_Base64EncoderTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_encoder = new Swift_Encoder_Base64Encoder();
+=======
+class Swift_Encoder_Base64EncoderTest extends \PHPUnit\Framework\TestCase
+{
+    private $encoder;
+
+    protected function setUp()
+    {
+        $this->encoder = new Swift_Encoder_Base64Encoder();
+>>>>>>> dev
     }
 
     /*
@@ -28,6 +38,7 @@ class Swift_Encoder_Base64EncoderTest extends \PHPUnit_Framework_TestCase
          */
 
         $this->assertEquals(
+<<<<<<< HEAD
             'MTIz', $this->_encoder->encodeString('123'),
             '%s: 3 bytes of input should yield 4 bytes of output'
             );
@@ -37,6 +48,17 @@ class Swift_Encoder_Base64EncoderTest extends \PHPUnit_Framework_TestCase
             );
         $this->assertEquals(
             'MTIzNDU2Nzg5', $this->_encoder->encodeString('123456789'),
+=======
+            'MTIz', $this->encoder->encodeString('123'),
+            '%s: 3 bytes of input should yield 4 bytes of output'
+            );
+        $this->assertEquals(
+            'MTIzNDU2', $this->encoder->encodeString('123456'),
+            '%s: 6 bytes in input should yield 8 bytes of output'
+            );
+        $this->assertEquals(
+            'MTIzNDU2Nzg5', $this->encoder->encodeString('123456789'),
+>>>>>>> dev
             '%s: 9 bytes in input should yield 12 bytes of output'
             );
     }
@@ -64,25 +86,43 @@ class Swift_Encoder_Base64EncoderTest extends \PHPUnit_Framework_TestCase
        */
 
         for ($i = 0; $i < 30; ++$i) {
+<<<<<<< HEAD
             $input = pack('C', rand(0, 255));
             $this->assertRegExp(
                 '~^[a-zA-Z0-9/\+]{2}==$~', $this->_encoder->encodeString($input),
+=======
+            $input = pack('C', random_int(0, 255));
+            $this->assertRegExp(
+                '~^[a-zA-Z0-9/\+]{2}==$~', $this->encoder->encodeString($input),
+>>>>>>> dev
                 '%s: A single byte should have 2 bytes of padding'
                 );
         }
 
         for ($i = 0; $i < 30; ++$i) {
+<<<<<<< HEAD
             $input = pack('C*', rand(0, 255), rand(0, 255));
             $this->assertRegExp(
                 '~^[a-zA-Z0-9/\+]{3}=$~', $this->_encoder->encodeString($input),
+=======
+            $input = pack('C*', random_int(0, 255), random_int(0, 255));
+            $this->assertRegExp(
+                '~^[a-zA-Z0-9/\+]{3}=$~', $this->encoder->encodeString($input),
+>>>>>>> dev
                 '%s: Two bytes should have 1 byte of padding'
                 );
         }
 
         for ($i = 0; $i < 30; ++$i) {
+<<<<<<< HEAD
             $input = pack('C*', rand(0, 255), rand(0, 255), rand(0, 255));
             $this->assertRegExp(
                 '~^[a-zA-Z0-9/\+]{4}$~', $this->_encoder->encodeString($input),
+=======
+            $input = pack('C*', random_int(0, 255), random_int(0, 255), random_int(0, 255));
+            $this->assertRegExp(
+                '~^[a-zA-Z0-9/\+]{4}$~', $this->encoder->encodeString($input),
+>>>>>>> dev
                 '%s: Three bytes should have no padding'
                 );
         }
@@ -114,7 +154,11 @@ class Swift_Encoder_Base64EncoderTest extends \PHPUnit_Framework_TestCase
         'NUVVZXWFla';                                       //48
 
         $this->assertEquals(
+<<<<<<< HEAD
             $output, $this->_encoder->encodeString($input),
+=======
+            $output, $this->encoder->encodeString($input),
+>>>>>>> dev
             '%s: Lines should be no more than 76 characters'
             );
     }
@@ -141,7 +185,11 @@ class Swift_Encoder_Base64EncoderTest extends \PHPUnit_Framework_TestCase
         'UlNUVVZXWFla';                                     //50 *
 
         $this->assertEquals(
+<<<<<<< HEAD
             $output, $this->_encoder->encodeString($input, 0, 50),
+=======
+            $output, $this->encoder->encodeString($input, 0, 50),
+>>>>>>> dev
             '%s: Lines should be no more than 100 characters'
             );
     }
@@ -166,7 +214,11 @@ class Swift_Encoder_Base64EncoderTest extends \PHPUnit_Framework_TestCase
         'FRkdISUpLTE1OT1BRUlNUVVZXWFla';                    //67
 
         $this->assertEquals(
+<<<<<<< HEAD
             $output, $this->_encoder->encodeString($input, 19),
+=======
+            $output, $this->encoder->encodeString($input, 19),
+>>>>>>> dev
             '%s: First line offset is 19 so first line should be 57 chars long'
             );
     }

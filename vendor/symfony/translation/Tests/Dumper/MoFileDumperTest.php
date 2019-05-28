@@ -11,15 +11,27 @@
 
 namespace Symfony\Component\Translation\Tests\Dumper;
 
+<<<<<<< HEAD
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Dumper\MoFileDumper;
 
 class MoFileDumperTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Translation\Dumper\MoFileDumper;
+use Symfony\Component\Translation\MessageCatalogue;
+
+class MoFileDumperTest extends TestCase
+>>>>>>> dev
 {
     public function testFormatCatalogue()
     {
         $catalogue = new MessageCatalogue('en');
+<<<<<<< HEAD
         $catalogue->add(array('foo' => 'bar'));
+=======
+        $catalogue->add(['foo' => 'bar']);
+>>>>>>> dev
 
         $dumper = new MoFileDumper();
 

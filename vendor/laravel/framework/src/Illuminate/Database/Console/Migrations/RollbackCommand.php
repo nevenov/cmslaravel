@@ -2,12 +2,19 @@
 
 namespace Illuminate\Database\Console\Migrations;
 
+<<<<<<< HEAD
 use Illuminate\Console\Command;
+=======
+>>>>>>> dev
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Database\Migrations\Migrator;
 use Symfony\Component\Console\Input\InputOption;
 
+<<<<<<< HEAD
 class RollbackCommand extends Command
+=======
+class RollbackCommand extends BaseCommand
+>>>>>>> dev
 {
     use ConfirmableTrait;
 
@@ -50,12 +57,17 @@ class RollbackCommand extends Command
      *
      * @return void
      */
+<<<<<<< HEAD
     public function fire()
+=======
+    public function handle()
+>>>>>>> dev
     {
         if (! $this->confirmToProceed()) {
             return;
         }
 
+<<<<<<< HEAD
         $this->migrator->setConnection($this->input->getOption('database'));
 
         $pretend = $this->input->getOption('pretend');
@@ -68,6 +80,16 @@ class RollbackCommand extends Command
         foreach ($this->migrator->getNotes() as $note) {
             $this->output->writeln($note);
         }
+=======
+        $this->migrator->setConnection($this->option('database'));
+
+        $this->migrator->setOutput($this->output)->rollback(
+            $this->getMigrationPaths(), [
+                'pretend' => $this->option('pretend'),
+                'step' => (int) $this->option('step'),
+            ]
+        );
+>>>>>>> dev
     }
 
     /**
@@ -78,11 +100,25 @@ class RollbackCommand extends Command
     protected function getOptions()
     {
         return [
+<<<<<<< HEAD
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
 
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
 
             ['pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'],
+=======
+            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use'],
+
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production'],
+
+            ['path', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The path(s) to the migrations files to be executed'],
+
+            ['realpath', null, InputOption::VALUE_NONE, 'Indicate any provided migration file paths are pre-resolved absolute paths'],
+
+            ['pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run'],
+
+            ['step', null, InputOption::VALUE_OPTIONAL, 'The number of migrations to be reverted'],
+>>>>>>> dev
         ];
     }
 }

@@ -7,8 +7,13 @@ use Throwable;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Facade;
+<<<<<<< HEAD
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+=======
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Foundation\Application;
+>>>>>>> dev
 use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
@@ -34,6 +39,7 @@ class Kernel implements KernelContract
      * @var array
      */
     protected $bootstrappers = [
+<<<<<<< HEAD
         'Illuminate\Foundation\Bootstrap\DetectEnvironment',
         'Illuminate\Foundation\Bootstrap\LoadConfiguration',
         'Illuminate\Foundation\Bootstrap\ConfigureLogging',
@@ -41,6 +47,14 @@ class Kernel implements KernelContract
         'Illuminate\Foundation\Bootstrap\RegisterFacades',
         'Illuminate\Foundation\Bootstrap\RegisterProviders',
         'Illuminate\Foundation\Bootstrap\BootProviders',
+=======
+        \Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables::class,
+        \Illuminate\Foundation\Bootstrap\LoadConfiguration::class,
+        \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
+        \Illuminate\Foundation\Bootstrap\RegisterFacades::class,
+        \Illuminate\Foundation\Bootstrap\RegisterProviders::class,
+        \Illuminate\Foundation\Bootstrap\BootProviders::class,
+>>>>>>> dev
     ];
 
     /**
@@ -65,6 +79,25 @@ class Kernel implements KernelContract
     protected $routeMiddleware = [];
 
     /**
+<<<<<<< HEAD
+=======
+     * The priority-sorted list of middleware.
+     *
+     * Forces non-global middleware to always be in the given order.
+     *
+     * @var array
+     */
+    protected $middlewarePriority = [
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \Illuminate\Auth\Middleware\Authenticate::class,
+        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \Illuminate\Auth\Middleware\Authorize::class,
+    ];
+
+    /**
+>>>>>>> dev
      * Create a new HTTP kernel instance.
      *
      * @param  \Illuminate\Contracts\Foundation\Application  $app
@@ -76,12 +109,21 @@ class Kernel implements KernelContract
         $this->app = $app;
         $this->router = $router;
 
+<<<<<<< HEAD
+=======
+        $router->middlewarePriority = $this->middlewarePriority;
+
+>>>>>>> dev
         foreach ($this->middlewareGroups as $key => $middleware) {
             $router->middlewareGroup($key, $middleware);
         }
 
         foreach ($this->routeMiddleware as $key => $middleware) {
+<<<<<<< HEAD
             $router->middleware($key, $middleware);
+=======
+            $router->aliasMiddleware($key, $middleware);
+>>>>>>> dev
         }
     }
 
@@ -107,7 +149,13 @@ class Kernel implements KernelContract
             $response = $this->renderException($request, $e);
         }
 
+<<<<<<< HEAD
         $this->app['events']->fire('kernel.handled', [$request, $response]);
+=======
+        $this->app['events']->dispatch(
+            new Events\RequestHandled($request, $response)
+        );
+>>>>>>> dev
 
         return $response;
     }
@@ -133,6 +181,35 @@ class Kernel implements KernelContract
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Bootstrap the application for HTTP requests.
+     *
+     * @return void
+     */
+    public function bootstrap()
+    {
+        if (! $this->app->hasBeenBootstrapped()) {
+            $this->app->bootstrapWith($this->bootstrappers());
+        }
+    }
+
+    /**
+     * Get the route dispatcher callback.
+     *
+     * @return \Closure
+     */
+    protected function dispatchToRouter()
+    {
+        return function ($request) {
+            $this->app->instance('request', $request);
+
+            return $this->router->dispatch($request);
+        };
+    }
+
+    /**
+>>>>>>> dev
      * Call the terminate method on any terminable middleware.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -141,13 +218,40 @@ class Kernel implements KernelContract
      */
     public function terminate($request, $response)
     {
+<<<<<<< HEAD
         $middlewares = $this->app->shouldSkipMiddleware() ? [] : array_merge(
             $this->gatherRouteMiddlewares($request),
+=======
+        $this->terminateMiddleware($request, $response);
+
+        $this->app->terminate();
+    }
+
+    /**
+     * Call the terminate method on any terminable middleware.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Response  $response
+     * @return void
+     */
+    protected function terminateMiddleware($request, $response)
+    {
+        $middlewares = $this->app->shouldSkipMiddleware() ? [] : array_merge(
+            $this->gatherRouteMiddleware($request),
+>>>>>>> dev
             $this->middleware
         );
 
         foreach ($middlewares as $middleware) {
+<<<<<<< HEAD
             list($name, $parameters) = $this->parseMiddleware($middleware);
+=======
+            if (! is_string($middleware)) {
+                continue;
+            }
+
+            [$name] = $this->parseMiddleware($middleware);
+>>>>>>> dev
 
             $instance = $this->app->make($name);
 
@@ -155,8 +259,11 @@ class Kernel implements KernelContract
                 $instance->terminate($request, $response);
             }
         }
+<<<<<<< HEAD
 
         $this->app->terminate();
+=======
+>>>>>>> dev
     }
 
     /**
@@ -165,10 +272,17 @@ class Kernel implements KernelContract
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+<<<<<<< HEAD
     protected function gatherRouteMiddlewares($request)
     {
         if ($route = $request->route()) {
             return $this->router->gatherRouteMiddlewares($route);
+=======
+    protected function gatherRouteMiddleware($request)
+    {
+        if ($route = $request->route()) {
+            return $this->router->gatherRouteMiddleware($route);
+>>>>>>> dev
         }
 
         return [];
@@ -182,7 +296,11 @@ class Kernel implements KernelContract
      */
     protected function parseMiddleware($middleware)
     {
+<<<<<<< HEAD
         list($name, $parameters) = array_pad(explode(':', $middleware, 2), 2, []);
+=======
+        [$name, $parameters] = array_pad(explode(':', $middleware, 2), 2, []);
+>>>>>>> dev
 
         if (is_string($parameters)) {
             $parameters = explode(',', $parameters);
@@ -192,6 +310,20 @@ class Kernel implements KernelContract
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Determine if the kernel has a given middleware.
+     *
+     * @param  string  $middleware
+     * @return bool
+     */
+    public function hasMiddleware($middleware)
+    {
+        return in_array($middleware, $this->middleware);
+    }
+
+    /**
+>>>>>>> dev
      * Add a new middleware to beginning of the stack if it does not already exist.
      *
      * @param  string  $middleware
@@ -222,6 +354,7 @@ class Kernel implements KernelContract
     }
 
     /**
+<<<<<<< HEAD
      * Bootstrap the application for HTTP requests.
      *
      * @return void
@@ -259,6 +392,8 @@ class Kernel implements KernelContract
     }
 
     /**
+=======
+>>>>>>> dev
      * Get the bootstrap classes for the application.
      *
      * @return array
@@ -292,6 +427,29 @@ class Kernel implements KernelContract
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get the application's route middleware groups.
+     *
+     * @return array
+     */
+    public function getMiddlewareGroups()
+    {
+        return $this->middlewareGroups;
+    }
+
+    /**
+     * Get the application's route middleware.
+     *
+     * @return array
+     */
+    public function getRouteMiddleware()
+    {
+        return $this->routeMiddleware;
+    }
+
+    /**
+>>>>>>> dev
      * Get the Laravel application instance.
      *
      * @return \Illuminate\Contracts\Foundation\Application

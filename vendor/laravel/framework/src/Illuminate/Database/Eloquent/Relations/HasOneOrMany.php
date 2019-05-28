@@ -4,7 +4,10 @@ namespace Illuminate\Database\Eloquent\Relations;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+<<<<<<< HEAD
 use Illuminate\Database\Query\Expression;
+=======
+>>>>>>> dev
 use Illuminate\Database\Eloquent\Collection;
 
 abstract class HasOneOrMany extends Relation
@@ -48,6 +51,22 @@ abstract class HasOneOrMany extends Relation
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Create and return an un-saved instance of the related model.
+     *
+     * @param  array  $attributes
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function make(array $attributes = [])
+    {
+        return tap($this->related->newInstance($attributes), function ($instance) {
+            $this->setForeignAttributesForCreate($instance);
+        });
+    }
+
+    /**
+>>>>>>> dev
      * Set the base constraints on the relation query.
      *
      * @return void
@@ -62,6 +81,7 @@ abstract class HasOneOrMany extends Relation
     }
 
     /**
+<<<<<<< HEAD
      * Add the constraints for a relationship query.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -110,6 +130,8 @@ abstract class HasOneOrMany extends Relation
     }
 
     /**
+=======
+>>>>>>> dev
      * Set the constraints for an eager load of the relation.
      *
      * @param  array  $models
@@ -117,7 +139,15 @@ abstract class HasOneOrMany extends Relation
      */
     public function addEagerConstraints(array $models)
     {
+<<<<<<< HEAD
         $this->query->whereIn($this->foreignKey, $this->getKeys($models, $this->localKey));
+=======
+        $whereIn = $this->whereInMethod($this->parent, $this->localKey);
+
+        $this->query->{$whereIn}(
+            $this->foreignKey, $this->getKeys($models, $this->localKey)
+        );
+>>>>>>> dev
     }
 
     /**
@@ -163,12 +193,19 @@ abstract class HasOneOrMany extends Relation
         // link them up with their children using the keyed dictionary to make the
         // matching very convenient and easy work. Then we'll just return them.
         foreach ($models as $model) {
+<<<<<<< HEAD
             $key = $model->getAttribute($this->localKey);
 
             if (isset($dictionary[$key])) {
                 $value = $this->getRelationValue($dictionary, $key, $type);
 
                 $model->setRelation($relation, $value);
+=======
+            if (isset($dictionary[$key = $model->getAttribute($this->localKey)])) {
+                $model->setRelation(
+                    $relation, $this->getRelationValue($dictionary, $key, $type)
+                );
+>>>>>>> dev
             }
         }
 
@@ -187,7 +224,11 @@ abstract class HasOneOrMany extends Relation
     {
         $value = $dictionary[$key];
 
+<<<<<<< HEAD
         return $type == 'one' ? reset($value) : $this->related->newCollection($value);
+=======
+        return $type === 'one' ? reset($value) : $this->related->newCollection($value);
+>>>>>>> dev
     }
 
     /**
@@ -198,6 +239,7 @@ abstract class HasOneOrMany extends Relation
      */
     protected function buildDictionary(Collection $results)
     {
+<<<<<<< HEAD
         $dictionary = [];
 
         $foreign = $this->getPlainForeignKey();
@@ -238,6 +280,13 @@ abstract class HasOneOrMany extends Relation
         }
 
         return $models;
+=======
+        $foreign = $this->getForeignKeyName();
+
+        return $results->mapToDictionary(function ($result) use ($foreign) {
+            return [$result->{$foreign} => $result];
+        })->all();
+>>>>>>> dev
     }
 
     /**
@@ -252,7 +301,11 @@ abstract class HasOneOrMany extends Relation
         if (is_null($instance = $this->find($id, $columns))) {
             $instance = $this->related->newInstance();
 
+<<<<<<< HEAD
             $instance->setAttribute($this->getPlainForeignKey(), $this->getParentKey());
+=======
+            $this->setForeignAttributesForCreate($instance);
+>>>>>>> dev
         }
 
         return $instance;
@@ -262,6 +315,7 @@ abstract class HasOneOrMany extends Relation
      * Get the first related model record matching the attributes or instantiate it.
      *
      * @param  array  $attributes
+<<<<<<< HEAD
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function firstOrNew(array $attributes)
@@ -270,6 +324,17 @@ abstract class HasOneOrMany extends Relation
             $instance = $this->related->newInstance($attributes);
 
             $instance->setAttribute($this->getPlainForeignKey(), $this->getParentKey());
+=======
+     * @param  array  $values
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function firstOrNew(array $attributes, array $values = [])
+    {
+        if (is_null($instance = $this->where($attributes)->first())) {
+            $instance = $this->related->newInstance($attributes + $values);
+
+            $this->setForeignAttributesForCreate($instance);
+>>>>>>> dev
         }
 
         return $instance;
@@ -279,12 +344,22 @@ abstract class HasOneOrMany extends Relation
      * Get the first related record matching the attributes or create it.
      *
      * @param  array  $attributes
+<<<<<<< HEAD
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function firstOrCreate(array $attributes)
     {
         if (is_null($instance = $this->where($attributes)->first())) {
             $instance = $this->create($attributes);
+=======
+     * @param  array  $values
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function firstOrCreate(array $attributes, array $values = [])
+    {
+        if (is_null($instance = $this->where($attributes)->first())) {
+            $instance = $this->create($attributes + $values);
+>>>>>>> dev
         }
 
         return $instance;
@@ -299,6 +374,7 @@ abstract class HasOneOrMany extends Relation
      */
     public function updateOrCreate(array $attributes, array $values = [])
     {
+<<<<<<< HEAD
         $instance = $this->firstOrNew($attributes);
 
         $instance->fill($values);
@@ -306,6 +382,41 @@ abstract class HasOneOrMany extends Relation
         $instance->save();
 
         return $instance;
+=======
+        return tap($this->firstOrNew($attributes), function ($instance) use ($values) {
+            $instance->fill($values);
+
+            $instance->save();
+        });
+    }
+
+    /**
+     * Attach a model instance to the parent model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return \Illuminate\Database\Eloquent\Model|false
+     */
+    public function save(Model $model)
+    {
+        $this->setForeignAttributesForCreate($model);
+
+        return $model->save() ? $model : false;
+    }
+
+    /**
+     * Attach a collection of models to the parent instance.
+     *
+     * @param  iterable  $models
+     * @return iterable
+     */
+    public function saveMany($models)
+    {
+        foreach ($models as $model) {
+            $this->save($model);
+        }
+
+        return $models;
+>>>>>>> dev
     }
 
     /**
@@ -314,6 +425,7 @@ abstract class HasOneOrMany extends Relation
      * @param  array  $attributes
      * @return \Illuminate\Database\Eloquent\Model
      */
+<<<<<<< HEAD
     public function create(array $attributes)
     {
         // Here we will set the raw attributes to avoid hitting the "fill" method so
@@ -340,12 +452,36 @@ abstract class HasOneOrMany extends Relation
 
         foreach ($records as $record) {
             $instances[] = $this->create($record);
+=======
+    public function create(array $attributes = [])
+    {
+        return tap($this->related->newInstance($attributes), function ($instance) {
+            $this->setForeignAttributesForCreate($instance);
+
+            $instance->save();
+        });
+    }
+
+    /**
+     * Create a Collection of new instances of the related model.
+     *
+     * @param  array  $records
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function createMany(array $records)
+    {
+        $instances = $this->related->newCollection();
+
+        foreach ($records as $record) {
+            $instances->push($this->create($record));
+>>>>>>> dev
         }
 
         return $instances;
     }
 
     /**
+<<<<<<< HEAD
      * Perform an update on all the related models.
      *
      * @param  array  $attributes
@@ -390,6 +526,72 @@ abstract class HasOneOrMany extends Relation
         $segments = explode('.', $this->getForeignKey());
 
         return $segments[count($segments) - 1];
+=======
+     * Set the foreign ID for creating a related model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return void
+     */
+    protected function setForeignAttributesForCreate(Model $model)
+    {
+        $model->setAttribute($this->getForeignKeyName(), $this->getParentKey());
+    }
+
+    /**
+     * Add the constraints for a relationship query.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
+     * @param  array|mixed  $columns
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function getRelationExistenceQuery(Builder $query, Builder $parentQuery, $columns = ['*'])
+    {
+        if ($query->getQuery()->from == $parentQuery->getQuery()->from) {
+            return $this->getRelationExistenceQueryForSelfRelation($query, $parentQuery, $columns);
+        }
+
+        return parent::getRelationExistenceQuery($query, $parentQuery, $columns);
+    }
+
+    /**
+     * Add the constraints for a relationship query on the same table.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
+     * @param  array|mixed  $columns
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function getRelationExistenceQueryForSelfRelation(Builder $query, Builder $parentQuery, $columns = ['*'])
+    {
+        $query->from($query->getModel()->getTable().' as '.$hash = $this->getRelationCountHash());
+
+        $query->getModel()->setTable($hash);
+
+        return $query->select($columns)->whereColumn(
+            $this->getQualifiedParentKeyName(), '=', $hash.'.'.$this->getForeignKeyName()
+        );
+    }
+
+    /**
+     * Get a relationship join table hash.
+     *
+     * @return string
+     */
+    public function getRelationCountHash()
+    {
+        return 'laravel_reserved_'.static::$selfJoinCount++;
+    }
+
+    /**
+     * Get the key for comparing against the parent key in "has" query.
+     *
+     * @return string
+     */
+    public function getExistenceCompareKey()
+    {
+        return $this->getQualifiedForeignKeyName();
+>>>>>>> dev
     }
 
     /**
@@ -409,6 +611,42 @@ abstract class HasOneOrMany extends Relation
      */
     public function getQualifiedParentKeyName()
     {
+<<<<<<< HEAD
         return $this->parent->getTable().'.'.$this->localKey;
+=======
+        return $this->parent->qualifyColumn($this->localKey);
+    }
+
+    /**
+     * Get the plain foreign key.
+     *
+     * @return string
+     */
+    public function getForeignKeyName()
+    {
+        $segments = explode('.', $this->getQualifiedForeignKeyName());
+
+        return end($segments);
+    }
+
+    /**
+     * Get the foreign key for the relationship.
+     *
+     * @return string
+     */
+    public function getQualifiedForeignKeyName()
+    {
+        return $this->foreignKey;
+    }
+
+    /**
+     * Get the local key for the relationship.
+     *
+     * @return string
+     */
+    public function getLocalKeyName()
+    {
+        return $this->localKey;
+>>>>>>> dev
     }
 }

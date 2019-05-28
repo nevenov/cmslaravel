@@ -24,6 +24,7 @@ class ResponseHeaderBag extends HeaderBag
     const DISPOSITION_ATTACHMENT = 'attachment';
     const DISPOSITION_INLINE = 'inline';
 
+<<<<<<< HEAD
     /**
      * @var array
      */
@@ -45,12 +46,20 @@ class ResponseHeaderBag extends HeaderBag
      * @param array $headers An array of HTTP headers
      */
     public function __construct(array $headers = array())
+=======
+    protected $computedCacheControl = [];
+    protected $cookies = [];
+    protected $headerNames = [];
+
+    public function __construct(array $headers = [])
+>>>>>>> dev
     {
         parent::__construct($headers);
 
         if (!isset($this->headers['cache-control'])) {
             $this->set('Cache-Control', '');
         }
+<<<<<<< HEAD
     }
 
     /**
@@ -66,6 +75,13 @@ class ResponseHeaderBag extends HeaderBag
         ksort($this->headerNames);
 
         return parent::__toString().$cookies;
+=======
+
+        /* RFC2616 - 14.18 says all Responses need to have a Date */
+        if (!isset($this->headers['date'])) {
+            $this->initDate();
+        }
+>>>>>>> dev
     }
 
     /**
@@ -75,26 +91,59 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function allPreserveCase()
     {
+<<<<<<< HEAD
         return array_combine($this->headerNames, $this->headers);
+=======
+        $headers = [];
+        foreach ($this->all() as $name => $value) {
+            $headers[isset($this->headerNames[$name]) ? $this->headerNames[$name] : $name] = $value;
+        }
+
+        return $headers;
+    }
+
+    public function allPreserveCaseWithoutCookies()
+    {
+        $headers = $this->allPreserveCase();
+        if (isset($this->headerNames['set-cookie'])) {
+            unset($headers[$this->headerNames['set-cookie']]);
+        }
+
+        return $headers;
+>>>>>>> dev
     }
 
     /**
      * {@inheritdoc}
      */
+<<<<<<< HEAD
     public function replace(array $headers = array())
     {
         $this->headerNames = array();
+=======
+    public function replace(array $headers = [])
+    {
+        $this->headerNames = [];
+>>>>>>> dev
 
         parent::replace($headers);
 
         if (!isset($this->headers['cache-control'])) {
             $this->set('Cache-Control', '');
         }
+<<<<<<< HEAD
+=======
+
+        if (!isset($this->headers['date'])) {
+            $this->initDate();
+        }
+>>>>>>> dev
     }
 
     /**
      * {@inheritdoc}
      */
+<<<<<<< HEAD
     public function set($key, $values, $replace = true)
     {
         parent::set($key, $values, $replace);
@@ -106,6 +155,45 @@ class ResponseHeaderBag extends HeaderBag
         if (in_array($uniqueKey, array('cache-control', 'etag', 'last-modified', 'expires'))) {
             $computed = $this->computeCacheControlValue();
             $this->headers['cache-control'] = array($computed);
+=======
+    public function all()
+    {
+        $headers = parent::all();
+        foreach ($this->getCookies() as $cookie) {
+            $headers['set-cookie'][] = (string) $cookie;
+        }
+
+        return $headers;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function set($key, $values, $replace = true)
+    {
+        $uniqueKey = str_replace('_', '-', strtolower($key));
+
+        if ('set-cookie' === $uniqueKey) {
+            if ($replace) {
+                $this->cookies = [];
+            }
+            foreach ((array) $values as $cookie) {
+                $this->setCookie(Cookie::fromString($cookie));
+            }
+            $this->headerNames[$uniqueKey] = $key;
+
+            return;
+        }
+
+        $this->headerNames[$uniqueKey] = $key;
+
+        parent::set($key, $values, $replace);
+
+        // ensure the cache-control header has sensible defaults
+        if (\in_array($uniqueKey, ['cache-control', 'etag', 'last-modified', 'expires'], true)) {
+            $computed = $this->computeCacheControlValue();
+            $this->headers['cache-control'] = [$computed];
+>>>>>>> dev
             $this->headerNames['cache-control'] = 'Cache-Control';
             $this->computedCacheControl = $this->parseCacheControl($computed);
         }
@@ -116,6 +204,7 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function remove($key)
     {
+<<<<<<< HEAD
         parent::remove($key);
 
         $uniqueKey = str_replace('_', '-', strtolower($key));
@@ -123,6 +212,25 @@ class ResponseHeaderBag extends HeaderBag
 
         if ('cache-control' === $uniqueKey) {
             $this->computedCacheControl = array();
+=======
+        $uniqueKey = str_replace('_', '-', strtolower($key));
+        unset($this->headerNames[$uniqueKey]);
+
+        if ('set-cookie' === $uniqueKey) {
+            $this->cookies = [];
+
+            return;
+        }
+
+        parent::remove($key);
+
+        if ('cache-control' === $uniqueKey) {
+            $this->computedCacheControl = [];
+        }
+
+        if ('date' === $uniqueKey) {
+            $this->initDate();
+>>>>>>> dev
         }
     }
 
@@ -131,7 +239,11 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function hasCacheControlDirective($key)
     {
+<<<<<<< HEAD
         return array_key_exists($key, $this->computedCacheControl);
+=======
+        return \array_key_exists($key, $this->computedCacheControl);
+>>>>>>> dev
     }
 
     /**
@@ -139,6 +251,7 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function getCacheControlDirective($key)
     {
+<<<<<<< HEAD
         return array_key_exists($key, $this->computedCacheControl) ? $this->computedCacheControl[$key] : null;
     }
 
@@ -150,6 +263,15 @@ class ResponseHeaderBag extends HeaderBag
     public function setCookie(Cookie $cookie)
     {
         $this->cookies[$cookie->getDomain()][$cookie->getPath()][$cookie->getName()] = $cookie;
+=======
+        return \array_key_exists($key, $this->computedCacheControl) ? $this->computedCacheControl[$key] : null;
+    }
+
+    public function setCookie(Cookie $cookie)
+    {
+        $this->cookies[$cookie->getDomain()][$cookie->getPath()][$cookie->getName()] = $cookie;
+        $this->headerNames['set-cookie'] = 'Set-Cookie';
+>>>>>>> dev
     }
 
     /**
@@ -174,6 +296,13 @@ class ResponseHeaderBag extends HeaderBag
                 unset($this->cookies[$domain]);
             }
         }
+<<<<<<< HEAD
+=======
+
+        if (empty($this->cookies)) {
+            unset($this->headerNames['set-cookie']);
+        }
+>>>>>>> dev
     }
 
     /**
@@ -181,21 +310,34 @@ class ResponseHeaderBag extends HeaderBag
      *
      * @param string $format
      *
+<<<<<<< HEAD
      * @return array
+=======
+     * @return Cookie[]
+>>>>>>> dev
      *
      * @throws \InvalidArgumentException When the $format is invalid
      */
     public function getCookies($format = self::COOKIES_FLAT)
     {
+<<<<<<< HEAD
         if (!in_array($format, array(self::COOKIES_FLAT, self::COOKIES_ARRAY))) {
             throw new \InvalidArgumentException(sprintf('Format "%s" invalid (%s).', $format, implode(', ', array(self::COOKIES_FLAT, self::COOKIES_ARRAY))));
+=======
+        if (!\in_array($format, [self::COOKIES_FLAT, self::COOKIES_ARRAY])) {
+            throw new \InvalidArgumentException(sprintf('Format "%s" invalid (%s).', $format, implode(', ', [self::COOKIES_FLAT, self::COOKIES_ARRAY])));
+>>>>>>> dev
         }
 
         if (self::COOKIES_ARRAY === $format) {
             return $this->cookies;
         }
 
+<<<<<<< HEAD
         $flattenedCookies = array();
+=======
+        $flattenedCookies = [];
+>>>>>>> dev
         foreach ($this->cookies as $path) {
             foreach ($path as $cookies) {
                 foreach ($cookies as $cookie) {
@@ -218,6 +360,7 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function clearCookie($name, $path = '/', $domain = null, $secure = false, $httpOnly = true)
     {
+<<<<<<< HEAD
         $this->setCookie(new Cookie($name, null, 1, $path, $domain, $secure, $httpOnly));
     }
 
@@ -268,6 +411,17 @@ class ResponseHeaderBag extends HeaderBag
         }
 
         return $output;
+=======
+        $this->setCookie(new Cookie($name, null, 1, $path, $domain, $secure, $httpOnly, false, null));
+    }
+
+    /**
+     * @see HeaderUtils::makeDisposition()
+     */
+    public function makeDisposition($disposition, $filename, $filenameFallback = '')
+    {
+        return HeaderUtils::makeDisposition((string) $disposition, (string) $filename, (string) $filenameFallback);
+>>>>>>> dev
     }
 
     /**
@@ -281,7 +435,11 @@ class ResponseHeaderBag extends HeaderBag
     protected function computeCacheControlValue()
     {
         if (!$this->cacheControl && !$this->has('ETag') && !$this->has('Last-Modified') && !$this->has('Expires')) {
+<<<<<<< HEAD
             return 'no-cache';
+=======
+            return 'no-cache, private';
+>>>>>>> dev
         }
 
         if (!$this->cacheControl) {
@@ -301,4 +459,14 @@ class ResponseHeaderBag extends HeaderBag
 
         return $header;
     }
+<<<<<<< HEAD
+=======
+
+    private function initDate()
+    {
+        $now = \DateTime::createFromFormat('U', time());
+        $now->setTimezone(new \DateTimeZone('UTC'));
+        $this->set('Date', $now->format('D, d M Y H:i:s').' GMT');
+    }
+>>>>>>> dev
 }

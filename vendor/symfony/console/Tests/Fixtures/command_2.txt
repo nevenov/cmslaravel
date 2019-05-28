@@ -1,7 +1,17 @@
+<<<<<<< HEAD
 <comment>Usage:</comment>
   descriptor:command2 [options] [--] <argument_name>
   descriptor:command2 -o|--option_name <argument_name>
   descriptor:command2 <argument_name>
+=======
+<comment>Description:</comment>
+  command 2 description
+
+<comment>Usage:</comment>
+  descriptor:command2 [options] [--] \<argument_name>
+  descriptor:command2 -o|--option_name \<argument_name>
+  descriptor:command2 \<argument_name>
+>>>>>>> dev
 
 <comment>Arguments:</comment>
   <info>argument_name</info>      
@@ -10,4 +20,8 @@
   <info>-o, --option_name</info>  
 
 <comment>Help:</comment>
+<<<<<<< HEAD
  command 2 help
+=======
+  command 2 help
+>>>>>>> dev

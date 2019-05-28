@@ -42,22 +42,41 @@ class MigrationCreator
      * @param  string  $table
      * @param  bool    $create
      * @return string
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> dev
      * @throws \Exception
      */
     public function create($name, $path, $table = null, $create = false)
     {
         $this->ensureMigrationDoesntAlreadyExist($name);
 
+<<<<<<< HEAD
         $path = $this->getPath($name, $path);
 
+=======
+>>>>>>> dev
         // First we will get the stub file for the migration, which serves as a type
         // of template for the migration. Once we have those we will populate the
         // various place-holders, save the file, and run the post create event.
         $stub = $this->getStub($table, $create);
 
+<<<<<<< HEAD
         $this->files->put($path, $this->populateStub($name, $stub, $table));
 
         $this->firePostCreateHooks();
+=======
+        $this->files->put(
+            $path = $this->getPath($name, $path),
+            $this->populateStub($name, $stub, $table)
+        );
+
+        // Next, we will fire any hooks that are supposed to fire after a migration is
+        // created. Once that is done we'll be ready to return the full path to the
+        // migration file so it can be used however it's needed by the developer.
+        $this->firePostCreateHooks($table);
+>>>>>>> dev
 
         return $path;
     }
@@ -73,7 +92,11 @@ class MigrationCreator
     protected function ensureMigrationDoesntAlreadyExist($name)
     {
         if (class_exists($className = $this->getClassName($name))) {
+<<<<<<< HEAD
             throw new InvalidArgumentException("A $className migration already exists.");
+=======
+            throw new InvalidArgumentException("A {$className} class already exists.");
+>>>>>>> dev
         }
     }
 
@@ -87,17 +110,27 @@ class MigrationCreator
     protected function getStub($table, $create)
     {
         if (is_null($table)) {
+<<<<<<< HEAD
             return $this->files->get($this->getStubPath().'/blank.stub');
+=======
+            return $this->files->get($this->stubPath().'/blank.stub');
+>>>>>>> dev
         }
 
         // We also have stubs for creating new tables and modifying existing tables
         // to save the developer some typing when they are creating a new tables
         // or modifying existing tables. We'll grab the appropriate stub here.
+<<<<<<< HEAD
         else {
             $stub = $create ? 'create.stub' : 'update.stub';
 
             return $this->files->get($this->getStubPath()."/{$stub}");
         }
+=======
+        $stub = $create ? 'create.stub' : 'update.stub';
+
+        return $this->files->get($this->stubPath()."/{$stub}");
+>>>>>>> dev
     }
 
     /**
@@ -134,6 +167,7 @@ class MigrationCreator
     }
 
     /**
+<<<<<<< HEAD
      * Fire the registered post create hooks.
      *
      * @return void
@@ -142,6 +176,29 @@ class MigrationCreator
     {
         foreach ($this->postCreate as $callback) {
             call_user_func($callback);
+=======
+     * Get the full path to the migration.
+     *
+     * @param  string  $name
+     * @param  string  $path
+     * @return string
+     */
+    protected function getPath($name, $path)
+    {
+        return $path.'/'.$this->getDatePrefix().'_'.$name.'.php';
+    }
+
+    /**
+     * Fire the registered post create hooks.
+     *
+     * @param  string  $table
+     * @return void
+     */
+    protected function firePostCreateHooks($table)
+    {
+        foreach ($this->postCreate as $callback) {
+            call_user_func($callback, $table);
+>>>>>>> dev
         }
     }
 
@@ -157,6 +214,7 @@ class MigrationCreator
     }
 
     /**
+<<<<<<< HEAD
      * Get the full path name to the migration.
      *
      * @param  string  $name
@@ -169,6 +227,8 @@ class MigrationCreator
     }
 
     /**
+=======
+>>>>>>> dev
      * Get the date prefix for the migration.
      *
      * @return string
@@ -183,7 +243,11 @@ class MigrationCreator
      *
      * @return string
      */
+<<<<<<< HEAD
     public function getStubPath()
+=======
+    public function stubPath()
+>>>>>>> dev
     {
         return __DIR__.'/stubs';
     }

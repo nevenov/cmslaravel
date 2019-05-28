@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 **option_name:**
 
 * Name: `--option_name`
@@ -6,4 +7,11 @@
 * Is value required: no
 * Is multiple: no
 * Description: <none>
+=======
+#### `--option_name|-o`
+
+* Accept value: no
+* Is value required: no
+* Is multiple: no
+>>>>>>> dev
 * Default: `false`

@@ -11,13 +11,21 @@
 
 namespace Symfony\Component\HttpKernel\Tests\HttpCache;
 
+<<<<<<< HEAD
+=======
+use PHPUnit\Framework\TestCase;
+>>>>>>> dev
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpCache\Esi;
 use Symfony\Component\HttpKernel\HttpCache\HttpCache;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
+<<<<<<< HEAD
 class HttpCacheTestCase extends \PHPUnit_Framework_TestCase
+=======
+class HttpCacheTestCase extends TestCase
+>>>>>>> dev
 {
     protected $kernel;
     protected $cache;
@@ -28,6 +36,13 @@ class HttpCacheTestCase extends \PHPUnit_Framework_TestCase
     protected $responses;
     protected $catch;
     protected $esi;
+<<<<<<< HEAD
+=======
+
+    /**
+     * @var Store
+     */
+>>>>>>> dev
     protected $store;
 
     protected function setUp()
@@ -36,12 +51,21 @@ class HttpCacheTestCase extends \PHPUnit_Framework_TestCase
 
         $this->cache = null;
         $this->esi = null;
+<<<<<<< HEAD
         $this->caches = array();
         $this->cacheConfig = array();
 
         $this->request = null;
         $this->response = null;
         $this->responses = array();
+=======
+        $this->caches = [];
+        $this->cacheConfig = [];
+
+        $this->request = null;
+        $this->response = null;
+        $this->responses = [];
+>>>>>>> dev
 
         $this->catch = false;
 
@@ -107,7 +131,11 @@ class HttpCacheTestCase extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->kernel->isCatchingExceptions());
     }
 
+<<<<<<< HEAD
     public function request($method, $uri = '/', $server = array(), $cookies = array(), $esi = false, $headers = array())
+=======
+    public function request($method, $uri = '/', $server = [], $cookies = [], $esi = false, $headers = [])
+>>>>>>> dev
     {
         if (null === $this->kernel) {
             throw new \LogicException('You must call setNextResponse() before calling request().');
@@ -121,7 +149,11 @@ class HttpCacheTestCase extends \PHPUnit_Framework_TestCase
 
         $this->esi = $esi ? new Esi() : null;
         $this->cache = new HttpCache($this->kernel, $this->store, $this->esi, $this->cacheConfig);
+<<<<<<< HEAD
         $this->request = Request::create($uri, $method, array(), $cookies, array(), $server);
+=======
+        $this->request = Request::create($uri, $method, [], $cookies, [], $server);
+>>>>>>> dev
         $this->request->headers->add($headers);
 
         $this->response = $this->cache->handle($this->request, HttpKernelInterface::MASTER_REQUEST, $this->catch);
@@ -131,7 +163,11 @@ class HttpCacheTestCase extends \PHPUnit_Framework_TestCase
 
     public function getMetaStorageValues()
     {
+<<<<<<< HEAD
         $values = array();
+=======
+        $values = [];
+>>>>>>> dev
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(sys_get_temp_dir().'/http_cache/md', \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
             $values[] = file_get_contents($file);
         }
@@ -140,7 +176,11 @@ class HttpCacheTestCase extends \PHPUnit_Framework_TestCase
     }
 
     // A basic response with 200 status code and a tiny body.
+<<<<<<< HEAD
     public function setNextResponse($statusCode = 200, array $headers = array(), $body = 'Hello World', \Closure $customizer = null)
+=======
+    public function setNextResponse($statusCode = 200, array $headers = [], $body = 'Hello World', \Closure $customizer = null)
+>>>>>>> dev
     {
         $this->kernel = new TestHttpKernel($body, $statusCode, $headers, $customizer);
     }
@@ -163,7 +203,11 @@ class HttpCacheTestCase extends \PHPUnit_Framework_TestCase
 
         $fp = opendir($directory);
         while (false !== $file = readdir($fp)) {
+<<<<<<< HEAD
             if (!in_array($file, array('.', '..'))) {
+=======
+            if (!\in_array($file, ['.', '..'])) {
+>>>>>>> dev
                 if (is_link($directory.'/'.$file)) {
                     unlink($directory.'/'.$file);
                 } elseif (is_dir($directory.'/'.$file)) {

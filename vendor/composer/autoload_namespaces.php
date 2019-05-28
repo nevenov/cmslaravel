@@ -7,6 +7,13 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
+<<<<<<< HEAD
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
     'JakubOnderka\\PhpConsoleHighlighter' => array($vendorDir . '/jakub-onderka/php-console-highlighter/src'),
+=======
+    'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src'),
+    'Parsedown' => array($vendorDir . '/erusev/parsedown'),
+    'Mockery' => array($vendorDir . '/mockery/mockery/library'),
+    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
+>>>>>>> dev
 );

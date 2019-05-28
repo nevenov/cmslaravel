@@ -19,13 +19,43 @@ trait Queueable
     public $queue;
 
     /**
+<<<<<<< HEAD
      * The number of seconds before the job should be made available.
      *
      * @var \DateTime|int|null
+=======
+     * The name of the connection the chain should be sent to.
+     *
+     * @var string|null
+     */
+    public $chainConnection;
+
+    /**
+     * The name of the queue the chain should be sent to.
+     *
+     * @var string|null
+     */
+    public $chainQueue;
+
+    /**
+     * The number of seconds before the job should be made available.
+     *
+     * @var \DateTimeInterface|\DateInterval|int|null
+>>>>>>> dev
      */
     public $delay;
 
     /**
+<<<<<<< HEAD
+=======
+     * The jobs that should run if this job is successful.
+     *
+     * @var array
+     */
+    public $chained = [];
+
+    /**
+>>>>>>> dev
      * Set the desired connection for the job.
      *
      * @param  string|null  $connection
@@ -52,9 +82,43 @@ trait Queueable
     }
 
     /**
+<<<<<<< HEAD
      * Set the desired delay for the job.
      *
      * @param  int|null  $delay
+=======
+     * Set the desired connection for the chain.
+     *
+     * @param  string|null  $connection
+     * @return $this
+     */
+    public function allOnConnection($connection)
+    {
+        $this->chainConnection = $connection;
+        $this->connection = $connection;
+
+        return $this;
+    }
+
+    /**
+     * Set the desired queue for the chain.
+     *
+     * @param  string|null  $queue
+     * @return $this
+     */
+    public function allOnQueue($queue)
+    {
+        $this->chainQueue = $queue;
+        $this->queue = $queue;
+
+        return $this;
+    }
+
+    /**
+     * Set the desired delay for the job.
+     *
+     * @param  \DateTimeInterface|\DateInterval|int|null  $delay
+>>>>>>> dev
      * @return $this
      */
     public function delay($delay)
@@ -63,4 +127,42 @@ trait Queueable
 
         return $this;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Set the jobs that should run if this job is successful.
+     *
+     * @param  array  $chain
+     * @return $this
+     */
+    public function chain($chain)
+    {
+        $this->chained = collect($chain)->map(function ($job) {
+            return serialize($job);
+        })->all();
+
+        return $this;
+    }
+
+    /**
+     * Dispatch the next job on the chain.
+     *
+     * @return void
+     */
+    public function dispatchNextJobInChain()
+    {
+        if (! empty($this->chained)) {
+            dispatch(tap(unserialize(array_shift($this->chained)), function ($next) {
+                $next->chained = $this->chained;
+
+                $next->onConnection($next->connection ?: $this->chainConnection);
+                $next->onQueue($next->queue ?: $this->chainQueue);
+
+                $next->chainConnection = $this->chainConnection;
+                $next->chainQueue = $this->chainQueue;
+            }));
+        }
+    }
+>>>>>>> dev
 }

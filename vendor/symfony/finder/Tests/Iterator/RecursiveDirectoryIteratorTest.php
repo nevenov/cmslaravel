@@ -42,11 +42,19 @@ class RecursiveDirectoryIteratorTest extends IteratorTestCase
             $this->markTestSkipped('Unsupported stream "ftp".');
         }
 
+<<<<<<< HEAD
         $contains = array(
             'ftp://speedtest.tele2.net'.DIRECTORY_SEPARATOR.'1000GB.zip',
             'ftp://speedtest.tele2.net'.DIRECTORY_SEPARATOR.'100GB.zip',
         );
         $actual = array();
+=======
+        $contains = [
+            'ftp://speedtest.tele2.net'.\DIRECTORY_SEPARATOR.'1000GB.zip',
+            'ftp://speedtest.tele2.net'.\DIRECTORY_SEPARATOR.'100GB.zip',
+        ];
+        $actual = [];
+>>>>>>> dev
 
         $i->seek(0);
         $actual[] = $i->getPathname();

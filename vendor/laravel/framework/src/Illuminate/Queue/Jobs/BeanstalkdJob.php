@@ -29,6 +29,7 @@ class BeanstalkdJob extends Job implements JobContract
      * @param  \Illuminate\Container\Container  $container
      * @param  \Pheanstalk\Pheanstalk  $pheanstalk
      * @param  \Pheanstalk\Job  $job
+<<<<<<< HEAD
      * @param  string  $queue
      * @return void
      */
@@ -36,11 +37,19 @@ class BeanstalkdJob extends Job implements JobContract
                                 Pheanstalk $pheanstalk,
                                 PheanstalkJob $job,
                                 $queue)
+=======
+     * @param  string  $connectionName
+     * @param  string  $queue
+     * @return void
+     */
+    public function __construct(Container $container, Pheanstalk $pheanstalk, PheanstalkJob $job, $connectionName, $queue)
+>>>>>>> dev
     {
         $this->job = $job;
         $this->queue = $queue;
         $this->container = $container;
         $this->pheanstalk = $pheanstalk;
+<<<<<<< HEAD
     }
 
     /**
@@ -73,6 +82,9 @@ class BeanstalkdJob extends Job implements JobContract
         parent::delete();
 
         $this->pheanstalk->delete($this->job);
+=======
+        $this->connectionName = $connectionName;
+>>>>>>> dev
     }
 
     /**
@@ -103,6 +115,21 @@ class BeanstalkdJob extends Job implements JobContract
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Delete the job from the queue.
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        parent::delete();
+
+        $this->pheanstalk->delete($this->job);
+    }
+
+    /**
+>>>>>>> dev
      * Get the number of times the job has been attempted.
      *
      * @return int
@@ -117,7 +144,11 @@ class BeanstalkdJob extends Job implements JobContract
     /**
      * Get the job identifier.
      *
+<<<<<<< HEAD
      * @return string
+=======
+     * @return int
+>>>>>>> dev
      */
     public function getJobId()
     {
@@ -125,6 +156,7 @@ class BeanstalkdJob extends Job implements JobContract
     }
 
     /**
+<<<<<<< HEAD
      * Get the IoC container instance.
      *
      * @return \Illuminate\Container\Container
@@ -132,6 +164,15 @@ class BeanstalkdJob extends Job implements JobContract
     public function getContainer()
     {
         return $this->container;
+=======
+     * Get the raw body string for the job.
+     *
+     * @return string
+     */
+    public function getRawBody()
+    {
+        return $this->job->getData();
+>>>>>>> dev
     }
 
     /**

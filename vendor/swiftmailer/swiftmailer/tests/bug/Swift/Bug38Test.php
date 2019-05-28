@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
 {
     private $_attFile;
@@ -11,6 +12,19 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
         $this->_attFileName = 'data.txt';
         $this->_attFileType = 'text/plain';
         $this->_attFile = __DIR__.'/../../_samples/files/data.txt';
+=======
+class Swift_Bug38Test extends \PHPUnit\Framework\TestCase
+{
+    private $attFile;
+    private $attFileName;
+    private $attFileType;
+
+    protected function setUp()
+    {
+        $this->attFileName = 'data.txt';
+        $this->attFileType = 'text/plain';
+        $this->attFile = __DIR__.'/../../_samples/files/data.txt';
+>>>>>>> dev
         Swift_Preferences::getInstance()->setCharset('utf-8');
     }
 
@@ -28,7 +42,11 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
         $message->setBody('HTML part', 'text/html');
 
         $id = $message->getId();
+<<<<<<< HEAD
         $date = preg_quote(date('r', $message->getDate()), '~');
+=======
+        $date = preg_quote($message->getDate()->format('r'), '~');
+>>>>>>> dev
         $boundary = $message->getBoundary();
         $imgId = $image->getId();
 
@@ -82,7 +100,11 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
         $message->setBody('HTML part', 'text/html');
 
         $id = $message->getId();
+<<<<<<< HEAD
         $date = preg_quote(date('r', $message->getDate()), '~');
+=======
+        $date = preg_quote($message->getDate()->format('r'), '~');
+>>>>>>> dev
         $boundary = $message->getBoundary();
         $imgId = $image->getId();
 
@@ -133,14 +155,22 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
         $message->setCc('other@domain.tld');
         $message->setFrom('user@domain.tld');
 
+<<<<<<< HEAD
         $attachment = Swift_Attachment::fromPath($this->_attFile);
+=======
+        $attachment = Swift_Attachment::fromPath($this->attFile);
+>>>>>>> dev
 
         $message->attach($attachment);
 
         $message->setBody('HTML part', 'text/html');
 
         $id = $message->getId();
+<<<<<<< HEAD
         $date = preg_quote(date('r', $message->getDate()), '~');
+=======
+        $date = preg_quote($message->getDate()->format('r'), '~');
+>>>>>>> dev
         $boundary = $message->getBoundary();
 
         $streamA = new Swift_ByteStream_ArrayByteStream();
@@ -164,11 +194,19 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
             'HTML part'.
             "\r\n\r\n".
             '--'.$boundary."\r\n".
+<<<<<<< HEAD
             'Content-Type: '.$this->_attFileType.'; name='.$this->_attFileName."\r\n".
             'Content-Transfer-Encoding: base64'."\r\n".
             'Content-Disposition: attachment; filename='.$this->_attFileName."\r\n".
             "\r\n".
             preg_quote(base64_encode(file_get_contents($this->_attFile)), '~').
+=======
+            'Content-Type: '.$this->attFileType.'; name='.$this->attFileName."\r\n".
+            'Content-Transfer-Encoding: base64'."\r\n".
+            'Content-Disposition: attachment; filename='.$this->attFileName."\r\n".
+            "\r\n".
+            preg_quote(base64_encode(file_get_contents($this->attFile)), '~').
+>>>>>>> dev
             "\r\n\r\n".
             '--'.$boundary.'--'."\r\n".
             '$~D'

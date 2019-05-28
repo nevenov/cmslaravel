@@ -4,12 +4,20 @@ namespace Illuminate\Queue;
 
 use ReflectionClass;
 use ReflectionProperty;
+<<<<<<< HEAD
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Contracts\Database\ModelIdentifier;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 trait SerializesModels
 {
+=======
+
+trait SerializesModels
+{
+    use SerializesAndRestoresModelIdentifiers;
+
+>>>>>>> dev
     /**
      * Prepare the instance for serialization.
      *
@@ -25,9 +33,15 @@ trait SerializesModels
             ));
         }
 
+<<<<<<< HEAD
         return array_map(function ($p) {
             return $p->getName();
         }, $properties);
+=======
+        return array_values(array_filter(array_map(function ($p) {
+            return $p->isStatic() ? null : $p->getName();
+        }, $properties)));
+>>>>>>> dev
     }
 
     /**
@@ -38,6 +52,13 @@ trait SerializesModels
     public function __wakeup()
     {
         foreach ((new ReflectionClass($this))->getProperties() as $property) {
+<<<<<<< HEAD
+=======
+            if ($property->isStatic()) {
+                continue;
+            }
+
+>>>>>>> dev
             $property->setValue($this, $this->getRestoredPropertyValue(
                 $this->getPropertyValue($property)
             ));
@@ -45,6 +66,7 @@ trait SerializesModels
     }
 
     /**
+<<<<<<< HEAD
      * Get the property value prepared for serialization.
      *
      * @param  mixed  $value
@@ -95,6 +117,8 @@ trait SerializesModels
     }
 
     /**
+=======
+>>>>>>> dev
      * Get the property value for the given property.
      *
      * @param  \ReflectionProperty  $property

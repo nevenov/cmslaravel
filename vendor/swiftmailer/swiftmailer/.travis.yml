@@ -11,6 +11,7 @@ before_script:
     - gem install mailcatcher
     - mailcatcher --smtp-port 4456
 
+<<<<<<< HEAD
 script: ./vendor/bin/simple-phpunit
 
 matrix:
@@ -24,6 +25,16 @@ matrix:
         - php: hhvm
     allow_failures:
         - php: hhvm
+=======
+script: SYMFONY_PHPUNIT_VERSION=6.1 ./vendor/bin/simple-phpunit
+
+matrix:
+    include:
+        - php: 7.0
+        - php: 7.1
+        - php: 7.2
+        - php: 7.3
+>>>>>>> dev
     fast_finish: true
 
 cache:

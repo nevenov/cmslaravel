@@ -11,9 +11,16 @@
 
 namespace Symfony\Component\Console\Tests\Helper;
 
+<<<<<<< HEAD
 use Symfony\Component\Console\Helper\FormatterHelper;
 
 class FormatterHelperTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Helper\FormatterHelper;
+
+class FormatterHelperTest extends TestCase
+>>>>>>> dev
 {
     public function testFormatSection()
     {
@@ -39,7 +46,11 @@ class FormatterHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             '<error> Some text to display </error>'."\n".
             '<error> foo bar              </error>',
+<<<<<<< HEAD
             $formatter->formatBlock(array('Some text to display', 'foo bar'), 'error'),
+=======
+            $formatter->formatBlock(['Some text to display', 'foo bar'], 'error'),
+>>>>>>> dev
             '::formatBlock() formats a message in a block'
         );
 
@@ -89,4 +100,43 @@ class FormatterHelperTest extends \PHPUnit_Framework_TestCase
             '::formatBlock() escapes \'<\' chars'
         );
     }
+<<<<<<< HEAD
+=======
+
+    public function testTruncatingWithShorterLengthThanMessageWithSuffix()
+    {
+        $formatter = new FormatterHelper();
+        $message = 'testing truncate';
+
+        $this->assertSame('test...', $formatter->truncate($message, 4));
+        $this->assertSame('testing truncat...', $formatter->truncate($message, 15));
+        $this->assertSame('testing truncate...', $formatter->truncate($message, 16));
+        $this->assertSame('zażółć gęślą...', $formatter->truncate('zażółć gęślą jaźń', 12));
+    }
+
+    public function testTruncatingMessageWithCustomSuffix()
+    {
+        $formatter = new FormatterHelper();
+        $message = 'testing truncate';
+
+        $this->assertSame('test!', $formatter->truncate($message, 4, '!'));
+    }
+
+    public function testTruncatingWithLongerLengthThanMessageWithSuffix()
+    {
+        $formatter = new FormatterHelper();
+        $message = 'test';
+
+        $this->assertSame($message, $formatter->truncate($message, 10));
+    }
+
+    public function testTruncatingWithNegativeLength()
+    {
+        $formatter = new FormatterHelper();
+        $message = 'testing truncate';
+
+        $this->assertSame('testing tru...', $formatter->truncate($message, -5));
+        $this->assertSame('...', $formatter->truncate($message, -100));
+    }
+>>>>>>> dev
 }

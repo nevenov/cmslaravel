@@ -19,6 +19,7 @@ namespace Symfony\Component\HttpFoundation\Session\Attribute;
  */
 class NamespacedAttributeBag extends AttributeBag
 {
+<<<<<<< HEAD
     /**
      * Namespace character.
      *
@@ -33,6 +34,15 @@ class NamespacedAttributeBag extends AttributeBag
      * @param string $namespaceCharacter Namespace character to use in keys
      */
     public function __construct($storageKey = '_sf2_attributes', $namespaceCharacter = '/')
+=======
+    private $namespaceCharacter;
+
+    /**
+     * @param string $storageKey         Session storage key
+     * @param string $namespaceCharacter Namespace character to use in keys
+     */
+    public function __construct(string $storageKey = '_sf2_attributes', string $namespaceCharacter = '/')
+>>>>>>> dev
     {
         $this->namespaceCharacter = $namespaceCharacter;
         parent::__construct($storageKey);
@@ -51,7 +61,11 @@ class NamespacedAttributeBag extends AttributeBag
             return false;
         }
 
+<<<<<<< HEAD
         return array_key_exists($name, $attributes);
+=======
+        return \array_key_exists($name, $attributes);
+>>>>>>> dev
     }
 
     /**
@@ -67,7 +81,11 @@ class NamespacedAttributeBag extends AttributeBag
             return $default;
         }
 
+<<<<<<< HEAD
         return array_key_exists($name, $attributes) ? $attributes[$name] : $default;
+=======
+        return \array_key_exists($name, $attributes) ? $attributes[$name] : $default;
+>>>>>>> dev
     }
 
     /**
@@ -88,7 +106,11 @@ class NamespacedAttributeBag extends AttributeBag
         $retval = null;
         $attributes = &$this->resolveAttributePath($name);
         $name = $this->resolveKey($name);
+<<<<<<< HEAD
         if (null !== $attributes && array_key_exists($name, $attributes)) {
+=======
+        if (null !== $attributes && \array_key_exists($name, $attributes)) {
+>>>>>>> dev
             $retval = $attributes[$name];
             unset($attributes[$name]);
         }
@@ -109,7 +131,11 @@ class NamespacedAttributeBag extends AttributeBag
     protected function &resolveAttributePath($name, $writeContext = false)
     {
         $array = &$this->attributes;
+<<<<<<< HEAD
         $name = (strpos($name, $this->namespaceCharacter) === 0) ? substr($name, 1) : $name;
+=======
+        $name = (0 === strpos($name, $this->namespaceCharacter)) ? substr($name, 1) : $name;
+>>>>>>> dev
 
         // Check if there is anything to do, else return
         if (!$name) {
@@ -117,21 +143,43 @@ class NamespacedAttributeBag extends AttributeBag
         }
 
         $parts = explode($this->namespaceCharacter, $name);
+<<<<<<< HEAD
         if (count($parts) < 2) {
+=======
+        if (\count($parts) < 2) {
+>>>>>>> dev
             if (!$writeContext) {
                 return $array;
             }
 
+<<<<<<< HEAD
             $array[$parts[0]] = array();
+=======
+            $array[$parts[0]] = [];
+>>>>>>> dev
 
             return $array;
         }
 
+<<<<<<< HEAD
         unset($parts[count($parts) - 1]);
 
         foreach ($parts as $part) {
             if (null !== $array && !array_key_exists($part, $array)) {
                 $array[$part] = $writeContext ? array() : null;
+=======
+        unset($parts[\count($parts) - 1]);
+
+        foreach ($parts as $part) {
+            if (null !== $array && !\array_key_exists($part, $array)) {
+                if (!$writeContext) {
+                    $null = null;
+
+                    return $null;
+                }
+
+                $array[$part] = [];
+>>>>>>> dev
             }
 
             $array = &$array[$part];

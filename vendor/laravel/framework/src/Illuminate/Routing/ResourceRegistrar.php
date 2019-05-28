@@ -39,7 +39,21 @@ class ResourceRegistrar
      *
      * @var bool
      */
+<<<<<<< HEAD
     protected static $singularParameters = false;
+=======
+    protected static $singularParameters = true;
+
+    /**
+     * The verbs used in the resource URIs.
+     *
+     * @var array
+     */
+    protected static $verbs = [
+        'create' => 'create',
+        'edit' => 'edit',
+    ];
+>>>>>>> dev
 
     /**
      * Create a new resource registrar instance.
@@ -58,7 +72,11 @@ class ResourceRegistrar
      * @param  string  $name
      * @param  string  $controller
      * @param  array   $options
+<<<<<<< HEAD
      * @return void
+=======
+     * @return \Illuminate\Routing\RouteCollection
+>>>>>>> dev
      */
     public function register($name, $controller, array $options = [])
     {
@@ -82,9 +100,21 @@ class ResourceRegistrar
 
         $defaults = $this->resourceDefaults;
 
+<<<<<<< HEAD
         foreach ($this->getResourceMethods($defaults, $options) as $m) {
             $this->{'addResource'.ucfirst($m)}($name, $base, $controller, $options);
         }
+=======
+        $collection = new RouteCollection;
+
+        foreach ($this->getResourceMethods($defaults, $options) as $m) {
+            $collection->add($this->{'addResource'.ucfirst($m)}(
+                $name, $base, $controller, $options
+            ));
+        }
+
+        return $collection;
+>>>>>>> dev
     }
 
     /**
@@ -97,7 +127,11 @@ class ResourceRegistrar
      */
     protected function prefixedResource($name, $controller, array $options)
     {
+<<<<<<< HEAD
         list($name, $prefix) = $this->getResourcePrefix($name);
+=======
+        [$name, $prefix] = $this->getResourcePrefix($name);
+>>>>>>> dev
 
         // We need to extract the base resource from the resource name. Nested resources
         // are supported in the framework, but we need to know what name to use for a
@@ -136,6 +170,7 @@ class ResourceRegistrar
      */
     protected function getResourceMethods($defaults, $options)
     {
+<<<<<<< HEAD
         if (isset($options['only'])) {
             return array_intersect($defaults, (array) $options['only']);
         } elseif (isset($options['except'])) {
@@ -261,6 +296,19 @@ class ResourceRegistrar
         }
 
         return str_replace('-', '_', $value);
+=======
+        $methods = $defaults;
+
+        if (isset($options['only'])) {
+            $methods = array_intersect($methods, (array) $options['only']);
+        }
+
+        if (isset($options['except'])) {
+            $methods = array_diff($methods, (array) $options['except']);
+        }
+
+        return $methods;
+>>>>>>> dev
     }
 
     /**
@@ -292,7 +340,11 @@ class ResourceRegistrar
      */
     protected function addResourceCreate($name, $base, $controller, $options)
     {
+<<<<<<< HEAD
         $uri = $this->getResourceUri($name).'/create';
+=======
+        $uri = $this->getResourceUri($name).'/'.static::$verbs['create'];
+>>>>>>> dev
 
         $action = $this->getResourceAction($name, $controller, 'create', $options);
 
@@ -346,7 +398,11 @@ class ResourceRegistrar
      */
     protected function addResourceEdit($name, $base, $controller, $options)
     {
+<<<<<<< HEAD
         $uri = $this->getResourceUri($name).'/{'.$base.'}/edit';
+=======
+        $uri = $this->getResourceUri($name).'/{'.$base.'}/'.static::$verbs['edit'];
+>>>>>>> dev
 
         $action = $this->getResourceAction($name, $controller, 'edit', $options);
 
@@ -390,8 +446,124 @@ class ResourceRegistrar
     }
 
     /**
+<<<<<<< HEAD
      * Set or unset the unmapped global parameters to singular.
      *
+=======
+     * Get the base resource URI for a given resource.
+     *
+     * @param  string  $resource
+     * @return string
+     */
+    public function getResourceUri($resource)
+    {
+        if (! Str::contains($resource, '.')) {
+            return $resource;
+        }
+
+        // Once we have built the base URI, we'll remove the parameter holder for this
+        // base resource name so that the individual route adders can suffix these
+        // paths however they need to, as some do not have any parameters at all.
+        $segments = explode('.', $resource);
+
+        $uri = $this->getNestedResourceUri($segments);
+
+        return str_replace('/{'.$this->getResourceWildcard(end($segments)).'}', '', $uri);
+    }
+
+    /**
+     * Get the URI for a nested resource segment array.
+     *
+     * @param  array   $segments
+     * @return string
+     */
+    protected function getNestedResourceUri(array $segments)
+    {
+        // We will spin through the segments and create a place-holder for each of the
+        // resource segments, as well as the resource itself. Then we should get an
+        // entire string for the resource URI that contains all nested resources.
+        return implode('/', array_map(function ($s) {
+            return $s.'/{'.$this->getResourceWildcard($s).'}';
+        }, $segments));
+    }
+
+    /**
+     * Format a resource parameter for usage.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getResourceWildcard($value)
+    {
+        if (isset($this->parameters[$value])) {
+            $value = $this->parameters[$value];
+        } elseif (isset(static::$parameterMap[$value])) {
+            $value = static::$parameterMap[$value];
+        } elseif ($this->parameters === 'singular' || static::$singularParameters) {
+            $value = Str::singular($value);
+        }
+
+        return str_replace('-', '_', $value);
+    }
+
+    /**
+     * Get the action array for a resource route.
+     *
+     * @param  string  $resource
+     * @param  string  $controller
+     * @param  string  $method
+     * @param  array   $options
+     * @return array
+     */
+    protected function getResourceAction($resource, $controller, $method, $options)
+    {
+        $name = $this->getResourceRouteName($resource, $method, $options);
+
+        $action = ['as' => $name, 'uses' => $controller.'@'.$method];
+
+        if (isset($options['middleware'])) {
+            $action['middleware'] = $options['middleware'];
+        }
+
+        return $action;
+    }
+
+    /**
+     * Get the name for a given resource.
+     *
+     * @param  string  $resource
+     * @param  string  $method
+     * @param  array   $options
+     * @return string
+     */
+    protected function getResourceRouteName($resource, $method, $options)
+    {
+        $name = $resource;
+
+        // If the names array has been provided to us we will check for an entry in the
+        // array first. We will also check for the specific method within this array
+        // so the names may be specified on a more "granular" level using methods.
+        if (isset($options['names'])) {
+            if (is_string($options['names'])) {
+                $name = $options['names'];
+            } elseif (isset($options['names'][$method])) {
+                return $options['names'][$method];
+            }
+        }
+
+        // If a global prefix has been assigned to all names for this resource, we will
+        // grab that so we can prepend it onto the name when we create this name for
+        // the resource action. Otherwise we'll just use an empty string for here.
+        $prefix = isset($options['as']) ? $options['as'].'.' : '';
+
+        return trim(sprintf('%s%s.%s', $prefix, $name, $method), '.');
+    }
+
+    /**
+     * Set or unset the unmapped global parameters to singular.
+     *
+     * @param  bool  $singular
+>>>>>>> dev
      * @return void
      */
     public static function singularParameters($singular = true)
@@ -419,4 +591,22 @@ class ResourceRegistrar
     {
         static::$parameterMap = $parameters;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Get or set the action verbs used in the resource URIs.
+     *
+     * @param  array  $verbs
+     * @return array
+     */
+    public static function verbs(array $verbs = [])
+    {
+        if (empty($verbs)) {
+            return static::$verbs;
+        } else {
+            static::$verbs = array_merge(static::$verbs, $verbs);
+        }
+    }
+>>>>>>> dev
 }

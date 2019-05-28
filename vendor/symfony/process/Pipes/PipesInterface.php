@@ -54,6 +54,16 @@ interface PipesInterface
     public function areOpen();
 
     /**
+<<<<<<< HEAD
+=======
+     * Returns if pipes are able to read output.
+     *
+     * @return bool
+     */
+    public function haveReadSupport();
+
+    /**
+>>>>>>> dev
      * Closes file handles and pipes.
      */
     public function close();

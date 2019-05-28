@@ -3,8 +3,18 @@
 namespace Illuminate\Routing;
 
 use Illuminate\Support\ServiceProvider;
+<<<<<<< HEAD
 use Zend\Diactoros\Response as PsrResponse;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
+=======
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Response as PsrResponse;
+use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
+use Illuminate\Contracts\View\Factory as ViewFactoryContract;
+use Illuminate\Contracts\Routing\ResponseFactory as ResponseFactoryContract;
+use Illuminate\Routing\Contracts\ControllerDispatcher as ControllerDispatcherContract;
+>>>>>>> dev
 
 class RoutingServiceProvider extends ServiceProvider
 {
@@ -16,6 +26,7 @@ class RoutingServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerRouter();
+<<<<<<< HEAD
 
         $this->registerUrlGenerator();
 
@@ -26,6 +37,14 @@ class RoutingServiceProvider extends ServiceProvider
         $this->registerPsrResponse();
 
         $this->registerResponseFactory();
+=======
+        $this->registerUrlGenerator();
+        $this->registerRedirector();
+        $this->registerPsrRequest();
+        $this->registerPsrResponse();
+        $this->registerResponseFactory();
+        $this->registerControllerDispatcher();
+>>>>>>> dev
     }
 
     /**
@@ -35,7 +54,11 @@ class RoutingServiceProvider extends ServiceProvider
      */
     protected function registerRouter()
     {
+<<<<<<< HEAD
         $this->app['router'] = $this->app->share(function ($app) {
+=======
+        $this->app->singleton('router', function ($app) {
+>>>>>>> dev
             return new Router($app['events'], $app);
         });
     }
@@ -47,7 +70,11 @@ class RoutingServiceProvider extends ServiceProvider
      */
     protected function registerUrlGenerator()
     {
+<<<<<<< HEAD
         $this->app['url'] = $this->app->share(function ($app) {
+=======
+        $this->app->singleton('url', function ($app) {
+>>>>>>> dev
             $routes = $app['router']->getRoutes();
 
             // The URL generator needs the route collection that exists on the router.
@@ -58,11 +85,26 @@ class RoutingServiceProvider extends ServiceProvider
             $url = new UrlGenerator(
                 $routes, $app->rebinding(
                     'request', $this->requestRebinder()
+<<<<<<< HEAD
                 )
             );
 
             $url->setSessionResolver(function () {
                 return $this->app['session'];
+=======
+                ), $app['config']['app.asset_url']
+            );
+
+            // Next we will set a few service resolvers on the URL generator so it can
+            // get the information it needs to function. This just provides some of
+            // the convenience features to this URL generator like "signed" URLs.
+            $url->setSessionResolver(function () {
+                return $this->app['session'] ?? null;
+            });
+
+            $url->setKeyResolver(function () {
+                return $this->app->make('config')->get('app.key');
+>>>>>>> dev
             });
 
             // If the route collection is "rebound", for example, when the routes stay
@@ -95,7 +137,11 @@ class RoutingServiceProvider extends ServiceProvider
      */
     protected function registerRedirector()
     {
+<<<<<<< HEAD
         $this->app['redirect'] = $this->app->share(function ($app) {
+=======
+        $this->app->singleton('redirect', function ($app) {
+>>>>>>> dev
             $redirector = new Redirector($app['url']);
 
             // If the session is set on the application instance, we'll inject it into
@@ -116,7 +162,11 @@ class RoutingServiceProvider extends ServiceProvider
      */
     protected function registerPsrRequest()
     {
+<<<<<<< HEAD
         $this->app->bind('Psr\Http\Message\ServerRequestInterface', function ($app) {
+=======
+        $this->app->bind(ServerRequestInterface::class, function ($app) {
+>>>>>>> dev
             return (new DiactorosFactory)->createRequest($app->make('request'));
         });
     }
@@ -128,8 +178,13 @@ class RoutingServiceProvider extends ServiceProvider
      */
     protected function registerPsrResponse()
     {
+<<<<<<< HEAD
         $this->app->bind('Psr\Http\Message\ResponseInterface', function ($app) {
             return new PsrResponse();
+=======
+        $this->app->bind(ResponseInterface::class, function () {
+            return new PsrResponse;
+>>>>>>> dev
         });
     }
 
@@ -140,8 +195,25 @@ class RoutingServiceProvider extends ServiceProvider
      */
     protected function registerResponseFactory()
     {
+<<<<<<< HEAD
         $this->app->singleton('Illuminate\Contracts\Routing\ResponseFactory', function ($app) {
             return new ResponseFactory($app['Illuminate\Contracts\View\Factory'], $app['redirect']);
+=======
+        $this->app->singleton(ResponseFactoryContract::class, function ($app) {
+            return new ResponseFactory($app[ViewFactoryContract::class], $app['redirect']);
+        });
+    }
+
+    /**
+     * Register the controller dispatcher.
+     *
+     * @return void
+     */
+    protected function registerControllerDispatcher()
+    {
+        $this->app->singleton(ControllerDispatcherContract::class, function ($app) {
+            return new ControllerDispatcher($app);
+>>>>>>> dev
         });
     }
 }

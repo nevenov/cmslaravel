@@ -11,13 +11,21 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Handler;
 
+<<<<<<< HEAD
+=======
+use PHPUnit\Framework\TestCase;
+>>>>>>> dev
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcachedSessionHandler;
 
 /**
  * @requires extension memcached
  * @group time-sensitive
  */
+<<<<<<< HEAD
 class MemcachedSessionHandlerTest extends \PHPUnit_Framework_TestCase
+=======
+class MemcachedSessionHandlerTest extends TestCase
+>>>>>>> dev
 {
     const PREFIX = 'prefix_';
     const TTL = 1000;
@@ -31,6 +39,7 @@ class MemcachedSessionHandlerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+<<<<<<< HEAD
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped('PHPUnit_MockObject cannot mock the Memcached class on HHVM. See https://github.com/sebastianbergmann/phpunit-mock-objects/pull/289');
         }
@@ -45,6 +54,18 @@ class MemcachedSessionHandlerTest extends \PHPUnit_Framework_TestCase
         $this->storage = new MemcachedSessionHandler(
             $this->memcached,
             array('prefix' => self::PREFIX, 'expiretime' => self::TTL)
+=======
+        parent::setUp();
+
+        if (version_compare(phpversion('memcached'), '2.2.0', '>=') && version_compare(phpversion('memcached'), '3.0.0b1', '<')) {
+            $this->markTestSkipped('Tests can only be run with memcached extension 2.1.0 or lower, or 3.0.0b1 or higher');
+        }
+
+        $this->memcached = $this->getMockBuilder('Memcached')->getMock();
+        $this->storage = new MemcachedSessionHandler(
+            $this->memcached,
+            ['prefix' => self::PREFIX, 'expiretime' => self::TTL]
+>>>>>>> dev
         );
     }
 
@@ -62,6 +83,15 @@ class MemcachedSessionHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testCloseSession()
     {
+<<<<<<< HEAD
+=======
+        $this->memcached
+            ->expects($this->once())
+            ->method('quit')
+            ->will($this->returnValue(true))
+        ;
+
+>>>>>>> dev
         $this->assertTrue($this->storage->close());
     }
 
@@ -120,12 +150,21 @@ class MemcachedSessionHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function getOptionFixtures()
     {
+<<<<<<< HEAD
         return array(
             array(array('prefix' => 'session'), true),
             array(array('expiretime' => 100), true),
             array(array('prefix' => 'session', 'expiretime' => 200), true),
             array(array('expiretime' => 100, 'foo' => 'bar'), false),
         );
+=======
+        return [
+            [['prefix' => 'session'], true],
+            [['expiretime' => 100], true],
+            [['prefix' => 'session', 'expiretime' => 200], true],
+            [['expiretime' => 100, 'foo' => 'bar'], false],
+        ];
+>>>>>>> dev
     }
 
     public function testGetConnection()

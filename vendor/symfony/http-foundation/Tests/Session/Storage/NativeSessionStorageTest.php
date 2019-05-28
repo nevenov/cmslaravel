@@ -11,9 +11,16 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeSessionHandler;
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
+>>>>>>> dev
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy;
@@ -28,14 +35,22 @@ use Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy;
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
+<<<<<<< HEAD
 class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
+=======
+class NativeSessionStorageTest extends TestCase
+>>>>>>> dev
 {
     private $savePath;
 
     protected function setUp()
     {
         $this->iniSet('session.save_handler', 'files');
+<<<<<<< HEAD
         $this->iniSet('session.save_path', $this->savePath = sys_get_temp_dir().'/sf2test');
+=======
+        $this->iniSet('session.save_path', $this->savePath = sys_get_temp_dir().'/sftest');
+>>>>>>> dev
         if (!is_dir($this->savePath)) {
             mkdir($this->savePath);
         }
@@ -53,11 +68,17 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+<<<<<<< HEAD
      * @param array $options
      *
      * @return NativeSessionStorage
      */
     protected function getStorage(array $options = array())
+=======
+     * @return NativeSessionStorage
+     */
+    protected function getStorage(array $options = [])
+>>>>>>> dev
     {
         $storage = new NativeSessionStorage($options);
         $storage->registerBag(new AttributeBag());
@@ -158,23 +179,43 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
     {
         $this->iniSet('session.cache_limiter', 'nocache');
 
+<<<<<<< HEAD
         $storage = new NativeSessionStorage(array('cache_limiter' => 'public'));
+=======
+        $storage = new NativeSessionStorage(['cache_limiter' => 'public']);
+>>>>>>> dev
         $this->assertEquals('public', ini_get('session.cache_limiter'));
     }
 
     public function testCookieOptions()
     {
+<<<<<<< HEAD
         $options = array(
+=======
+        $options = [
+>>>>>>> dev
             'cookie_lifetime' => 123456,
             'cookie_path' => '/my/cookie/path',
             'cookie_domain' => 'symfony.example.com',
             'cookie_secure' => true,
             'cookie_httponly' => false,
+<<<<<<< HEAD
         );
 
         $this->getStorage($options);
         $temp = session_get_cookie_params();
         $gco = array();
+=======
+        ];
+
+        if (\PHP_VERSION_ID >= 70300) {
+            $options['cookie_samesite'] = 'lax';
+        }
+
+        $this->getStorage($options);
+        $temp = session_get_cookie_params();
+        $gco = [];
+>>>>>>> dev
 
         foreach ($temp as $key => $value) {
             $gco['cookie_'.$key] = $value;
@@ -183,6 +224,26 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($options, $gco);
     }
 
+<<<<<<< HEAD
+=======
+    public function testSessionOptions()
+    {
+        if (\defined('HHVM_VERSION')) {
+            $this->markTestSkipped('HHVM is not handled in this test case.');
+        }
+
+        $options = [
+            'url_rewriter.tags' => 'a=href',
+            'cache_expire' => '200',
+        ];
+
+        $this->getStorage($options);
+
+        $this->assertSame('a=href', ini_get('url_rewriter.tags'));
+        $this->assertSame('200', ini_get('session.cache_expire'));
+    }
+
+>>>>>>> dev
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -200,9 +261,15 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy', $storage->getSaveHandler());
         $storage->setSaveHandler(null);
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy', $storage->getSaveHandler());
+<<<<<<< HEAD
         $storage->setSaveHandler(new SessionHandlerProxy(new NativeSessionHandler()));
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy', $storage->getSaveHandler());
         $storage->setSaveHandler(new NativeSessionHandler());
+=======
+        $storage->setSaveHandler(new SessionHandlerProxy(new NativeFileSessionHandler()));
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy', $storage->getSaveHandler());
+        $storage->setSaveHandler(new NativeFileSessionHandler());
+>>>>>>> dev
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy', $storage->getSaveHandler());
         $storage->setSaveHandler(new SessionHandlerProxy(new NullSessionHandler()));
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy', $storage->getSaveHandler());
@@ -228,7 +295,11 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($storage->isStarted());
 
         $key = $storage->getMetadataBag()->getStorageKey();
+<<<<<<< HEAD
         $this->assertFalse(isset($_SESSION[$key]));
+=======
+        $this->assertArrayNotHasKey($key, $_SESSION);
+>>>>>>> dev
         $storage->start();
     }
 
@@ -243,4 +314,39 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($id, $storage->getId(), 'Same session ID after restarting');
         $this->assertSame(7, $storage->getBag('attributes')->get('lucky'), 'Data still available');
     }
+<<<<<<< HEAD
+=======
+
+    public function testCanCreateNativeSessionStorageWhenSessionAlreadyStarted()
+    {
+        session_start();
+        $this->getStorage();
+
+        // Assert no exception has been thrown by `getStorage()`
+        $this->addToAssertionCount(1);
+    }
+
+    public function testSetSessionOptionsOnceSessionStartedIsIgnored()
+    {
+        session_start();
+        $this->getStorage([
+            'name' => 'something-else',
+        ]);
+
+        // Assert no exception has been thrown by `getStorage()`
+        $this->addToAssertionCount(1);
+    }
+
+    public function testGetBagsOnceSessionStartedIsIgnored()
+    {
+        session_start();
+        $bag = new AttributeBag();
+        $bag->setName('flashes');
+
+        $storage = $this->getStorage();
+        $storage->registerBag($bag);
+
+        $this->assertEquals($storage->getBag('flashes'), $bag);
+    }
+>>>>>>> dev
 }

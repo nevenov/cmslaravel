@@ -12,8 +12,13 @@
 namespace Symfony\Component\HttpKernel\Debug;
 
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher as BaseTraceableEventDispatcher;
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\Event;
+=======
+use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpKernel\KernelEvents;
+>>>>>>> dev
 
 /**
  * Collects some data about event listeners.
@@ -61,7 +66,11 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher
     protected function postDispatch($eventName, Event $event)
     {
         switch ($eventName) {
+<<<<<<< HEAD
             case KernelEvents::CONTROLLER:
+=======
+            case KernelEvents::CONTROLLER_ARGUMENTS:
+>>>>>>> dev
                 $this->stopwatch->start('controller', 'section');
                 break;
             case KernelEvents::RESPONSE:

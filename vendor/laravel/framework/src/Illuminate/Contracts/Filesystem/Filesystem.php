@@ -37,14 +37,47 @@ interface Filesystem
     public function get($path);
 
     /**
+<<<<<<< HEAD
+=======
+     * Get a resource to read the file.
+     *
+     * @param  string  $path
+     * @return resource|null The path resource or null on failure.
+     *
+     * @throws FileNotFoundException
+     */
+    public function readStream($path);
+
+    /**
+>>>>>>> dev
      * Write the contents of a file.
      *
      * @param  string  $path
      * @param  string|resource  $contents
+<<<<<<< HEAD
      * @param  string  $visibility
      * @return bool
      */
     public function put($path, $contents, $visibility = null);
+=======
+     * @param  mixed  $options
+     * @return bool
+     */
+    public function put($path, $contents, $options = []);
+
+    /**
+     * Write a new file using a stream.
+     *
+     * @param  string  $path
+     * @param  resource $resource
+     * @param  array  $options
+     * @return bool
+     *
+     * @throws \InvalidArgumentException If $resource is not a file handle.
+     * @throws FileExistsException
+     */
+    public function writeStream($path, $resource, array $options = []);
+>>>>>>> dev
 
     /**
      * Get the visibility for the given path.
@@ -59,7 +92,11 @@ interface Filesystem
      *
      * @param  string  $path
      * @param  string  $visibility
+<<<<<<< HEAD
      * @return void
+=======
+     * @return bool
+>>>>>>> dev
      */
     public function setVisibility($path, $visibility);
 
@@ -68,7 +105,11 @@ interface Filesystem
      *
      * @param  string  $path
      * @param  string  $data
+<<<<<<< HEAD
      * @return int
+=======
+     * @return bool
+>>>>>>> dev
      */
     public function prepend($path, $data);
 
@@ -77,7 +118,11 @@ interface Filesystem
      *
      * @param  string  $path
      * @param  string  $data
+<<<<<<< HEAD
      * @return int
+=======
+     * @return bool
+>>>>>>> dev
      */
     public function append($path, $data);
 

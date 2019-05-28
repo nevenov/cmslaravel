@@ -2,13 +2,23 @@
 
 namespace Illuminate\Session;
 
+<<<<<<< HEAD
 use Carbon\Carbon;
 use SessionHandlerInterface;
+=======
+use SessionHandlerInterface;
+use Illuminate\Support\InteractsWithTime;
+>>>>>>> dev
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Contracts\Cookie\QueueingFactory as CookieJar;
 
 class CookieSessionHandler implements SessionHandlerInterface
 {
+<<<<<<< HEAD
+=======
+    use InteractsWithTime;
+
+>>>>>>> dev
     /**
      * The cookie jar instance.
      *
@@ -24,6 +34,16 @@ class CookieSessionHandler implements SessionHandlerInterface
     protected $request;
 
     /**
+<<<<<<< HEAD
+=======
+     * The number of minutes the session should be valid.
+     *
+     * @var int
+     */
+    protected $minutes;
+
+    /**
+>>>>>>> dev
      * Create a new cookie driven handler instance.
      *
      * @param  \Illuminate\Contracts\Cookie\QueueingFactory  $cookie
@@ -60,7 +80,11 @@ class CookieSessionHandler implements SessionHandlerInterface
         $value = $this->request->cookies->get($sessionId) ?: '';
 
         if (! is_null($decoded = json_decode($value, true)) && is_array($decoded)) {
+<<<<<<< HEAD
             if (isset($decoded['expires']) && time() <= $decoded['expires']) {
+=======
+            if (isset($decoded['expires']) && $this->currentTime() <= $decoded['expires']) {
+>>>>>>> dev
                 return $decoded['data'];
             }
         }
@@ -75,8 +99,15 @@ class CookieSessionHandler implements SessionHandlerInterface
     {
         $this->cookie->queue($sessionId, json_encode([
             'data' => $data,
+<<<<<<< HEAD
             'expires' => Carbon::now()->addMinutes($this->minutes)->getTimestamp(),
         ]), $this->minutes);
+=======
+            'expires' => $this->availableAt($this->minutes * 60),
+        ]), $this->minutes);
+
+        return true;
+>>>>>>> dev
     }
 
     /**
@@ -85,6 +116,11 @@ class CookieSessionHandler implements SessionHandlerInterface
     public function destroy($sessionId)
     {
         $this->cookie->queue($this->cookie->forget($sessionId));
+<<<<<<< HEAD
+=======
+
+        return true;
+>>>>>>> dev
     }
 
     /**

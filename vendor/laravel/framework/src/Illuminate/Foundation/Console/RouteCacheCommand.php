@@ -5,6 +5,10 @@ namespace Illuminate\Foundation\Console;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Routing\RouteCollection;
+<<<<<<< HEAD
+=======
+use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
+>>>>>>> dev
 
 class RouteCacheCommand extends Command
 {
@@ -47,13 +51,21 @@ class RouteCacheCommand extends Command
      *
      * @return void
      */
+<<<<<<< HEAD
     public function fire()
+=======
+    public function handle()
+>>>>>>> dev
     {
         $this->call('route:clear');
 
         $routes = $this->getFreshApplicationRoutes();
 
+<<<<<<< HEAD
         if (count($routes) == 0) {
+=======
+        if (count($routes) === 0) {
+>>>>>>> dev
             return $this->error("Your application doesn't have any routes.");
         }
 
@@ -75,11 +87,30 @@ class RouteCacheCommand extends Command
      */
     protected function getFreshApplicationRoutes()
     {
+<<<<<<< HEAD
         $app = require $this->laravel->bootstrapPath().'/app.php';
 
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
         return $app['router']->getRoutes();
+=======
+        return tap($this->getFreshApplication()['router']->getRoutes(), function ($routes) {
+            $routes->refreshNameLookups();
+            $routes->refreshActionLookups();
+        });
+    }
+
+    /**
+     * Get a fresh application instance.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application
+     */
+    protected function getFreshApplication()
+    {
+        return tap(require $this->laravel->bootstrapPath().'/app.php', function ($app) {
+            $app->make(ConsoleKernelContract::class)->bootstrap();
+        });
+>>>>>>> dev
     }
 
     /**

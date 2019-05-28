@@ -11,10 +11,18 @@
 
 namespace Symfony\Component\Translation\Tests\Loader;
 
+<<<<<<< HEAD
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Config\Resource\FileResource;
 
 class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
+
+class YamlFileLoaderTest extends TestCase
+>>>>>>> dev
 {
     public function testLoad()
     {
@@ -22,9 +30,15 @@ class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
         $resource = __DIR__.'/../fixtures/resources.yml';
         $catalogue = $loader->load($resource, 'en', 'domain1');
 
+<<<<<<< HEAD
         $this->assertEquals(array('foo' => 'bar'), $catalogue->all('domain1'));
         $this->assertEquals('en', $catalogue->getLocale());
         $this->assertEquals(array(new FileResource($resource)), $catalogue->getResources());
+=======
+        $this->assertEquals(['foo' => 'bar'], $catalogue->all('domain1'));
+        $this->assertEquals('en', $catalogue->getLocale());
+        $this->assertEquals([new FileResource($resource)], $catalogue->getResources());
+>>>>>>> dev
     }
 
     public function testLoadDoesNothingIfEmpty()
@@ -33,9 +47,15 @@ class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
         $resource = __DIR__.'/../fixtures/empty.yml';
         $catalogue = $loader->load($resource, 'en', 'domain1');
 
+<<<<<<< HEAD
         $this->assertEquals(array(), $catalogue->all('domain1'));
         $this->assertEquals('en', $catalogue->getLocale());
         $this->assertEquals(array(new FileResource($resource)), $catalogue->getResources());
+=======
+        $this->assertEquals([], $catalogue->all('domain1'));
+        $this->assertEquals('en', $catalogue->getLocale());
+        $this->assertEquals([new FileResource($resource)], $catalogue->getResources());
+>>>>>>> dev
     }
 
     /**

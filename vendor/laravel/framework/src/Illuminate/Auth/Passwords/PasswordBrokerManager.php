@@ -6,12 +6,22 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Contracts\Auth\PasswordBrokerFactory as FactoryContract;
 
+<<<<<<< HEAD
+=======
+/**
+ * @mixin \Illuminate\Contracts\Auth\PasswordBroker
+ */
+>>>>>>> dev
 class PasswordBrokerManager implements FactoryContract
 {
     /**
      * The application instance.
      *
+<<<<<<< HEAD
      * @var \Illuminate\Foundation\Application
+=======
+     * @var \Illuminate\Contracts\Foundation\Application
+>>>>>>> dev
      */
     protected $app;
 
@@ -25,7 +35,11 @@ class PasswordBrokerManager implements FactoryContract
     /**
      * Create a new PasswordBroker manager instance.
      *
+<<<<<<< HEAD
      * @param  \Illuminate\Foundation\Application  $app
+=======
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+>>>>>>> dev
      * @return void
      */
     public function __construct($app)
@@ -36,16 +50,24 @@ class PasswordBrokerManager implements FactoryContract
     /**
      * Attempt to get the broker from the local cache.
      *
+<<<<<<< HEAD
      * @param  string  $name
+=======
+     * @param  string|null  $name
+>>>>>>> dev
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
     public function broker($name = null)
     {
         $name = $name ?: $this->getDefaultDriver();
 
+<<<<<<< HEAD
         return isset($this->brokers[$name])
                     ? $this->brokers[$name]
                     : $this->brokers[$name] = $this->resolve($name);
+=======
+        return $this->brokers[$name] ?? ($this->brokers[$name] = $this->resolve($name));
+>>>>>>> dev
     }
 
     /**
@@ -69,9 +91,13 @@ class PasswordBrokerManager implements FactoryContract
         // aggregate service of sorts providing a convenient interface for resets.
         return new PasswordBroker(
             $this->createTokenRepository($config),
+<<<<<<< HEAD
             $this->app['auth']->createUserProvider($config['provider']),
             $this->app['mailer'],
             $config['email']
+=======
+            $this->app['auth']->createUserProvider($config['provider'] ?? null)
+>>>>>>> dev
         );
     }
 
@@ -89,10 +115,18 @@ class PasswordBrokerManager implements FactoryContract
             $key = base64_decode(substr($key, 7));
         }
 
+<<<<<<< HEAD
         $connection = isset($config['connection']) ? $config['connection'] : null;
 
         return new DatabaseTokenRepository(
             $this->app['db']->connection($connection),
+=======
+        $connection = $config['connection'] ?? null;
+
+        return new DatabaseTokenRepository(
+            $this->app['db']->connection($connection),
+            $this->app['hash'],
+>>>>>>> dev
             $config['table'],
             $key,
             $config['expire']
@@ -140,6 +174,10 @@ class PasswordBrokerManager implements FactoryContract
      */
     public function __call($method, $parameters)
     {
+<<<<<<< HEAD
         return call_user_func_array([$this->broker(), $method], $parameters);
+=======
+        return $this->broker()->{$method}(...$parameters);
+>>>>>>> dev
     }
 }

@@ -18,9 +18,15 @@ namespace Symfony\Component\Debug\Exception;
  */
 class FatalErrorException extends \ErrorException
 {
+<<<<<<< HEAD
     public function __construct($message, $code, $severity, $filename, $lineno, $traceOffset = null, $traceArgs = true, array $trace = null)
     {
         parent::__construct($message, $code, $severity, $filename, $lineno);
+=======
+    public function __construct(string $message, int $code, int $severity, string $filename, int $lineno, int $traceOffset = null, bool $traceArgs = true, array $trace = null, \Throwable $previous = null)
+    {
+        parent::__construct($message, $code, $severity, $filename, $lineno, $previous);
+>>>>>>> dev
 
         if (null !== $trace) {
             if (!$traceArgs) {
@@ -31,7 +37,11 @@ class FatalErrorException extends \ErrorException
 
             $this->setTrace($trace);
         } elseif (null !== $traceOffset) {
+<<<<<<< HEAD
             if (function_exists('xdebug_get_function_stack')) {
+=======
+            if (\function_exists('xdebug_get_function_stack')) {
+>>>>>>> dev
                 $trace = xdebug_get_function_stack();
                 if (0 < $traceOffset) {
                     array_splice($trace, -$traceOffset);
@@ -60,6 +70,7 @@ class FatalErrorException extends \ErrorException
 
                 unset($frame);
                 $trace = array_reverse($trace);
+<<<<<<< HEAD
             } elseif (function_exists('symfony_debug_backtrace')) {
                 $trace = symfony_debug_backtrace();
                 if (0 < $traceOffset) {
@@ -67,6 +78,10 @@ class FatalErrorException extends \ErrorException
                 }
             } else {
                 $trace = array();
+=======
+            } else {
+                $trace = [];
+>>>>>>> dev
             }
 
             $this->setTrace($trace);

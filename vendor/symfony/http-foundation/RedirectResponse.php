@@ -32,7 +32,11 @@ class RedirectResponse extends Response
      *
      * @see http://tools.ietf.org/html/rfc2616#section-10.3
      */
+<<<<<<< HEAD
     public function __construct($url, $status = 302, $headers = array())
+=======
+    public function __construct(?string $url, int $status = 302, array $headers = [])
+>>>>>>> dev
     {
         parent::__construct('', $status, $headers);
 
@@ -41,12 +45,31 @@ class RedirectResponse extends Response
         if (!$this->isRedirect()) {
             throw new \InvalidArgumentException(sprintf('The HTTP status code is not a redirect ("%s" given).', $status));
         }
+<<<<<<< HEAD
     }
 
     /**
      * {@inheritdoc}
      */
     public static function create($url = '', $status = 302, $headers = array())
+=======
+
+        if (301 == $status && !\array_key_exists('cache-control', $headers)) {
+            $this->headers->remove('cache-control');
+        }
+    }
+
+    /**
+     * Factory method for chainability.
+     *
+     * @param string $url     The url to redirect to
+     * @param int    $status  The response status code
+     * @param array  $headers An array of response headers
+     *
+     * @return static
+     */
+    public static function create($url = '', $status = 302, $headers = [])
+>>>>>>> dev
     {
         return new static($url, $status, $headers);
     }
@@ -66,7 +89,11 @@ class RedirectResponse extends Response
      *
      * @param string $url The URL to redirect to
      *
+<<<<<<< HEAD
      * @return RedirectResponse The current response
+=======
+     * @return $this
+>>>>>>> dev
      *
      * @throws \InvalidArgumentException
      */
@@ -83,7 +110,11 @@ class RedirectResponse extends Response
 <html>
     <head>
         <meta charset="UTF-8" />
+<<<<<<< HEAD
         <meta http-equiv="refresh" content="1;url=%1$s" />
+=======
+        <meta http-equiv="refresh" content="0;url=%1$s" />
+>>>>>>> dev
 
         <title>Redirecting to %1$s</title>
     </head>

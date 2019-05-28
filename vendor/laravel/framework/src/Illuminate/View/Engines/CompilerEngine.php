@@ -70,7 +70,11 @@ class CompilerEngine extends PhpEngine
      * @param  int  $obLevel
      * @return void
      *
+<<<<<<< HEAD
      * @throws $e
+=======
+     * @throws \Exception
+>>>>>>> dev
      */
     protected function handleViewException(Exception $e, $obLevel)
     {

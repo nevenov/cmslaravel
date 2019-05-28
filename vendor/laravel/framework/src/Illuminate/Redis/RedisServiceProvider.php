@@ -2,6 +2,7 @@
 
 namespace Illuminate\Redis;
 
+<<<<<<< HEAD
 use Illuminate\Support\ServiceProvider;
 
 class RedisServiceProvider extends ServiceProvider
@@ -14,6 +15,15 @@ class RedisServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
+=======
+use Illuminate\Support\Arr;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
+
+class RedisServiceProvider extends ServiceProvider implements DeferrableProvider
+{
+    /**
+>>>>>>> dev
      * Register the service provider.
      *
      * @return void
@@ -21,7 +31,17 @@ class RedisServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('redis', function ($app) {
+<<<<<<< HEAD
             return new Database($app['config']['database.redis']);
+=======
+            $config = $app->make('config')->get('database.redis', []);
+
+            return new RedisManager($app, Arr::pull($config, 'client', 'predis'), $config);
+        });
+
+        $this->app->bind('redis.connection', function ($app) {
+            return $app['redis']->connection();
+>>>>>>> dev
         });
     }
 
@@ -32,6 +52,10 @@ class RedisServiceProvider extends ServiceProvider
      */
     public function provides()
     {
+<<<<<<< HEAD
         return ['redis'];
+=======
+        return ['redis', 'redis.connection'];
+>>>>>>> dev
     }
 }

@@ -11,11 +11,20 @@
 
 namespace Symfony\Component\HttpKernel\Tests\DataCollector;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\DataCollector\MemoryDataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class MemoryDataCollectorTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\DataCollector\MemoryDataCollector;
+
+class MemoryDataCollectorTest extends TestCase
+>>>>>>> dev
 {
     public function testCollect()
     {
@@ -38,6 +47,7 @@ class MemoryDataCollectorTest extends \PHPUnit_Framework_TestCase
 
     public function getBytesConversionTestData()
     {
+<<<<<<< HEAD
         return array(
             array('2k', 2048),
             array('2 k', 2048),
@@ -54,5 +64,23 @@ class MemoryDataCollectorTest extends \PHPUnit_Framework_TestCase
             array('0', 0),
             array('2mk', 2048), // the unit must be the last char, so in this case 'k', not 'm'
         );
+=======
+        return [
+            ['2k', 2048],
+            ['2 k', 2048],
+            ['8m', 8 * 1024 * 1024],
+            ['+2 k', 2048],
+            ['+2???k', 2048],
+            ['0x10', 16],
+            ['0xf', 15],
+            ['010', 8],
+            ['+0x10 k', 16 * 1024],
+            ['1g', 1024 * 1024 * 1024],
+            ['1G', 1024 * 1024 * 1024],
+            ['-1', -1],
+            ['0', 0],
+            ['2mk', 2048], // the unit must be the last char, so in this case 'k', not 'm'
+        ];
+>>>>>>> dev
     }
 }

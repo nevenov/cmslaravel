@@ -40,20 +40,32 @@ class FileViewFinder implements ViewFinderInterface
      *
      * @var array
      */
+<<<<<<< HEAD
     protected $extensions = ['blade.php', 'php'];
+=======
+    protected $extensions = ['blade.php', 'php', 'css', 'html'];
+>>>>>>> dev
 
     /**
      * Create a new file view loader instance.
      *
      * @param  \Illuminate\Filesystem\Filesystem  $files
      * @param  array  $paths
+<<<<<<< HEAD
      * @param  array  $extensions
+=======
+     * @param  array|null  $extensions
+>>>>>>> dev
      * @return void
      */
     public function __construct(Filesystem $files, array $paths, array $extensions = null)
     {
         $this->files = $files;
+<<<<<<< HEAD
         $this->paths = $paths;
+=======
+        $this->paths = array_map([$this, 'resolvePath'], $paths);
+>>>>>>> dev
 
         if (isset($extensions)) {
             $this->extensions = $extensions;
@@ -73,7 +85,11 @@ class FileViewFinder implements ViewFinderInterface
         }
 
         if ($this->hasHintInformation($name = trim($name))) {
+<<<<<<< HEAD
             return $this->views[$name] = $this->findNamedPathView($name);
+=======
+            return $this->views[$name] = $this->findNamespacedView($name);
+>>>>>>> dev
         }
 
         return $this->views[$name] = $this->findInPaths($name, $this->paths);
@@ -85,9 +101,15 @@ class FileViewFinder implements ViewFinderInterface
      * @param  string  $name
      * @return string
      */
+<<<<<<< HEAD
     protected function findNamedPathView($name)
     {
         list($namespace, $view) = $this->getNamespaceSegments($name);
+=======
+    protected function findNamespacedView($name)
+    {
+        [$namespace, $view] = $this->parseNamespaceSegments($name);
+>>>>>>> dev
 
         return $this->findInPaths($view, $this->hints[$namespace]);
     }
@@ -100,12 +122,21 @@ class FileViewFinder implements ViewFinderInterface
      *
      * @throws \InvalidArgumentException
      */
+<<<<<<< HEAD
     protected function getNamespaceSegments($name)
     {
         $segments = explode(static::HINT_PATH_DELIMITER, $name);
 
         if (count($segments) != 2) {
             throw new InvalidArgumentException("View [$name] has an invalid name.");
+=======
+    protected function parseNamespaceSegments($name)
+    {
+        $segments = explode(static::HINT_PATH_DELIMITER, $name);
+
+        if (count($segments) !== 2) {
+            throw new InvalidArgumentException("View [{$name}] has an invalid name.");
+>>>>>>> dev
         }
 
         if (! isset($this->hints[$segments[0]])) {
@@ -134,7 +165,11 @@ class FileViewFinder implements ViewFinderInterface
             }
         }
 
+<<<<<<< HEAD
         throw new InvalidArgumentException("View [$name] not found.");
+=======
+        throw new InvalidArgumentException("View [{$name}] not found.");
+>>>>>>> dev
     }
 
     /**
@@ -158,7 +193,33 @@ class FileViewFinder implements ViewFinderInterface
      */
     public function addLocation($location)
     {
+<<<<<<< HEAD
         $this->paths[] = $location;
+=======
+        $this->paths[] = $this->resolvePath($location);
+    }
+
+    /**
+     * Prepend a location to the finder.
+     *
+     * @param  string  $location
+     * @return void
+     */
+    public function prependLocation($location)
+    {
+        array_unshift($this->paths, $this->resolvePath($location));
+    }
+
+    /**
+     * Resolve the path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    protected function resolvePath($path)
+    {
+        return realpath($path) ?: $path;
+>>>>>>> dev
     }
 
     /**
@@ -198,6 +259,21 @@ class FileViewFinder implements ViewFinderInterface
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Replace the namespace hints for the given namespace.
+     *
+     * @param  string  $namespace
+     * @param  string|array  $hints
+     * @return void
+     */
+    public function replaceNamespace($namespace, $hints)
+    {
+        $this->hints[$namespace] = (array) $hints;
+    }
+
+    /**
+>>>>>>> dev
      * Register an extension with the view finder.
      *
      * @param  string  $extension
@@ -213,7 +289,11 @@ class FileViewFinder implements ViewFinderInterface
     }
 
     /**
+<<<<<<< HEAD
      * Returns whether or not the view specify a hint information.
+=======
+     * Returns whether or not the view name has any hint information.
+>>>>>>> dev
      *
      * @param  string  $name
      * @return bool
@@ -224,6 +304,19 @@ class FileViewFinder implements ViewFinderInterface
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Flush the cache of located views.
+     *
+     * @return void
+     */
+    public function flush()
+    {
+        $this->views = [];
+    }
+
+    /**
+>>>>>>> dev
      * Get the filesystem instance.
      *
      * @return \Illuminate\Filesystem\Filesystem
@@ -234,6 +327,22 @@ class FileViewFinder implements ViewFinderInterface
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Set the active view paths.
+     *
+     * @param  array  $paths
+     * @return $this
+     */
+    public function setPaths($paths)
+    {
+        $this->paths = $paths;
+
+        return $this;
+    }
+
+    /**
+>>>>>>> dev
      * Get the active view paths.
      *
      * @return array
@@ -244,6 +353,19 @@ class FileViewFinder implements ViewFinderInterface
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get the views that have been located.
+     *
+     * @return array
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+>>>>>>> dev
      * Get the namespace to file path hints.
      *
      * @return array

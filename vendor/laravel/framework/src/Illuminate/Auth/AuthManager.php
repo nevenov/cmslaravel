@@ -13,7 +13,11 @@ class AuthManager implements FactoryContract
     /**
      * The application instance.
      *
+<<<<<<< HEAD
      * @var \Illuminate\Foundation\Application
+=======
+     * @var \Illuminate\Contracts\Foundation\Application
+>>>>>>> dev
      */
     protected $app;
 
@@ -43,7 +47,11 @@ class AuthManager implements FactoryContract
     /**
      * Create a new Auth manager instance.
      *
+<<<<<<< HEAD
      * @param  \Illuminate\Foundation\Application  $app
+=======
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+>>>>>>> dev
      * @return void
      */
     public function __construct($app)
@@ -65,9 +73,13 @@ class AuthManager implements FactoryContract
     {
         $name = $name ?: $this->getDefaultDriver();
 
+<<<<<<< HEAD
         return isset($this->guards[$name])
                     ? $this->guards[$name]
                     : $this->guards[$name] = $this->resolve($name);
+=======
+        return $this->guards[$name] ?? $this->guards[$name] = $this->resolve($name);
+>>>>>>> dev
     }
 
     /**
@@ -88,6 +100,7 @@ class AuthManager implements FactoryContract
 
         if (isset($this->customCreators[$config['driver']])) {
             return $this->callCustomCreator($name, $config);
+<<<<<<< HEAD
         } else {
             $driverMethod = 'create'.ucfirst($config['driver']).'Driver';
 
@@ -97,6 +110,19 @@ class AuthManager implements FactoryContract
                 throw new InvalidArgumentException("Auth guard driver [{$name}] is not defined.");
             }
         }
+=======
+        }
+
+        $driverMethod = 'create'.ucfirst($config['driver']).'Driver';
+
+        if (method_exists($this, $driverMethod)) {
+            return $this->{$driverMethod}($name, $config);
+        }
+
+        throw new InvalidArgumentException(
+            "Auth driver [{$config['driver']}] for guard [{$name}] is not defined."
+        );
+>>>>>>> dev
     }
 
     /**
@@ -120,7 +146,11 @@ class AuthManager implements FactoryContract
      */
     public function createSessionDriver($name, $config)
     {
+<<<<<<< HEAD
         $provider = $this->createUserProvider($config['provider']);
+=======
+        $provider = $this->createUserProvider($config['provider'] ?? null);
+>>>>>>> dev
 
         $guard = new SessionGuard($name, $provider, $this->app['session.store']);
 
@@ -155,8 +185,16 @@ class AuthManager implements FactoryContract
         // that takes an API token field from the request and matches it to the
         // user in the database or another persistence layer where users are.
         $guard = new TokenGuard(
+<<<<<<< HEAD
             $this->createUserProvider($config['provider']),
             $this->app['request']
+=======
+            $this->createUserProvider($config['provider'] ?? null),
+            $this->app['request'],
+            $config['input_key'] ?? 'api_token',
+            $config['storage_key'] ?? 'api_token',
+            $config['hash'] ?? false
+>>>>>>> dev
         );
 
         $this->app->refresh('request', $guard, 'setRequest');
@@ -193,6 +231,11 @@ class AuthManager implements FactoryContract
      */
     public function shouldUse($name)
     {
+<<<<<<< HEAD
+=======
+        $name = $name ?: $this->getDefaultDriver();
+
+>>>>>>> dev
         $this->setDefaultDriver($name);
 
         $this->userResolver = function ($name = null) {
@@ -221,7 +264,11 @@ class AuthManager implements FactoryContract
     public function viaRequest($driver, callable $callback)
     {
         return $this->extend($driver, function () use ($callback) {
+<<<<<<< HEAD
             $guard = new RequestGuard($callback, $this->app['request']);
+=======
+            $guard = new RequestGuard($callback, $this->app['request'], $this->createUserProvider());
+>>>>>>> dev
 
             $this->app->refresh('request', $guard, 'setRequest');
 
@@ -289,6 +336,10 @@ class AuthManager implements FactoryContract
      */
     public function __call($method, $parameters)
     {
+<<<<<<< HEAD
         return call_user_func_array([$this->guard(), $method], $parameters);
+=======
+        return $this->guard()->{$method}(...$parameters);
+>>>>>>> dev
     }
 }

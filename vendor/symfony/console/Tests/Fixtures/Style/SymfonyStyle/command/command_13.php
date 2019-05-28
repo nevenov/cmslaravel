@@ -2,7 +2,10 @@
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+<<<<<<< HEAD
 use Symfony\Component\Console\Tests\Style\SymfonyStyleWithForcedLineLength;
+=======
+>>>>>>> dev
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 // ensure that nested tags have no effect on the color of the '//' prefix

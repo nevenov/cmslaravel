@@ -22,6 +22,7 @@ use Symfony\Component\Process\Process;
  */
 class UnixPipes extends AbstractPipes
 {
+<<<<<<< HEAD
     /** @var bool */
     private $ttyMode;
     /** @var bool */
@@ -34,6 +35,17 @@ class UnixPipes extends AbstractPipes
         $this->ttyMode = (bool) $ttyMode;
         $this->ptyMode = (bool) $ptyMode;
         $this->disableOutput = (bool) $disableOutput;
+=======
+    private $ttyMode;
+    private $ptyMode;
+    private $haveReadSupport;
+
+    public function __construct(?bool $ttyMode, bool $ptyMode, $input, bool $haveReadSupport)
+    {
+        $this->ttyMode = $ttyMode;
+        $this->ptyMode = $ptyMode;
+        $this->haveReadSupport = $haveReadSupport;
+>>>>>>> dev
 
         parent::__construct($input);
     }
@@ -48,6 +60,7 @@ class UnixPipes extends AbstractPipes
      */
     public function getDescriptors()
     {
+<<<<<<< HEAD
         if ($this->disableOutput) {
             $nullstream = fopen('/dev/null', 'c');
 
@@ -79,6 +92,39 @@ class UnixPipes extends AbstractPipes
             array('pipe', 'w'), // stdout
             array('pipe', 'w'), // stderr
         );
+=======
+        if (!$this->haveReadSupport) {
+            $nullstream = fopen('/dev/null', 'c');
+
+            return [
+                ['pipe', 'r'],
+                $nullstream,
+                $nullstream,
+            ];
+        }
+
+        if ($this->ttyMode) {
+            return [
+                ['file', '/dev/tty', 'r'],
+                ['file', '/dev/tty', 'w'],
+                ['file', '/dev/tty', 'w'],
+            ];
+        }
+
+        if ($this->ptyMode && Process::isPtySupported()) {
+            return [
+                ['pty'],
+                ['pty'],
+                ['pty'],
+            ];
+        }
+
+        return [
+            ['pipe', 'r'],
+            ['pipe', 'w'], // stdout
+            ['pipe', 'w'], // stderr
+        ];
+>>>>>>> dev
     }
 
     /**
@@ -86,7 +132,11 @@ class UnixPipes extends AbstractPipes
      */
     public function getFiles()
     {
+<<<<<<< HEAD
         return array();
+=======
+        return [];
+>>>>>>> dev
     }
 
     /**
@@ -97,20 +147,38 @@ class UnixPipes extends AbstractPipes
         $this->unblock();
         $w = $this->write();
 
+<<<<<<< HEAD
         $read = $e = array();
+=======
+        $read = $e = [];
+>>>>>>> dev
         $r = $this->pipes;
         unset($r[0]);
 
         // let's have a look if something changed in streams
+<<<<<<< HEAD
         if (($r || $w) && false === $n = @stream_select($r, $w, $e, 0, $blocking ? Process::TIMEOUT_PRECISION * 1E6 : 0)) {
             // if a system call has been interrupted, forget about it, let's try again
             // otherwise, an error occurred, let's reset pipes
             if (!$this->hasSystemCallBeenInterrupted()) {
                 $this->pipes = array();
+=======
+        set_error_handler([$this, 'handleError']);
+        if (($r || $w) && false === stream_select($r, $w, $e, 0, $blocking ? Process::TIMEOUT_PRECISION * 1E6 : 0)) {
+            restore_error_handler();
+            // if a system call has been interrupted, forget about it, let's try again
+            // otherwise, an error occurred, let's reset pipes
+            if (!$this->hasSystemCallBeenInterrupted()) {
+                $this->pipes = [];
+>>>>>>> dev
             }
 
             return $read;
         }
+<<<<<<< HEAD
+=======
+        restore_error_handler();
+>>>>>>> dev
 
         foreach ($r as $pipe) {
             // prior PHP 5.4 the array passed to stream_select is modified and
@@ -120,7 +188,11 @@ class UnixPipes extends AbstractPipes
             do {
                 $data = fread($pipe, self::CHUNK_SIZE);
                 $read[$type] .= $data;
+<<<<<<< HEAD
             } while (isset($data[0]));
+=======
+            } while (isset($data[0]) && ($close || isset($data[self::CHUNK_SIZE - 1])));
+>>>>>>> dev
 
             if (!isset($read[$type][0])) {
                 unset($read[$type]);
@@ -138,6 +210,7 @@ class UnixPipes extends AbstractPipes
     /**
      * {@inheritdoc}
      */
+<<<<<<< HEAD
     public function areOpen()
     {
         return (bool) $this->pipes;
@@ -154,5 +227,18 @@ class UnixPipes extends AbstractPipes
     public static function create(Process $process, $input)
     {
         return new static($process->isTty(), $process->isPty(), $input, $process->isOutputDisabled());
+=======
+    public function haveReadSupport()
+    {
+        return $this->haveReadSupport;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function areOpen()
+    {
+        return (bool) $this->pipes;
+>>>>>>> dev
     }
 }

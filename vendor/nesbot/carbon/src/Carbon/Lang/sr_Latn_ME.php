@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 /*
+=======
+/**
+>>>>>>> dev
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -9,6 +13,7 @@
  * file that was distributed with this source code.
  */
 
+<<<<<<< HEAD
 return array(
     'year' => '{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count godine|[0,Inf[ :count godina',
     'y' => ':count g.',
@@ -24,10 +29,19 @@ return array(
     'min' => ':count min.',
     'second' => '{1,21,31,41,51} :count sekund|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count sekunde|[5,Inf[:count sekundi',
     's' => ':count sek.',
+=======
+/*
+ * Authors:
+ * - Glavić
+ * - Milos Sakovic
+ */
+return array_replace_recursive(require __DIR__.'/sr.php', [
+>>>>>>> dev
     'ago' => 'prije :time',
     'from_now' => 'za :time',
     'after' => ':time nakon',
     'before' => ':time prije',
+<<<<<<< HEAD
 
     'year_from_now' => '{1,21,31,41,51} :count godinu|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54} :count godine|[5,Inf[ :count godina',
     'year_ago' => '{1,21,31,41,51} :count godinu|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54} :count godine|[5,Inf[ :count godina',
@@ -41,3 +55,6 @@ return array(
     'diff_before_yesterday' => 'prekjuče',
     'diff_after_tomorrow' => 'preksutra',
 );
+=======
+]);
+>>>>>>> dev

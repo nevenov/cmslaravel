@@ -64,7 +64,11 @@ class Comparator
             $operator = '==';
         }
 
+<<<<<<< HEAD
         if (!in_array($operator, array('>', '<', '>=', '<=', '==', '!='))) {
+=======
+        if (!\in_array($operator, ['>', '<', '>=', '<=', '==', '!='])) {
+>>>>>>> dev
             throw new \InvalidArgumentException(sprintf('Invalid operator "%s".', $operator));
         }
 

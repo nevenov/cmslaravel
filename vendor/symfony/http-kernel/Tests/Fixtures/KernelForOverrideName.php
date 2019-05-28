@@ -11,8 +11,13 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Fixtures;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+=======
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
+>>>>>>> dev
 
 class KernelForOverrideName extends Kernel
 {

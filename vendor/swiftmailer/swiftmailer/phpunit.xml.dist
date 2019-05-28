@@ -34,6 +34,9 @@
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+<<<<<<< HEAD
         <listener class="Mockery\Adapter\Phpunit\TestListener" />
+=======
+>>>>>>> dev
     </listeners>
 </phpunit>

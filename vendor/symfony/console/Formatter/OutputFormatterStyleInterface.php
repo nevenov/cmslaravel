@@ -48,8 +48,11 @@ interface OutputFormatterStyleInterface
 
     /**
      * Sets multiple style options at once.
+<<<<<<< HEAD
      *
      * @param array $options
+=======
+>>>>>>> dev
      */
     public function setOptions(array $options);
 

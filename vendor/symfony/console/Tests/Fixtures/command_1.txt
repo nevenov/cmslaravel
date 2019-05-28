@@ -1,7 +1,17 @@
+<<<<<<< HEAD
+=======
+<comment>Description:</comment>
+  command 1 description
+
+>>>>>>> dev
 <comment>Usage:</comment>
   descriptor:command1
   alias1
   alias2
 
 <comment>Help:</comment>
+<<<<<<< HEAD
  command 1 help
+=======
+  command 1 help
+>>>>>>> dev

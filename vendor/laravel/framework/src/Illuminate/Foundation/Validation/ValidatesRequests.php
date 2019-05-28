@@ -3,14 +3,20 @@
 namespace Illuminate\Foundation\Validation;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
+=======
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Validation\ValidationException;
+>>>>>>> dev
 
 trait ValidatesRequests
 {
     /**
+<<<<<<< HEAD
      * The default error bag.
      *
      * @var string
@@ -18,23 +24,39 @@ trait ValidatesRequests
     protected $validatesRequestErrorBag;
 
     /**
+=======
+>>>>>>> dev
      * Run the validation routine against the given validator.
      *
      * @param  \Illuminate\Contracts\Validation\Validator|array  $validator
      * @param  \Illuminate\Http\Request|null  $request
+<<<<<<< HEAD
      * @return void
      */
     public function validateWith($validator, Request $request = null)
     {
         $request = $request ?: app('request');
+=======
+     * @return array
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function validateWith($validator, Request $request = null)
+    {
+        $request = $request ?: request();
+>>>>>>> dev
 
         if (is_array($validator)) {
             $validator = $this->getValidationFactory()->make($request->all(), $validator);
         }
 
+<<<<<<< HEAD
         if ($validator->fails()) {
             $this->throwValidationException($request, $validator);
         }
+=======
+        return $validator->validate();
+>>>>>>> dev
     }
 
     /**
@@ -44,6 +66,7 @@ trait ValidatesRequests
      * @param  array  $rules
      * @param  array  $messages
      * @param  array  $customAttributes
+<<<<<<< HEAD
      * @return void
      */
     public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
@@ -53,6 +76,18 @@ trait ValidatesRequests
         if ($validator->fails()) {
             $this->throwValidationException($request, $validator);
         }
+=======
+     * @return array
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function validate(Request $request, array $rules,
+                             array $messages = [], array $customAttributes = [])
+    {
+        return $this->getValidationFactory()->make(
+            $request->all(), $rules, $messages, $customAttributes
+        )->validate();
+>>>>>>> dev
     }
 
     /**
@@ -63,6 +98,7 @@ trait ValidatesRequests
      * @param  array  $rules
      * @param  array  $messages
      * @param  array  $customAttributes
+<<<<<<< HEAD
      * @return void
      *
      * @throws \Illuminate\Foundation\Validation\ValidationException
@@ -127,6 +163,22 @@ trait ValidatesRequests
     protected function getRedirectUrl()
     {
         return app(UrlGenerator::class)->previous();
+=======
+     * @return array
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function validateWithBag($errorBag, Request $request, array $rules,
+                                    array $messages = [], array $customAttributes = [])
+    {
+        try {
+            return $this->validate($request, $rules, $messages, $customAttributes);
+        } catch (ValidationException $e) {
+            $e->errorBag = $errorBag;
+
+            throw $e;
+        }
+>>>>>>> dev
     }
 
     /**
@@ -138,6 +190,7 @@ trait ValidatesRequests
     {
         return app(Factory::class);
     }
+<<<<<<< HEAD
 
     /**
      * Execute a Closure within with a given error bag set as the default bag.
@@ -164,4 +217,6 @@ trait ValidatesRequests
     {
         return $this->validatesRequestErrorBag ?: 'default';
     }
+=======
+>>>>>>> dev
 }

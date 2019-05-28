@@ -13,8 +13,13 @@ namespace Symfony\Component\Console\Command;
 
 use Symfony\Component\Console\Helper\DescriptorHelper;
 use Symfony\Component\Console\Input\InputArgument;
+<<<<<<< HEAD
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
+=======
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+>>>>>>> dev
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -35,11 +40,19 @@ class HelpCommand extends Command
 
         $this
             ->setName('help')
+<<<<<<< HEAD
             ->setDefinition(array(
                 new InputArgument('command_name', InputArgument::OPTIONAL, 'The command name', 'help'),
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt'),
                 new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw command help'),
             ))
+=======
+            ->setDefinition([
+                new InputArgument('command_name', InputArgument::OPTIONAL, 'The command name', 'help'),
+                new InputOption('format', null, InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt'),
+                new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw command help'),
+            ])
+>>>>>>> dev
             ->setDescription('Displays help for a command')
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command displays help for a given command:
@@ -56,11 +69,14 @@ EOF
         ;
     }
 
+<<<<<<< HEAD
     /**
      * Sets the command.
      *
      * @param Command $command The command to set
      */
+=======
+>>>>>>> dev
     public function setCommand(Command $command)
     {
         $this->command = $command;
@@ -76,10 +92,17 @@ EOF
         }
 
         $helper = new DescriptorHelper();
+<<<<<<< HEAD
         $helper->describe($output, $this->command, array(
             'format' => $input->getOption('format'),
             'raw_text' => $input->getOption('raw'),
         ));
+=======
+        $helper->describe($output, $this->command, [
+            'format' => $input->getOption('format'),
+            'raw_text' => $input->getOption('raw'),
+        ]);
+>>>>>>> dev
 
         $this->command = null;
     }

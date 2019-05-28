@@ -11,8 +11,13 @@
 
 namespace Symfony\Component\HttpKernel\Event;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Request;
+=======
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+>>>>>>> dev
 
 /**
  * Allows to create a response for the return value of a controller.
@@ -32,7 +37,11 @@ class GetResponseForControllerResultEvent extends GetResponseEvent
      */
     private $controllerResult;
 
+<<<<<<< HEAD
     public function __construct(HttpKernelInterface $kernel, Request $request, $requestType, $controllerResult)
+=======
+    public function __construct(HttpKernelInterface $kernel, Request $request, int $requestType, $controllerResult)
+>>>>>>> dev
     {
         parent::__construct($kernel, $request, $requestType);
 

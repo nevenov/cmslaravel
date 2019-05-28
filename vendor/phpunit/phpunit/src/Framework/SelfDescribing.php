@@ -8,12 +8,21 @@
  * file that was distributed with this source code.
  */
 
+<<<<<<< HEAD
 /**
  * Interface for classes that can return a description of itself.
  *
  * @since Interface available since Release 3.0.0
  */
 interface PHPUnit_Framework_SelfDescribing
+=======
+namespace PHPUnit\Framework;
+
+/**
+ * Interface for classes that can return a description of itself.
+ */
+interface SelfDescribing
+>>>>>>> dev
 {
     /**
      * Returns a string representation of the object.

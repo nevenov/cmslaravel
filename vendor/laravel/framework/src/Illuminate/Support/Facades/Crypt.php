@@ -3,6 +3,14 @@
 namespace Illuminate\Support\Facades;
 
 /**
+<<<<<<< HEAD
+=======
+ * @method static string encrypt($value, bool $serialize = true)
+ * @method static string encryptString(string $value)
+ * @method static string decrypt($payload, bool $unserialize = true)
+ * @method static string decryptString(string $payload)
+ *
+>>>>>>> dev
  * @see \Illuminate\Encryption\Encrypter
  */
 class Crypt extends Facade

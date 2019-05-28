@@ -18,6 +18,7 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
  */
 class TableCell
 {
+<<<<<<< HEAD
     /**
      * @var string
      */
@@ -36,6 +37,15 @@ class TableCell
      * @param array  $options
      */
     public function __construct($value = '', array $options = array())
+=======
+    private $value;
+    private $options = [
+        'rowspan' => 1,
+        'colspan' => 1,
+    ];
+
+    public function __construct(string $value = '', array $options = [])
+>>>>>>> dev
     {
         $this->value = $value;
 

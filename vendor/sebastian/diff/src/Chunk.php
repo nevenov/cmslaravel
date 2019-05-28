@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php
+=======
+<?php declare(strict_types=1);
+>>>>>>> dev
 /*
  * This file is part of sebastian/diff.
  *
@@ -10,7 +14,11 @@
 
 namespace SebastianBergmann\Diff;
 
+<<<<<<< HEAD
 class Chunk
+=======
+final class Chunk
+>>>>>>> dev
 {
     /**
      * @var int
@@ -37,6 +45,7 @@ class Chunk
      */
     private $lines;
 
+<<<<<<< HEAD
     /**
      * @param int   $start
      * @param int   $startRange
@@ -57,45 +66,76 @@ class Chunk
      * @return int
      */
     public function getStart()
+=======
+    public function __construct(int $start = 0, int $startRange = 1, int $end = 0, int $endRange = 1, array $lines = [])
+    {
+        $this->start      = $start;
+        $this->startRange = $startRange;
+        $this->end        = $end;
+        $this->endRange   = $endRange;
+        $this->lines      = $lines;
+    }
+
+    public function getStart(): int
+>>>>>>> dev
     {
         return $this->start;
     }
 
+<<<<<<< HEAD
     /**
      * @return int
      */
     public function getStartRange()
+=======
+    public function getStartRange(): int
+>>>>>>> dev
     {
         return $this->startRange;
     }
 
+<<<<<<< HEAD
     /**
      * @return int
      */
     public function getEnd()
+=======
+    public function getEnd(): int
+>>>>>>> dev
     {
         return $this->end;
     }
 
+<<<<<<< HEAD
     /**
      * @return int
      */
     public function getEndRange()
+=======
+    public function getEndRange(): int
+>>>>>>> dev
     {
         return $this->endRange;
     }
 
+<<<<<<< HEAD
     /**
      * @return array
      */
     public function getLines()
+=======
+    public function getLines(): array
+>>>>>>> dev
     {
         return $this->lines;
     }
 
+<<<<<<< HEAD
     /**
      * @param array $lines
      */
+=======
+>>>>>>> dev
     public function setLines(array $lines)
     {
         $this->lines = $lines;

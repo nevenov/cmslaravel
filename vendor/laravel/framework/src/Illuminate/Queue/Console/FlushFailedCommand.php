@@ -25,7 +25,11 @@ class FlushFailedCommand extends Command
      *
      * @return void
      */
+<<<<<<< HEAD
     public function fire()
+=======
+    public function handle()
+>>>>>>> dev
     {
         $this->laravel['queue.failer']->flush();
 

@@ -15,8 +15,24 @@ namespace SebastianBergmann;
  */
 class Version
 {
+<<<<<<< HEAD
     private $path;
     private $release;
+=======
+    /**
+     * @var string
+     */
+    private $path;
+
+    /**
+     * @var string
+     */
+    private $release;
+
+    /**
+     * @var string
+     */
+>>>>>>> dev
     private $version;
 
     /**
@@ -58,7 +74,12 @@ class Version
     }
 
     /**
+<<<<<<< HEAD
      * @param  string      $path
+=======
+     * @param string $path
+     *
+>>>>>>> dev
      * @return bool|string
      */
     private function getGitInformation($path)
@@ -67,11 +88,34 @@ class Version
             return false;
         }
 
+<<<<<<< HEAD
         $dir = getcwd();
         chdir($path);
         $returnCode = 1;
         $result     = @exec('git describe --tags 2>&1', $output, $returnCode);
         chdir($dir);
+=======
+        $process = proc_open(
+            'git describe --tags',
+            [
+                1 => ['pipe', 'w'],
+                2 => ['pipe', 'w'],
+            ],
+            $pipes,
+            $path
+        );
+
+        if (!is_resource($process)) {
+            return false;
+        }
+
+        $result = trim(stream_get_contents($pipes[1]));
+
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        $returnCode = proc_close($process);
+>>>>>>> dev
 
         if ($returnCode !== 0) {
             return false;

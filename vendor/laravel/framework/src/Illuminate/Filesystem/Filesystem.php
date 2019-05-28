@@ -99,12 +99,30 @@ class Filesystem
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get the MD5 hash of the file at the given path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function hash($path)
+    {
+        return md5_file($path);
+    }
+
+    /**
+>>>>>>> dev
      * Write the contents of a file.
      *
      * @param  string  $path
      * @param  string  $contents
      * @param  bool  $lock
+<<<<<<< HEAD
      * @return int
+=======
+     * @return int|bool
+>>>>>>> dev
      */
     public function put($path, $contents, $lock = false)
     {
@@ -112,6 +130,33 @@ class Filesystem
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Write the contents of a file, replacing it atomically if it already exists.
+     *
+     * @param  string  $path
+     * @param  string  $content
+     * @return void
+     */
+    public function replace($path, $content)
+    {
+        // If the path already exists and is a symlink, get the real path...
+        clearstatcache(true, $path);
+
+        $path = realpath($path) ?: $path;
+
+        $tempPath = tempnam(dirname($path), basename($path));
+
+        // Fix permissions of tempPath because `tempnam()` creates it with permissions set to 0600...
+        chmod($tempPath, 0777 - umask());
+
+        file_put_contents($tempPath, $content);
+
+        rename($tempPath, $path);
+    }
+
+    /**
+>>>>>>> dev
      * Prepend to a file.
      *
      * @param  string  $path
@@ -140,6 +185,25 @@ class Filesystem
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get or set UNIX mode of a file or directory.
+     *
+     * @param  string  $path
+     * @param  int  $mode
+     * @return mixed
+     */
+    public function chmod($path, $mode = null)
+    {
+        if ($mode) {
+            return chmod($path, $mode);
+        }
+
+        return substr(sprintf('%o', fileperms($path)), -4);
+    }
+
+    /**
+>>>>>>> dev
      * Delete the file at a given path.
      *
      * @param  string|array  $paths
@@ -189,6 +253,27 @@ class Filesystem
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Create a hard link to the target file or directory.
+     *
+     * @param  string  $target
+     * @param  string  $link
+     * @return void
+     */
+    public function link($target, $link)
+    {
+        if (! windows_os()) {
+            return symlink($target, $link);
+        }
+
+        $mode = $this->isDirectory($target) ? 'J' : 'H';
+
+        exec("mklink /{$mode} ".escapeshellarg($link).' '.escapeshellarg($target));
+    }
+
+    /**
+>>>>>>> dev
      * Extract the file name from a file path.
      *
      * @param  string  $path
@@ -288,6 +373,20 @@ class Filesystem
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Determine if the given path is readable.
+     *
+     * @param  string  $path
+     * @return bool
+     */
+    public function isReadable($path)
+    {
+        return is_readable($path);
+    }
+
+    /**
+>>>>>>> dev
      * Determine if the given path is writable.
      *
      * @param  string  $path
@@ -325,6 +424,7 @@ class Filesystem
      * Get an array of all files in a directory.
      *
      * @param  string  $directory
+<<<<<<< HEAD
      * @return array
      */
     public function files($directory)
@@ -341,6 +441,17 @@ class Filesystem
         return array_filter($glob, function ($file) {
             return filetype($file) == 'file';
         });
+=======
+     * @param  bool  $hidden
+     * @return \Symfony\Component\Finder\SplFileInfo[]
+     */
+    public function files($directory, $hidden = false)
+    {
+        return iterator_to_array(
+            Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory)->depth(0)->sortByName(),
+            false
+        );
+>>>>>>> dev
     }
 
     /**
@@ -348,11 +459,22 @@ class Filesystem
      *
      * @param  string  $directory
      * @param  bool  $hidden
+<<<<<<< HEAD
      * @return array
      */
     public function allFiles($directory, $hidden = false)
     {
         return iterator_to_array(Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory), false);
+=======
+     * @return \Symfony\Component\Finder\SplFileInfo[]
+     */
+    public function allFiles($directory, $hidden = false)
+    {
+        return iterator_to_array(
+            Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory)->sortByName(),
+            false
+        );
+>>>>>>> dev
     }
 
     /**
@@ -365,7 +487,11 @@ class Filesystem
     {
         $directories = [];
 
+<<<<<<< HEAD
         foreach (Finder::create()->in($directory)->directories()->depth(0) as $dir) {
+=======
+        foreach (Finder::create()->in($directory)->directories()->depth(0)->sortByName() as $dir) {
+>>>>>>> dev
             $directories[] = $dir->getPathname();
         }
 
@@ -400,10 +526,15 @@ class Filesystem
      */
     public function moveDirectory($from, $to, $overwrite = false)
     {
+<<<<<<< HEAD
         if ($overwrite && $this->isDirectory($to)) {
             if (! $this->deleteDirectory($to)) {
                 return false;
             }
+=======
+        if ($overwrite && $this->isDirectory($to) && ! $this->deleteDirectory($to)) {
+            return false;
+>>>>>>> dev
         }
 
         return @rename($from, $to) === true;
@@ -502,6 +633,30 @@ class Filesystem
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Remove all of the directories within a given directory.
+     *
+     * @param  string  $directory
+     * @return bool
+     */
+    public function deleteDirectories($directory)
+    {
+        $allDirectories = $this->directories($directory);
+
+        if (! empty($allDirectories)) {
+            foreach ($allDirectories as $directoryName) {
+                $this->deleteDirectory($directoryName);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+>>>>>>> dev
      * Empty the specified directory of all files and folders.
      *
      * @param  string  $directory

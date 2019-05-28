@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .idea
 phpunit.xml
 composer.lock
@@ -7,3 +8,8 @@ cache.properties
 build/LICENSE
 build/README.md
 build/*.tgz
+=======
+/.idea
+/composer.lock
+/vendor
+>>>>>>> dev

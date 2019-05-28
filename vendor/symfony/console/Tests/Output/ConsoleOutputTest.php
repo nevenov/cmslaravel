@@ -11,10 +11,19 @@
 
 namespace Symfony\Component\Console\Tests\Output;
 
+<<<<<<< HEAD
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\Output;
 
 class ConsoleOutputTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Formatter\OutputFormatter;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\Output;
+
+class ConsoleOutputTest extends TestCase
+>>>>>>> dev
 {
     public function testConstructor()
     {
@@ -22,4 +31,22 @@ class ConsoleOutputTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Output::VERBOSITY_QUIET, $output->getVerbosity(), '__construct() takes the verbosity as its first argument');
         $this->assertSame($output->getFormatter(), $output->getErrorOutput()->getFormatter(), '__construct() takes a formatter or null as the third argument');
     }
+<<<<<<< HEAD
+=======
+
+    public function testSetFormatter()
+    {
+        $output = new ConsoleOutput();
+        $outputFormatter = new OutputFormatter();
+        $output->setFormatter($outputFormatter);
+        $this->assertSame($outputFormatter, $output->getFormatter());
+    }
+
+    public function testSetVerbosity()
+    {
+        $output = new ConsoleOutput();
+        $output->setVerbosity(Output::VERBOSITY_VERBOSE);
+        $this->assertSame(Output::VERBOSITY_VERBOSE, $output->getVerbosity());
+    }
+>>>>>>> dev
 }

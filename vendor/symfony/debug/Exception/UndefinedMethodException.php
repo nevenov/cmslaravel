@@ -18,7 +18,11 @@ namespace Symfony\Component\Debug\Exception;
  */
 class UndefinedMethodException extends FatalErrorException
 {
+<<<<<<< HEAD
     public function __construct($message, \ErrorException $previous)
+=======
+    public function __construct(string $message, \ErrorException $previous)
+>>>>>>> dev
     {
         parent::__construct(
             $message,
@@ -26,6 +30,12 @@ class UndefinedMethodException extends FatalErrorException
             $previous->getSeverity(),
             $previous->getFile(),
             $previous->getLine(),
+<<<<<<< HEAD
+=======
+            null,
+            true,
+            null,
+>>>>>>> dev
             $previous->getPrevious()
         );
         $this->setTrace($previous->getTrace());

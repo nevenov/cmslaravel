@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Console\Tests\Formatter;
 
+<<<<<<< HEAD
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class OutputFormatterStyleTest extends \PHPUnit_Framework_TestCase
@@ -21,6 +22,19 @@ class OutputFormatterStyleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("\033[32;40;1;4mfoo\033[39;49;22;24m", $style->apply('foo'));
 
         $style = new OutputFormatterStyle('red', null, array('blink'));
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+
+class OutputFormatterStyleTest extends TestCase
+{
+    public function testConstructor()
+    {
+        $style = new OutputFormatterStyle('green', 'black', ['bold', 'underscore']);
+        $this->assertEquals("\033[32;40;1;4mfoo\033[39;49;22;24m", $style->apply('foo'));
+
+        $style = new OutputFormatterStyle('red', null, ['blink']);
+>>>>>>> dev
         $this->assertEquals("\033[31;5mfoo\033[39;25m", $style->apply('foo'));
 
         $style = new OutputFormatterStyle(null, 'white');
@@ -40,7 +54,11 @@ class OutputFormatterStyleTest extends \PHPUnit_Framework_TestCase
         $style->setForeground('default');
         $this->assertEquals("\033[39mfoo\033[39m", $style->apply('foo'));
 
+<<<<<<< HEAD
         $this->setExpectedException('InvalidArgumentException');
+=======
+        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}('InvalidArgumentException');
+>>>>>>> dev
         $style->setForeground('undefined-color');
     }
 
@@ -57,7 +75,11 @@ class OutputFormatterStyleTest extends \PHPUnit_Framework_TestCase
         $style->setBackground('default');
         $this->assertEquals("\033[49mfoo\033[49m", $style->apply('foo'));
 
+<<<<<<< HEAD
         $this->setExpectedException('InvalidArgumentException');
+=======
+        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}('InvalidArgumentException');
+>>>>>>> dev
         $style->setBackground('undefined-color');
     }
 
@@ -65,7 +87,11 @@ class OutputFormatterStyleTest extends \PHPUnit_Framework_TestCase
     {
         $style = new OutputFormatterStyle();
 
+<<<<<<< HEAD
         $style->setOptions(array('reverse', 'conceal'));
+=======
+        $style->setOptions(['reverse', 'conceal']);
+>>>>>>> dev
         $this->assertEquals("\033[7;8mfoo\033[27;28m", $style->apply('foo'));
 
         $style->setOption('bold');
@@ -77,7 +103,11 @@ class OutputFormatterStyleTest extends \PHPUnit_Framework_TestCase
         $style->setOption('bold');
         $this->assertEquals("\033[8;1mfoo\033[28;22m", $style->apply('foo'));
 
+<<<<<<< HEAD
         $style->setOptions(array('bold'));
+=======
+        $style->setOptions(['bold']);
+>>>>>>> dev
         $this->assertEquals("\033[1mfoo\033[22m", $style->apply('foo'));
 
         try {

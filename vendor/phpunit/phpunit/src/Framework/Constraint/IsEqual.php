@@ -7,6 +7,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
+=======
+namespace PHPUnit\Framework\Constraint;
+
+use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Util\InvalidArgumentHelper;
+use SebastianBergmann\Comparator\ComparisonFailure;
+use SebastianBergmann\Comparator\Factory as ComparatorFactory;
+>>>>>>> dev
 
 /**
  * Constraint that checks if one value is equal to another.
@@ -16,10 +25,15 @@
  * Two values are equal if they have the same value disregarding type.
  *
  * The expected value is passed in the constructor.
+<<<<<<< HEAD
  *
  * @since Class available since Release 3.0.0
  */
 class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
+=======
+ */
+class IsEqual extends Constraint
+>>>>>>> dev
 {
     /**
      * @var mixed
@@ -47,23 +61,31 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
     protected $ignoreCase = false;
 
     /**
+<<<<<<< HEAD
      * @var SebastianBergmann\Comparator\ComparisonFailure
      */
     protected $lastFailure;
 
     /**
+=======
+>>>>>>> dev
      * @param mixed $value
      * @param float $delta
      * @param int   $maxDepth
      * @param bool  $canonicalize
      * @param bool  $ignoreCase
      *
+<<<<<<< HEAD
      * @throws PHPUnit_Framework_Exception
+=======
+     * @throws \PHPUnit\Framework\Exception
+>>>>>>> dev
      */
     public function __construct($value, $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false)
     {
         parent::__construct();
 
+<<<<<<< HEAD
         if (!is_numeric($delta)) {
             throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'numeric');
         }
@@ -78,6 +100,22 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
 
         if (!is_bool($ignoreCase)) {
             throw PHPUnit_Util_InvalidArgumentHelper::factory(5, 'boolean');
+=======
+        if (!\is_numeric($delta)) {
+            throw InvalidArgumentHelper::factory(2, 'numeric');
+        }
+
+        if (!\is_int($maxDepth)) {
+            throw InvalidArgumentHelper::factory(3, 'integer');
+        }
+
+        if (!\is_bool($canonicalize)) {
+            throw InvalidArgumentHelper::factory(4, 'boolean');
+        }
+
+        if (!\is_bool($ignoreCase)) {
+            throw InvalidArgumentHelper::factory(5, 'boolean');
+>>>>>>> dev
         }
 
         $this->value        = $value;
@@ -103,7 +141,11 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
      *
      * @return mixed
      *
+<<<<<<< HEAD
      * @throws PHPUnit_Framework_ExpectationFailedException
+=======
+     * @throws ExpectationFailedException
+>>>>>>> dev
      */
     public function evaluate($other, $description = '', $returnResult = false)
     {
@@ -114,7 +156,11 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
             return true;
         }
 
+<<<<<<< HEAD
         $comparatorFactory = SebastianBergmann\Comparator\Factory::getInstance();
+=======
+        $comparatorFactory = ComparatorFactory::getInstance();
+>>>>>>> dev
 
         try {
             $comparator = $comparatorFactory->getComparatorFor(
@@ -129,13 +175,22 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
                 $this->canonicalize,
                 $this->ignoreCase
             );
+<<<<<<< HEAD
         } catch (SebastianBergmann\Comparator\ComparisonFailure $f) {
+=======
+        } catch (ComparisonFailure $f) {
+>>>>>>> dev
             if ($returnResult) {
                 return false;
             }
 
+<<<<<<< HEAD
             throw new PHPUnit_Framework_ExpectationFailedException(
                 trim($description . "\n" . $f->getMessage()),
+=======
+            throw new ExpectationFailedException(
+                \trim($description . "\n" . $f->getMessage()),
+>>>>>>> dev
                 $f
             );
         }
@@ -152,6 +207,7 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
     {
         $delta = '';
 
+<<<<<<< HEAD
         if (is_string($this->value)) {
             if (strpos($this->value, "\n") !== false) {
                 return 'is equal to <text>';
@@ -175,5 +231,30 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
                 $delta
             );
         }
+=======
+        if (\is_string($this->value)) {
+            if (\strpos($this->value, "\n") !== false) {
+                return 'is equal to <text>';
+            }
+
+            return \sprintf(
+                "is equal to '%s'",
+                $this->value
+            );
+        }
+
+        if ($this->delta != 0) {
+            $delta = \sprintf(
+                ' with delta <%F>',
+                $this->delta
+            );
+        }
+
+        return \sprintf(
+            'is equal to %s%s',
+            $this->exporter->export($this->value),
+            $delta
+        );
+>>>>>>> dev
     }
 }

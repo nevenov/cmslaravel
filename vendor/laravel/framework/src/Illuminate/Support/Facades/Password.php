@@ -3,6 +3,14 @@
 namespace Illuminate\Support\Facades;
 
 /**
+<<<<<<< HEAD
+=======
+ * @method static string sendResetLink(array $credentials)
+ * @method static mixed reset(array $credentials, \Closure $callback)
+ * @method static void validator(\Closure $callback)
+ * @method static bool validateNewPassword(array $credentials)
+ *
+>>>>>>> dev
  * @see \Illuminate\Auth\Passwords\PasswordBroker
  */
 class Password extends Facade

@@ -15,24 +15,41 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+<<<<<<< HEAD
 use Symfony\Component\Process\ProcessBuilder;
+=======
+>>>>>>> dev
 
 /**
  * The ProcessHelper class provides helpers to run external processes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+<<<<<<< HEAD
+=======
+ *
+ * @final since Symfony 4.2
+>>>>>>> dev
  */
 class ProcessHelper extends Helper
 {
     /**
      * Runs an external process.
      *
+<<<<<<< HEAD
      * @param OutputInterface      $output    An OutputInterface instance
      * @param string|array|Process $cmd       An instance of Process or an array of arguments to escape and run or a command to run
      * @param string|null          $error     An error message that must be displayed if something went wrong
      * @param callable|null        $callback  A PHP callback to run whenever there is some
      *                                        output available on STDOUT or STDERR
      * @param int                  $verbosity The threshold for verbosity
+=======
+     * @param OutputInterface $output    An OutputInterface instance
+     * @param array|Process   $cmd       An instance of Process or an array of the command and arguments
+     * @param string|null     $error     An error message that must be displayed if something went wrong
+     * @param callable|null   $callback  A PHP callback to run whenever there is some
+     *                                   output available on STDOUT or STDERR
+     * @param int             $verbosity The threshold for verbosity
+>>>>>>> dev
      *
      * @return Process The process that ran
      */
@@ -44,12 +61,32 @@ class ProcessHelper extends Helper
 
         $formatter = $this->getHelperSet()->get('debug_formatter');
 
+<<<<<<< HEAD
         if (is_array($cmd)) {
             $process = ProcessBuilder::create($cmd)->getProcess();
         } elseif ($cmd instanceof Process) {
             $process = $cmd;
         } else {
             $process = new Process($cmd);
+=======
+        if ($cmd instanceof Process) {
+            $cmd = [$cmd];
+        }
+
+        if (!\is_array($cmd)) {
+            @trigger_error(sprintf('Passing a command as a string to "%s()" is deprecated since Symfony 4.2, pass it the command as an array of arguments instead.', __METHOD__), E_USER_DEPRECATED);
+            $cmd = [\method_exists(Process::class, 'fromShellCommandline') ? Process::fromShellCommandline($cmd) : new Process($cmd)];
+        }
+
+        if (\is_string($cmd[0] ?? null)) {
+            $process = new Process($cmd);
+            $cmd = [];
+        } elseif (($cmd[0] ?? null) instanceof Process) {
+            $process = $cmd[0];
+            unset($cmd[0]);
+        } else {
+            throw new \InvalidArgumentException(sprintf('Invalid command provided to "%s()": the command should be an array whose first element is either the path to the binary to run or a "Process" object.', __METHOD__));
+>>>>>>> dev
         }
 
         if ($verbosity <= $output->getVerbosity()) {
@@ -60,7 +97,11 @@ class ProcessHelper extends Helper
             $callback = $this->wrapCallback($output, $process, $callback);
         }
 
+<<<<<<< HEAD
         $process->run($callback);
+=======
+        $process->run($callback, $cmd);
+>>>>>>> dev
 
         if ($verbosity <= $output->getVerbosity()) {
             $message = $process->isSuccessful() ? 'Command ran successfully' : sprintf('%s Command did not run successfully', $process->getExitCode());
@@ -124,7 +165,11 @@ class ProcessHelper extends Helper
             $output->write($formatter->progress(spl_object_hash($process), $this->escapeString($buffer), Process::ERR === $type));
 
             if (null !== $callback) {
+<<<<<<< HEAD
                 call_user_func($callback, $type, $buffer);
+=======
+                $callback($type, $buffer);
+>>>>>>> dev
             }
         };
     }

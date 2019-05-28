@@ -14,6 +14,10 @@ class UrlGenerationException extends Exception
      */
     public static function forMissingParameters($route)
     {
+<<<<<<< HEAD
         return new static("Missing required parameters for [Route: {$route->getName()}] [URI: {$route->getPath()}].");
+=======
+        return new static("Missing required parameters for [Route: {$route->getName()}] [URI: {$route->uri()}].");
+>>>>>>> dev
     }
 }

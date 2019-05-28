@@ -11,11 +11,17 @@
 
 namespace Symfony\Component\HttpKernel\EventListener;
 
+<<<<<<< HEAD
+=======
+@trigger_error(sprintf('The "%s" class is deprecated since Symfony 4.1, use AbstractSessionListener instead.', SaveSessionListener::class), E_USER_DEPRECATED);
+
+>>>>>>> dev
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
+<<<<<<< HEAD
  * Saves the session, in case it is still open, before sending the response/headers.
  *
  * This ensures several things in case the developer did not save the session explicitly:
@@ -41,6 +47,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * it is saved will just restart it.
  *
  * @author Tobias Schultze <http://tobion.de>
+=======
+ * @author Tobias Schultze <http://tobion.de>
+ *
+ * @deprecated since Symfony 4.1, use AbstractSessionListener instead
+>>>>>>> dev
  */
 class SaveSessionListener implements EventSubscriberInterface
 {
@@ -58,9 +69,16 @@ class SaveSessionListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
+<<<<<<< HEAD
         return array(
             // low priority but higher than StreamedResponseListener
             KernelEvents::RESPONSE => array(array('onKernelResponse', -1000)),
         );
+=======
+        return [
+            // low priority but higher than StreamedResponseListener
+            KernelEvents::RESPONSE => [['onKernelResponse', -1000]],
+        ];
+>>>>>>> dev
     }
 }

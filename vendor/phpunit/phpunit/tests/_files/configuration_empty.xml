@@ -20,6 +20,7 @@
   </groups>
 
   <filter>
+<<<<<<< HEAD
     <blacklist>
       <directory></directory>
       <file></file>
@@ -28,6 +29,8 @@
         <file></file>
       </exclude>
     </blacklist>
+=======
+>>>>>>> dev
     <whitelist>
       <directory></directory>
       <file></file>
@@ -44,7 +47,11 @@
     <log type="json" target=""/>
     <log type="plain" target=""/>
     <log type="tap" target=""/>
+<<<<<<< HEAD
     <log type="junit" target="" logIncompleteSkipped="false"/>
+=======
+    <log type="junit" target=""/>
+>>>>>>> dev
     <log type="testdox-html" target=""/>
     <log type="testdox-text" target=""/>
   </logging>

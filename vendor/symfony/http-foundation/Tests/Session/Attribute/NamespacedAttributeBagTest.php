@@ -11,6 +11,10 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Attribute;
 
+<<<<<<< HEAD
+=======
+use PHPUnit\Framework\TestCase;
+>>>>>>> dev
 use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
 
 /**
@@ -18,12 +22,18 @@ use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
  *
  * @author Drak <drak@zikula.org>
  */
+<<<<<<< HEAD
 class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var array
      */
     private $array;
+=======
+class NamespacedAttributeBagTest extends TestCase
+{
+    private $array = [];
+>>>>>>> dev
 
     /**
      * @var NamespacedAttributeBag
@@ -32,6 +42,7 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+<<<<<<< HEAD
         $this->array = array(
             'hello' => 'world',
             'always' => 'be happy',
@@ -47,6 +58,23 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
                 ),
             ),
         );
+=======
+        $this->array = [
+            'hello' => 'world',
+            'always' => 'be happy',
+            'user.login' => 'drak',
+            'csrf.token' => [
+                'a' => '1234',
+                'b' => '4321',
+            ],
+            'category' => [
+                'fishing' => [
+                    'first' => 'cod',
+                    'second' => 'sole',
+                ],
+            ],
+        ];
+>>>>>>> dev
         $this->bag = new NamespacedAttributeBag('_sf2', '/');
         $this->bag->initialize($this->array);
     }
@@ -54,7 +82,11 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         $this->bag = null;
+<<<<<<< HEAD
         $this->array = array();
+=======
+        $this->array = [];
+>>>>>>> dev
     }
 
     public function testInitialize()
@@ -62,7 +94,11 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
         $bag = new NamespacedAttributeBag();
         $bag->initialize($this->array);
         $this->assertEquals($this->array, $this->bag->all());
+<<<<<<< HEAD
         $array = array('should' => 'not stick');
+=======
+        $array = ['should' => 'not stick'];
+>>>>>>> dev
         $bag->initialize($array);
 
         // should have remained the same
@@ -87,6 +123,20 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider attributesProvider
      */
+<<<<<<< HEAD
+=======
+    public function testHasNoSideEffect($key, $value, $expected)
+    {
+        $expected = json_encode($this->bag->all());
+        $this->bag->has($key);
+
+        $this->assertEquals($expected, json_encode($this->bag->all()));
+    }
+
+    /**
+     * @dataProvider attributesProvider
+     */
+>>>>>>> dev
     public function testGet($key, $value, $expected)
     {
         $this->assertEquals($value, $this->bag->get($key));
@@ -101,6 +151,20 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider attributesProvider
      */
+<<<<<<< HEAD
+=======
+    public function testGetNoSideEffect($key, $value, $expected)
+    {
+        $expected = json_encode($this->bag->all());
+        $this->bag->get($key);
+
+        $this->assertEquals($expected, json_encode($this->bag->all()));
+    }
+
+    /**
+     * @dataProvider attributesProvider
+     */
+>>>>>>> dev
     public function testSet($key, $value, $expected)
     {
         $this->bag->set($key, $value);
@@ -119,7 +183,11 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
 
     public function testReplace()
     {
+<<<<<<< HEAD
         $array = array();
+=======
+        $array = [];
+>>>>>>> dev
         $array['name'] = 'jack';
         $array['foo.bar'] = 'beep';
         $this->bag->replace($array);
@@ -157,11 +225,16 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
     public function testClear()
     {
         $this->bag->clear();
+<<<<<<< HEAD
         $this->assertEquals(array(), $this->bag->all());
+=======
+        $this->assertEquals([], $this->bag->all());
+>>>>>>> dev
     }
 
     public function attributesProvider()
     {
+<<<<<<< HEAD
         return array(
             array('hello', 'world', true),
             array('always', 'be happy', true),
@@ -180,5 +253,25 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
             array('bye', null, false),
             array('bye/for/now', null, false),
         );
+=======
+        return [
+            ['hello', 'world', true],
+            ['always', 'be happy', true],
+            ['user.login', 'drak', true],
+            ['csrf.token', ['a' => '1234', 'b' => '4321'], true],
+            ['csrf.token/a', '1234', true],
+            ['csrf.token/b', '4321', true],
+            ['category', ['fishing' => ['first' => 'cod', 'second' => 'sole']], true],
+            ['category/fishing', ['first' => 'cod', 'second' => 'sole'], true],
+            ['category/fishing/missing/first', null, false],
+            ['category/fishing/first', 'cod', true],
+            ['category/fishing/second', 'sole', true],
+            ['category/fishing/missing/second', null, false],
+            ['user2.login', null, false],
+            ['never', null, false],
+            ['bye', null, false],
+            ['bye/for/now', null, false],
+        ];
+>>>>>>> dev
     }
 }

@@ -1,6 +1,10 @@
 <?php
 /*
+<<<<<<< HEAD
  * This file is part of the Comparator package.
+=======
+ * This file is part of sebastian/comparator.
+>>>>>>> dev
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -13,13 +17,29 @@ namespace SebastianBergmann\Comparator;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+<<<<<<< HEAD
+=======
+use PHPUnit\Framework\TestCase;
+>>>>>>> dev
 
 /**
  * @coversDefaultClass SebastianBergmann\Comparator\DateTimeComparator
  *
+<<<<<<< HEAD
  */
 class DateTimeComparatorTest extends \PHPUnit_Framework_TestCase
 {
+=======
+ * @uses SebastianBergmann\Comparator\Comparator
+ * @uses SebastianBergmann\Comparator\Factory
+ * @uses SebastianBergmann\Comparator\ComparisonFailure
+ */
+class DateTimeComparatorTest extends TestCase
+{
+    /**
+     * @var DateTimeComparator
+     */
+>>>>>>> dev
     private $comparator;
 
     protected function setUp()
@@ -31,15 +51,24 @@ class DateTimeComparatorTest extends \PHPUnit_Framework_TestCase
     {
         $datetime = new DateTime;
 
+<<<<<<< HEAD
         return array(
           array($datetime, null),
           array(null, $datetime),
           array(null, null)
         );
+=======
+        return [
+          [$datetime, null],
+          [null, $datetime],
+          [null, null]
+        ];
+>>>>>>> dev
     }
 
     public function assertEqualsSucceedsProvider()
     {
+<<<<<<< HEAD
         return array(
           array(
             new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
@@ -86,10 +115,60 @@ class DateTimeComparatorTest extends \PHPUnit_Framework_TestCase
             new DateTime('2013-03-29T04:13:35-0600')
           )
         );
+=======
+        return [
+            [
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 04:13:25', new DateTimeZone('America/New_York')),
+                10
+            ],
+            [
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 04:14:40', new DateTimeZone('America/New_York')),
+                65
+            ],
+            [
+                new DateTime('2013-03-29', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29', new DateTimeZone('America/New_York'))
+            ],
+            [
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 03:13:35', new DateTimeZone('America/Chicago'))
+            ],
+            [
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 03:13:49', new DateTimeZone('America/Chicago')),
+                15
+            ],
+            [
+                new DateTime('2013-03-30', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 23:00:00', new DateTimeZone('America/Chicago'))
+            ],
+            [
+                new DateTime('2013-03-30', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 23:01:30', new DateTimeZone('America/Chicago')),
+                100
+            ],
+            [
+                new DateTime('@1364616000'),
+                new DateTime('2013-03-29 23:00:00', new DateTimeZone('America/Chicago'))
+            ],
+            [
+                new DateTime('2013-03-29T05:13:35-0500'),
+                new DateTime('2013-03-29T04:13:35-0600')
+            ],
+            [
+                new DateTimeImmutable('2013-03-30', new DateTimeZone('America/New_York')),
+                new DateTimeImmutable('2013-03-29 23:01:30', new DateTimeZone('America/Chicago')),
+                100
+            ],
+        ];
+>>>>>>> dev
     }
 
     public function assertEqualsFailsProvider()
     {
+<<<<<<< HEAD
         return array(
           array(
             new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
@@ -136,6 +215,54 @@ class DateTimeComparatorTest extends \PHPUnit_Framework_TestCase
             new DateTime('2013-03-29T05:13:35-0500')
           ),
         );
+=======
+        return [
+            [
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 03:13:35', new DateTimeZone('America/New_York'))
+            ],
+            [
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 03:13:35', new DateTimeZone('America/New_York')),
+                3500
+            ],
+            [
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 05:13:35', new DateTimeZone('America/New_York')),
+                3500
+            ],
+            [
+                new DateTime('2013-03-29', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-30', new DateTimeZone('America/New_York'))
+            ],
+            [
+                new DateTime('2013-03-29', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-30', new DateTimeZone('America/New_York')),
+                43200
+            ],
+            [
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/Chicago')),
+            ],
+            [
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/Chicago')),
+                3500
+            ],
+            [
+                new DateTime('2013-03-30', new DateTimeZone('America/New_York')),
+                new DateTime('2013-03-30', new DateTimeZone('America/Chicago'))
+            ],
+            [
+                new DateTime('2013-03-29T05:13:35-0600'),
+                new DateTime('2013-03-29T04:13:35-0600')
+            ],
+            [
+                new DateTime('2013-03-29T05:13:35-0600'),
+                new DateTime('2013-03-29T05:13:35-0500')
+            ],
+        ];
+>>>>>>> dev
     }
 
     /**
@@ -144,10 +271,17 @@ class DateTimeComparatorTest extends \PHPUnit_Framework_TestCase
     public function testAcceptsSucceeds()
     {
         $this->assertTrue(
+<<<<<<< HEAD
           $this->comparator->accepts(
             new DateTime,
             new DateTime
           )
+=======
+            $this->comparator->accepts(
+                new DateTime,
+                new DateTime
+            )
+>>>>>>> dev
         );
     }
 
@@ -158,7 +292,11 @@ class DateTimeComparatorTest extends \PHPUnit_Framework_TestCase
     public function testAcceptsFails($expected, $actual)
     {
         $this->assertFalse(
+<<<<<<< HEAD
           $this->comparator->accepts($expected, $actual)
+=======
+            $this->comparator->accepts($expected, $actual)
+>>>>>>> dev
         );
     }
 
@@ -172,9 +310,13 @@ class DateTimeComparatorTest extends \PHPUnit_Framework_TestCase
 
         try {
             $this->comparator->assertEquals($expected, $actual, $delta);
+<<<<<<< HEAD
         }
 
         catch (ComparisonFailure $exception) {
+=======
+        } catch (ComparisonFailure $exception) {
+>>>>>>> dev
         }
 
         $this->assertNull($exception, 'Unexpected ComparisonFailure');
@@ -186,10 +328,16 @@ class DateTimeComparatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testAssertEqualsFails($expected, $actual, $delta = 0.0)
     {
+<<<<<<< HEAD
         $this->setExpectedException(
           'SebastianBergmann\\Comparator\\ComparisonFailure',
           'Failed asserting that two DateTime objects are equal.'
         );
+=======
+        $this->expectException(ComparisonFailure::class);
+        $this->expectExceptionMessage('Failed asserting that two DateTime objects are equal.');
+
+>>>>>>> dev
         $this->comparator->assertEquals($expected, $actual, $delta);
     }
 
@@ -208,9 +356,17 @@ class DateTimeComparatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsDateTimeInterface()
     {
+<<<<<<< HEAD
         $this->comparator->assertEquals(
           new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
           new DateTimeImmutable('2013-03-29 04:13:35', new DateTimeZone('America/New_York'))
+=======
+        $this->assertNull(
+            $this->comparator->assertEquals(
+                new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
+                new DateTimeImmutable('2013-03-29 04:13:35', new DateTimeZone('America/New_York'))
+            )
+>>>>>>> dev
         );
     }
 }

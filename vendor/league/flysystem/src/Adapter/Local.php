@@ -220,7 +220,11 @@ class Local extends AbstractAdapter
     public function read($path)
     {
         $location = $this->applyPathPrefix($path);
+<<<<<<< HEAD
         $contents = file_get_contents($location);
+=======
+        $contents = @file_get_contents($location);
+>>>>>>> dev
 
         if ($contents === false) {
             return false;

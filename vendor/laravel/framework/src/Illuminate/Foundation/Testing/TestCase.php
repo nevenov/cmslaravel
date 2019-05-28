@@ -3,6 +3,7 @@
 namespace Illuminate\Foundation\Testing;
 
 use Mockery;
+<<<<<<< HEAD
 use PHPUnit_Framework_TestCase;
 
 abstract class TestCase extends PHPUnit_Framework_TestCase
@@ -13,13 +14,34 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
         Concerns\InteractsWithAuthentication,
         Concerns\InteractsWithConsole,
         Concerns\InteractsWithDatabase,
+=======
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Console\Application as Artisan;
+use PHPUnit\Framework\TestCase as BaseTestCase;
+
+abstract class TestCase extends BaseTestCase
+{
+    use Concerns\InteractsWithContainer,
+        Concerns\MakesHttpRequests,
+        Concerns\InteractsWithAuthentication,
+        Concerns\InteractsWithConsole,
+        Concerns\InteractsWithDatabase,
+        Concerns\InteractsWithExceptionHandling,
+>>>>>>> dev
         Concerns\InteractsWithSession,
         Concerns\MocksApplicationServices;
 
     /**
      * The Illuminate application instance.
      *
+<<<<<<< HEAD
      * @var \Illuminate\Foundation\Application
+=======
+     * @var \Illuminate\Contracts\Foundation\Application
+>>>>>>> dev
      */
     protected $app;
 
@@ -58,7 +80,11 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
+<<<<<<< HEAD
     protected function setUp()
+=======
+    protected function setUp(): void
+>>>>>>> dev
     {
         if (! $this->app) {
             $this->refreshApplication();
@@ -70,6 +96,13 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
             call_user_func($callback);
         }
 
+<<<<<<< HEAD
+=======
+        Facade::clearResolvedInstances();
+
+        Model::setEventDispatcher($this->app['events']);
+
+>>>>>>> dev
         $this->setUpHasRun = true;
     }
 
@@ -80,20 +113,34 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      */
     protected function refreshApplication()
     {
+<<<<<<< HEAD
         putenv('APP_ENV=testing');
 
+=======
+>>>>>>> dev
         $this->app = $this->createApplication();
     }
 
     /**
      * Boot the testing helper traits.
      *
+<<<<<<< HEAD
      * @return void
+=======
+     * @return array
+>>>>>>> dev
      */
     protected function setUpTraits()
     {
         $uses = array_flip(class_uses_recursive(static::class));
 
+<<<<<<< HEAD
+=======
+        if (isset($uses[RefreshDatabase::class])) {
+            $this->refreshDatabase();
+        }
+
+>>>>>>> dev
         if (isset($uses[DatabaseMigrations::class])) {
             $this->runDatabaseMigrations();
         }
@@ -109,6 +156,15 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
         if (isset($uses[WithoutEvents::class])) {
             $this->disableEventsForAllTests();
         }
+<<<<<<< HEAD
+=======
+
+        if (isset($uses[WithFaker::class])) {
+            $this->setUpFaker();
+        }
+
+        return $uses;
+>>>>>>> dev
     }
 
     /**
@@ -116,7 +172,11 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
+<<<<<<< HEAD
     protected function tearDown()
+=======
+    protected function tearDown(): void
+>>>>>>> dev
     {
         if ($this->app) {
             foreach ($this->beforeApplicationDestroyedCallbacks as $callback) {
@@ -134,12 +194,39 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
             $this->serverVariables = [];
         }
 
+<<<<<<< HEAD
         if (class_exists('Mockery')) {
             Mockery::close();
         }
 
         $this->afterApplicationCreatedCallbacks = [];
         $this->beforeApplicationDestroyedCallbacks = [];
+=======
+        if (property_exists($this, 'defaultHeaders')) {
+            $this->defaultHeaders = [];
+        }
+
+        if (class_exists('Mockery')) {
+            if ($container = Mockery::getContainer()) {
+                $this->addToAssertionCount($container->mockery_getExpectationCount());
+            }
+
+            Mockery::close();
+        }
+
+        if (class_exists(Carbon::class)) {
+            Carbon::setTestNow();
+        }
+
+        if (class_exists(CarbonImmutable::class)) {
+            CarbonImmutable::setTestNow();
+        }
+
+        $this->afterApplicationCreatedCallbacks = [];
+        $this->beforeApplicationDestroyedCallbacks = [];
+
+        Artisan::forgetBootstrappers();
+>>>>>>> dev
     }
 
     /**
@@ -148,7 +235,11 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      * @param  callable  $callback
      * @return void
      */
+<<<<<<< HEAD
     protected function afterApplicationCreated(callable $callback)
+=======
+    public function afterApplicationCreated(callable $callback)
+>>>>>>> dev
     {
         $this->afterApplicationCreatedCallbacks[] = $callback;
 

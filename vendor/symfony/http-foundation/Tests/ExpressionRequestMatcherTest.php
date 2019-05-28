@@ -11,11 +11,19 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+<<<<<<< HEAD
+=======
+use PHPUnit\Framework\TestCase;
+>>>>>>> dev
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\HttpFoundation\ExpressionRequestMatcher;
 use Symfony\Component\HttpFoundation\Request;
 
+<<<<<<< HEAD
 class ExpressionRequestMatcherTest extends \PHPUnit_Framework_TestCase
+=======
+class ExpressionRequestMatcherTest extends TestCase
+>>>>>>> dev
 {
     /**
      * @expectedException \LogicException
@@ -54,6 +62,7 @@ class ExpressionRequestMatcherTest extends \PHPUnit_Framework_TestCase
 
     public function provideExpressions()
     {
+<<<<<<< HEAD
         return array(
             array('request.getMethod() == method', true),
             array('request.getPathInfo() == path', true),
@@ -64,5 +73,17 @@ class ExpressionRequestMatcherTest extends \PHPUnit_Framework_TestCase
             array('request.getMethod() != method', false),
             array('request.getMethod() != method && request.getPathInfo() == path && request.getHost() == host && request.getClientIp() == ip &&  request.attributes.all() == attributes', false),
         );
+=======
+        return [
+            ['request.getMethod() == method', true],
+            ['request.getPathInfo() == path', true],
+            ['request.getHost() == host', true],
+            ['request.getClientIp() == ip', true],
+            ['request.attributes.all() == attributes', true],
+            ['request.getMethod() == method && request.getPathInfo() == path && request.getHost() == host && request.getClientIp() == ip &&  request.attributes.all() == attributes', true],
+            ['request.getMethod() != method', false],
+            ['request.getMethod() != method && request.getPathInfo() == path && request.getHost() == host && request.getClientIp() == ip &&  request.attributes.all() == attributes', false],
+        ];
+>>>>>>> dev
     }
 }

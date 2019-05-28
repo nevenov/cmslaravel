@@ -13,6 +13,7 @@
  *
  * @author Chris Corbyn
  */
+<<<<<<< HEAD
 class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
 {
     /** HeaderFactory */
@@ -29,21 +30,55 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
 
     /** The charset used by Headers */
     private $_charset;
+=======
+class Swift_Mime_SimpleHeaderSet implements Swift_Mime_CharsetObserver
+{
+    /** HeaderFactory */
+    private $factory;
+
+    /** Collection of set Headers */
+    private $headers = [];
+
+    /** Field ordering details */
+    private $order = [];
+
+    /** List of fields which are required to be displayed */
+    private $required = [];
+
+    /** The charset used by Headers */
+    private $charset;
+>>>>>>> dev
 
     /**
      * Create a new SimpleHeaderSet with the given $factory.
      *
+<<<<<<< HEAD
      * @param Swift_Mime_HeaderFactory $factory
      * @param string                   $charset
      */
     public function __construct(Swift_Mime_HeaderFactory $factory, $charset = null)
     {
         $this->_factory = $factory;
+=======
+     * @param string $charset
+     */
+    public function __construct(Swift_Mime_SimpleHeaderFactory $factory, $charset = null)
+    {
+        $this->factory = $factory;
+>>>>>>> dev
         if (isset($charset)) {
             $this->setCharset($charset);
         }
     }
 
+<<<<<<< HEAD
+=======
+    public function newInstance()
+    {
+        return new self($this->factory);
+    }
+
+>>>>>>> dev
     /**
      * Set the charset used by these headers.
      *
@@ -51,9 +86,15 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
      */
     public function setCharset($charset)
     {
+<<<<<<< HEAD
         $this->_charset = $charset;
         $this->_factory->charsetChanged($charset);
         $this->_notifyHeadersOfCharset($charset);
+=======
+        $this->charset = $charset;
+        $this->factory->charsetChanged($charset);
+        $this->notifyHeadersOfCharset($charset);
+>>>>>>> dev
     }
 
     /**
@@ -64,6 +105,7 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
      */
     public function addMailboxHeader($name, $addresses = null)
     {
+<<<<<<< HEAD
         $this->_storeHeader($name,
         $this->_factory->createMailboxHeader($name, $addresses));
     }
@@ -78,6 +120,19 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     {
         $this->_storeHeader($name,
         $this->_factory->createDateHeader($name, $timestamp));
+=======
+        $this->storeHeader($name, $this->factory->createMailboxHeader($name, $addresses));
+    }
+
+    /**
+     * Add a new Date header using $dateTime.
+     *
+     * @param string $name
+     */
+    public function addDateHeader($name, DateTimeInterface $dateTime = null)
+    {
+        $this->storeHeader($name, $this->factory->createDateHeader($name, $dateTime));
+>>>>>>> dev
     }
 
     /**
@@ -88,8 +143,12 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
      */
     public function addTextHeader($name, $value = null)
     {
+<<<<<<< HEAD
         $this->_storeHeader($name,
         $this->_factory->createTextHeader($name, $value));
+=======
+        $this->storeHeader($name, $this->factory->createTextHeader($name, $value));
+>>>>>>> dev
     }
 
     /**
@@ -99,9 +158,15 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
      * @param string $value
      * @param array  $params
      */
+<<<<<<< HEAD
     public function addParameterizedHeader($name, $value = null, $params = array())
     {
         $this->_storeHeader($name, $this->_factory->createParameterizedHeader($name, $value, $params));
+=======
+    public function addParameterizedHeader($name, $value = null, $params = [])
+    {
+        $this->storeHeader($name, $this->factory->createParameterizedHeader($name, $value, $params));
+>>>>>>> dev
     }
 
     /**
@@ -112,7 +177,11 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
      */
     public function addIdHeader($name, $ids = null)
     {
+<<<<<<< HEAD
         $this->_storeHeader($name, $this->_factory->createIdHeader($name, $ids));
+=======
+        $this->storeHeader($name, $this->factory->createIdHeader($name, $ids));
+>>>>>>> dev
     }
 
     /**
@@ -123,7 +192,11 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
      */
     public function addPathHeader($name, $path = null)
     {
+<<<<<<< HEAD
         $this->_storeHeader($name, $this->_factory->createPathHeader($name, $path));
+=======
+        $this->storeHeader($name, $this->factory->createPathHeader($name, $path));
+>>>>>>> dev
     }
 
     /**
@@ -140,16 +213,27 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     {
         $lowerName = strtolower($name);
 
+<<<<<<< HEAD
         if (!array_key_exists($lowerName, $this->_headers)) {
+=======
+        if (!array_key_exists($lowerName, $this->headers)) {
+>>>>>>> dev
             return false;
         }
 
         if (func_num_args() < 2) {
             // index was not specified, so we only need to check that there is at least one header value set
+<<<<<<< HEAD
             return (bool) count($this->_headers[$lowerName]);
         }
 
         return array_key_exists($index, $this->_headers[$lowerName]);
+=======
+            return (bool) count($this->headers[$lowerName]);
+        }
+
+        return array_key_exists($index, $this->headers[$lowerName]);
+>>>>>>> dev
     }
 
     /**
@@ -161,12 +245,20 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
      * If $index is specified, the header will be inserted into the set at this
      * offset.
      *
+<<<<<<< HEAD
      * @param Swift_Mime_Header $header
      * @param int               $index
      */
     public function set(Swift_Mime_Header $header, $index = 0)
     {
         $this->_storeHeader($header->getFieldName(), $header, $index);
+=======
+     * @param int $index
+     */
+    public function set(Swift_Mime_Header $header, $index = 0)
+    {
+        $this->storeHeader($header->getFieldName(), $header, $index);
+>>>>>>> dev
     }
 
     /**
@@ -186,13 +278,21 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
 
         if (func_num_args() < 2) {
             if ($this->has($name)) {
+<<<<<<< HEAD
                 $values = array_values($this->_headers[$name]);
+=======
+                $values = array_values($this->headers[$name]);
+>>>>>>> dev
 
                 return array_shift($values);
             }
         } else {
             if ($this->has($name, $index)) {
+<<<<<<< HEAD
                 return $this->_headers[$name][$index];
+=======
+                return $this->headers[$name][$index];
+>>>>>>> dev
             }
         }
     }
@@ -207,8 +307,13 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     public function getAll($name = null)
     {
         if (!isset($name)) {
+<<<<<<< HEAD
             $headers = array();
             foreach ($this->_headers as $collection) {
+=======
+            $headers = [];
+            foreach ($this->headers as $collection) {
+>>>>>>> dev
                 $headers = array_merge($headers, $collection);
             }
 
@@ -216,11 +321,19 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
         }
 
         $lowerName = strtolower($name);
+<<<<<<< HEAD
         if (!array_key_exists($lowerName, $this->_headers)) {
             return array();
         }
 
         return $this->_headers[$lowerName];
+=======
+        if (!array_key_exists($lowerName, $this->headers)) {
+            return [];
+        }
+
+        return $this->headers[$lowerName];
+>>>>>>> dev
     }
 
     /**
@@ -230,9 +343,15 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
      */
     public function listAll()
     {
+<<<<<<< HEAD
         $headers = $this->_headers;
         if ($this->_canSort()) {
             uksort($headers, array($this, '_sortHeaders'));
+=======
+        $headers = $this->headers;
+        if ($this->canSort()) {
+            uksort($headers, [$this, 'sortHeaders']);
+>>>>>>> dev
         }
 
         return array_keys($headers);
@@ -249,7 +368,11 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     public function remove($name, $index = 0)
     {
         $lowerName = strtolower($name);
+<<<<<<< HEAD
         unset($this->_headers[$lowerName][$index]);
+=======
+        unset($this->headers[$lowerName][$index]);
+>>>>>>> dev
     }
 
     /**
@@ -260,6 +383,7 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     public function removeAll($name)
     {
         $lowerName = strtolower($name);
+<<<<<<< HEAD
         unset($this->_headers[$lowerName]);
     }
 
@@ -271,30 +395,47 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     public function newInstance()
     {
         return new self($this->_factory);
+=======
+        unset($this->headers[$lowerName]);
+>>>>>>> dev
     }
 
     /**
      * Define a list of Header names as an array in the correct order.
      *
      * These Headers will be output in the given order where present.
+<<<<<<< HEAD
      *
      * @param array $sequence
      */
     public function defineOrdering(array $sequence)
     {
         $this->_order = array_flip(array_map('strtolower', $sequence));
+=======
+     */
+    public function defineOrdering(array $sequence)
+    {
+        $this->order = array_flip(array_map('strtolower', $sequence));
+>>>>>>> dev
     }
 
     /**
      * Set a list of header names which must always be displayed when set.
      *
      * Usually headers without a field value won't be output unless set here.
+<<<<<<< HEAD
      *
      * @param array $names
      */
     public function setAlwaysDisplayed(array $names)
     {
         $this->_required = array_flip(array_map('strtolower', $names));
+=======
+     */
+    public function setAlwaysDisplayed(array $names)
+    {
+        $this->required = array_flip(array_map('strtolower', $names));
+>>>>>>> dev
     }
 
     /**
@@ -315,6 +456,7 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     public function toString()
     {
         $string = '';
+<<<<<<< HEAD
         $headers = $this->_headers;
         if ($this->_canSort()) {
             uksort($headers, array($this, '_sortHeaders'));
@@ -322,6 +464,15 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
         foreach ($headers as $collection) {
             foreach ($collection as $header) {
                 if ($this->_isDisplayed($header) || $header->getFieldBody() != '') {
+=======
+        $headers = $this->headers;
+        if ($this->canSort()) {
+            uksort($headers, [$this, 'sortHeaders']);
+        }
+        foreach ($headers as $collection) {
+            foreach ($collection as $header) {
+                if ($this->isDisplayed($header) || '' != $header->getFieldBody()) {
+>>>>>>> dev
                     $string .= $header->toString();
                 }
             }
@@ -343,6 +494,7 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     }
 
     /** Save a Header to the internal collection */
+<<<<<<< HEAD
     private function _storeHeader($name, Swift_Mime_Header $header, $offset = null)
     {
         if (!isset($this->_headers[strtolower($name)])) {
@@ -352,10 +504,22 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
             $this->_headers[strtolower($name)][] = $header;
         } else {
             $this->_headers[strtolower($name)][$offset] = $header;
+=======
+    private function storeHeader($name, Swift_Mime_Header $header, $offset = null)
+    {
+        if (!isset($this->headers[strtolower($name)])) {
+            $this->headers[strtolower($name)] = [];
+        }
+        if (!isset($offset)) {
+            $this->headers[strtolower($name)][] = $header;
+        } else {
+            $this->headers[strtolower($name)][$offset] = $header;
+>>>>>>> dev
         }
     }
 
     /** Test if the headers can be sorted */
+<<<<<<< HEAD
     private function _canSort()
     {
         return count($this->_order) > 0;
@@ -368,15 +532,35 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
         $lowerB = strtolower($b);
         $aPos = array_key_exists($lowerA, $this->_order) ? $this->_order[$lowerA] : -1;
         $bPos = array_key_exists($lowerB, $this->_order) ? $this->_order[$lowerB] : -1;
+=======
+    private function canSort()
+    {
+        return count($this->order) > 0;
+    }
+
+    /** uksort() algorithm for Header ordering */
+    private function sortHeaders($a, $b)
+    {
+        $lowerA = strtolower($a);
+        $lowerB = strtolower($b);
+        $aPos = array_key_exists($lowerA, $this->order) ? $this->order[$lowerA] : -1;
+        $bPos = array_key_exists($lowerB, $this->order) ? $this->order[$lowerB] : -1;
+>>>>>>> dev
 
         if (-1 === $aPos && -1 === $bPos) {
             // just be sure to be determinist here
             return $a > $b ? -1 : 1;
         }
 
+<<<<<<< HEAD
         if ($aPos == -1) {
             return 1;
         } elseif ($bPos == -1) {
+=======
+        if (-1 == $aPos) {
+            return 1;
+        } elseif (-1 == $bPos) {
+>>>>>>> dev
             return -1;
         }
 
@@ -384,6 +568,7 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     }
 
     /** Test if the given Header is always displayed */
+<<<<<<< HEAD
     private function _isDisplayed(Swift_Mime_Header $header)
     {
         return array_key_exists(strtolower($header->getFieldName()), $this->_required);
@@ -393,6 +578,17 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
     private function _notifyHeadersOfCharset($charset)
     {
         foreach ($this->_headers as $headerGroup) {
+=======
+    private function isDisplayed(Swift_Mime_Header $header)
+    {
+        return array_key_exists(strtolower($header->getFieldName()), $this->required);
+    }
+
+    /** Notify all Headers of the new charset */
+    private function notifyHeadersOfCharset($charset)
+    {
+        foreach ($this->headers as $headerGroup) {
+>>>>>>> dev
             foreach ($headerGroup as $header) {
                 $header->setCharset($charset);
             }
@@ -404,10 +600,17 @@ class Swift_Mime_SimpleHeaderSet implements Swift_Mime_HeaderSet
      */
     public function __clone()
     {
+<<<<<<< HEAD
         $this->_factory = clone $this->_factory;
         foreach ($this->_headers as $groupKey => $headerGroup) {
             foreach ($headerGroup as $key => $header) {
                 $this->_headers[$groupKey][$key] = clone $header;
+=======
+        $this->factory = clone $this->factory;
+        foreach ($this->headers as $groupKey => $headerGroup) {
+            foreach ($headerGroup as $key => $header) {
+                $this->headers[$groupKey][$key] = clone $header;
+>>>>>>> dev
             }
         }
     }

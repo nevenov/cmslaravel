@@ -54,7 +54,11 @@ class CacheTableCommand extends Command
      *
      * @return void
      */
+<<<<<<< HEAD
     public function fire()
+=======
+    public function handle()
+>>>>>>> dev
     {
         $fullPath = $this->createBaseMigration();
 

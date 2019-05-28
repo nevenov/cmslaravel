@@ -7,11 +7,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 /**
  * @since Class available since Release 3.6.0
  */
 class PHPUnit_Framework_Constraint_Count extends PHPUnit_Framework_Constraint
+=======
+namespace PHPUnit\Framework\Constraint;
+
+use Countable;
+use Generator;
+use Iterator;
+use IteratorAggregate;
+use Traversable;
+
+class Count extends Constraint
+>>>>>>> dev
 {
     /**
      * @var int
@@ -41,6 +53,7 @@ class PHPUnit_Framework_Constraint_Count extends PHPUnit_Framework_Constraint
     }
 
     /**
+<<<<<<< HEAD
      * @param mixed $other
      *
      * @return bool
@@ -61,6 +74,38 @@ class PHPUnit_Framework_Constraint_Count extends PHPUnit_Framework_Constraint
 
             // manually rewind $iterator to previous key, since iterator_count
             // moves pointer
+=======
+     * @param \Countable|\Traversable|array $other
+     *
+     * @return int|null
+     */
+    protected function getCountOf($other)
+    {
+        if ($other instanceof Countable || \is_array($other)) {
+            return \count($other);
+        }
+
+        if ($other instanceof Traversable) {
+            while ($other instanceof IteratorAggregate) {
+                $other = $other->getIterator();
+            }
+
+            $iterator = $other;
+
+            if ($iterator instanceof Generator) {
+                return $this->getCountOfGenerator($iterator);
+            }
+
+            if (!$iterator instanceof Iterator) {
+                return \iterator_count($iterator);
+            }
+
+            $key   = $iterator->key();
+            $count = \iterator_count($iterator);
+
+            // Manually rewind $iterator to previous key, since iterator_count
+            // moves pointer.
+>>>>>>> dev
             if ($key !== null) {
                 $iterator->rewind();
                 while ($iterator->valid() && $key !== $iterator->key()) {
@@ -73,7 +118,28 @@ class PHPUnit_Framework_Constraint_Count extends PHPUnit_Framework_Constraint
     }
 
     /**
+<<<<<<< HEAD
      * Returns the description of the failure
+=======
+     * Returns the total number of iterations from a generator.
+     * This will fully exhaust the generator.
+     *
+     * @param Generator $generator
+     *
+     * @return int
+     */
+    protected function getCountOfGenerator(Generator $generator)
+    {
+        for ($count = 0; $generator->valid(); $generator->next()) {
+            ++$count;
+        }
+
+        return $count;
+    }
+
+    /**
+     * Returns the description of the failure.
+>>>>>>> dev
      *
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
@@ -84,7 +150,11 @@ class PHPUnit_Framework_Constraint_Count extends PHPUnit_Framework_Constraint
      */
     protected function failureDescription($other)
     {
+<<<<<<< HEAD
         return sprintf(
+=======
+        return \sprintf(
+>>>>>>> dev
             'actual size %d matches expected size %d',
             $this->getCountOf($other),
             $this->expectedCount
@@ -96,7 +166,11 @@ class PHPUnit_Framework_Constraint_Count extends PHPUnit_Framework_Constraint
      */
     public function toString()
     {
+<<<<<<< HEAD
         return sprintf(
+=======
+        return \sprintf(
+>>>>>>> dev
             'count matches %d',
             $this->expectedCount
         );

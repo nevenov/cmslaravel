@@ -3,12 +3,21 @@
  * Random_* Compatibility Library
  * for using the new PHP 7 random_* API in PHP 5 projects
  *
+<<<<<<< HEAD
  * @version 1.4.3
  * @released 2018-04-04
  *
  * The MIT License (MIT)
  *
  * Copyright (c) 2015 - 2016 Paragon Initiative Enterprises
+=======
+ * @version 2.99.99
+ * @released 2018-06-06
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 - 2018 Paragon Initiative Enterprises
+>>>>>>> dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +38,7 @@
  * SOFTWARE.
  */
 
+<<<<<<< HEAD
 if (!defined('PHP_VERSION_ID')) {
     // This constant was introduced in PHP 5.2.7
     $RandomCompatversion = array_map('intval', explode('.', PHP_VERSION));
@@ -245,3 +255,6 @@ if (!is_callable('random_int')) {
 }
 
 $RandomCompatDIR = null;
+=======
+// NOP
+>>>>>>> dev

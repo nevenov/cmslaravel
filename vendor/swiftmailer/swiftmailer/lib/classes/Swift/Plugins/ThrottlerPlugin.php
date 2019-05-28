@@ -29,28 +29,44 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
      *
      * @var Swift_Plugins_Sleeper
      */
+<<<<<<< HEAD
     private $_sleeper;
+=======
+    private $sleeper;
+>>>>>>> dev
 
     /**
      * The Timer instance which provides the timestamp.
      *
      * @var Swift_Plugins_Timer
      */
+<<<<<<< HEAD
     private $_timer;
+=======
+    private $timer;
+>>>>>>> dev
 
     /**
      * The time at which the first email was sent.
      *
      * @var int
      */
+<<<<<<< HEAD
     private $_start;
+=======
+    private $start;
+>>>>>>> dev
 
     /**
      * The rate at which messages should be sent.
      *
      * @var int
      */
+<<<<<<< HEAD
     private $_rate;
+=======
+    private $rate;
+>>>>>>> dev
 
     /**
      * The mode for throttling.
@@ -59,39 +75,62 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
      *
      * @var int
      */
+<<<<<<< HEAD
     private $_mode;
+=======
+    private $mode;
+>>>>>>> dev
 
     /**
      * An internal counter of the number of messages sent.
      *
      * @var int
      */
+<<<<<<< HEAD
     private $_messages = 0;
+=======
+    private $messages = 0;
+>>>>>>> dev
 
     /**
      * Create a new ThrottlerPlugin.
      *
      * @param int                   $rate
+<<<<<<< HEAD
      * @param int                   $mode,   defaults to {@link BYTES_PER_MINUTE}
+=======
+     * @param int                   $mode    defaults to {@link BYTES_PER_MINUTE}
+>>>>>>> dev
      * @param Swift_Plugins_Sleeper $sleeper (only needed in testing)
      * @param Swift_Plugins_Timer   $timer   (only needed in testing)
      */
     public function __construct($rate, $mode = self::BYTES_PER_MINUTE, Swift_Plugins_Sleeper $sleeper = null, Swift_Plugins_Timer $timer = null)
     {
+<<<<<<< HEAD
         $this->_rate = $rate;
         $this->_mode = $mode;
         $this->_sleeper = $sleeper;
         $this->_timer = $timer;
+=======
+        $this->rate = $rate;
+        $this->mode = $mode;
+        $this->sleeper = $sleeper;
+        $this->timer = $timer;
+>>>>>>> dev
     }
 
     /**
      * Invoked immediately before the Message is sent.
+<<<<<<< HEAD
      *
      * @param Swift_Events_SendEvent $evt
+=======
+>>>>>>> dev
      */
     public function beforeSendPerformed(Swift_Events_SendEvent $evt)
     {
         $time = $this->getTimestamp();
+<<<<<<< HEAD
         if (!isset($this->_start)) {
             $this->_start = $time;
         }
@@ -106,6 +145,22 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
                 break;
             case self::MESSAGES_PER_MINUTE:
                 $sleep = $this->_throttleMessagesPerMinute($duration);
+=======
+        if (!isset($this->start)) {
+            $this->start = $time;
+        }
+        $duration = $time - $this->start;
+
+        switch ($this->mode) {
+            case self::BYTES_PER_MINUTE:
+                $sleep = $this->throttleBytesPerMinute($duration);
+                break;
+            case self::MESSAGES_PER_SECOND:
+                $sleep = $this->throttleMessagesPerSecond($duration);
+                break;
+            case self::MESSAGES_PER_MINUTE:
+                $sleep = $this->throttleMessagesPerMinute($duration);
+>>>>>>> dev
                 break;
             default:
                 $sleep = 0;
@@ -119,13 +174,20 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
 
     /**
      * Invoked when a Message is sent.
+<<<<<<< HEAD
      *
      * @param Swift_Events_SendEvent $evt
+=======
+>>>>>>> dev
      */
     public function sendPerformed(Swift_Events_SendEvent $evt)
     {
         parent::sendPerformed($evt);
+<<<<<<< HEAD
         ++$this->_messages;
+=======
+        ++$this->messages;
+>>>>>>> dev
     }
 
     /**
@@ -135,8 +197,13 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
      */
     public function sleep($seconds)
     {
+<<<<<<< HEAD
         if (isset($this->_sleeper)) {
             $this->_sleeper->sleep($seconds);
+=======
+        if (isset($this->sleeper)) {
+            $this->sleeper->sleep($seconds);
+>>>>>>> dev
         } else {
             sleep($seconds);
         }
@@ -149,8 +216,13 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
      */
     public function getTimestamp()
     {
+<<<<<<< HEAD
         if (isset($this->_timer)) {
             return $this->_timer->getTimestamp();
+=======
+        if (isset($this->timer)) {
+            return $this->timer->getTimestamp();
+>>>>>>> dev
         }
 
         return time();
@@ -163,9 +235,15 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
      *
      * @return int
      */
+<<<<<<< HEAD
     private function _throttleBytesPerMinute($timePassed)
     {
         $expectedDuration = $this->getBytesOut() / ($this->_rate / 60);
+=======
+    private function throttleBytesPerMinute($timePassed)
+    {
+        $expectedDuration = $this->getBytesOut() / ($this->rate / 60);
+>>>>>>> dev
 
         return (int) ceil($expectedDuration - $timePassed);
     }
@@ -177,9 +255,15 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
      *
      * @return int
      */
+<<<<<<< HEAD
     private function _throttleMessagesPerSecond($timePassed)
     {
         $expectedDuration = $this->_messages / ($this->_rate);
+=======
+    private function throttleMessagesPerSecond($timePassed)
+    {
+        $expectedDuration = $this->messages / $this->rate;
+>>>>>>> dev
 
         return (int) ceil($expectedDuration - $timePassed);
     }
@@ -191,9 +275,15 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
      *
      * @return int
      */
+<<<<<<< HEAD
     private function _throttleMessagesPerMinute($timePassed)
     {
         $expectedDuration = $this->_messages / ($this->_rate / 60);
+=======
+    private function throttleMessagesPerMinute($timePassed)
+    {
+        $expectedDuration = $this->messages / ($this->rate / 60);
+>>>>>>> dev
 
         return (int) ceil($expectedDuration - $timePassed);
     }

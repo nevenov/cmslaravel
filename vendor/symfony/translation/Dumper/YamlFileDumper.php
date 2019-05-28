@@ -11,6 +11,10 @@
 
 namespace Symfony\Component\Translation\Dumper;
 
+<<<<<<< HEAD
+=======
+use Symfony\Component\Translation\Exception\LogicException;
+>>>>>>> dev
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Util\ArrayConverter;
 use Symfony\Component\Yaml\Yaml;
@@ -22,6 +26,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlFileDumper extends FileDumper
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -29,6 +34,22 @@ class YamlFileDumper extends FileDumper
     {
         if (!class_exists('Symfony\Component\Yaml\Yaml')) {
             throw new \LogicException('Dumping translations in the YAML format requires the Symfony Yaml component.');
+=======
+    private $extension;
+
+    public function __construct(string $extension = 'yml')
+    {
+        $this->extension = $extension;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function formatCatalogue(MessageCatalogue $messages, $domain, array $options = [])
+    {
+        if (!class_exists('Symfony\Component\Yaml\Yaml')) {
+            throw new LogicException('Dumping translations in the YAML format requires the Symfony Yaml component.');
+>>>>>>> dev
         }
 
         $data = $messages->all($domain);
@@ -49,6 +70,10 @@ class YamlFileDumper extends FileDumper
      */
     protected function getExtension()
     {
+<<<<<<< HEAD
         return 'yml';
+=======
+        return $this->extension;
+>>>>>>> dev
     }
 }

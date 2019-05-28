@@ -1,5 +1,11 @@
 <?php
+<<<<<<< HEAD
 class BeforeAndAfterTest extends PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+
+class BeforeAndAfterTest extends TestCase
+>>>>>>> dev
 {
     public static $beforeWasRun;
     public static $afterWasRun;

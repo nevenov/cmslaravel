@@ -28,7 +28,10 @@ class ProgressIndicator
     private $indicatorCurrent;
     private $indicatorChangeInterval;
     private $indicatorUpdateTime;
+<<<<<<< HEAD
     private $lastMessagesLength;
+=======
+>>>>>>> dev
     private $started = false;
 
     private static $formatters;
@@ -40,7 +43,11 @@ class ProgressIndicator
      * @param int             $indicatorChangeInterval Change interval in milliseconds
      * @param array|null      $indicatorValues         Animated indicator characters
      */
+<<<<<<< HEAD
     public function __construct(OutputInterface $output, $format = null, $indicatorChangeInterval = 100, $indicatorValues = null)
+=======
+    public function __construct(OutputInterface $output, string $format = null, int $indicatorChangeInterval = 100, array $indicatorValues = null)
+>>>>>>> dev
     {
         $this->output = $output;
 
@@ -49,12 +56,20 @@ class ProgressIndicator
         }
 
         if (null === $indicatorValues) {
+<<<<<<< HEAD
             $indicatorValues = array('-', '\\', '|', '/');
+=======
+            $indicatorValues = ['-', '\\', '|', '/'];
+>>>>>>> dev
         }
 
         $indicatorValues = array_values($indicatorValues);
 
+<<<<<<< HEAD
         if (2 > count($indicatorValues)) {
+=======
+        if (2 > \count($indicatorValues)) {
+>>>>>>> dev
             throw new InvalidArgumentException('Must have at least 2 indicator value characters.');
         }
 
@@ -89,7 +104,10 @@ class ProgressIndicator
 
         $this->message = $message;
         $this->started = true;
+<<<<<<< HEAD
         $this->lastMessagesLength = 0;
+=======
+>>>>>>> dev
         $this->startTime = time();
         $this->indicatorUpdateTime = $this->getCurrentTimeInMilliseconds() + $this->indicatorChangeInterval;
         $this->indicatorCurrent = 0;
@@ -198,7 +216,11 @@ class ProgressIndicator
 
         $this->overwrite(preg_replace_callback("{%([a-z\-_]+)(?:\:([^%]+))?%}i", function ($matches) use ($self) {
             if ($formatter = $self::getPlaceholderFormatterDefinition($matches[1])) {
+<<<<<<< HEAD
                 return call_user_func($formatter, $self);
+=======
+                return $formatter($self);
+>>>>>>> dev
             }
 
             return $matches[0];
@@ -221,6 +243,7 @@ class ProgressIndicator
 
     /**
      * Overwrites a previous message to the output.
+<<<<<<< HEAD
      *
      * @param string $message The message
      */
@@ -235,10 +258,18 @@ class ProgressIndicator
 
         if ($this->output->isDecorated()) {
             $this->output->write("\x0D");
+=======
+     */
+    private function overwrite(string $message)
+    {
+        if ($this->output->isDecorated()) {
+            $this->output->write("\x0D\x1B[2K");
+>>>>>>> dev
             $this->output->write($message);
         } else {
             $this->output->writeln($message);
         }
+<<<<<<< HEAD
 
         $this->lastMessagesLength = 0;
 
@@ -247,6 +278,8 @@ class ProgressIndicator
         if ($len > $this->lastMessagesLength) {
             $this->lastMessagesLength = $len;
         }
+=======
+>>>>>>> dev
     }
 
     private function getCurrentTimeInMilliseconds()
@@ -256,6 +289,7 @@ class ProgressIndicator
 
     private static function initPlaceholderFormatters()
     {
+<<<<<<< HEAD
         return array(
             'indicator' => function (ProgressIndicator $indicator) {
                 return $indicator->indicatorValues[$indicator->indicatorCurrent % count($indicator->indicatorValues)];
@@ -264,17 +298,35 @@ class ProgressIndicator
                 return $indicator->message;
             },
             'elapsed' => function (ProgressIndicator $indicator) {
+=======
+        return [
+            'indicator' => function (self $indicator) {
+                return $indicator->indicatorValues[$indicator->indicatorCurrent % \count($indicator->indicatorValues)];
+            },
+            'message' => function (self $indicator) {
+                return $indicator->message;
+            },
+            'elapsed' => function (self $indicator) {
+>>>>>>> dev
                 return Helper::formatTime(time() - $indicator->startTime);
             },
             'memory' => function () {
                 return Helper::formatMemory(memory_get_usage(true));
             },
+<<<<<<< HEAD
         );
+=======
+        ];
+>>>>>>> dev
     }
 
     private static function initFormats()
     {
+<<<<<<< HEAD
         return array(
+=======
+        return [
+>>>>>>> dev
             'normal' => ' %indicator% %message%',
             'normal_no_ansi' => ' %message%',
 
@@ -283,6 +335,10 @@ class ProgressIndicator
 
             'very_verbose' => ' %indicator% %message% (%elapsed:6s%, %memory:6s%)',
             'very_verbose_no_ansi' => ' %message% (%elapsed:6s%, %memory:6s%)',
+<<<<<<< HEAD
         );
+=======
+        ];
+>>>>>>> dev
     }
 }

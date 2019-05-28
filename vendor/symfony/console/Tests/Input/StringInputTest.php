@@ -11,11 +11,19 @@
 
 namespace Symfony\Component\Console\Tests\Input;
 
+<<<<<<< HEAD
+=======
+use PHPUnit\Framework\TestCase;
+>>>>>>> dev
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\StringInput;
 
+<<<<<<< HEAD
 class StringInputTest extends \PHPUnit_Framework_TestCase
+=======
+class StringInputTest extends TestCase
+>>>>>>> dev
 {
     /**
      * @dataProvider getTokenizeData
@@ -32,7 +40,11 @@ class StringInputTest extends \PHPUnit_Framework_TestCase
     public function testInputOptionWithGivenString()
     {
         $definition = new InputDefinition(
+<<<<<<< HEAD
             array(new InputOption('foo', null, InputOption::VALUE_REQUIRED))
+=======
+            [new InputOption('foo', null, InputOption::VALUE_REQUIRED)]
+>>>>>>> dev
         );
 
         // call to bind
@@ -43,6 +55,7 @@ class StringInputTest extends \PHPUnit_Framework_TestCase
 
     public function getTokenizeData()
     {
+<<<<<<< HEAD
         return array(
             array('', array(), '->tokenize() parses an empty string'),
             array('foo', array('foo'), '->tokenize() parses arguments'),
@@ -70,6 +83,35 @@ class StringInputTest extends \PHPUnit_Framework_TestCase
             array("--long-option='foo bar'\"another\"", array('--long-option=foo baranother'), '->tokenize() parses long options with a value'),
             array('foo -a -ffoo --long bar', array('foo', '-a', '-ffoo', '--long', 'bar'), '->tokenize() parses when several arguments and options'),
         );
+=======
+        return [
+            ['', [], '->tokenize() parses an empty string'],
+            ['foo', ['foo'], '->tokenize() parses arguments'],
+            ['  foo  bar  ', ['foo', 'bar'], '->tokenize() ignores whitespaces between arguments'],
+            ['"quoted"', ['quoted'], '->tokenize() parses quoted arguments'],
+            ["'quoted'", ['quoted'], '->tokenize() parses quoted arguments'],
+            ["'a\rb\nc\td'", ["a\rb\nc\td"], '->tokenize() parses whitespace chars in strings'],
+            ["'a'\r'b'\n'c'\t'd'", ['a', 'b', 'c', 'd'], '->tokenize() parses whitespace chars between args as spaces'],
+            ['\"quoted\"', ['"quoted"'], '->tokenize() parses escaped-quoted arguments'],
+            ["\'quoted\'", ['\'quoted\''], '->tokenize() parses escaped-quoted arguments'],
+            ['-a', ['-a'], '->tokenize() parses short options'],
+            ['-azc', ['-azc'], '->tokenize() parses aggregated short options'],
+            ['-awithavalue', ['-awithavalue'], '->tokenize() parses short options with a value'],
+            ['-a"foo bar"', ['-afoo bar'], '->tokenize() parses short options with a value'],
+            ['-a"foo bar""foo bar"', ['-afoo barfoo bar'], '->tokenize() parses short options with a value'],
+            ['-a\'foo bar\'', ['-afoo bar'], '->tokenize() parses short options with a value'],
+            ['-a\'foo bar\'\'foo bar\'', ['-afoo barfoo bar'], '->tokenize() parses short options with a value'],
+            ['-a\'foo bar\'"foo bar"', ['-afoo barfoo bar'], '->tokenize() parses short options with a value'],
+            ['--long-option', ['--long-option'], '->tokenize() parses long options'],
+            ['--long-option=foo', ['--long-option=foo'], '->tokenize() parses long options with a value'],
+            ['--long-option="foo bar"', ['--long-option=foo bar'], '->tokenize() parses long options with a value'],
+            ['--long-option="foo bar""another"', ['--long-option=foo baranother'], '->tokenize() parses long options with a value'],
+            ['--long-option=\'foo bar\'', ['--long-option=foo bar'], '->tokenize() parses long options with a value'],
+            ["--long-option='foo bar''another'", ['--long-option=foo baranother'], '->tokenize() parses long options with a value'],
+            ["--long-option='foo bar'\"another\"", ['--long-option=foo baranother'], '->tokenize() parses long options with a value'],
+            ['foo -a -ffoo --long bar', ['foo', '-a', '-ffoo', '--long', 'bar'], '->tokenize() parses when several arguments and options'],
+        ];
+>>>>>>> dev
     }
 
     public function testToString()

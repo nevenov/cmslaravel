@@ -2,6 +2,7 @@
 
 namespace Illuminate\Cache;
 
+<<<<<<< HEAD
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Redis\Database as Redis;
 
@@ -11,6 +12,17 @@ class RedisStore extends TaggableStore implements Store
      * The Redis database connection.
      *
      * @var \Illuminate\Redis\Database
+=======
+use Illuminate\Contracts\Cache\LockProvider;
+use Illuminate\Contracts\Redis\Factory as Redis;
+
+class RedisStore extends TaggableStore implements LockProvider
+{
+    /**
+     * The Redis factory implementation.
+     *
+     * @var \Illuminate\Contracts\Redis\Factory
+>>>>>>> dev
      */
     protected $redis;
 
@@ -31,7 +43,11 @@ class RedisStore extends TaggableStore implements Store
     /**
      * Create a new Redis store.
      *
+<<<<<<< HEAD
      * @param  \Illuminate\Redis\Database  $redis
+=======
+     * @param  \Illuminate\Contracts\Redis\Factory  $redis
+>>>>>>> dev
      * @param  string  $prefix
      * @param  string  $connection
      * @return void
@@ -40,7 +56,11 @@ class RedisStore extends TaggableStore implements Store
     {
         $this->redis = $redis;
         $this->setPrefix($prefix);
+<<<<<<< HEAD
         $this->connection = $connection;
+=======
+        $this->setConnection($connection);
+>>>>>>> dev
     }
 
     /**
@@ -51,9 +71,15 @@ class RedisStore extends TaggableStore implements Store
      */
     public function get($key)
     {
+<<<<<<< HEAD
         if (! is_null($value = $this->connection()->get($this->prefix.$key))) {
             return is_numeric($value) ? $value : unserialize($value);
         }
+=======
+        $value = $this->connection()->get($this->prefix.$key);
+
+        return ! is_null($value) ? $this->unserialize($value) : null;
+>>>>>>> dev
     }
 
     /**
@@ -66,6 +92,7 @@ class RedisStore extends TaggableStore implements Store
      */
     public function many(array $keys)
     {
+<<<<<<< HEAD
         $return = [];
 
         $prefixedKeys = array_map(function ($key) {
@@ -112,6 +139,75 @@ class RedisStore extends TaggableStore implements Store
         }
 
         $this->connection()->exec();
+=======
+        $results = [];
+
+        $values = $this->connection()->mget(array_map(function ($key) {
+            return $this->prefix.$key;
+        }, $keys));
+
+        foreach ($values as $index => $value) {
+            $results[$keys[$index]] = ! is_null($value) ? $this->unserialize($value) : null;
+        }
+
+        return $results;
+    }
+
+    /**
+     * Store an item in the cache for a given number of seconds.
+     *
+     * @param  string  $key
+     * @param  mixed   $value
+     * @param  int  $seconds
+     * @return bool
+     */
+    public function put($key, $value, $seconds)
+    {
+        return (bool) $this->connection()->setex(
+            $this->prefix.$key, (int) max(1, $seconds), $this->serialize($value)
+        );
+    }
+
+    /**
+     * Store multiple items in the cache for a given number of seconds.
+     *
+     * @param  array  $values
+     * @param  int  $seconds
+     * @return bool
+     */
+    public function putMany(array $values, $seconds)
+    {
+        $this->connection()->multi();
+
+        $manyResult = null;
+
+        foreach ($values as $key => $value) {
+            $result = $this->put($key, $value, $seconds);
+
+            $manyResult = is_null($manyResult) ? $result : $result && $manyResult;
+        }
+
+        $this->connection()->exec();
+
+        return $manyResult ?: false;
+    }
+
+    /**
+     * Store an item in the cache if the key doesn't exist.
+     *
+     * @param  string  $key
+     * @param  mixed   $value
+     * @param  int  $seconds
+     * @return bool
+     */
+    public function add($key, $value, $seconds)
+    {
+        $lua = "return redis.call('exists',KEYS[1])<1 and redis.call('setex',KEYS[1],ARGV[2],ARGV[1])";
+
+        return (bool) $this->connection()->eval(
+            $lua, 1, $this->prefix.$key, $this->serialize($value), (int) max(1, $seconds)
+        );
+>>>>>>> dev
     }
 
     /**
@@ -143,6 +239,7 @@ class RedisStore extends TaggableStore implements Store
      *
      * @param  string  $key
      * @param  mixed   $value
+<<<<<<< HEAD
      * @return void
      */
     public function forever($key, $value)
@@ -150,6 +247,38 @@ class RedisStore extends TaggableStore implements Store
         $value = is_numeric($value) ? $value : serialize($value);
 
         $this->connection()->set($this->prefix.$key, $value);
+=======
+     * @return bool
+     */
+    public function forever($key, $value)
+    {
+        return (bool) $this->connection()->set($this->prefix.$key, $this->serialize($value));
+    }
+
+    /**
+     * Get a lock instance.
+     *
+     * @param  string $name
+     * @param  int $seconds
+     * @param  string|null $owner
+     * @return \Illuminate\Contracts\Cache\Lock
+     */
+    public function lock($name, $seconds = 0, $owner = null)
+    {
+        return new RedisLock($this->connection(), $this->prefix.$name, $seconds, $owner);
+    }
+
+    /**
+     * Restore a lock instance using the owner identifier.
+     *
+     * @param  string  $name
+     * @param  string  $owner
+     * @return \Illuminate\Contracts\Cache\Lock
+     */
+    public function restoreLock($name, $owner)
+    {
+        return $this->lock($name, 0, $owner);
+>>>>>>> dev
     }
 
     /**
@@ -166,11 +295,20 @@ class RedisStore extends TaggableStore implements Store
     /**
      * Remove all items from the cache.
      *
+<<<<<<< HEAD
      * @return void
+=======
+     * @return bool
+>>>>>>> dev
      */
     public function flush()
     {
         $this->connection()->flushdb();
+<<<<<<< HEAD
+=======
+
+        return true;
+>>>>>>> dev
     }
 
     /**
@@ -181,7 +319,13 @@ class RedisStore extends TaggableStore implements Store
      */
     public function tags($names)
     {
+<<<<<<< HEAD
         return new RedisTaggedCache($this, new TagSet($this, is_array($names) ? $names : func_get_args()));
+=======
+        return new RedisTaggedCache(
+            $this, new TagSet($this, is_array($names) ? $names : func_get_args())
+        );
+>>>>>>> dev
     }
 
     /**
@@ -208,7 +352,11 @@ class RedisStore extends TaggableStore implements Store
     /**
      * Get the Redis database instance.
      *
+<<<<<<< HEAD
      * @return \Illuminate\Redis\Database
+=======
+     * @return \Illuminate\Contracts\Redis\Factory
+>>>>>>> dev
      */
     public function getRedis()
     {
@@ -235,4 +383,29 @@ class RedisStore extends TaggableStore implements Store
     {
         $this->prefix = ! empty($prefix) ? $prefix.':' : '';
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Serialize the value.
+     *
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function serialize($value)
+    {
+        return is_numeric($value) ? $value : serialize($value);
+    }
+
+    /**
+     * Unserialize the value.
+     *
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function unserialize($value)
+    {
+        return is_numeric($value) ? $value : unserialize($value);
+    }
+>>>>>>> dev
 }

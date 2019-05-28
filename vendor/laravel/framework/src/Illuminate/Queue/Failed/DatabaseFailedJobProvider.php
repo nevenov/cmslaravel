@@ -2,7 +2,11 @@
 
 namespace Illuminate\Queue\Failed;
 
+<<<<<<< HEAD
 use Carbon\Carbon;
+=======
+use Illuminate\Support\Facades\Date;
+>>>>>>> dev
 use Illuminate\Database\ConnectionResolverInterface;
 
 class DatabaseFailedJobProvider implements FailedJobProviderInterface
@@ -49,6 +53,7 @@ class DatabaseFailedJobProvider implements FailedJobProviderInterface
      * @param  string  $connection
      * @param  string  $queue
      * @param  string  $payload
+<<<<<<< HEAD
      * @return int|null
      */
     public function log($connection, $queue, $payload)
@@ -56,6 +61,20 @@ class DatabaseFailedJobProvider implements FailedJobProviderInterface
         $failed_at = Carbon::now();
 
         return $this->getTable()->insertGetId(compact('connection', 'queue', 'payload', 'failed_at'));
+=======
+     * @param  \Exception  $exception
+     * @return int|null
+     */
+    public function log($connection, $queue, $payload, $exception)
+    {
+        $failed_at = Date::now();
+
+        $exception = (string) $exception;
+
+        return $this->getTable()->insertGetId(compact(
+            'connection', 'queue', 'payload', 'exception', 'failed_at'
+        ));
+>>>>>>> dev
     }
 
     /**
@@ -65,14 +84,22 @@ class DatabaseFailedJobProvider implements FailedJobProviderInterface
      */
     public function all()
     {
+<<<<<<< HEAD
         return $this->getTable()->orderBy('id', 'desc')->get();
+=======
+        return $this->getTable()->orderBy('id', 'desc')->get()->all();
+>>>>>>> dev
     }
 
     /**
      * Get a single failed job.
      *
      * @param  mixed  $id
+<<<<<<< HEAD
      * @return array
+=======
+     * @return object|null
+>>>>>>> dev
      */
     public function find($id)
     {

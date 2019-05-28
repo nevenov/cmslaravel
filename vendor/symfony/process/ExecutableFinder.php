@@ -19,12 +19,19 @@ namespace Symfony\Component\Process;
  */
 class ExecutableFinder
 {
+<<<<<<< HEAD
     private $suffixes = array('.exe', '.bat', '.cmd', '.com');
 
     /**
      * Replaces default suffixes of executable.
      *
      * @param array $suffixes
+=======
+    private $suffixes = ['.exe', '.bat', '.cmd', '.com'];
+
+    /**
+     * Replaces default suffixes of executable.
+>>>>>>> dev
      */
     public function setSuffixes(array $suffixes)
     {
@@ -44,6 +51,7 @@ class ExecutableFinder
     /**
      * Finds an executable by name.
      *
+<<<<<<< HEAD
      * @param string $name      The executable name (without the extension)
      * @param string $default   The default to return if no executable is found
      * @param array  $extraDirs Additional dirs to check into
@@ -55,12 +63,29 @@ class ExecutableFinder
         if (ini_get('open_basedir')) {
             $searchPath = explode(PATH_SEPARATOR, ini_get('open_basedir'));
             $dirs = array();
+=======
+     * @param string      $name      The executable name (without the extension)
+     * @param string|null $default   The default to return if no executable is found
+     * @param array       $extraDirs Additional dirs to check into
+     *
+     * @return string|null The executable path or default value
+     */
+    public function find($name, $default = null, array $extraDirs = [])
+    {
+        if (ini_get('open_basedir')) {
+            $searchPath = array_merge(explode(PATH_SEPARATOR, ini_get('open_basedir')), $extraDirs);
+            $dirs = [];
+>>>>>>> dev
             foreach ($searchPath as $path) {
                 // Silencing against https://bugs.php.net/69240
                 if (@is_dir($path)) {
                     $dirs[] = $path;
                 } else {
+<<<<<<< HEAD
                     if (basename($path) == $name && is_executable($path)) {
+=======
+                    if (basename($path) == $name && @is_executable($path)) {
+>>>>>>> dev
                         return $path;
                     }
                 }
@@ -72,6 +97,7 @@ class ExecutableFinder
             );
         }
 
+<<<<<<< HEAD
         $suffixes = array('');
         if ('\\' === DIRECTORY_SEPARATOR) {
             $pathExt = getenv('PATHEXT');
@@ -80,6 +106,16 @@ class ExecutableFinder
         foreach ($suffixes as $suffix) {
             foreach ($dirs as $dir) {
                 if (is_file($file = $dir.DIRECTORY_SEPARATOR.$name.$suffix) && ('\\' === DIRECTORY_SEPARATOR || is_executable($file))) {
+=======
+        $suffixes = [''];
+        if ('\\' === \DIRECTORY_SEPARATOR) {
+            $pathExt = getenv('PATHEXT');
+            $suffixes = array_merge($pathExt ? explode(PATH_SEPARATOR, $pathExt) : $this->suffixes, $suffixes);
+        }
+        foreach ($suffixes as $suffix) {
+            foreach ($dirs as $dir) {
+                if (@is_file($file = $dir.\DIRECTORY_SEPARATOR.$name.$suffix) && ('\\' === \DIRECTORY_SEPARATOR || @is_executable($file))) {
+>>>>>>> dev
                     return $file;
                 }
             }

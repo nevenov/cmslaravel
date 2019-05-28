@@ -65,6 +65,7 @@ class AppNameCommand extends Command
      *
      * @return void
      */
+<<<<<<< HEAD
     public function fire()
     {
         $this->currentRoot = trim($this->laravel->getNamespace(), '\\');
@@ -77,13 +78,27 @@ class AppNameCommand extends Command
 
         $this->setComposerNamespace();
 
+=======
+    public function handle()
+    {
+        $this->currentRoot = trim($this->laravel->getNamespace(), '\\');
+
+        $this->setAppDirectoryNamespace();
+        $this->setBootstrapNamespaces();
+        $this->setConfigNamespaces();
+        $this->setComposerNamespace();
+>>>>>>> dev
         $this->setDatabaseFactoryNamespaces();
 
         $this->info('Application namespace set!');
 
         $this->composer->dumpAutoloads();
 
+<<<<<<< HEAD
         $this->call('clear-compiled');
+=======
+        $this->call('optimize:clear');
+>>>>>>> dev
     }
 
     /**
@@ -147,6 +162,7 @@ class AppNameCommand extends Command
     }
 
     /**
+<<<<<<< HEAD
      * Set the PSR-4 namespace in the Composer file.
      *
      * @return void
@@ -159,6 +175,8 @@ class AppNameCommand extends Command
     }
 
     /**
+=======
+>>>>>>> dev
      * Set the namespace in the appropriate configuration files.
      *
      * @return void
@@ -166,9 +184,13 @@ class AppNameCommand extends Command
     protected function setConfigNamespaces()
     {
         $this->setAppConfigNamespaces();
+<<<<<<< HEAD
 
         $this->setAuthConfigNamespace();
 
+=======
+        $this->setAuthConfigNamespace();
+>>>>>>> dev
         $this->setServicesConfigNamespace();
     }
 
@@ -200,7 +222,13 @@ class AppNameCommand extends Command
     protected function setAuthConfigNamespace()
     {
         $this->replaceIn(
+<<<<<<< HEAD
             $this->getConfigPath('auth'), $this->currentRoot.'\\User', $this->argument('name').'\\User'
+=======
+            $this->getConfigPath('auth'),
+            $this->currentRoot.'\\User',
+            $this->argument('name').'\\User'
+>>>>>>> dev
         );
     }
 
@@ -212,11 +240,18 @@ class AppNameCommand extends Command
     protected function setServicesConfigNamespace()
     {
         $this->replaceIn(
+<<<<<<< HEAD
             $this->getConfigPath('services'), $this->currentRoot.'\\User', $this->argument('name').'\\User'
+=======
+            $this->getConfigPath('services'),
+            $this->currentRoot.'\\User',
+            $this->argument('name').'\\User'
+>>>>>>> dev
         );
     }
 
     /**
+<<<<<<< HEAD
      * Set the namespace in database factory files.
      *
      * @return void
@@ -225,10 +260,45 @@ class AppNameCommand extends Command
     {
         $this->replaceIn(
             $this->laravel->databasePath().'/factories/ModelFactory.php', $this->currentRoot, $this->argument('name')
+=======
+     * Set the PSR-4 namespace in the Composer file.
+     *
+     * @return void
+     */
+    protected function setComposerNamespace()
+    {
+        $this->replaceIn(
+            $this->getComposerPath(),
+            str_replace('\\', '\\\\', $this->currentRoot).'\\\\',
+            str_replace('\\', '\\\\', $this->argument('name')).'\\\\'
+>>>>>>> dev
         );
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Set the namespace in database factory files.
+     *
+     * @return void
+     */
+    protected function setDatabaseFactoryNamespaces()
+    {
+        $files = Finder::create()
+                            ->in(database_path('factories'))
+                            ->contains($this->currentRoot)
+                            ->name('*.php');
+
+        foreach ($files as $file) {
+            $this->replaceIn(
+                $file->getRealPath(),
+                $this->currentRoot, $this->argument('name')
+            );
+        }
+    }
+
+    /**
+>>>>>>> dev
      * Replace the given string in the given file.
      *
      * @param  string  $path
@@ -238,7 +308,13 @@ class AppNameCommand extends Command
      */
     protected function replaceIn($path, $search, $replace)
     {
+<<<<<<< HEAD
         $this->files->put($path, str_replace($search, $replace, $this->files->get($path)));
+=======
+        if ($this->files->exists($path)) {
+            $this->files->put($path, str_replace($search, $replace, $this->files->get($path)));
+        }
+>>>>>>> dev
     }
 
     /**
@@ -258,7 +334,11 @@ class AppNameCommand extends Command
      */
     protected function getComposerPath()
     {
+<<<<<<< HEAD
         return $this->laravel->basePath().'/composer.json';
+=======
+        return base_path('composer.json');
+>>>>>>> dev
     }
 
     /**
@@ -280,7 +360,11 @@ class AppNameCommand extends Command
     protected function getArguments()
     {
         return [
+<<<<<<< HEAD
             ['name', InputArgument::REQUIRED, 'The desired namespace.'],
+=======
+            ['name', InputArgument::REQUIRED, 'The desired namespace'],
+>>>>>>> dev
         ];
     }
 }

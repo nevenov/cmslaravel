@@ -11,9 +11,15 @@
 
 namespace Symfony\Component\HttpKernel\DataCollector;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+=======
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+>>>>>>> dev
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 /**
@@ -23,10 +29,17 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
  */
 class RouterDataCollector extends DataCollector
 {
+<<<<<<< HEAD
+=======
+    /**
+     * @var \SplObjectStorage
+     */
+>>>>>>> dev
     protected $controllers;
 
     public function __construct()
     {
+<<<<<<< HEAD
         $this->controllers = new \SplObjectStorage();
 
         $this->data = array(
@@ -34,6 +47,9 @@ class RouterDataCollector extends DataCollector
             'url' => null,
             'route' => null,
         );
+=======
+        $this->reset();
+>>>>>>> dev
     }
 
     /**
@@ -53,6 +69,20 @@ class RouterDataCollector extends DataCollector
         unset($this->controllers[$request]);
     }
 
+<<<<<<< HEAD
+=======
+    public function reset()
+    {
+        $this->controllers = new \SplObjectStorage();
+
+        $this->data = [
+            'redirect' => false,
+            'url' => null,
+            'route' => null,
+        ];
+    }
+
+>>>>>>> dev
     protected function guessRoute(Request $request, $controller)
     {
         return 'n/a';
@@ -60,8 +90,11 @@ class RouterDataCollector extends DataCollector
 
     /**
      * Remembers the controller associated to each request.
+<<<<<<< HEAD
      *
      * @param FilterControllerEvent $event The filter controller event
+=======
+>>>>>>> dev
      */
     public function onKernelController(FilterControllerEvent $event)
     {

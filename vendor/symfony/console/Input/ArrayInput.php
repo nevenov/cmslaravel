@@ -19,7 +19,11 @@ use Symfony\Component\Console\Exception\InvalidOptionException;
  *
  * Usage:
  *
+<<<<<<< HEAD
  *     $input = new ArrayInput(array('name' => 'foo', '--bar' => 'foobar'));
+=======
+ *     $input = new ArrayInput(['command' => 'foo:bar', 'foo' => 'bar', '--bar' => 'foobar']);
+>>>>>>> dev
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
@@ -27,12 +31,15 @@ class ArrayInput extends Input
 {
     private $parameters;
 
+<<<<<<< HEAD
     /**
      * Constructor.
      *
      * @param array                $parameters An array of parameters
      * @param InputDefinition|null $definition A InputDefinition instance
      */
+=======
+>>>>>>> dev
     public function __construct(array $parameters, InputDefinition $definition = null)
     {
         $this->parameters = $parameters;
@@ -62,6 +69,7 @@ class ArrayInput extends Input
         $values = (array) $values;
 
         foreach ($this->parameters as $k => $v) {
+<<<<<<< HEAD
             if (!is_int($k)) {
                 $v = $k;
             }
@@ -71,6 +79,17 @@ class ArrayInput extends Input
             }
 
             if (in_array($v, $values)) {
+=======
+            if (!\is_int($k)) {
+                $v = $k;
+            }
+
+            if ($onlyParams && '--' === $v) {
+                return false;
+            }
+
+            if (\in_array($v, $values)) {
+>>>>>>> dev
                 return true;
             }
         }
@@ -86,6 +105,7 @@ class ArrayInput extends Input
         $values = (array) $values;
 
         foreach ($this->parameters as $k => $v) {
+<<<<<<< HEAD
             if ($onlyParams && ($k === '--' || (is_int($k) && $v === '--'))) {
                 return false;
             }
@@ -95,6 +115,17 @@ class ArrayInput extends Input
                     return true;
                 }
             } elseif (in_array($k, $values)) {
+=======
+            if ($onlyParams && ('--' === $k || (\is_int($k) && '--' === $v))) {
+                return $default;
+            }
+
+            if (\is_int($k)) {
+                if (\in_array($v, $values)) {
+                    return true;
+                }
+            } elseif (\in_array($k, $values)) {
+>>>>>>> dev
                 return $v;
             }
         }
@@ -109,12 +140,27 @@ class ArrayInput extends Input
      */
     public function __toString()
     {
+<<<<<<< HEAD
         $params = array();
         foreach ($this->parameters as $param => $val) {
             if ($param && '-' === $param[0]) {
                 $params[] = $param.('' != $val ? '='.$this->escapeToken($val) : '');
             } else {
                 $params[] = $this->escapeToken($val);
+=======
+        $params = [];
+        foreach ($this->parameters as $param => $val) {
+            if ($param && '-' === $param[0]) {
+                if (\is_array($val)) {
+                    foreach ($val as $v) {
+                        $params[] = $param.('' != $v ? '='.$this->escapeToken($v) : '');
+                    }
+                } else {
+                    $params[] = $param.('' != $val ? '='.$this->escapeToken($val) : '');
+                }
+            } else {
+                $params[] = \is_array($val) ? implode(' ', array_map([$this, 'escapeToken'], $val)) : $this->escapeToken($val);
+>>>>>>> dev
             }
         }
 
@@ -127,7 +173,11 @@ class ArrayInput extends Input
     protected function parse()
     {
         foreach ($this->parameters as $key => $value) {
+<<<<<<< HEAD
             if ($key === '--') {
+=======
+            if ('--' === $key) {
+>>>>>>> dev
                 return;
             }
             if (0 === strpos($key, '--')) {
@@ -179,7 +229,13 @@ class ArrayInput extends Input
                 throw new InvalidOptionException(sprintf('The "--%s" option requires a value.', $name));
             }
 
+<<<<<<< HEAD
             $value = $option->isValueOptional() ? $option->getDefault() : true;
+=======
+            if (!$option->isValueOptional()) {
+                $value = true;
+            }
+>>>>>>> dev
         }
 
         $this->options[$name] = $value;

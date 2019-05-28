@@ -2,7 +2,10 @@
 
 namespace Illuminate\Queue\Jobs;
 
+<<<<<<< HEAD
 use Illuminate\Support\Arr;
+=======
+>>>>>>> dev
 use Illuminate\Queue\RedisQueue;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Queue\Job as JobContract;
@@ -17,18 +20,40 @@ class RedisJob extends Job implements JobContract
     protected $redis;
 
     /**
+<<<<<<< HEAD
      * The Redis job payload.
+=======
+     * The Redis raw job payload.
+>>>>>>> dev
      *
      * @var string
      */
     protected $job;
 
     /**
+<<<<<<< HEAD
+=======
+     * The JSON decoded version of "$job".
+     *
+     * @var array
+     */
+    protected $decoded;
+
+    /**
+     * The Redis job payload inside the reserved queue.
+     *
+     * @var string
+     */
+    protected $reserved;
+
+    /**
+>>>>>>> dev
      * Create a new job instance.
      *
      * @param  \Illuminate\Container\Container  $container
      * @param  \Illuminate\Queue\RedisQueue  $redis
      * @param  string  $job
+<<<<<<< HEAD
      * @param  string  $queue
      * @return void
      */
@@ -48,6 +73,26 @@ class RedisJob extends Job implements JobContract
     public function fire()
     {
         $this->resolveAndFire(json_decode($this->getRawBody(), true));
+=======
+     * @param  string  $reserved
+     * @param  string  $connectionName
+     * @param  string  $queue
+     * @return void
+     */
+    public function __construct(Container $container, RedisQueue $redis, $job, $reserved, $connectionName, $queue)
+    {
+        // The $job variable is the original job JSON as it existed in the ready queue while
+        // the $reserved variable is the raw JSON in the reserved queue. The exact format
+        // of the reserved job is required in order for us to properly delete its data.
+        $this->job = $job;
+        $this->redis = $redis;
+        $this->queue = $queue;
+        $this->reserved = $reserved;
+        $this->container = $container;
+        $this->connectionName = $connectionName;
+
+        $this->decoded = $this->payload();
+>>>>>>> dev
     }
 
     /**
@@ -69,7 +114,11 @@ class RedisJob extends Job implements JobContract
     {
         parent::delete();
 
+<<<<<<< HEAD
         $this->redis->deleteReserved($this->queue, $this->job);
+=======
+        $this->redis->deleteReserved($this->queue, $this);
+>>>>>>> dev
     }
 
     /**
@@ -82,9 +131,13 @@ class RedisJob extends Job implements JobContract
     {
         parent::release($delay);
 
+<<<<<<< HEAD
         $this->delete();
 
         $this->redis->release($this->queue, $this->job, $delay, $this->attempts() + 1);
+=======
+        $this->redis->deleteAndRelease($this->queue, $this, $delay);
+>>>>>>> dev
     }
 
     /**
@@ -94,7 +147,11 @@ class RedisJob extends Job implements JobContract
      */
     public function attempts()
     {
+<<<<<<< HEAD
         return Arr::get(json_decode($this->job, true), 'attempts');
+=======
+        return ($this->decoded['attempts'] ?? null) + 1;
+>>>>>>> dev
     }
 
     /**
@@ -104,6 +161,7 @@ class RedisJob extends Job implements JobContract
      */
     public function getJobId()
     {
+<<<<<<< HEAD
         return Arr::get(json_decode($this->job, true), 'id');
     }
 
@@ -121,6 +179,15 @@ class RedisJob extends Job implements JobContract
      * Get the underlying queue driver instance.
      *
      * @return \Illuminate\Redis\Database
+=======
+        return $this->decoded['id'] ?? null;
+    }
+
+    /**
+     * Get the underlying Redis factory implementation.
+     *
+     * @return \Illuminate\Queue\RedisQueue
+>>>>>>> dev
      */
     public function getRedisQueue()
     {
@@ -128,6 +195,7 @@ class RedisJob extends Job implements JobContract
     }
 
     /**
+<<<<<<< HEAD
      * Get the underlying Redis job.
      *
      * @return string
@@ -135,5 +203,14 @@ class RedisJob extends Job implements JobContract
     public function getRedisJob()
     {
         return $this->job;
+=======
+     * Get the underlying reserved Redis job.
+     *
+     * @return string
+     */
+    public function getReservedJob()
+    {
+        return $this->reserved;
+>>>>>>> dev
     }
 }

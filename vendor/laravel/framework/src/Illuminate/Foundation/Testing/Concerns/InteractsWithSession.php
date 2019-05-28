@@ -2,8 +2,11 @@
 
 namespace Illuminate\Foundation\Testing\Concerns;
 
+<<<<<<< HEAD
 use PHPUnit_Framework_Assert as PHPUnit;
 
+=======
+>>>>>>> dev
 trait InteractsWithSession
 {
     /**
@@ -23,7 +26,11 @@ trait InteractsWithSession
      * Set the session to the given array.
      *
      * @param  array  $data
+<<<<<<< HEAD
      * @return void
+=======
+     * @return $this
+>>>>>>> dev
      */
     public function session(array $data)
     {
@@ -32,30 +39,49 @@ trait InteractsWithSession
         foreach ($data as $key => $value) {
             $this->app['session']->put($key, $value);
         }
+<<<<<<< HEAD
+=======
+
+        return $this;
+>>>>>>> dev
     }
 
     /**
      * Start the session for the application.
      *
+<<<<<<< HEAD
      * @return void
+=======
+     * @return $this
+>>>>>>> dev
      */
     protected function startSession()
     {
         if (! $this->app['session']->isStarted()) {
             $this->app['session']->start();
         }
+<<<<<<< HEAD
+=======
+
+        return $this;
+>>>>>>> dev
     }
 
     /**
      * Flush all of the current session data.
      *
+<<<<<<< HEAD
      * @return void
+=======
+     * @return $this
+>>>>>>> dev
      */
     public function flushSession()
     {
         $this->startSession();
 
         $this->app['session']->flush();
+<<<<<<< HEAD
     }
 
     /**
@@ -159,4 +185,9 @@ trait InteractsWithSession
     {
         $this->assertSessionHas('_old_input');
     }
+=======
+
+        return $this;
+    }
+>>>>>>> dev
 }

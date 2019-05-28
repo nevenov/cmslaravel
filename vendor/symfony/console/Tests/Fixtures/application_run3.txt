@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+Description:
+  Lists commands
+
+>>>>>>> dev
 Usage:
   list [options] [--] [<namespace>]
 
@@ -9,6 +15,7 @@ Options:
       --format=FORMAT  The output format (txt, xml, json, or md) [default: "txt"]
 
 Help:
+<<<<<<< HEAD
  The list command lists all commands:
  
    php app/console list
@@ -24,3 +31,20 @@ Help:
  It's also possible to get raw list of commands (useful for embedding command runner):
  
    php app/console list --raw
+=======
+  The list command lists all commands:
+  
+    php app/console list
+  
+  You can also display the commands for a specific namespace:
+  
+    php app/console list test
+  
+  You can also output the information in other formats by using the --format option:
+  
+    php app/console list --format=xml
+  
+  It's also possible to get raw list of commands (useful for embedding command runner):
+  
+    php app/console list --raw
+>>>>>>> dev

@@ -25,7 +25,11 @@ interface SessionInterface
      *
      * @return bool True if session started
      *
+<<<<<<< HEAD
      * @throws \RuntimeException If session fails to start.
+=======
+     * @throws \RuntimeException if session fails to start
+>>>>>>> dev
      */
     public function start();
 
@@ -159,8 +163,11 @@ interface SessionInterface
 
     /**
      * Registers a SessionBagInterface with the session.
+<<<<<<< HEAD
      *
      * @param SessionBagInterface $bag
+=======
+>>>>>>> dev
      */
     public function registerBag(SessionBagInterface $bag);
 

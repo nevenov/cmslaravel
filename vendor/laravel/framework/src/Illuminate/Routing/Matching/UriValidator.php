@@ -16,7 +16,11 @@ class UriValidator implements ValidatorInterface
      */
     public function matches(Route $route, Request $request)
     {
+<<<<<<< HEAD
         $path = $request->path() == '/' ? '/' : '/'.$request->path();
+=======
+        $path = $request->path() === '/' ? '/' : '/'.$request->path();
+>>>>>>> dev
 
         return preg_match($route->getCompiled()->getRegex(), rawurldecode($path));
     }

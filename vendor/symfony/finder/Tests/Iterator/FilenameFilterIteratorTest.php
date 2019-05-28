@@ -20,7 +20,11 @@ class FilenameFilterIteratorTest extends IteratorTestCase
      */
     public function testAccept($matchPatterns, $noMatchPatterns, $expected)
     {
+<<<<<<< HEAD
         $inner = new InnerNameIterator(array('test.php', 'test.py', 'foo.php'));
+=======
+        $inner = new InnerNameIterator(['test.php', 'test.py', 'foo.php']);
+>>>>>>> dev
 
         $iterator = new FilenameFilterIterator($inner, $matchPatterns, $noMatchPatterns);
 
@@ -29,6 +33,7 @@ class FilenameFilterIteratorTest extends IteratorTestCase
 
     public function getAcceptData()
     {
+<<<<<<< HEAD
         return array(
             array(array('test.*'), array(), array('test.php', 'test.py')),
             array(array(), array('test.*'), array('foo.php')),
@@ -37,6 +42,16 @@ class FilenameFilterIteratorTest extends IteratorTestCase
             array(array('/\.php$/'), array(), array('test.php', 'foo.php')),
             array(array(), array('/\.php$/'), array('test.py')),
         );
+=======
+        return [
+            [['test.*'], [], ['test.php', 'test.py']],
+            [[], ['test.*'], ['foo.php']],
+            [['*.php'], ['test.*'], ['foo.php']],
+            [['*.php', '*.py'], ['foo.*'], ['test.php', 'test.py']],
+            [['/\.php$/'], [], ['test.php', 'foo.php']],
+            [[], ['/\.php$/'], ['test.py']],
+        ];
+>>>>>>> dev
     }
 }
 

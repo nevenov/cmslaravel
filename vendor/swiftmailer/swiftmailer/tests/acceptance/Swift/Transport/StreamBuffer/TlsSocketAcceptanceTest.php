@@ -21,6 +21,7 @@ class Swift_Transport_StreamBuffer_TlsSocketAcceptanceTest extends Swift_Transpo
         parent::setUp();
     }
 
+<<<<<<< HEAD
     protected function _initializeBuffer()
     {
         $parts = explode(':', SWIFT_TLS_HOST);
@@ -28,12 +29,25 @@ class Swift_Transport_StreamBuffer_TlsSocketAcceptanceTest extends Swift_Transpo
         $port = isset($parts[1]) ? $parts[1] : 25;
 
         $this->_buffer->initialize(array(
+=======
+    protected function initializeBuffer()
+    {
+        $parts = explode(':', SWIFT_TLS_HOST);
+        $host = $parts[0];
+        $port = $parts[1] ?? 25;
+
+        $this->buffer->initialize([
+>>>>>>> dev
             'type' => Swift_Transport_IoBuffer::TYPE_SOCKET,
             'host' => $host,
             'port' => $port,
             'protocol' => 'tls',
             'blocking' => 1,
             'timeout' => 15,
+<<<<<<< HEAD
             ));
+=======
+            ]);
+>>>>>>> dev
     }
 }

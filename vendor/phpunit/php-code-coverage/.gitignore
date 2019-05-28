@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 build/api
 build/code-browser
 build/coverage
@@ -9,3 +10,11 @@ phpunit.xml
 /composer.lock
 /composer.phar
 /.idea
+=======
+/tests/_files/tmp
+/vendor
+/composer.lock
+/.idea
+/.php_cs.cache
+
+>>>>>>> dev

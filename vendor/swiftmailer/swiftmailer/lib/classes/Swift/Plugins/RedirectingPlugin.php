@@ -11,7 +11,11 @@
 /**
  * Redirects all email to a single recipient.
  *
+<<<<<<< HEAD
  * @author Fabien Potencier
+=======
+ * @author     Fabien Potencier
+>>>>>>> dev
  */
 class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
 {
@@ -20,25 +24,41 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
      *
      * @var mixed
      */
+<<<<<<< HEAD
     private $_recipient;
+=======
+    private $recipient;
+>>>>>>> dev
 
     /**
      * List of regular expression for recipient whitelisting.
      *
      * @var array
      */
+<<<<<<< HEAD
     private $_whitelist = array();
+=======
+    private $whitelist = [];
+>>>>>>> dev
 
     /**
      * Create a new RedirectingPlugin.
      *
      * @param mixed $recipient
+<<<<<<< HEAD
      * @param array $whitelist
      */
     public function __construct($recipient, array $whitelist = array())
     {
         $this->_recipient = $recipient;
         $this->_whitelist = $whitelist;
+=======
+     */
+    public function __construct($recipient, array $whitelist = [])
+    {
+        $this->recipient = $recipient;
+        $this->whitelist = $whitelist;
+>>>>>>> dev
     }
 
     /**
@@ -48,7 +68,11 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
      */
     public function setRecipient($recipient)
     {
+<<<<<<< HEAD
         $this->_recipient = $recipient;
+=======
+        $this->recipient = $recipient;
+>>>>>>> dev
     }
 
     /**
@@ -58,17 +82,28 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
      */
     public function getRecipient()
     {
+<<<<<<< HEAD
         return $this->_recipient;
+=======
+        return $this->recipient;
+>>>>>>> dev
     }
 
     /**
      * Set a list of regular expressions to whitelist certain recipients.
+<<<<<<< HEAD
      *
      * @param array $whitelist
      */
     public function setWhitelist(array $whitelist)
     {
         $this->_whitelist = $whitelist;
+=======
+     */
+    public function setWhitelist(array $whitelist)
+    {
+        $this->whitelist = $whitelist;
+>>>>>>> dev
     }
 
     /**
@@ -78,13 +113,20 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
      */
     public function getWhitelist()
     {
+<<<<<<< HEAD
         return $this->_whitelist;
+=======
+        return $this->whitelist;
+>>>>>>> dev
     }
 
     /**
      * Invoked immediately before the Message is sent.
+<<<<<<< HEAD
      *
      * @param Swift_Events_SendEvent $evt
+=======
+>>>>>>> dev
      */
     public function beforeSendPerformed(Swift_Events_SendEvent $evt)
     {
@@ -106,17 +148,30 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
         }
 
         // Filter remaining headers against whitelist
+<<<<<<< HEAD
         $this->_filterHeaderSet($headers, 'To');
         $this->_filterHeaderSet($headers, 'Cc');
         $this->_filterHeaderSet($headers, 'Bcc');
+=======
+        $this->filterHeaderSet($headers, 'To');
+        $this->filterHeaderSet($headers, 'Cc');
+        $this->filterHeaderSet($headers, 'Bcc');
+>>>>>>> dev
 
         // Add each hard coded recipient
         $to = $message->getTo();
         if (null === $to) {
+<<<<<<< HEAD
             $to = array();
         }
 
         foreach ((array) $this->_recipient as $recipient) {
+=======
+            $to = [];
+        }
+
+        foreach ((array) $this->recipient as $recipient) {
+>>>>>>> dev
             if (!array_key_exists($recipient, $to)) {
                 $message->addTo($recipient);
             }
@@ -126,6 +181,7 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
     /**
      * Filter header set against a whitelist of regular expressions.
      *
+<<<<<<< HEAD
      * @param Swift_Mime_HeaderSet $headerSet
      * @param string               $type
      */
@@ -133,12 +189,21 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
     {
         foreach ($headerSet->getAll($type) as $headers) {
             $headers->setNameAddresses($this->_filterNameAddresses($headers->getNameAddresses()));
+=======
+     * @param string $type
+     */
+    private function filterHeaderSet(Swift_Mime_SimpleHeaderSet $headerSet, $type)
+    {
+        foreach ($headerSet->getAll($type) as $headers) {
+            $headers->setNameAddresses($this->filterNameAddresses($headers->getNameAddresses()));
+>>>>>>> dev
         }
     }
 
     /**
      * Filtered list of addresses => name pairs.
      *
+<<<<<<< HEAD
      * @param array $recipients
      *
      * @return array
@@ -149,6 +214,16 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
 
         foreach ($recipients as $address => $name) {
             if ($this->_isWhitelisted($address)) {
+=======
+     * @return array
+     */
+    private function filterNameAddresses(array $recipients)
+    {
+        $filtered = [];
+
+        foreach ($recipients as $address => $name) {
+            if ($this->isWhitelisted($address)) {
+>>>>>>> dev
                 $filtered[$address] = $name;
             }
         }
@@ -159,6 +234,7 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
     /**
      * Matches address against whitelist of regular expressions.
      *
+<<<<<<< HEAD
      * @param $recipient
      *
      * @return bool
@@ -170,6 +246,17 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
         }
 
         foreach ($this->_whitelist as $pattern) {
+=======
+     * @return bool
+     */
+    protected function isWhitelisted($recipient)
+    {
+        if (in_array($recipient, (array) $this->recipient)) {
+            return true;
+        }
+
+        foreach ($this->whitelist as $pattern) {
+>>>>>>> dev
             if (preg_match($pattern, $recipient)) {
                 return true;
             }
@@ -180,6 +267,7 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
 
     /**
      * Invoked immediately after the Message is sent.
+<<<<<<< HEAD
      *
      * @param Swift_Events_SendEvent $evt
      */
@@ -189,6 +277,15 @@ class Swift_Plugins_RedirectingPlugin implements Swift_Events_SendListener
     }
 
     private function _restoreMessage(Swift_Mime_Message $message)
+=======
+     */
+    public function sendPerformed(Swift_Events_SendEvent $evt)
+    {
+        $this->restoreMessage($evt->getMessage());
+    }
+
+    private function restoreMessage(Swift_Mime_SimpleMessage $message)
+>>>>>>> dev
     {
         // restore original headers
         $headers = $message->getHeaders();

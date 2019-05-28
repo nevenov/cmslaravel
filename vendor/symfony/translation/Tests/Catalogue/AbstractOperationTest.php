@@ -11,15 +11,27 @@
 
 namespace Symfony\Component\Translation\Tests\Catalogue;
 
+<<<<<<< HEAD
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 
 abstract class AbstractOperationTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Translation\MessageCatalogue;
+use Symfony\Component\Translation\MessageCatalogueInterface;
+
+abstract class AbstractOperationTest extends TestCase
+>>>>>>> dev
 {
     public function testGetEmptyDomains()
     {
         $this->assertEquals(
+<<<<<<< HEAD
             array(),
+=======
+            [],
+>>>>>>> dev
             $this->createOperation(
                 new MessageCatalogue('en'),
                 new MessageCatalogue('en')
@@ -30,17 +42,28 @@ abstract class AbstractOperationTest extends \PHPUnit_Framework_TestCase
     public function testGetMergedDomains()
     {
         $this->assertEquals(
+<<<<<<< HEAD
             array('a', 'b', 'c'),
             $this->createOperation(
                 new MessageCatalogue('en', array('a' => array(), 'b' => array())),
                 new MessageCatalogue('en', array('b' => array(), 'c' => array()))
+=======
+            ['a', 'b', 'c'],
+            $this->createOperation(
+                new MessageCatalogue('en', ['a' => [], 'b' => []]),
+                new MessageCatalogue('en', ['b' => [], 'c' => []])
+>>>>>>> dev
             )->getDomains()
         );
     }
 
     public function testGetMessagesFromUnknownDomain()
     {
+<<<<<<< HEAD
         $this->setExpectedException('InvalidArgumentException');
+=======
+        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}('InvalidArgumentException');
+>>>>>>> dev
         $this->createOperation(
             new MessageCatalogue('en'),
             new MessageCatalogue('en')
@@ -50,9 +73,15 @@ abstract class AbstractOperationTest extends \PHPUnit_Framework_TestCase
     public function testGetEmptyMessages()
     {
         $this->assertEquals(
+<<<<<<< HEAD
             array(),
             $this->createOperation(
                 new MessageCatalogue('en', array('a' => array())),
+=======
+            [],
+            $this->createOperation(
+                new MessageCatalogue('en', ['a' => []]),
+>>>>>>> dev
                 new MessageCatalogue('en')
             )->getMessages('a')
         );

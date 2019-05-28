@@ -18,6 +18,7 @@ namespace Symfony\Component\HttpFoundation;
  */
 class AcceptHeaderItem
 {
+<<<<<<< HEAD
     /**
      * @var string
      */
@@ -45,6 +46,14 @@ class AcceptHeaderItem
      * @param array  $attributes
      */
     public function __construct($value, array $attributes = array())
+=======
+    private $value;
+    private $quality = 1.0;
+    private $index = 0;
+    private $attributes = [];
+
+    public function __construct(string $value, array $attributes = [])
+>>>>>>> dev
     {
         $this->value = $value;
         foreach ($attributes as $name => $value) {
@@ -57,6 +66,7 @@ class AcceptHeaderItem
      *
      * @param string $itemValue
      *
+<<<<<<< HEAD
      * @return AcceptHeaderItem
      */
     public static function fromString($itemValue)
@@ -83,16 +93,37 @@ class AcceptHeaderItem
 
     /**
      * Returns header  value's string representation.
+=======
+     * @return self
+     */
+    public static function fromString($itemValue)
+    {
+        $parts = HeaderUtils::split($itemValue, ';=');
+
+        $part = array_shift($parts);
+        $attributes = HeaderUtils::combine($parts);
+
+        return new self($part[0], $attributes);
+    }
+
+    /**
+     * Returns header value's string representation.
+>>>>>>> dev
      *
      * @return string
      */
     public function __toString()
     {
         $string = $this->value.($this->quality < 1 ? ';q='.$this->quality : '');
+<<<<<<< HEAD
         if (count($this->attributes) > 0) {
             $string .= ';'.implode(';', array_map(function ($name, $value) {
                 return sprintf(preg_match('/[,;=]/', $value) ? '%s="%s"' : '%s=%s', $name, $value);
             }, array_keys($this->attributes), $this->attributes));
+=======
+        if (\count($this->attributes) > 0) {
+            $string .= '; '.HeaderUtils::toString($this->attributes, ';');
+>>>>>>> dev
         }
 
         return $string;
@@ -103,7 +134,11 @@ class AcceptHeaderItem
      *
      * @param string $value
      *
+<<<<<<< HEAD
      * @return AcceptHeaderItem
+=======
+     * @return $this
+>>>>>>> dev
      */
     public function setValue($value)
     {
@@ -127,7 +162,11 @@ class AcceptHeaderItem
      *
      * @param float $quality
      *
+<<<<<<< HEAD
      * @return AcceptHeaderItem
+=======
+     * @return $this
+>>>>>>> dev
      */
     public function setQuality($quality)
     {
@@ -151,7 +190,11 @@ class AcceptHeaderItem
      *
      * @param int $index
      *
+<<<<<<< HEAD
      * @return AcceptHeaderItem
+=======
+     * @return $this
+>>>>>>> dev
      */
     public function setIndex($index)
     {
@@ -211,7 +254,11 @@ class AcceptHeaderItem
      * @param string $name
      * @param string $value
      *
+<<<<<<< HEAD
      * @return AcceptHeaderItem
+=======
+     * @return $this
+>>>>>>> dev
      */
     public function setAttribute($name, $value)
     {

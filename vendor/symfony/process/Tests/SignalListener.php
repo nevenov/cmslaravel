@@ -9,7 +9,11 @@
  * file that was distributed with this source code.
  */
 
+<<<<<<< HEAD
 pcntl_signal(SIGUSR1, function () {echo 'SIGUSR1'; exit;});
+=======
+pcntl_signal(SIGUSR1, function () { echo 'SIGUSR1'; exit; });
+>>>>>>> dev
 
 echo 'Caught ';
 

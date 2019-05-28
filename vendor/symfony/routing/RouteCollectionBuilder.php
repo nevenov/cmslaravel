@@ -11,7 +11,11 @@
 
 namespace Symfony\Component\Routing;
 
+<<<<<<< HEAD
 use Symfony\Component\Config\Exception\FileLoaderLoadException;
+=======
+use Symfony\Component\Config\Exception\LoaderLoadException;
+>>>>>>> dev
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\ResourceInterface;
 
@@ -25,6 +29,7 @@ class RouteCollectionBuilder
     /**
      * @var Route[]|RouteCollectionBuilder[]
      */
+<<<<<<< HEAD
     private $routes = array();
 
     private $loader;
@@ -41,6 +46,21 @@ class RouteCollectionBuilder
     /**
      * @param LoaderInterface $loader
      */
+=======
+    private $routes = [];
+
+    private $loader;
+    private $defaults = [];
+    private $prefix;
+    private $host;
+    private $condition;
+    private $requirements = [];
+    private $options = [];
+    private $schemes;
+    private $methods;
+    private $resources = [];
+
+>>>>>>> dev
     public function __construct(LoaderInterface $loader = null)
     {
         $this->loader = $loader;
@@ -49,12 +69,17 @@ class RouteCollectionBuilder
     /**
      * Import an external routing resource and returns the RouteCollectionBuilder.
      *
+<<<<<<< HEAD
      *  $routes->import('blog.yml', '/blog');
+=======
+     *     $routes->import('blog.yml', '/blog');
+>>>>>>> dev
      *
      * @param mixed       $resource
      * @param string|null $prefix
      * @param string      $type
      *
+<<<<<<< HEAD
      * @return RouteCollectionBuilder
      *
      * @throws FileLoaderLoadException
@@ -72,6 +97,32 @@ class RouteCollectionBuilder
 
         foreach ($collection->getResources() as $resource) {
             $builder->addResource($resource);
+=======
+     * @return self
+     *
+     * @throws LoaderLoadException
+     */
+    public function import($resource, $prefix = '/', $type = null)
+    {
+        /** @var RouteCollection[] $collections */
+        $collections = $this->load($resource, $type);
+
+        // create a builder from the RouteCollection
+        $builder = $this->createBuilder();
+
+        foreach ($collections as $collection) {
+            if (null === $collection) {
+                continue;
+            }
+
+            foreach ($collection->all() as $name => $route) {
+                $builder->addRoute($route, $name);
+            }
+
+            foreach ($collection->getResources() as $resource) {
+                $builder->addResource($resource);
+            }
+>>>>>>> dev
         }
 
         // mount into this builder
@@ -101,7 +152,11 @@ class RouteCollectionBuilder
     /**
      * Returns a RouteCollectionBuilder that can be configured and then added with mount().
      *
+<<<<<<< HEAD
      * @return RouteCollectionBuilder
+=======
+     * @return self
+>>>>>>> dev
      */
     public function createBuilder()
     {
@@ -114,7 +169,11 @@ class RouteCollectionBuilder
      * @param string                 $prefix
      * @param RouteCollectionBuilder $builder
      */
+<<<<<<< HEAD
     public function mount($prefix, RouteCollectionBuilder $builder)
+=======
+    public function mount($prefix, self $builder)
+>>>>>>> dev
     {
         $builder->prefix = trim(trim($prefix), '/');
         $this->routes[] = $builder;
@@ -201,7 +260,11 @@ class RouteCollectionBuilder
     }
 
     /**
+<<<<<<< HEAD
      * Sets an opiton that will be added to all embedded routes (unless that
+=======
+     * Sets an option that will be added to all embedded routes (unless that
+>>>>>>> dev
      * option is already set).
      *
      * @param string $key
@@ -247,11 +310,17 @@ class RouteCollectionBuilder
     /**
      * Adds a resource for this collection.
      *
+<<<<<<< HEAD
      * @param ResourceInterface $resource
      *
      * @return $this
      */
     private function addResource(ResourceInterface $resource)
+=======
+     * @return $this
+     */
+    private function addResource(ResourceInterface $resource): self
+>>>>>>> dev
     {
         $this->resources[] = $resource;
 
@@ -311,10 +380,17 @@ class RouteCollectionBuilder
 
                 $routeCollection->addCollection($subCollection);
             }
+<<<<<<< HEAD
 
             foreach ($this->resources as $resource) {
                 $routeCollection->addResource($resource);
             }
+=======
+        }
+
+        foreach ($this->resources as $resource) {
+            $routeCollection->addResource($resource);
+>>>>>>> dev
         }
 
         return $routeCollection;
@@ -322,15 +398,24 @@ class RouteCollectionBuilder
 
     /**
      * Generates a route name based on details of this route.
+<<<<<<< HEAD
      *
      * @return string
      */
     private function generateRouteName(Route $route)
+=======
+     */
+    private function generateRouteName(Route $route): string
+>>>>>>> dev
     {
         $methods = implode('_', $route->getMethods()).'_';
 
         $routeName = $methods.$route->getPath();
+<<<<<<< HEAD
         $routeName = str_replace(array('/', ':', '|', '-'), '_', $routeName);
+=======
+        $routeName = str_replace(['/', ':', '|', '-'], '_', $routeName);
+>>>>>>> dev
         $routeName = preg_replace('/[^a-z0-9A-Z_.]+/', '', $routeName);
 
         // Collapse consecutive underscores down into a single underscore.
@@ -345,17 +430,26 @@ class RouteCollectionBuilder
      * @param mixed       $resource A resource
      * @param string|null $type     The resource type or null if unknown
      *
+<<<<<<< HEAD
      * @return RouteCollection
      *
      * @throws FileLoaderLoadException If no loader is found
      */
     private function load($resource, $type = null)
+=======
+     * @return RouteCollection[]
+     *
+     * @throws LoaderLoadException If no loader is found
+     */
+    private function load($resource, string $type = null): array
+>>>>>>> dev
     {
         if (null === $this->loader) {
             throw new \BadMethodCallException('Cannot import other routing resources: you must pass a LoaderInterface when constructing RouteCollectionBuilder.');
         }
 
         if ($this->loader->supports($resource, $type)) {
+<<<<<<< HEAD
             return $this->loader->load($resource, $type);
         }
 
@@ -368,5 +462,23 @@ class RouteCollectionBuilder
         }
 
         return $loader->load($resource, $type);
+=======
+            $collections = $this->loader->load($resource, $type);
+
+            return \is_array($collections) ? $collections : [$collections];
+        }
+
+        if (null === $resolver = $this->loader->getResolver()) {
+            throw new LoaderLoadException($resource, null, null, null, $type);
+        }
+
+        if (false === $loader = $resolver->resolve($resource, $type)) {
+            throw new LoaderLoadException($resource, null, null, null, $type);
+        }
+
+        $collections = $loader->load($resource, $type);
+
+        return \is_array($collections) ? $collections : [$collections];
+>>>>>>> dev
     }
 }

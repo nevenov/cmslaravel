@@ -12,8 +12,11 @@
 namespace Symfony\Component\HttpFoundation\Session\Storage\Proxy;
 
 /**
+<<<<<<< HEAD
  * AbstractProxy.
  *
+=======
+>>>>>>> dev
  * @author Drak <drak@zikula.org>
  */
 abstract class AbstractProxy

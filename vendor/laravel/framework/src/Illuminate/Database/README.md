@@ -45,14 +45,22 @@ $users = Capsule::table('users')->where('votes', '>', 100)->get();
 ```
 Other core methods may be accessed directly from the Capsule in the same manner as from the DB facade:
 ```PHP
+<<<<<<< HEAD
 $results = Capsule::select('select * from users where id = ?', array(1));
+=======
+$results = Capsule::select('select * from users where id = ?', [1]);
+>>>>>>> dev
 ```
 
 **Using The Schema Builder**
 
 ```PHP
+<<<<<<< HEAD
 Capsule::schema()->create('users', function($table)
 {
+=======
+Capsule::schema()->create('users', function ($table) {
+>>>>>>> dev
     $table->increments('id');
     $table->string('email')->unique();
     $table->timestamps();
@@ -67,4 +75,8 @@ class User extends Illuminate\Database\Eloquent\Model {}
 $users = User::where('votes', '>', 1)->get();
 ```
 
+<<<<<<< HEAD
 For further documentation on using the various database facilities this library provides, consult the [Laravel framework documentation](http://laravel.com/docs).
+=======
+For further documentation on using the various database facilities this library provides, consult the [Laravel framework documentation](https://laravel.com/docs).
+>>>>>>> dev

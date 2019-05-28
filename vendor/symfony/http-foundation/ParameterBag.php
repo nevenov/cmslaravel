@@ -20,17 +20,26 @@ class ParameterBag implements \IteratorAggregate, \Countable
 {
     /**
      * Parameter storage.
+<<<<<<< HEAD
      *
      * @var array
+=======
+>>>>>>> dev
      */
     protected $parameters;
 
     /**
+<<<<<<< HEAD
      * Constructor.
      *
      * @param array $parameters An array of parameters
      */
     public function __construct(array $parameters = array())
+=======
+     * @param array $parameters An array of parameters
+     */
+    public function __construct(array $parameters = [])
+>>>>>>> dev
     {
         $this->parameters = $parameters;
     }
@@ -60,7 +69,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @param array $parameters An array of parameters
      */
+<<<<<<< HEAD
     public function replace(array $parameters = array())
+=======
+    public function replace(array $parameters = [])
+>>>>>>> dev
     {
         $this->parameters = $parameters;
     }
@@ -70,7 +83,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @param array $parameters An array of parameters
      */
+<<<<<<< HEAD
     public function add(array $parameters = array())
+=======
+    public function add(array $parameters = [])
+>>>>>>> dev
     {
         $this->parameters = array_replace($this->parameters, $parameters);
     }
@@ -85,7 +102,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function get($key, $default = null)
     {
+<<<<<<< HEAD
         return array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
+=======
+        return \array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
+>>>>>>> dev
     }
 
     /**
@@ -108,7 +129,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function has($key)
     {
+<<<<<<< HEAD
         return array_key_exists($key, $this->parameters);
+=======
+        return \array_key_exists($key, $this->parameters);
+>>>>>>> dev
     }
 
     /**
@@ -158,7 +183,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
     public function getDigits($key, $default = '')
     {
         // we need to remove - and + because they're allowed in the filter
+<<<<<<< HEAD
         return str_replace(array('-', '+'), '', $this->filter($key, $default, FILTER_SANITIZE_NUMBER_INT));
+=======
+        return str_replace(['-', '+'], '', $this->filter($key, $default, FILTER_SANITIZE_NUMBER_INT));
+>>>>>>> dev
     }
 
     /**
@@ -178,7 +207,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
      * Returns the parameter value converted to boolean.
      *
      * @param string $key     The parameter key
+<<<<<<< HEAD
      * @param mixed  $default The default value if the parameter key does not exist
+=======
+     * @param bool   $default The default value if the parameter key does not exist
+>>>>>>> dev
      *
      * @return bool The filtered value
      */
@@ -199,17 +232,30 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return mixed
      */
+<<<<<<< HEAD
     public function filter($key, $default = null, $filter = FILTER_DEFAULT, $options = array())
+=======
+    public function filter($key, $default = null, $filter = FILTER_DEFAULT, $options = [])
+>>>>>>> dev
     {
         $value = $this->get($key, $default);
 
         // Always turn $options into an array - this allows filter_var option shortcuts.
+<<<<<<< HEAD
         if (!is_array($options) && $options) {
             $options = array('flags' => $options);
         }
 
         // Add a convenience check for arrays.
         if (is_array($value) && !isset($options['flags'])) {
+=======
+        if (!\is_array($options) && $options) {
+            $options = ['flags' => $options];
+        }
+
+        // Add a convenience check for arrays.
+        if (\is_array($value) && !isset($options['flags'])) {
+>>>>>>> dev
             $options['flags'] = FILTER_REQUIRE_ARRAY;
         }
 
@@ -233,6 +279,10 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function count()
     {
+<<<<<<< HEAD
         return count($this->parameters);
+=======
+        return \count($this->parameters);
+>>>>>>> dev
     }
 }

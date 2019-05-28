@@ -1,6 +1,10 @@
 <?php
 /*
+<<<<<<< HEAD
  * This file is part of the Comparator package.
+=======
+ * This file is part of sebastian/comparator.
+>>>>>>> dev
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -18,8 +22,14 @@ class ExceptionComparator extends ObjectComparator
     /**
      * Returns whether the comparator can compare two values.
      *
+<<<<<<< HEAD
      * @param  mixed $expected The first value to compare
      * @param  mixed $actual   The second value to compare
+=======
+     * @param mixed $expected The first value to compare
+     * @param mixed $actual   The second value to compare
+     *
+>>>>>>> dev
      * @return bool
      */
     public function accepts($expected, $actual)
@@ -31,7 +41,12 @@ class ExceptionComparator extends ObjectComparator
      * Converts an object to an array containing all of its private, protected
      * and public properties.
      *
+<<<<<<< HEAD
      * @param  object $object
+=======
+     * @param object $object
+     *
+>>>>>>> dev
      * @return array
      */
     protected function toArray($object)

@@ -4,15 +4,23 @@ namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
+=======
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
+>>>>>>> dev
 
 trait ResetsPasswords
 {
     use RedirectsUsers;
 
     /**
+<<<<<<< HEAD
      * Get the name of the guest middleware.
      *
      * @return string
@@ -170,12 +178,15 @@ trait ResetsPasswords
     }
 
     /**
+=======
+>>>>>>> dev
      * Display the password reset view for the given token.
      *
      * If no token is present, display the link request form.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string|null  $token
+<<<<<<< HEAD
      * @return \Illuminate\Http\Response
      */
     public function showResetForm(Request $request, $token = null)
@@ -206,12 +217,22 @@ trait ResetsPasswords
     public function postReset(Request $request)
     {
         return $this->reset($request);
+=======
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+>>>>>>> dev
     }
 
     /**
      * Reset the given user's password.
      *
      * @param  \Illuminate\Http\Request  $request
+<<<<<<< HEAD
      * @return \Illuminate\Http\Response
      */
     public function reset(Request $request)
@@ -237,6 +258,29 @@ trait ResetsPasswords
             default:
                 return $this->getResetFailureResponse($request, $response);
         }
+=======
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function reset(Request $request)
+    {
+        $request->validate($this->rules(), $this->validationErrorMessages());
+
+        // Here we will attempt to reset the user's password. If it is successful we
+        // will update the password on an actual user model and persist it to the
+        // database. Otherwise we will parse the error and return the response.
+        $response = $this->broker()->reset(
+            $this->credentials($request), function ($user, $password) {
+                $this->resetPassword($user, $password);
+            }
+        );
+
+        // If the password was successfully reset, we will redirect the user back to
+        // the application's home authenticated view. If there is an error we can
+        // redirect them back to where they came from with their error message.
+        return $response == Password::PASSWORD_RESET
+                    ? $this->sendResetResponse($request, $response)
+                    : $this->sendResetFailedResponse($request, $response);
+>>>>>>> dev
     }
 
     /**
@@ -244,16 +288,25 @@ trait ResetsPasswords
      *
      * @return array
      */
+<<<<<<< HEAD
     protected function getResetValidationRules()
+=======
+    protected function rules()
+>>>>>>> dev
     {
         return [
             'token' => 'required',
             'email' => 'required|email',
+<<<<<<< HEAD
             'password' => 'required|confirmed|min:6',
+=======
+            'password' => 'required|confirmed|min:8',
+>>>>>>> dev
         ];
     }
 
     /**
+<<<<<<< HEAD
      * Get the password reset validation messages.
      *
      * @return array
@@ -269,6 +322,13 @@ trait ResetsPasswords
      * @return array
      */
     protected function getResetValidationCustomAttributes()
+=======
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+>>>>>>> dev
     {
         return [];
     }
@@ -279,7 +339,11 @@ trait ResetsPasswords
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+<<<<<<< HEAD
     protected function getResetCredentials(Request $request)
+=======
+    protected function credentials(Request $request)
+>>>>>>> dev
     {
         return $request->only(
             'email', 'password', 'password_confirmation', 'token'
@@ -295,6 +359,7 @@ trait ResetsPasswords
      */
     protected function resetPassword($user, $password)
     {
+<<<<<<< HEAD
         $user->forceFill([
             'password' => bcrypt($password),
             'remember_token' => Str::random(60),
@@ -326,25 +391,79 @@ trait ResetsPasswords
         return redirect()->back()
             ->withInput($request->only('email'))
             ->withErrors(['email' => trans($response)]);
+=======
+        $user->password = Hash::make($password);
+
+        $user->setRememberToken(Str::random(60));
+
+        $user->save();
+
+        event(new PasswordReset($user));
+
+        $this->guard()->login($user);
+    }
+
+    /**
+     * Get the response for a successful password reset.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetResponse(Request $request, $response)
+    {
+        return redirect($this->redirectPath())
+                            ->with('status', trans($response));
+    }
+
+    /**
+     * Get the response for a failed password reset.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetFailedResponse(Request $request, $response)
+    {
+        return redirect()->back()
+                    ->withInput($request->only('email'))
+                    ->withErrors(['email' => trans($response)]);
+>>>>>>> dev
     }
 
     /**
      * Get the broker to be used during password reset.
      *
+<<<<<<< HEAD
      * @return string|null
      */
     public function getBroker()
     {
         return property_exists($this, 'broker') ? $this->broker : null;
+=======
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker();
+>>>>>>> dev
     }
 
     /**
      * Get the guard to be used during password reset.
      *
+<<<<<<< HEAD
      * @return string|null
      */
     protected function getGuard()
     {
         return property_exists($this, 'guard') ? $this->guard : null;
+=======
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard();
+>>>>>>> dev
     }
 }

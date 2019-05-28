@@ -2,6 +2,10 @@
 
 namespace Illuminate\Database;
 
+<<<<<<< HEAD
+=======
+use PDO;
+>>>>>>> dev
 use Illuminate\Database\Schema\MySqlBuilder;
 use Illuminate\Database\Query\Processors\MySqlProcessor;
 use Doctrine\DBAL\Driver\PDOMySql\Driver as DoctrineDriver;
@@ -11,6 +15,19 @@ use Illuminate\Database\Schema\Grammars\MySqlGrammar as SchemaGrammar;
 class MySqlConnection extends Connection
 {
     /**
+<<<<<<< HEAD
+=======
+     * Get the default query grammar instance.
+     *
+     * @return \Illuminate\Database\Query\Grammars\MySqlGrammar
+     */
+    protected function getDefaultQueryGrammar()
+    {
+        return $this->withTablePrefix(new QueryGrammar);
+    }
+
+    /**
+>>>>>>> dev
      * Get a schema builder instance for the connection.
      *
      * @return \Illuminate\Database\Schema\MySqlBuilder
@@ -25,6 +42,7 @@ class MySqlConnection extends Connection
     }
 
     /**
+<<<<<<< HEAD
      * Get the default query grammar instance.
      *
      * @return \Illuminate\Database\Query\Grammars\MySqlGrammar
@@ -35,6 +53,8 @@ class MySqlConnection extends Connection
     }
 
     /**
+=======
+>>>>>>> dev
      * Get the default schema grammar instance.
      *
      * @return \Illuminate\Database\Schema\Grammars\MySqlGrammar
@@ -63,4 +83,24 @@ class MySqlConnection extends Connection
     {
         return new DoctrineDriver;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Bind values to their parameters in the given statement.
+     *
+     * @param  \PDOStatement $statement
+     * @param  array  $bindings
+     * @return void
+     */
+    public function bindValues($statement, $bindings)
+    {
+        foreach ($bindings as $key => $value) {
+            $statement->bindValue(
+                is_string($key) ? $key : $key + 1, $value,
+                is_int($value) || is_float($value) ? PDO::PARAM_INT : PDO::PARAM_STR
+            );
+        }
+    }
+>>>>>>> dev
 }

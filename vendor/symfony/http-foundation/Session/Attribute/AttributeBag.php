@@ -17,6 +17,7 @@ namespace Symfony\Component\HttpFoundation\Session\Attribute;
 class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Countable
 {
     private $name = 'attributes';
+<<<<<<< HEAD
 
     /**
      * @var string
@@ -34,6 +35,16 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
      * @param string $storageKey The key used to store attributes in the session
      */
     public function __construct($storageKey = '_sf2_attributes')
+=======
+    private $storageKey;
+
+    protected $attributes = [];
+
+    /**
+     * @param string $storageKey The key used to store attributes in the session
+     */
+    public function __construct(string $storageKey = '_sf2_attributes')
+>>>>>>> dev
     {
         $this->storageKey = $storageKey;
     }
@@ -72,7 +83,11 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
      */
     public function has($name)
     {
+<<<<<<< HEAD
         return array_key_exists($name, $this->attributes);
+=======
+        return \array_key_exists($name, $this->attributes);
+>>>>>>> dev
     }
 
     /**
@@ -80,7 +95,11 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
      */
     public function get($name, $default = null)
     {
+<<<<<<< HEAD
         return array_key_exists($name, $this->attributes) ? $this->attributes[$name] : $default;
+=======
+        return \array_key_exists($name, $this->attributes) ? $this->attributes[$name] : $default;
+>>>>>>> dev
     }
 
     /**
@@ -104,7 +123,11 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
      */
     public function replace(array $attributes)
     {
+<<<<<<< HEAD
         $this->attributes = array();
+=======
+        $this->attributes = [];
+>>>>>>> dev
         foreach ($attributes as $key => $value) {
             $this->set($key, $value);
         }
@@ -116,7 +139,11 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
     public function remove($name)
     {
         $retval = null;
+<<<<<<< HEAD
         if (array_key_exists($name, $this->attributes)) {
+=======
+        if (\array_key_exists($name, $this->attributes)) {
+>>>>>>> dev
             $retval = $this->attributes[$name];
             unset($this->attributes[$name]);
         }
@@ -130,7 +157,11 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
     public function clear()
     {
         $return = $this->attributes;
+<<<<<<< HEAD
         $this->attributes = array();
+=======
+        $this->attributes = [];
+>>>>>>> dev
 
         return $return;
     }
@@ -152,6 +183,10 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
      */
     public function count()
     {
+<<<<<<< HEAD
         return count($this->attributes);
+=======
+        return \count($this->attributes);
+>>>>>>> dev
     }
 }

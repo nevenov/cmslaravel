@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Profiler;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\DataCollector\RequestDataCollector;
 use Symfony\Component\HttpKernel\Profiler\FileProfilerStorage;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
@@ -18,6 +19,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProfilerTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
+use Symfony\Component\HttpKernel\DataCollector\RequestDataCollector;
+use Symfony\Component\HttpKernel\Profiler\FileProfilerStorage;
+use Symfony\Component\HttpKernel\Profiler\Profiler;
+
+class ProfilerTest extends TestCase
+>>>>>>> dev
 {
     private $tmp;
     private $storage;
@@ -32,10 +44,31 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
         $profiler = new Profiler($this->storage);
         $profiler->add($collector);
         $profile = $profiler->collect($request, $response);
+<<<<<<< HEAD
 
         $this->assertSame(204, $profile->getStatusCode());
         $this->assertSame('GET', $profile->getMethod());
         $this->assertEquals(array('foo' => 'bar'), $profiler->get('request')->getRequestQuery()->all());
+=======
+        $profiler->saveProfile($profile);
+
+        $this->assertSame(204, $profile->getStatusCode());
+        $this->assertSame('GET', $profile->getMethod());
+        $this->assertSame('bar', $profile->getCollector('request')->getRequestQuery()->all()['foo']->getValue());
+    }
+
+    public function testReset()
+    {
+        $collector = $this->getMockBuilder(DataCollectorInterface::class)
+            ->setMethods(['collect', 'getName', 'reset'])
+            ->getMock();
+        $collector->expects($this->any())->method('getName')->willReturn('mock');
+        $collector->expects($this->once())->method('reset');
+
+        $profiler = new Profiler($this->storage);
+        $profiler->add($collector);
+        $profiler->reset();
+>>>>>>> dev
     }
 
     public function testFindWorksWithDates()
@@ -59,9 +92,22 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $profiler->find(null, null, null, null, 'some string', ''));
     }
 
+<<<<<<< HEAD
     protected function setUp()
     {
         $this->tmp = tempnam(sys_get_temp_dir(), 'sf2_profiler');
+=======
+    public function testFindWorksWithStatusCode()
+    {
+        $profiler = new Profiler($this->storage);
+
+        $this->assertCount(0, $profiler->find(null, null, null, null, null, null, '204'));
+    }
+
+    protected function setUp()
+    {
+        $this->tmp = tempnam(sys_get_temp_dir(), 'sf_profiler');
+>>>>>>> dev
         if (file_exists($this->tmp)) {
             @unlink($this->tmp);
         }

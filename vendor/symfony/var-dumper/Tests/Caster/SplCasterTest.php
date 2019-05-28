@@ -11,19 +11,32 @@
 
 namespace Symfony\Component\VarDumper\Tests\Caster;
 
+<<<<<<< HEAD
+=======
+use PHPUnit\Framework\TestCase;
+>>>>>>> dev
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
+<<<<<<< HEAD
 class SplCasterTest extends \PHPUnit_Framework_TestCase
+=======
+class SplCasterTest extends TestCase
+>>>>>>> dev
 {
     use VarDumperTestTrait;
 
     public function getCastFileInfoTests()
     {
+<<<<<<< HEAD
         return array(
             array(__FILE__, <<<'EOTXT'
+=======
+        return [
+            [__FILE__, <<<'EOTXT'
+>>>>>>> dev
 SplFileInfo {
 %Apath: "%sCaster"
   filename: "SplCasterTest.php"
@@ -34,7 +47,11 @@ SplFileInfo {
   aTime: %s-%s-%d %d:%d:%d
   mTime: %s-%s-%d %d:%d:%d
   cTime: %s-%s-%d %d:%d:%d
+<<<<<<< HEAD
   inode: %d
+=======
+  inode: %i
+>>>>>>> dev
   size: %d
   perms: 0%d
   owner: %d
@@ -48,8 +65,13 @@ SplFileInfo {
   link: false
 %A}
 EOTXT
+<<<<<<< HEAD
             ),
             array('https://google.com/about', <<<'EOTXT'
+=======
+            ],
+            ['https://google.com/about', <<<'EOTXT'
+>>>>>>> dev
 SplFileInfo {
 %Apath: "https://google.com"
   filename: "about"
@@ -59,8 +81,13 @@ SplFileInfo {
   realPath: false
 %A}
 EOTXT
+<<<<<<< HEAD
             ),
         );
+=======
+            ],
+        ];
+>>>>>>> dev
     }
 
     /** @dataProvider getCastFileInfoTests */
@@ -84,7 +111,11 @@ SplFileObject {
   aTime: %s-%s-%d %d:%d:%d
   mTime: %s-%s-%d %d:%d:%d
   cTime: %s-%s-%d %d:%d:%d
+<<<<<<< HEAD
   inode: %d
+=======
+  inode: %i
+>>>>>>> dev
   size: %d
   perms: 0%d
   owner: %d
@@ -96,15 +127,26 @@ SplFileObject {
   file: true
   dir: false
   link: false
+<<<<<<< HEAD
 %AcsvControl: array:2 [
     0 => ","
     1 => """
   ]
+=======
+%AcsvControl: array:%d [
+    0 => ","
+    1 => """
+%A]
+>>>>>>> dev
   flags: DROP_NEW_LINE|SKIP_EMPTY
   maxLineLen: 0
   fstat: array:26 [
     "dev" => %d
+<<<<<<< HEAD
     "ino" => %d
+=======
+    "ino" => %i
+>>>>>>> dev
     "nlink" => %d
     "rdev" => 0
     "blksize" => %i
@@ -117,4 +159,93 @@ SplFileObject {
 EOTXT;
         $this->assertDumpMatchesFormat($dump, $var);
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * @dataProvider provideCastSplDoublyLinkedList
+     */
+    public function testCastSplDoublyLinkedList($modeValue, $modeDump)
+    {
+        $var = new \SplDoublyLinkedList();
+        $var->setIteratorMode($modeValue);
+        $dump = <<<EOTXT
+SplDoublyLinkedList {
+%Amode: $modeDump
+  dllist: []
+}
+EOTXT;
+        $this->assertDumpMatchesFormat($dump, $var);
+    }
+
+    public function provideCastSplDoublyLinkedList()
+    {
+        return [
+            [\SplDoublyLinkedList::IT_MODE_FIFO, 'IT_MODE_FIFO | IT_MODE_KEEP'],
+            [\SplDoublyLinkedList::IT_MODE_LIFO, 'IT_MODE_LIFO | IT_MODE_KEEP'],
+            [\SplDoublyLinkedList::IT_MODE_FIFO | \SplDoublyLinkedList::IT_MODE_DELETE, 'IT_MODE_FIFO | IT_MODE_DELETE'],
+            [\SplDoublyLinkedList::IT_MODE_LIFO | \SplDoublyLinkedList::IT_MODE_DELETE, 'IT_MODE_LIFO | IT_MODE_DELETE'],
+        ];
+    }
+
+    public function testCastObjectStorageIsntModified()
+    {
+        $var = new \SplObjectStorage();
+        $var->attach(new \stdClass());
+        $var->rewind();
+        $current = $var->current();
+
+        $this->assertDumpMatchesFormat('%A', $var);
+        $this->assertSame($current, $var->current());
+    }
+
+    public function testCastObjectStorageDumpsInfo()
+    {
+        $var = new \SplObjectStorage();
+        $var->attach(new \stdClass(), new \DateTime());
+
+        $this->assertDumpMatchesFormat('%ADateTime%A', $var);
+    }
+
+    public function testCastArrayObject()
+    {
+        $var = new \ArrayObject([123]);
+        $var->foo = 234;
+
+        $expected = <<<EOTXT
+ArrayObject {
+  +"foo": 234
+  flag::STD_PROP_LIST: false
+  flag::ARRAY_AS_PROPS: false
+  iteratorClass: "ArrayIterator"
+  storage: array:1 [
+    0 => 123
+  ]
+}
+EOTXT;
+        $this->assertDumpEquals($expected, $var);
+    }
+
+    public function testArrayIterator()
+    {
+        $var = new MyArrayIterator([234]);
+
+        $expected = <<<EOTXT
+Symfony\Component\VarDumper\Tests\Caster\MyArrayIterator {
+  -foo: 123
+  flag::STD_PROP_LIST: false
+  flag::ARRAY_AS_PROPS: false
+  storage: array:1 [
+    0 => 234
+  ]
+}
+EOTXT;
+        $this->assertDumpEquals($expected, $var);
+    }
+}
+
+class MyArrayIterator extends \ArrayIterator
+{
+    private $foo = 123;
+>>>>>>> dev
 }

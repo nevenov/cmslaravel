@@ -9,10 +9,16 @@ interface StatefulGuard extends Guard
      *
      * @param  array  $credentials
      * @param  bool   $remember
+<<<<<<< HEAD
      * @param  bool   $login
      * @return bool
      */
     public function attempt(array $credentials = [], $remember = false, $login = true);
+=======
+     * @return bool
+     */
+    public function attempt(array $credentials = [], $remember = false);
+>>>>>>> dev
 
     /**
      * Log a user into the application without sessions or cookies.

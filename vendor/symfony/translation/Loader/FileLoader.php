@@ -11,9 +11,15 @@
 
 namespace Symfony\Component\Translation\Loader;
 
+<<<<<<< HEAD
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Symfony\Component\Config\Resource\FileResource;
+=======
+use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Translation\Exception\InvalidResourceException;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
+>>>>>>> dev
 
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
@@ -37,11 +43,19 @@ abstract class FileLoader extends ArrayLoader
 
         // empty resource
         if (null === $messages) {
+<<<<<<< HEAD
             $messages = array();
         }
 
         // not an array
         if (!is_array($messages)) {
+=======
+            $messages = [];
+        }
+
+        // not an array
+        if (!\is_array($messages)) {
+>>>>>>> dev
             throw new InvalidResourceException(sprintf('Unable to load file "%s".', $resource));
         }
 
@@ -54,12 +68,20 @@ abstract class FileLoader extends ArrayLoader
         return $catalogue;
     }
 
+<<<<<<< HEAD
     /*
+=======
+    /**
+>>>>>>> dev
      * @param string $resource
      *
      * @return array
      *
+<<<<<<< HEAD
      * @throws InvalidResourceException If stream content has an invalid format.
+=======
+     * @throws InvalidResourceException if stream content has an invalid format
+>>>>>>> dev
      */
     abstract protected function loadResource($resource);
 }

@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel\Tests\EventListener;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\EventListener\FragmentListener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -18,6 +19,16 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\UriSigner;
 
 class FragmentListenerTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\EventListener\FragmentListener;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\UriSigner;
+
+class FragmentListenerTest extends TestCase
+>>>>>>> dev
 {
     public function testOnlyTriggeredOnFragmentRoute()
     {
@@ -67,7 +78,11 @@ class FragmentListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAccessDeniedWithWrongSignature()
     {
+<<<<<<< HEAD
         $request = Request::create('http://example.com/_fragment', 'GET', array(), array(), array(), array('REMOTE_ADDR' => '10.0.0.1'));
+=======
+        $request = Request::create('http://example.com/_fragment', 'GET', [], [], [], ['REMOTE_ADDR' => '10.0.0.1']);
+>>>>>>> dev
 
         $listener = new FragmentListener(new UriSigner('foo'));
         $event = $this->createGetResponseEvent($request);
@@ -78,14 +93,22 @@ class FragmentListenerTest extends \PHPUnit_Framework_TestCase
     public function testWithSignature()
     {
         $signer = new UriSigner('foo');
+<<<<<<< HEAD
         $request = Request::create($signer->sign('http://example.com/_fragment?_path=foo%3Dbar%26_controller%3Dfoo'), 'GET', array(), array(), array(), array('REMOTE_ADDR' => '10.0.0.1'));
+=======
+        $request = Request::create($signer->sign('http://example.com/_fragment?_path=foo%3Dbar%26_controller%3Dfoo'), 'GET', [], [], [], ['REMOTE_ADDR' => '10.0.0.1']);
+>>>>>>> dev
 
         $listener = new FragmentListener($signer);
         $event = $this->createGetResponseEvent($request);
 
         $listener->onKernelRequest($event);
 
+<<<<<<< HEAD
         $this->assertEquals(array('foo' => 'bar', '_controller' => 'foo'), $request->attributes->get('_route_params'));
+=======
+        $this->assertEquals(['foo' => 'bar', '_controller' => 'foo'], $request->attributes->get('_route_params'));
+>>>>>>> dev
         $this->assertFalse($request->query->has('_path'));
     }
 
@@ -104,7 +127,11 @@ class FragmentListenerTest extends \PHPUnit_Framework_TestCase
     public function testRemovesPathWithControllerNotDefined()
     {
         $signer = new UriSigner('foo');
+<<<<<<< HEAD
         $request = Request::create($signer->sign('http://example.com/_fragment?_path=foo%3Dbar'), 'GET', array(), array(), array(), array('REMOTE_ADDR' => '10.0.0.1'));
+=======
+        $request = Request::create($signer->sign('http://example.com/_fragment?_path=foo%3Dbar'), 'GET', [], [], [], ['REMOTE_ADDR' => '10.0.0.1']);
+>>>>>>> dev
 
         $listener = new FragmentListener($signer);
         $event = $this->createGetResponseEvent($request);
@@ -116,6 +143,10 @@ class FragmentListenerTest extends \PHPUnit_Framework_TestCase
 
     private function createGetResponseEvent(Request $request, $requestType = HttpKernelInterface::MASTER_REQUEST)
     {
+<<<<<<< HEAD
         return new GetResponseEvent($this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface'), $request, $requestType);
+=======
+        return new GetResponseEvent($this->getMockBuilder('Symfony\Component\HttpKernel\HttpKernelInterface')->getMock(), $request, $requestType);
+>>>>>>> dev
     }
 }

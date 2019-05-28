@@ -8,6 +8,7 @@
  * file that was distributed with this source code.
  */
 
+<<<<<<< HEAD
 /**
  * Utility class for textual type (and value) representation.
  *
@@ -33,6 +34,38 @@ class PHPUnit_Util_Type
             'resource',
             'scalar'
             )
+=======
+namespace PHPUnit\Util;
+
+/**
+ * Utility class for textual type (and value) representation.
+ */
+class Type
+{
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public static function isType($type)
+    {
+        return \in_array(
+            $type,
+            [
+                'numeric',
+                'integer',
+                'int',
+                'float',
+                'string',
+                'boolean',
+                'bool',
+                'null',
+                'array',
+                'object',
+                'resource',
+                'scalar'
+            ]
+>>>>>>> dev
         );
     }
 }

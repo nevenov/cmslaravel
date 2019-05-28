@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 /**
  * An empty Listener that can be extended to implement TestListener
@@ -52,4 +53,16 @@ abstract class PHPUnit_Framework_BaseTestListener implements PHPUnit_Framework_T
     public function endTest(PHPUnit_Framework_Test $test, $time)
     {
     }
+=======
+namespace PHPUnit\Framework;
+
+/**
+ * Implementation of the TestListener interface that does not do anything.
+ *
+ * @deprecated Use TestListenerDefaultImplementation trait instead
+ */
+abstract class BaseTestListener implements TestListener
+{
+    use TestListenerDefaultImplementation;
+>>>>>>> dev
 }

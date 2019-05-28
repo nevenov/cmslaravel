@@ -32,7 +32,11 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
 
     public function getAcceptData()
     {
+<<<<<<< HEAD
         $lessThan1 = array(
+=======
+        $lessThan1 = [
+>>>>>>> dev
             '.git',
             'test.py',
             'foo',
@@ -41,9 +45,22 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
             '.foo',
             '.bar',
             'foo bar',
+<<<<<<< HEAD
         );
 
         $lessThanOrEqualTo1 = array(
+=======
+            'qux',
+            'qux_0_1.php',
+            'qux_1000_1.php',
+            'qux_1002_0.php',
+            'qux_10_2.php',
+            'qux_12_0.php',
+            'qux_2_0.php',
+        ];
+
+        $lessThanOrEqualTo1 = [
+>>>>>>> dev
             '.git',
             'test.py',
             'foo',
@@ -56,20 +73,44 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
             '.bar',
             'foo bar',
             '.foo/bar',
+<<<<<<< HEAD
         );
 
         $graterThanOrEqualTo1 = array(
+=======
+            'qux',
+            'qux/baz_100_1.py',
+            'qux/baz_1_2.py',
+            'qux_0_1.php',
+            'qux_1000_1.php',
+            'qux_1002_0.php',
+            'qux_10_2.php',
+            'qux_12_0.php',
+            'qux_2_0.php',
+        ];
+
+        $graterThanOrEqualTo1 = [
+>>>>>>> dev
             'toto/.git',
             'foo/bar.tmp',
             '.foo/.bar',
             '.foo/bar',
+<<<<<<< HEAD
         );
 
         $equalTo1 = array(
+=======
+            'qux/baz_100_1.py',
+            'qux/baz_1_2.py',
+        ];
+
+        $equalTo1 = [
+>>>>>>> dev
             'toto/.git',
             'foo/bar.tmp',
             '.foo/.bar',
             '.foo/bar',
+<<<<<<< HEAD
         );
 
         return array(
@@ -79,5 +120,18 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
             array(1, PHP_INT_MAX, $this->toAbsolute($graterThanOrEqualTo1)),
             array(1, 1, $this->toAbsolute($equalTo1)),
         );
+=======
+            'qux/baz_100_1.py',
+            'qux/baz_1_2.py',
+        ];
+
+        return [
+            [0, 0, $this->toAbsolute($lessThan1)],
+            [0, 1, $this->toAbsolute($lessThanOrEqualTo1)],
+            [2, PHP_INT_MAX, []],
+            [1, PHP_INT_MAX, $this->toAbsolute($graterThanOrEqualTo1)],
+            [1, 1, $this->toAbsolute($equalTo1)],
+        ];
+>>>>>>> dev
     }
 }

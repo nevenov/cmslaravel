@@ -7,11 +7,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 /**
  * @since Class available since Release 3.6.6
  */
 class PHPUnit_Framework_Constraint_Exception extends PHPUnit_Framework_Constraint
+=======
+namespace PHPUnit\Framework\Constraint;
+
+use PHPUnit\Util\Filter;
+use Throwable;
+
+class Exception extends Constraint
+>>>>>>> dev
 {
     /**
      * @var string
@@ -54,6 +63,7 @@ class PHPUnit_Framework_Constraint_Exception extends PHPUnit_Framework_Constrain
     {
         if ($other !== null) {
             $message = '';
+<<<<<<< HEAD
             if ($other instanceof Exception) {
                 $message = '. Message was: "' . $other->getMessage() . '" at'
                         . "\n" . $other->getTraceAsString();
@@ -62,12 +72,26 @@ class PHPUnit_Framework_Constraint_Exception extends PHPUnit_Framework_Constrain
             return sprintf(
                 'exception of type "%s" matches expected exception "%s"%s',
                 get_class($other),
+=======
+            if ($other instanceof Throwable) {
+                $message = '. Message was: "' . $other->getMessage() . '" at'
+                    . "\n" . Filter::getFilteredStacktrace($other);
+            }
+
+            return \sprintf(
+                'exception of type "%s" matches expected exception "%s"%s',
+                \get_class($other),
+>>>>>>> dev
                 $this->className,
                 $message
             );
         }
 
+<<<<<<< HEAD
         return sprintf(
+=======
+        return \sprintf(
+>>>>>>> dev
             'exception of type "%s" is thrown',
             $this->className
         );
@@ -80,7 +104,11 @@ class PHPUnit_Framework_Constraint_Exception extends PHPUnit_Framework_Constrain
      */
     public function toString()
     {
+<<<<<<< HEAD
         return sprintf(
+=======
+        return \sprintf(
+>>>>>>> dev
             'exception of type "%s"',
             $this->className
         );

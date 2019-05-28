@@ -78,7 +78,11 @@ class Manager
      * Get a fluent query builder instance.
      *
      * @param  string  $table
+<<<<<<< HEAD
      * @param  string  $connection
+=======
+     * @param  string|null  $connection
+>>>>>>> dev
      * @return \Illuminate\Database\Query\Builder
      */
     public static function table($table, $connection = null)
@@ -196,6 +200,10 @@ class Manager
      */
     public static function __callStatic($method, $parameters)
     {
+<<<<<<< HEAD
         return call_user_func_array([static::connection(), $method], $parameters);
+=======
+        return static::connection()->$method(...$parameters);
+>>>>>>> dev
     }
 }

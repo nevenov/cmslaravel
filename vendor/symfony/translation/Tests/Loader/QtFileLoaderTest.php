@@ -11,10 +11,18 @@
 
 namespace Symfony\Component\Translation\Tests\Loader;
 
+<<<<<<< HEAD
 use Symfony\Component\Translation\Loader\QtFileLoader;
 use Symfony\Component\Config\Resource\FileResource;
 
 class QtFileLoaderTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Translation\Loader\QtFileLoader;
+
+class QtFileLoaderTest extends TestCase
+>>>>>>> dev
 {
     public function testLoad()
     {
@@ -22,9 +30,15 @@ class QtFileLoaderTest extends \PHPUnit_Framework_TestCase
         $resource = __DIR__.'/../fixtures/resources.ts';
         $catalogue = $loader->load($resource, 'en', 'resources');
 
+<<<<<<< HEAD
         $this->assertEquals(array('foo' => 'bar'), $catalogue->all('resources'));
         $this->assertEquals('en', $catalogue->getLocale());
         $this->assertEquals(array(new FileResource($resource)), $catalogue->getResources());
+=======
+        $this->assertEquals(['foo' => 'bar'], $catalogue->all('resources'));
+        $this->assertEquals('en', $catalogue->getLocale());
+        $this->assertEquals([new FileResource($resource)], $catalogue->getResources());
+>>>>>>> dev
     }
 
     /**
@@ -61,7 +75,18 @@ class QtFileLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $loader = new QtFileLoader();
         $resource = __DIR__.'/../fixtures/empty.xlf';
+<<<<<<< HEAD
         $this->setExpectedException('Symfony\Component\Translation\Exception\InvalidResourceException', sprintf('Unable to load "%s".', $resource));
+=======
+
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('Symfony\Component\Translation\Exception\InvalidResourceException');
+            $this->expectExceptionMessage(sprintf('Unable to load "%s".', $resource));
+        } else {
+            $this->setExpectedException('Symfony\Component\Translation\Exception\InvalidResourceException', sprintf('Unable to load "%s".', $resource));
+        }
+
+>>>>>>> dev
         $loader->load($resource, 'en', 'domain1');
     }
 }

@@ -19,6 +19,7 @@ class JobProcessed
     public $job;
 
     /**
+<<<<<<< HEAD
      * The data given to the job.
      *
      * @var array
@@ -26,10 +27,13 @@ class JobProcessed
     public $data;
 
     /**
+=======
+>>>>>>> dev
      * Create a new event instance.
      *
      * @param  string  $connectionName
      * @param  \Illuminate\Contracts\Queue\Job  $job
+<<<<<<< HEAD
      * @param  array  $data
      * @return void
      */
@@ -37,6 +41,13 @@ class JobProcessed
     {
         $this->job = $job;
         $this->data = $data;
+=======
+     * @return void
+     */
+    public function __construct($connectionName, $job)
+    {
+        $this->job = $job;
+>>>>>>> dev
         $this->connectionName = $connectionName;
     }
 }

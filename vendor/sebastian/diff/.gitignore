@@ -1,4 +1,9 @@
 /.idea
 /composer.lock
 /vendor
+<<<<<<< HEAD
 /.php_cs.cache
+=======
+/.php_cs.cache
+/from.txt.orig
+>>>>>>> dev

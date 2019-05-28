@@ -5,4 +5,11 @@ msgstr ""
 "Language: en\n"
 
 msgid "foo"
+<<<<<<< HEAD
 msgstr "bar"
+=======
+msgstr "bar"
+
+msgid "bar"
+msgstr "foo"
+>>>>>>> dev

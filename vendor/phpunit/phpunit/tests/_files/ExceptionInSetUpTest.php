@@ -1,5 +1,11 @@
 <?php
+<<<<<<< HEAD
 class ExceptionInSetUpTest extends PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+
+class ExceptionInSetUpTest extends TestCase
+>>>>>>> dev
 {
     public $setUp                = false;
     public $assertPreConditions  = false;

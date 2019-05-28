@@ -11,9 +11,16 @@
 
 namespace Symfony\Component\Finder\Tests\Comparator;
 
+<<<<<<< HEAD
 use Symfony\Component\Finder\Comparator\Comparator;
 
 class ComparatorTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Finder\Comparator\Comparator;
+
+class ComparatorTest extends TestCase
+>>>>>>> dev
 {
     public function testGetSetOperator()
     {
@@ -57,8 +64,14 @@ class ComparatorTest extends \PHPUnit_Framework_TestCase
 
     public function getTestData()
     {
+<<<<<<< HEAD
         return array(
             array('<', '1000', array('500', '999'), array('1000', '1500')),
         );
+=======
+        return [
+            ['<', '1000', ['500', '999'], ['1000', '1500']],
+        ];
+>>>>>>> dev
     }
 }

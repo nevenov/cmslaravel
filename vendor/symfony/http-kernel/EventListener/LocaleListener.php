@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel\EventListener;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -18,6 +19,15 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RequestContextAwareInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+=======
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Routing\RequestContextAwareInterface;
+>>>>>>> dev
 
 /**
  * Initializes the locale based on the current request.
@@ -31,13 +41,20 @@ class LocaleListener implements EventSubscriberInterface
     private $requestStack;
 
     /**
+<<<<<<< HEAD
      * Constructor.
      *
+=======
+>>>>>>> dev
      * @param RequestStack                      $requestStack  A RequestStack instance
      * @param string                            $defaultLocale The default locale
      * @param RequestContextAwareInterface|null $router        The router
      */
+<<<<<<< HEAD
     public function __construct(RequestStack $requestStack, $defaultLocale = 'en', RequestContextAwareInterface $router = null)
+=======
+    public function __construct(RequestStack $requestStack, string $defaultLocale = 'en', RequestContextAwareInterface $router = null)
+>>>>>>> dev
     {
         $this->defaultLocale = $defaultLocale;
         $this->requestStack = $requestStack;
@@ -76,10 +93,18 @@ class LocaleListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
+<<<<<<< HEAD
         return array(
             // must be registered after the Router to have access to the _locale
             KernelEvents::REQUEST => array(array('onKernelRequest', 16)),
             KernelEvents::FINISH_REQUEST => array(array('onKernelFinishRequest', 0)),
         );
+=======
+        return [
+            // must be registered after the Router to have access to the _locale
+            KernelEvents::REQUEST => [['onKernelRequest', 16]],
+            KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', 0]],
+        ];
+>>>>>>> dev
     }
 }

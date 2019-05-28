@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Debug;
 
+<<<<<<< HEAD
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
 use Symfony\Component\HttpKernel\HttpKernel;
@@ -19,6 +20,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
+use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\Stopwatch\Stopwatch;
+
+class TraceableEventDispatcherTest extends TestCase
+>>>>>>> dev
 {
     public function testStopwatchSections()
     {
@@ -29,6 +42,7 @@ class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $kernel->terminate($request, $response);
 
         $events = $stopwatch->getSectionEvents($response->headers->get('X-Debug-Token'));
+<<<<<<< HEAD
         $this->assertEquals(array(
             '__section__',
             'kernel.request',
@@ -37,12 +51,27 @@ class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
             'kernel.response',
             'kernel.terminate',
         ), array_keys($events));
+=======
+        $this->assertEquals([
+            '__section__',
+            'kernel.request',
+            'kernel.controller',
+            'kernel.controller_arguments',
+            'controller',
+            'kernel.response',
+            'kernel.terminate',
+        ], array_keys($events));
+>>>>>>> dev
     }
 
     public function testStopwatchCheckControllerOnRequestEvent()
     {
         $stopwatch = $this->getMockBuilder('Symfony\Component\Stopwatch\Stopwatch')
+<<<<<<< HEAD
             ->setMethods(array('isStarted'))
+=======
+            ->setMethods(['isStarted'])
+>>>>>>> dev
             ->getMock();
         $stopwatch->expects($this->once())
             ->method('isStarted')
@@ -58,7 +87,11 @@ class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
     public function testStopwatchStopControllerOnRequestEvent()
     {
         $stopwatch = $this->getMockBuilder('Symfony\Component\Stopwatch\Stopwatch')
+<<<<<<< HEAD
             ->setMethods(array('isStarted', 'stop', 'stopSection'))
+=======
+            ->setMethods(['isStarted', 'stop', 'stopSection'])
+>>>>>>> dev
             ->getMock();
         $stopwatch->expects($this->once())
             ->method('isStarted')
@@ -108,10 +141,19 @@ class TraceableEventDispatcherTest extends \PHPUnit_Framework_TestCase
 
     protected function getHttpKernel($dispatcher, $controller)
     {
+<<<<<<< HEAD
         $resolver = $this->getMock('Symfony\Component\HttpKernel\Controller\ControllerResolverInterface');
         $resolver->expects($this->once())->method('getController')->will($this->returnValue($controller));
         $resolver->expects($this->once())->method('getArguments')->will($this->returnValue(array()));
 
         return new HttpKernel($dispatcher, $resolver);
+=======
+        $controllerResolver = $this->getMockBuilder('Symfony\Component\HttpKernel\Controller\ControllerResolverInterface')->getMock();
+        $controllerResolver->expects($this->once())->method('getController')->will($this->returnValue($controller));
+        $argumentResolver = $this->getMockBuilder('Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface')->getMock();
+        $argumentResolver->expects($this->once())->method('getArguments')->will($this->returnValue([]));
+
+        return new HttpKernel($dispatcher, $controllerResolver, new RequestStack(), $argumentResolver);
+>>>>>>> dev
     }
 }

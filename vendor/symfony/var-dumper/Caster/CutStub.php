@@ -24,31 +24,55 @@ class CutStub extends Stub
     {
         $this->value = $value;
 
+<<<<<<< HEAD
         switch (gettype($value)) {
             case 'object':
                 $this->type = self::TYPE_OBJECT;
                 $this->class = get_class($value);
+=======
+        switch (\gettype($value)) {
+            case 'object':
+                $this->type = self::TYPE_OBJECT;
+                $this->class = \get_class($value);
+>>>>>>> dev
                 $this->cut = -1;
                 break;
 
             case 'array':
                 $this->type = self::TYPE_ARRAY;
                 $this->class = self::ARRAY_ASSOC;
+<<<<<<< HEAD
                 $this->cut = $this->value = count($value);
+=======
+                $this->cut = $this->value = \count($value);
+>>>>>>> dev
                 break;
 
             case 'resource':
             case 'unknown type':
+<<<<<<< HEAD
                 $this->type = self::TYPE_RESOURCE;
                 $this->handle = (int) $value;
                 $this->class = @get_resource_type($value);
+=======
+            case 'resource (closed)':
+                $this->type = self::TYPE_RESOURCE;
+                $this->handle = (int) $value;
+                if ('Unknown' === $this->class = @get_resource_type($value)) {
+                    $this->class = 'Closed';
+                }
+>>>>>>> dev
                 $this->cut = -1;
                 break;
 
             case 'string':
                 $this->type = self::TYPE_STRING;
                 $this->class = preg_match('//u', $value) ? self::STRING_UTF8 : self::STRING_BINARY;
+<<<<<<< HEAD
                 $this->cut = self::STRING_BINARY === $this->class ? strlen($value) : mb_strlen($value, 'UTF-8');
+=======
+                $this->cut = self::STRING_BINARY === $this->class ? \strlen($value) : mb_strlen($value, 'UTF-8');
+>>>>>>> dev
                 $this->value = '';
                 break;
         }

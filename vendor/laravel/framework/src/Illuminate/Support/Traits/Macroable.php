@@ -3,6 +3,11 @@
 namespace Illuminate\Support\Traits;
 
 use Closure;
+<<<<<<< HEAD
+=======
+use ReflectionClass;
+use ReflectionMethod;
+>>>>>>> dev
 use BadMethodCallException;
 
 trait Macroable
@@ -17,16 +22,51 @@ trait Macroable
     /**
      * Register a custom macro.
      *
+<<<<<<< HEAD
      * @param  string    $name
      * @param  callable  $macro
      * @return void
      */
     public static function macro($name, callable $macro)
+=======
+     * @param  string $name
+     * @param  object|callable  $macro
+     *
+     * @return void
+     */
+    public static function macro($name, $macro)
+>>>>>>> dev
     {
         static::$macros[$name] = $macro;
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Mix another object into the class.
+     *
+     * @param  object  $mixin
+     * @param  bool  $replace
+     * @return void
+     *
+     * @throws \ReflectionException
+     */
+    public static function mixin($mixin, $replace = true)
+    {
+        $methods = (new ReflectionClass($mixin))->getMethods(
+            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
+        );
+
+        foreach ($methods as $method) {
+            if ($replace || ! static::hasMacro($method->name)) {
+                $method->setAccessible(true);
+                static::macro($method->name, $method->invoke($mixin));
+            }
+        }
+    }
+
+    /**
+>>>>>>> dev
      * Checks if macro is registered.
      *
      * @param  string  $name
@@ -49,7 +89,13 @@ trait Macroable
     public static function __callStatic($method, $parameters)
     {
         if (! static::hasMacro($method)) {
+<<<<<<< HEAD
             throw new BadMethodCallException("Method {$method} does not exist.");
+=======
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
+>>>>>>> dev
         }
 
         if (static::$macros[$method] instanceof Closure) {
@@ -71,6 +117,7 @@ trait Macroable
     public function __call($method, $parameters)
     {
         if (! static::hasMacro($method)) {
+<<<<<<< HEAD
             throw new BadMethodCallException("Method {$method} does not exist.");
         }
 
@@ -79,5 +126,19 @@ trait Macroable
         }
 
         return call_user_func_array(static::$macros[$method], $parameters);
+=======
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
+        }
+
+        $macro = static::$macros[$method];
+
+        if ($macro instanceof Closure) {
+            return call_user_func_array($macro->bindTo($this, static::class), $parameters);
+        }
+
+        return call_user_func_array($macro, $parameters);
+>>>>>>> dev
     }
 }

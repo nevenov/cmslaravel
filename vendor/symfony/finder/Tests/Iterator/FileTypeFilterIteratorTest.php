@@ -29,7 +29,11 @@ class FileTypeFilterIteratorTest extends RealIteratorTestCase
 
     public function getAcceptData()
     {
+<<<<<<< HEAD
         $onlyFiles = array(
+=======
+        $onlyFiles = [
+>>>>>>> dev
             'test.py',
             'foo/bar.tmp',
             'test.php',
@@ -37,6 +41,7 @@ class FileTypeFilterIteratorTest extends RealIteratorTestCase
             '.foo/.bar',
             '.foo/bar',
             'foo bar',
+<<<<<<< HEAD
         );
 
         $onlyDirectories = array(
@@ -51,6 +56,31 @@ class FileTypeFilterIteratorTest extends RealIteratorTestCase
             array(FileTypeFilterIterator::ONLY_FILES, $this->toAbsolute($onlyFiles)),
             array(FileTypeFilterIterator::ONLY_DIRECTORIES, $this->toAbsolute($onlyDirectories)),
         );
+=======
+            'qux/baz_100_1.py',
+            'qux/baz_1_2.py',
+            'qux_0_1.php',
+            'qux_1000_1.php',
+            'qux_1002_0.php',
+            'qux_10_2.php',
+            'qux_12_0.php',
+            'qux_2_0.php',
+        ];
+
+        $onlyDirectories = [
+            '.git',
+            'foo',
+            'qux',
+            'toto',
+            'toto/.git',
+            '.foo',
+        ];
+
+        return [
+            [FileTypeFilterIterator::ONLY_FILES, $this->toAbsolute($onlyFiles)],
+            [FileTypeFilterIterator::ONLY_DIRECTORIES, $this->toAbsolute($onlyDirectories)],
+        ];
+>>>>>>> dev
     }
 }
 

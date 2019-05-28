@@ -26,7 +26,11 @@ class ProcessTimedOutException extends RuntimeException
     private $process;
     private $timeoutType;
 
+<<<<<<< HEAD
     public function __construct(Process $process, $timeoutType)
+=======
+    public function __construct(Process $process, int $timeoutType)
+>>>>>>> dev
     {
         $this->process = $process;
         $this->timeoutType = $timeoutType;
@@ -45,12 +49,20 @@ class ProcessTimedOutException extends RuntimeException
 
     public function isGeneralTimeout()
     {
+<<<<<<< HEAD
         return $this->timeoutType === self::TYPE_GENERAL;
+=======
+        return self::TYPE_GENERAL === $this->timeoutType;
+>>>>>>> dev
     }
 
     public function isIdleTimeout()
     {
+<<<<<<< HEAD
         return $this->timeoutType === self::TYPE_IDLE;
+=======
+        return self::TYPE_IDLE === $this->timeoutType;
+>>>>>>> dev
     }
 
     public function getExceededTimeout()

@@ -11,10 +11,18 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Fragment;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 class RoutableFragmentRendererTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
+
+class RoutableFragmentRendererTest extends TestCase
+>>>>>>> dev
 {
     /**
      * @dataProvider getGenerateFragmentUriData
@@ -34,6 +42,7 @@ class RoutableFragmentRendererTest extends \PHPUnit_Framework_TestCase
 
     public function getGenerateFragmentUriData()
     {
+<<<<<<< HEAD
         return array(
             array('/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', array(), array())),
             array('/_fragment?_path=_format%3Dxml%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', array('_format' => 'xml'), array())),
@@ -42,6 +51,16 @@ class RoutableFragmentRendererTest extends \PHPUnit_Framework_TestCase
             array('/_fragment?foo=foo&_path=_format%3Dhtml%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', array(), array('foo' => 'foo'))),
             array('/_fragment?_path=foo%255B0%255D%3Dfoo%26foo%255B1%255D%3Dbar%26_format%3Dhtml%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', array('foo' => array('foo', 'bar')), array())),
         );
+=======
+        return [
+            ['/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', [], [])],
+            ['/_fragment?_path=_format%3Dxml%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', ['_format' => 'xml'], [])],
+            ['/_fragment?_path=foo%3Dfoo%26_format%3Djson%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', ['foo' => 'foo', '_format' => 'json'], [])],
+            ['/_fragment?bar=bar&_path=foo%3Dfoo%26_format%3Dhtml%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', ['foo' => 'foo'], ['bar' => 'bar'])],
+            ['/_fragment?foo=foo&_path=_format%3Dhtml%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', [], ['foo' => 'foo'])],
+            ['/_fragment?_path=foo%255B0%255D%3Dfoo%26foo%255B1%255D%3Dbar%26_format%3Dhtml%26_locale%3Den%26_controller%3Dcontroller', new ControllerReference('controller', ['foo' => ['foo', 'bar']], [])],
+        ];
+>>>>>>> dev
     }
 
     public function testGenerateFragmentUriWithARequest()
@@ -49,7 +68,11 @@ class RoutableFragmentRendererTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('/');
         $request->attributes->set('_format', 'json');
         $request->setLocale('fr');
+<<<<<<< HEAD
         $controller = new ControllerReference('controller', array(), array());
+=======
+        $controller = new ControllerReference('controller', [], []);
+>>>>>>> dev
 
         $this->assertEquals('/_fragment?_path=_format%3Djson%26_locale%3Dfr%26_controller%3Dcontroller', $this->callGenerateFragmentUriMethod($controller, $request));
     }
@@ -65,10 +88,17 @@ class RoutableFragmentRendererTest extends \PHPUnit_Framework_TestCase
 
     public function getGenerateFragmentUriDataWithNonScalar()
     {
+<<<<<<< HEAD
         return array(
             array(new ControllerReference('controller', array('foo' => new Foo(), 'bar' => 'bar'), array())),
             array(new ControllerReference('controller', array('foo' => array('foo' => 'foo'), 'bar' => array('bar' => new Foo())), array())),
         );
+=======
+        return [
+            [new ControllerReference('controller', ['foo' => new Foo(), 'bar' => 'bar'], [])],
+            [new ControllerReference('controller', ['foo' => ['foo' => 'foo'], 'bar' => ['bar' => new Foo()]], [])],
+        ];
+>>>>>>> dev
     }
 
     private function callGenerateFragmentUriMethod(ControllerReference $reference, Request $request, $absolute = false)

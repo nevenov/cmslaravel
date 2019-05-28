@@ -11,10 +11,17 @@
 
 namespace Symfony\Component\Translation\Loader;
 
+<<<<<<< HEAD
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Symfony\Component\Config\Resource\DirectoryResource;
+=======
+use Symfony\Component\Config\Resource\DirectoryResource;
+use Symfony\Component\Translation\Exception\InvalidResourceException;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Symfony\Component\Translation\MessageCatalogue;
+>>>>>>> dev
 
 /**
  * IcuResFileLoader loads translations from a resource bundle.
@@ -39,7 +46,10 @@ class IcuResFileLoader implements LoaderInterface
         try {
             $rb = new \ResourceBundle($locale, $resource);
         } catch (\Exception $e) {
+<<<<<<< HEAD
             // HHVM compatibility: constructor throws on invalid resource
+=======
+>>>>>>> dev
             $rb = null;
         }
 
@@ -70,6 +80,7 @@ class IcuResFileLoader implements LoaderInterface
      *
      * This function takes an array by reference and will modify it
      *
+<<<<<<< HEAD
      * @param \ResourceBundle $rb       the ResourceBundle that will be flattened
      * @param array           $messages used internally for recursive calls
      * @param string          $path     current path being parsed, used internally for recursive calls
@@ -77,6 +88,15 @@ class IcuResFileLoader implements LoaderInterface
      * @return array the flattened ResourceBundle
      */
     protected function flatten(\ResourceBundle $rb, array &$messages = array(), $path = null)
+=======
+     * @param \ResourceBundle $rb       The ResourceBundle that will be flattened
+     * @param array           $messages Used internally for recursive calls
+     * @param string          $path     Current path being parsed, used internally for recursive calls
+     *
+     * @return array the flattened ResourceBundle
+     */
+    protected function flatten(\ResourceBundle $rb, array &$messages = [], $path = null)
+>>>>>>> dev
     {
         foreach ($rb as $key => $value) {
             $nodePath = $path ? $path.'.'.$key : $key;

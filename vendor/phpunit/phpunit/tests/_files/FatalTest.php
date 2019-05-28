@@ -1,6 +1,12 @@
 <?php
 
+<<<<<<< HEAD
 class FatalTest extends PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+
+class FatalTest extends TestCase
+>>>>>>> dev
 {
     public function testFatalError()
     {

@@ -11,9 +11,16 @@
 
 namespace Symfony\Component\Finder\Tests\Iterator;
 
+<<<<<<< HEAD
 use Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator;
 
 class MultiplePcreFilterIteratorTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator;
+
+class MultiplePcreFilterIteratorTest extends TestCase
+>>>>>>> dev
 {
     /**
      * @dataProvider getIsRegexFixtures
@@ -26,6 +33,7 @@ class MultiplePcreFilterIteratorTest extends \PHPUnit_Framework_TestCase
 
     public function getIsRegexFixtures()
     {
+<<<<<<< HEAD
         return array(
             array('foo', false, 'string'),
             array(' foo ', false, '" " is not a valid delimiter'),
@@ -44,6 +52,26 @@ class MultiplePcreFilterIteratorTest extends \PHPUnit_Framework_TestCase
             array('*foo.*', false, '"*" is not considered as a valid delimiter'),
             array('?foo.?', false, '"?" is not considered as a valid delimiter'),
         );
+=======
+        return [
+            ['foo', false, 'string'],
+            [' foo ', false, '" " is not a valid delimiter'],
+            ['\\foo\\', false, '"\\" is not a valid delimiter'],
+            ['afooa', false, '"a" is not a valid delimiter'],
+            ['//', false, 'the pattern should contain at least 1 character'],
+            ['/a/', true, 'valid regex'],
+            ['/foo/', true, 'valid regex'],
+            ['/foo/i', true, 'valid regex with a single modifier'],
+            ['/foo/imsxu', true, 'valid regex with multiple modifiers'],
+            ['#foo#', true, '"#" is a valid delimiter'],
+            ['{foo}', true, '"{,}" is a valid delimiter pair'],
+            ['[foo]', true, '"[,]" is a valid delimiter pair'],
+            ['(foo)', true, '"(,)" is a valid delimiter pair'],
+            ['<foo>', true, '"<,>" is a valid delimiter pair'],
+            ['*foo.*', false, '"*" is not considered as a valid delimiter'],
+            ['?foo.?', false, '"?" is not considered as a valid delimiter'],
+        ];
+>>>>>>> dev
     }
 }
 

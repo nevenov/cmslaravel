@@ -7,15 +7,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
+=======
+namespace PHPUnit\Framework\Constraint;
+>>>>>>> dev
 
 /**
  * Constraint that checks if the file(name) that it is evaluated for exists.
  *
  * The file path to check is passed as $other in evaluate().
+<<<<<<< HEAD
  *
  * @since Class available since Release 3.0.0
  */
 class PHPUnit_Framework_Constraint_FileExists extends PHPUnit_Framework_Constraint
+=======
+ */
+class FileExists extends Constraint
+>>>>>>> dev
 {
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
@@ -27,7 +36,11 @@ class PHPUnit_Framework_Constraint_FileExists extends PHPUnit_Framework_Constrai
      */
     protected function matches($other)
     {
+<<<<<<< HEAD
         return file_exists($other);
+=======
+        return \file_exists($other);
+>>>>>>> dev
     }
 
     /**
@@ -42,7 +55,11 @@ class PHPUnit_Framework_Constraint_FileExists extends PHPUnit_Framework_Constrai
      */
     protected function failureDescription($other)
     {
+<<<<<<< HEAD
         return sprintf(
+=======
+        return \sprintf(
+>>>>>>> dev
             'file "%s" exists',
             $other
         );

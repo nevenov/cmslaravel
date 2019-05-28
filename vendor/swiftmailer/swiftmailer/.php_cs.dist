@@ -1,6 +1,7 @@
 <?php
 
 return PhpCsFixer\Config::create()
+<<<<<<< HEAD
     ->setRules(array(
         '@Symfony' => true,
         '@Symfony:risky' => true,
@@ -10,6 +11,18 @@ return PhpCsFixer\Config::create()
         'heredoc_to_nowdoc' => false,
         'phpdoc_annotation_without_dot' => false,
     ))
+=======
+    ->setRules([
+        '@Symfony' => true,
+        '@Symfony:risky' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'no_unreachable_default_argument_value' => false,
+        'braces' => ['allow_single_line_closure' => true],
+        'heredoc_to_nowdoc' => false,
+        'phpdoc_annotation_without_dot' => false,
+        'ternary_to_null_coalescing' => true,
+    ])
+>>>>>>> dev
     ->setRiskyAllowed(true)
     ->setFinder(PhpCsFixer\Finder::create()->in(__DIR__))
 ;

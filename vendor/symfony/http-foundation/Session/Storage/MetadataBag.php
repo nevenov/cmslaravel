@@ -39,7 +39,11 @@ class MetadataBag implements SessionBagInterface
     /**
      * @var array
      */
+<<<<<<< HEAD
     protected $meta = array(self::CREATED => 0, self::UPDATED => 0, self::LIFETIME => 0);
+=======
+    protected $meta = [self::CREATED => 0, self::UPDATED => 0, self::LIFETIME => 0];
+>>>>>>> dev
 
     /**
      * Unix timestamp.
@@ -54,12 +58,19 @@ class MetadataBag implements SessionBagInterface
     private $updateThreshold;
 
     /**
+<<<<<<< HEAD
      * Constructor.
      *
      * @param string $storageKey      The key used to store bag in the session
      * @param int    $updateThreshold The time to wait between two UPDATED updates
      */
     public function __construct($storageKey = '_sf2_meta', $updateThreshold = 0)
+=======
+     * @param string $storageKey      The key used to store bag in the session
+     * @param int    $updateThreshold The time to wait between two UPDATED updates
+     */
+    public function __construct(string $storageKey = '_sf2_meta', int $updateThreshold = 0)
+>>>>>>> dev
     {
         $this->storageKey = $storageKey;
         $this->updateThreshold = $updateThreshold;

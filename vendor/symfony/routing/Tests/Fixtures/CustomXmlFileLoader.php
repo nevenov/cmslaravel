@@ -11,8 +11,13 @@
 
 namespace Symfony\Component\Routing\Tests\Fixtures;
 
+<<<<<<< HEAD
 use Symfony\Component\Routing\Loader\XmlFileLoader;
 use Symfony\Component\Config\Util\XmlUtils;
+=======
+use Symfony\Component\Config\Util\XmlUtils;
+use Symfony\Component\Routing\Loader\XmlFileLoader;
+>>>>>>> dev
 
 /**
  * XmlFileLoader with schema validation turned off.

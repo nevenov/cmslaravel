@@ -31,7 +31,11 @@ class TraceableUrlMatcher extends UrlMatcher
 
     public function getTraces($pathinfo)
     {
+<<<<<<< HEAD
         $this->traces = array();
+=======
+        $this->traces = [];
+>>>>>>> dev
 
         try {
             $this->match($pathinfo);
@@ -57,7 +61,11 @@ class TraceableUrlMatcher extends UrlMatcher
 
             if (!preg_match($compiledRoute->getRegex(), $pathinfo, $matches)) {
                 // does it match without any requirements?
+<<<<<<< HEAD
                 $r = new Route($route->getPath(), $route->getDefaults(), array(), $route->getOptions());
+=======
+                $r = new Route($route->getPath(), $route->getDefaults(), [], $route->getOptions());
+>>>>>>> dev
                 $cr = $r->compile();
                 if (!preg_match($cr->getRegex(), $pathinfo)) {
                     $this->addTrace(sprintf('Path "%s" does not match', $route->getPath()), self::ROUTE_DOES_NOT_MATCH, $name, $route);
@@ -66,10 +74,17 @@ class TraceableUrlMatcher extends UrlMatcher
                 }
 
                 foreach ($route->getRequirements() as $n => $regex) {
+<<<<<<< HEAD
                     $r = new Route($route->getPath(), $route->getDefaults(), array($n => $regex), $route->getOptions());
                     $cr = $r->compile();
 
                     if (in_array($n, $cr->getVariables()) && !preg_match($cr->getRegex(), $pathinfo)) {
+=======
+                    $r = new Route($route->getPath(), $route->getDefaults(), [$n => $regex], $route->getOptions());
+                    $cr = $r->compile();
+
+                    if (\in_array($n, $cr->getVariables()) && !preg_match($cr->getRegex(), $pathinfo)) {
+>>>>>>> dev
                         $this->addTrace(sprintf('Requirement for "%s" does not match (%s)', $n, $regex), self::ROUTE_ALMOST_MATCHES, $name, $route);
 
                         continue 2;
@@ -80,7 +95,11 @@ class TraceableUrlMatcher extends UrlMatcher
             }
 
             // check host requirement
+<<<<<<< HEAD
             $hostMatches = array();
+=======
+            $hostMatches = [];
+>>>>>>> dev
             if ($compiledRoute->getHostRegex() && !preg_match($compiledRoute->getHostRegex(), $this->context->getHost(), $hostMatches)) {
                 $this->addTrace(sprintf('Host "%s" does not match the requirement ("%s")', $this->context->getHost(), $route->getHost()), self::ROUTE_ALMOST_MATCHES, $name, $route);
 
@@ -94,7 +113,11 @@ class TraceableUrlMatcher extends UrlMatcher
                     $method = 'GET';
                 }
 
+<<<<<<< HEAD
                 if (!in_array($method, $requiredMethods)) {
+=======
+                if (!\in_array($method, $requiredMethods)) {
+>>>>>>> dev
                     $this->allow = array_merge($this->allow, $requiredMethods);
 
                     $this->addTrace(sprintf('Method "%s" does not match any of the required methods (%s)', $this->context->getMethod(), implode(', ', $requiredMethods)), self::ROUTE_ALMOST_MATCHES, $name, $route);
@@ -105,7 +128,11 @@ class TraceableUrlMatcher extends UrlMatcher
 
             // check condition
             if ($condition = $route->getCondition()) {
+<<<<<<< HEAD
                 if (!$this->getExpressionLanguage()->evaluate($condition, array('context' => $this->context, 'request' => $this->request))) {
+=======
+                if (!$this->getExpressionLanguage()->evaluate($condition, ['context' => $this->context, 'request' => $this->request ?: $this->createRequest($pathinfo)])) {
+>>>>>>> dev
                     $this->addTrace(sprintf('Condition "%s" does not evaluate to "true"', $condition), self::ROUTE_ALMOST_MATCHES, $name, $route);
 
                     continue;
@@ -131,11 +158,19 @@ class TraceableUrlMatcher extends UrlMatcher
 
     private function addTrace($log, $level = self::ROUTE_DOES_NOT_MATCH, $name = null, $route = null)
     {
+<<<<<<< HEAD
         $this->traces[] = array(
+=======
+        $this->traces[] = [
+>>>>>>> dev
             'log' => $log,
             'name' => $name,
             'level' => $level,
             'path' => null !== $route ? $route->getPath() : null,
+<<<<<<< HEAD
         );
+=======
+        ];
+>>>>>>> dev
     }
 }

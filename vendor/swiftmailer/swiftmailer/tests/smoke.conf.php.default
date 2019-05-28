@@ -1,7 +1,11 @@
 <?php
 
 /*
+<<<<<<< HEAD
  Swift Mailer V4 smoke test configuration.
+=======
+ Swift Mailer smoke test configuration.
+>>>>>>> dev
 
  YOU ONLY NEED TO EDIT THIS FILE IF YOU WISH TO RUN THE SMOKE TESTS.
 

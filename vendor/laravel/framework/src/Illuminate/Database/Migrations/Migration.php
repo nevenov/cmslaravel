@@ -12,6 +12,16 @@ abstract class Migration
     protected $connection;
 
     /**
+<<<<<<< HEAD
+=======
+     * Enables, if supported, wrapping the migration within a transaction.
+     *
+     * @var bool
+     */
+    public $withinTransaction = true;
+
+    /**
+>>>>>>> dev
      * Get the migration connection name.
      *
      * @return string

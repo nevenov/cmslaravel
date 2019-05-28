@@ -8,14 +8,27 @@ use ArrayAccess;
 use BadMethodCallException;
 use Illuminate\Support\Str;
 use Illuminate\Support\MessageBag;
+<<<<<<< HEAD
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\View\Engines\EngineInterface;
+=======
+use Illuminate\Contracts\View\Engine;
+use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Support\Arrayable;
+>>>>>>> dev
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\Support\MessageProvider;
 use Illuminate\Contracts\View\View as ViewContract;
 
 class View implements ArrayAccess, ViewContract
 {
+<<<<<<< HEAD
+=======
+    use Macroable {
+        __call as macroCall;
+    }
+
+>>>>>>> dev
     /**
      * The view factory instance.
      *
@@ -26,7 +39,11 @@ class View implements ArrayAccess, ViewContract
     /**
      * The engine implementation.
      *
+<<<<<<< HEAD
      * @var \Illuminate\View\Engines\EngineInterface
+=======
+     * @var \Illuminate\Contracts\View\Engine
+>>>>>>> dev
      */
     protected $engine;
 
@@ -55,13 +72,21 @@ class View implements ArrayAccess, ViewContract
      * Create a new view instance.
      *
      * @param  \Illuminate\View\Factory  $factory
+<<<<<<< HEAD
      * @param  \Illuminate\View\Engines\EngineInterface  $engine
+=======
+     * @param  \Illuminate\Contracts\View\Engine  $engine
+>>>>>>> dev
      * @param  string  $view
      * @param  string  $path
      * @param  mixed  $data
      * @return void
      */
+<<<<<<< HEAD
     public function __construct(Factory $factory, EngineInterface $engine, $view, $path, $data = [])
+=======
+    public function __construct(Factory $factory, Engine $engine, $view, $path, $data = [])
+>>>>>>> dev
     {
         $this->view = $view;
         $this->path = $path;
@@ -75,7 +100,11 @@ class View implements ArrayAccess, ViewContract
      * Get the string contents of the view.
      *
      * @param  callable|null  $callback
+<<<<<<< HEAD
      * @return string
+=======
+     * @return array|string
+>>>>>>> dev
      *
      * @throws \Throwable
      */
@@ -89,6 +118,7 @@ class View implements ArrayAccess, ViewContract
             // Once we have the contents of the view, we will flush the sections if we are
             // done rendering all views so that there is nothing left hanging over when
             // another view gets rendered in the future by the application developer.
+<<<<<<< HEAD
             $this->factory->flushSectionsIfDoneRendering();
 
             return ! is_null($response) ? $response : $contents;
@@ -98,6 +128,17 @@ class View implements ArrayAccess, ViewContract
             throw $e;
         } catch (Throwable $e) {
             $this->factory->flushSections();
+=======
+            $this->factory->flushStateIfDoneRendering();
+
+            return ! is_null($response) ? $response : $contents;
+        } catch (Exception $e) {
+            $this->factory->flushState();
+
+            throw $e;
+        } catch (Throwable $e) {
+            $this->factory->flushState();
+>>>>>>> dev
 
             throw $e;
         }
@@ -128,6 +169,7 @@ class View implements ArrayAccess, ViewContract
     }
 
     /**
+<<<<<<< HEAD
      * Get the sections of the rendered view.
      *
      * @return array
@@ -140,6 +182,8 @@ class View implements ArrayAccess, ViewContract
     }
 
     /**
+=======
+>>>>>>> dev
      * Get the evaluated contents of the view.
      *
      * @return string
@@ -168,6 +212,23 @@ class View implements ArrayAccess, ViewContract
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get the sections of the rendered view.
+     *
+     * @return array
+     *
+     * @throws \Throwable
+     */
+    public function renderSections()
+    {
+        return $this->render(function () {
+            return $this->factory->getSections();
+        });
+    }
+
+    /**
+>>>>>>> dev
      * Add a piece of data to the view.
      *
      * @param  string|array  $key
@@ -206,16 +267,21 @@ class View implements ArrayAccess, ViewContract
      */
     public function withErrors($provider)
     {
+<<<<<<< HEAD
         if ($provider instanceof MessageProvider) {
             $this->with('errors', $provider->getMessageBag());
         } else {
             $this->with('errors', new MessageBag((array) $provider));
         }
+=======
+        $this->with('errors', $this->formatErrors($provider));
+>>>>>>> dev
 
         return $this;
     }
 
     /**
+<<<<<<< HEAD
      * Get the view factory instance.
      *
      * @return \Illuminate\View\Factory
@@ -233,6 +299,17 @@ class View implements ArrayAccess, ViewContract
     public function getEngine()
     {
         return $this->engine;
+=======
+     * Format the given message provider into a MessageBag.
+     *
+     * @param  \Illuminate\Contracts\Support\MessageProvider|array  $provider
+     * @return \Illuminate\Support\MessageBag
+     */
+    protected function formatErrors($provider)
+    {
+        return $provider instanceof MessageProvider
+                        ? $provider->getMessageBag() : new MessageBag((array) $provider);
+>>>>>>> dev
     }
 
     /**
@@ -287,6 +364,29 @@ class View implements ArrayAccess, ViewContract
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get the view factory instance.
+     *
+     * @return \Illuminate\View\Factory
+     */
+    public function getFactory()
+    {
+        return $this->factory;
+    }
+
+    /**
+     * Get the view's rendering engine.
+     *
+     * @return \Illuminate\Contracts\View\Engine
+     */
+    public function getEngine()
+    {
+        return $this->engine;
+    }
+
+    /**
+>>>>>>> dev
      * Determine if a piece of data is bound.
      *
      * @param  string  $key
@@ -369,7 +469,11 @@ class View implements ArrayAccess, ViewContract
      * Remove a piece of bound data from the view.
      *
      * @param  string  $key
+<<<<<<< HEAD
      * @return bool
+=======
+     * @return void
+>>>>>>> dev
      */
     public function __unset($key)
     {
@@ -387,17 +491,36 @@ class View implements ArrayAccess, ViewContract
      */
     public function __call($method, $parameters)
     {
+<<<<<<< HEAD
         if (Str::startsWith($method, 'with')) {
             return $this->with(Str::snake(substr($method, 4)), $parameters[0]);
         }
 
         throw new BadMethodCallException("Method [$method] does not exist on view.");
+=======
+        if (static::hasMacro($method)) {
+            return $this->macroCall($method, $parameters);
+        }
+
+        if (! Str::startsWith($method, 'with')) {
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
+        }
+
+        return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
+>>>>>>> dev
     }
 
     /**
      * Get the string contents of the view.
      *
      * @return string
+<<<<<<< HEAD
+=======
+     *
+     * @throws \Throwable
+>>>>>>> dev
      */
     public function __toString()
     {

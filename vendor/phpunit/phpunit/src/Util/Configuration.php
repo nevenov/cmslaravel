@@ -7,6 +7,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
+=======
+namespace PHPUnit\Util;
+
+use DOMElement;
+use DOMXPath;
+use File_Iterator_Facade;
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\TextUI\ResultPrinter;
+>>>>>>> dev
 
 /**
  * Wrapper for the PHPUnit XML configuration file.
@@ -15,17 +26,26 @@
  * <code>
  * <?xml version="1.0" encoding="utf-8" ?>
  *
+<<<<<<< HEAD
  * <phpunit backupGlobals="true"
+=======
+ * <phpunit backupGlobals="false"
+>>>>>>> dev
  *          backupStaticAttributes="false"
  *          bootstrap="/path/to/bootstrap.php"
  *          cacheTokens="false"
  *          columns="80"
  *          colors="false"
  *          stderr="false"
+<<<<<<< HEAD
+=======
+ *          convertDeprecationsToExceptions="true"
+>>>>>>> dev
  *          convertErrorsToExceptions="true"
  *          convertNoticesToExceptions="true"
  *          convertWarningsToExceptions="true"
  *          forceCoversAnnotation="false"
+<<<<<<< HEAD
  *          mapTestClassNameToCoveredClassName="false"
  *          printerClass="PHPUnit_TextUI_ResultPrinter"
  *          processIsolation="false"
@@ -45,6 +65,35 @@
  *          checkForUnintentionallyCoveredCode="false"
  *          disallowChangesToGlobalState="false"
  *          verbose="false">
+=======
+ *          processIsolation="false"
+ *          stopOnError="false"
+ *          stopOnFailure="false"
+ *          stopOnWarning="false"
+ *          stopOnIncomplete="false"
+ *          stopOnRisky="false"
+ *          stopOnSkipped="false"
+ *          failOnWarning="false"
+ *          failOnRisky="false"
+ *          extensionsDirectory="tools/phpunit.d"
+ *          printerClass="PHPUnit\TextUI\ResultPrinter"
+ *          testSuiteLoaderClass="PHPUnit\Runner\StandardTestSuiteLoader"
+ *          defaultTestSuite=""
+ *          beStrictAboutChangesToGlobalState="false"
+ *          beStrictAboutCoversAnnotation="false"
+ *          beStrictAboutOutputDuringTests="false"
+ *          beStrictAboutResourceUsageDuringSmallTests="false"
+ *          beStrictAboutTestsThatDoNotTestAnything="false"
+ *          beStrictAboutTodoAnnotatedTests="false"
+ *          enforceTimeLimit="false"
+ *          ignoreDeprecatedCodeUnitsFromCodeCoverage="false"
+ *          timeoutForSmallTests="1"
+ *          timeoutForMediumTests="10"
+ *          timeoutForLargeTests="60"
+ *          verbose="false"
+ *          reverseDefectList="false"
+ *          registerMockObjectsFromTestArgumentsRecursively="false">
+>>>>>>> dev
  *   <testsuites>
  *     <testsuite name="My Test Suite">
  *       <directory suffix="Test.php" phpVersion="5.3.0" phpVersionOperator=">=">/path/to/files</directory>
@@ -62,6 +111,7 @@
  *     </exclude>
  *   </groups>
  *
+<<<<<<< HEAD
  *   <filter>
  *     <blacklist>
  *       <directory suffix=".php">/path/to/files</directory>
@@ -71,6 +121,18 @@
  *         <file>/path/to/file</file>
  *       </exclude>
  *     </blacklist>
+=======
+ *   <testdoxGroups>
+ *     <include>
+ *       <group>name</group>
+ *     </include>
+ *     <exclude>
+ *       <group>name</group>
+ *     </exclude>
+ *   </testdoxGroups>
+ *
+ *   <filter>
+>>>>>>> dev
  *     <whitelist addUncoveredFilesFromWhitelist="true"
  *                processUncoveredFilesFromWhitelist="false">
  *       <directory suffix=".php">/path/to/files</directory>
@@ -107,10 +169,18 @@
  *     <log type="coverage-crap4j" target="/tmp/crap.xml" threshold="30"/>
  *     <log type="json" target="/tmp/logfile.json"/>
  *     <log type="plain" target="/tmp/logfile.txt"/>
+<<<<<<< HEAD
  *     <log type="tap" target="/tmp/logfile.tap"/>
  *     <log type="junit" target="/tmp/logfile.xml" logIncompleteSkipped="false"/>
  *     <log type="testdox-html" target="/tmp/testdox.html"/>
  *     <log type="testdox-text" target="/tmp/testdox.txt"/>
+=======
+ *     <log type="teamcity" target="/tmp/logfile.txt"/>
+ *     <log type="junit" target="/tmp/logfile.xml"/>
+ *     <log type="testdox-html" target="/tmp/testdox.html"/>
+ *     <log type="testdox-text" target="/tmp/testdox.txt"/>
+ *     <log type="testdox-xml" target="/tmp/testdox.xml"/>
+>>>>>>> dev
  *   </logging>
  *
  *   <php>
@@ -126,6 +196,7 @@
  *     <files name="foo" value="bar"/>
  *     <request name="foo" value="bar"/>
  *   </php>
+<<<<<<< HEAD
  *
  *   <selenium>
  *     <browser name="Firefox on Linux"
@@ -142,6 +213,16 @@
 class PHPUnit_Util_Configuration
 {
     private static $instances = array();
+=======
+ * </phpunit>
+ * </code>
+ */
+class Configuration
+{
+    const TEST_SUITE_FILTER_SEPARATOR = ',';
+
+    private static $instances = [];
+>>>>>>> dev
 
     protected $document;
     protected $xpath;
@@ -155,12 +236,20 @@ class PHPUnit_Util_Configuration
     protected function __construct($filename)
     {
         $this->filename = $filename;
+<<<<<<< HEAD
         $this->document = PHPUnit_Util_XML::loadFile($filename, false, true, true);
+=======
+        $this->document = Xml::loadFile($filename, false, true, true);
+>>>>>>> dev
         $this->xpath    = new DOMXPath($this->document);
     }
 
     /**
+<<<<<<< HEAD
      * @since  Method available since Release 3.4.0
+=======
+     * @codeCoverageIgnore
+>>>>>>> dev
      */
     final private function __clone()
     {
@@ -171,6 +260,7 @@ class PHPUnit_Util_Configuration
      *
      * @param string $filename
      *
+<<<<<<< HEAD
      * @return PHPUnit_Util_Configuration
      *
      * @since  Method available since Release 3.4.0
@@ -182,6 +272,17 @@ class PHPUnit_Util_Configuration
         if ($realpath === false) {
             throw new PHPUnit_Framework_Exception(
                 sprintf(
+=======
+     * @return Configuration
+     */
+    public static function getInstance($filename)
+    {
+        $realpath = \realpath($filename);
+
+        if ($realpath === false) {
+            throw new Exception(
+                \sprintf(
+>>>>>>> dev
                     'Could not read "%s".',
                     $filename
                 )
@@ -199,8 +300,11 @@ class PHPUnit_Util_Configuration
      * Returns the realpath to the configuration file.
      *
      * @return string
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.6.0
+=======
+>>>>>>> dev
      */
     public function getFilename()
     {
@@ -211,17 +315,31 @@ class PHPUnit_Util_Configuration
      * Returns the configuration for SUT filtering.
      *
      * @return array
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.2.1
+=======
+>>>>>>> dev
      */
     public function getFilterConfiguration()
     {
         $addUncoveredFilesFromWhitelist     = true;
         $processUncoveredFilesFromWhitelist = false;
+<<<<<<< HEAD
 
         $tmp = $this->xpath->query('filter/whitelist');
 
         if ($tmp->length == 1) {
+=======
+        $includeDirectory                   = [];
+        $includeFile                        = [];
+        $excludeDirectory                   = [];
+        $excludeFile                        = [];
+
+        $tmp = $this->xpath->query('filter/whitelist');
+
+        if ($tmp->length === 1) {
+>>>>>>> dev
             if ($tmp->item(0)->hasAttribute('addUncoveredFilesFromWhitelist')) {
                 $addUncoveredFilesFromWhitelist = $this->getBoolean(
                     (string) $tmp->item(0)->getAttribute(
@@ -239,6 +357,7 @@ class PHPUnit_Util_Configuration
                     false
                 );
             }
+<<<<<<< HEAD
         }
 
         return array(
@@ -281,12 +400,47 @@ class PHPUnit_Util_Configuration
             )
           )
         );
+=======
+
+            $includeDirectory = $this->readFilterDirectories(
+                'filter/whitelist/directory'
+            );
+
+            $includeFile = $this->readFilterFiles(
+                'filter/whitelist/file'
+            );
+
+            $excludeDirectory = $this->readFilterDirectories(
+                'filter/whitelist/exclude/directory'
+            );
+
+            $excludeFile = $this->readFilterFiles(
+                'filter/whitelist/exclude/file'
+            );
+        }
+
+        return [
+            'whitelist' => [
+                'addUncoveredFilesFromWhitelist'     => $addUncoveredFilesFromWhitelist,
+                'processUncoveredFilesFromWhitelist' => $processUncoveredFilesFromWhitelist,
+                'include'                            => [
+                    'directory' => $includeDirectory,
+                    'file'      => $includeFile
+                ],
+                'exclude' => [
+                    'directory' => $excludeDirectory,
+                    'file'      => $excludeFile
+                ]
+            ]
+        ];
+>>>>>>> dev
     }
 
     /**
      * Returns the configuration for groups.
      *
      * @return array
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.2.1
      */
@@ -302,6 +456,41 @@ class PHPUnit_Util_Configuration
         }
 
         foreach ($this->xpath->query('groups/exclude/group') as $group) {
+=======
+     */
+    public function getGroupConfiguration()
+    {
+        return $this->parseGroupConfiguration('groups');
+    }
+
+    /**
+     * Returns the configuration for testdox groups.
+     *
+     * @return array
+     */
+    public function getTestdoxGroupConfiguration()
+    {
+        return $this->parseGroupConfiguration('testdoxGroups');
+    }
+
+    /**
+     * @param string $root
+     *
+     * @return array
+     */
+    private function parseGroupConfiguration($root)
+    {
+        $groups = [
+            'include' => [],
+            'exclude' => []
+        ];
+
+        foreach ($this->xpath->query($root . '/include/group') as $group) {
+            $groups['include'][] = (string) $group->textContent;
+        }
+
+        foreach ($this->xpath->query($root . '/exclude/group') as $group) {
+>>>>>>> dev
             $groups['exclude'][] = (string) $group->textContent;
         }
 
@@ -312,17 +501,28 @@ class PHPUnit_Util_Configuration
      * Returns the configuration for listeners.
      *
      * @return array
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.4.0
      */
     public function getListenerConfiguration()
     {
         $result = array();
+=======
+     */
+    public function getListenerConfiguration()
+    {
+        $result = [];
+>>>>>>> dev
 
         foreach ($this->xpath->query('listeners/listener') as $listener) {
             $class     = (string) $listener->getAttribute('class');
             $file      = '';
+<<<<<<< HEAD
             $arguments = array();
+=======
+            $arguments = [];
+>>>>>>> dev
 
             if ($listener->getAttribute('file')) {
                 $file = $this->toAbsolutePath(
@@ -335,22 +535,37 @@ class PHPUnit_Util_Configuration
                 if ($node instanceof DOMElement && $node->tagName == 'arguments') {
                     foreach ($node->childNodes as $argument) {
                         if ($argument instanceof DOMElement) {
+<<<<<<< HEAD
                             if ($argument->tagName == 'file' ||
                             $argument->tagName == 'directory') {
                                 $arguments[] = $this->toAbsolutePath((string) $argument->textContent);
                             } else {
                                 $arguments[] = PHPUnit_Util_XML::xmlToVariable($argument);
+=======
+                            if ($argument->tagName == 'file' || $argument->tagName == 'directory') {
+                                $arguments[] = $this->toAbsolutePath((string) $argument->textContent);
+                            } else {
+                                $arguments[] = Xml::xmlToVariable($argument);
+>>>>>>> dev
                             }
                         }
                     }
                 }
             }
 
+<<<<<<< HEAD
             $result[] = array(
               'class'     => $class,
               'file'      => $file,
               'arguments' => $arguments
             );
+=======
+            $result[] = [
+                'class'     => $class,
+                'file'      => $file,
+                'arguments' => $arguments
+            ];
+>>>>>>> dev
         }
 
         return $result;
@@ -363,7 +578,11 @@ class PHPUnit_Util_Configuration
      */
     public function getLoggingConfiguration()
     {
+<<<<<<< HEAD
         $result = array();
+=======
+        $result = [];
+>>>>>>> dev
 
         foreach ($this->xpath->query('logging/log') as $log) {
             $type   = (string) $log->getAttribute('type');
@@ -396,6 +615,7 @@ class PHPUnit_Util_Configuration
                         30
                     );
                 }
+<<<<<<< HEAD
             } elseif ($type == 'junit') {
                 if ($log->hasAttribute('logIncompleteSkipped')) {
                     $result['logIncompleteSkipped'] = $this->getBoolean(
@@ -403,6 +623,8 @@ class PHPUnit_Util_Configuration
                         false
                     );
                 }
+=======
+>>>>>>> dev
             } elseif ($type == 'coverage-text') {
                 if ($log->hasAttribute('showUncoveredFiles')) {
                     $result['coverageTextShowUncoveredFiles'] = $this->getBoolean(
@@ -428,6 +650,7 @@ class PHPUnit_Util_Configuration
      * Returns the PHP configuration.
      *
      * @return array
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.2.1
      */
@@ -449,6 +672,28 @@ class PHPUnit_Util_Configuration
 
         foreach ($this->xpath->query('php/includePath') as $includePath) {
             $path = (string) $includePath->textContent;
+=======
+     */
+    public function getPHPConfiguration()
+    {
+        $result = [
+            'include_path' => [],
+            'ini'          => [],
+            'const'        => [],
+            'var'          => [],
+            'env'          => [],
+            'post'         => [],
+            'get'          => [],
+            'cookie'       => [],
+            'server'       => [],
+            'files'        => [],
+            'request'      => []
+        ];
+
+        foreach ($this->xpath->query('php/includePath') as $includePath) {
+            $path = (string) $includePath->textContent;
+
+>>>>>>> dev
             if ($path) {
                 $result['include_path'][] = $this->toAbsolutePath($path);
             }
@@ -458,13 +703,18 @@ class PHPUnit_Util_Configuration
             $name  = (string) $ini->getAttribute('name');
             $value = (string) $ini->getAttribute('value');
 
+<<<<<<< HEAD
             $result['ini'][$name] = $value;
+=======
+            $result['ini'][$name]['value'] = $value;
+>>>>>>> dev
         }
 
         foreach ($this->xpath->query('php/const') as $const) {
             $name  = (string) $const->getAttribute('name');
             $value = (string) $const->getAttribute('value');
 
+<<<<<<< HEAD
             $result['const'][$name] = $this->getBoolean($value, $value);
         }
 
@@ -474,6 +724,33 @@ class PHPUnit_Util_Configuration
                 $value = (string) $var->getAttribute('value');
 
                 $result[$array][$name] = $this->getBoolean($value, $value);
+=======
+            $result['const'][$name]['value'] = $this->getBoolean($value, $value);
+        }
+
+        foreach (['var', 'env', 'post', 'get', 'cookie', 'server', 'files', 'request'] as $array) {
+            foreach ($this->xpath->query('php/' . $array) as $var) {
+                $name     = (string) $var->getAttribute('name');
+                $value    = (string) $var->getAttribute('value');
+                $verbatim = false;
+                $force    = false;
+
+                if ($var->hasAttribute('verbatim')) {
+                    $verbatim                          = $this->getBoolean($var->getAttribute('verbatim'), false);
+                    $result[$array][$name]['verbatim'] = $verbatim;
+                }
+
+                if ($var->hasAttribute('force')) {
+                    $force                          = $this->getBoolean($var->getAttribute('force'), false);
+                    $result[$array][$name]['force'] = $force;
+                }
+
+                if (!$verbatim) {
+                    $value = $this->getBoolean($value, $value);
+                }
+
+                $result[$array][$name]['value'] = $value;
+>>>>>>> dev
             }
         }
 
@@ -482,13 +759,17 @@ class PHPUnit_Util_Configuration
 
     /**
      * Handles the PHP configuration.
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.2.20
+=======
+>>>>>>> dev
      */
     public function handlePHPConfiguration()
     {
         $configuration = $this->getPHPConfiguration();
 
+<<<<<<< HEAD
         if (! empty($configuration['include_path'])) {
             ini_set(
                 'include_path',
@@ -513,14 +794,49 @@ class PHPUnit_Util_Configuration
         }
 
         foreach (array('var', 'post', 'get', 'cookie', 'server', 'files', 'request') as $array) {
+=======
+        if (!empty($configuration['include_path'])) {
+            \ini_set(
+                'include_path',
+                \implode(PATH_SEPARATOR, $configuration['include_path']) .
+                PATH_SEPARATOR .
+                \ini_get('include_path')
+            );
+        }
+
+        foreach ($configuration['ini'] as $name => $data) {
+            $value = $data['value'];
+
+            if (\defined($value)) {
+                $value = (string) \constant($value);
+            }
+
+            \ini_set($name, $value);
+        }
+
+        foreach ($configuration['const'] as $name => $data) {
+            $value = $data['value'];
+
+            if (!\defined($name)) {
+                \define($name, $value);
+            }
+        }
+
+        foreach (['var', 'post', 'get', 'cookie', 'server', 'files', 'request'] as $array) {
+>>>>>>> dev
             // See https://github.com/sebastianbergmann/phpunit/issues/277
             switch ($array) {
                 case 'var':
                     $target = &$GLOBALS;
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
                     break;
 
                 case 'server':
                     $target = &$_SERVER;
+<<<<<<< HEAD
                     break;
 
                 default:
@@ -540,6 +856,39 @@ class PHPUnit_Util_Configuration
             if (!isset($_ENV[$name])) {
                 $_ENV[$name] = $value;
             }
+=======
+
+                    break;
+
+                default:
+                    $target = &$GLOBALS['_' . \strtoupper($array)];
+
+                    break;
+            }
+
+            foreach ($configuration[$array] as $name => $data) {
+                $target[$name] = $data['value'];
+            }
+        }
+
+        foreach ($configuration['env'] as $name => $data) {
+            $value = $data['value'];
+            $force = isset($data['force']) ? $data['force'] : false;
+
+            if ($force || false === \getenv($name)) {
+                \putenv("{$name}={$value}");
+            }
+
+            $value = \getenv($name);
+
+            if (!isset($_ENV[$name])) {
+                $_ENV[$name] = $value;
+            }
+
+            if (true === $force) {
+                $_ENV[$name] = $value;
+            }
+>>>>>>> dev
         }
     }
 
@@ -547,12 +896,19 @@ class PHPUnit_Util_Configuration
      * Returns the PHPUnit configuration.
      *
      * @return array
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.2.14
      */
     public function getPHPUnitConfiguration()
     {
         $result = array();
+=======
+     */
+    public function getPHPUnitConfiguration()
+    {
+        $result = [];
+>>>>>>> dev
         $root   = $this->document->documentElement;
 
         if ($root->hasAttribute('cacheTokens')) {
@@ -576,9 +932,15 @@ class PHPUnit_Util_Configuration
             /* only allow boolean for compatibility with previous versions
               'always' only allowed from command line */
             if ($this->getBoolean($root->getAttribute('colors'), false)) {
+<<<<<<< HEAD
                 $result['colors'] = PHPUnit_TextUI_ResultPrinter::COLOR_AUTO;
             } else {
                 $result['colors'] = PHPUnit_TextUI_ResultPrinter::COLOR_NEVER;
+=======
+                $result['colors'] = ResultPrinter::COLOR_AUTO;
+            } else {
+                $result['colors'] = ResultPrinter::COLOR_NEVER;
+>>>>>>> dev
             }
         }
 
@@ -595,7 +957,11 @@ class PHPUnit_Util_Configuration
         if ($root->hasAttribute('backupGlobals')) {
             $result['backupGlobals'] = $this->getBoolean(
                 (string) $root->getAttribute('backupGlobals'),
+<<<<<<< HEAD
                 true
+=======
+                false
+>>>>>>> dev
             );
         }
 
@@ -612,6 +978,16 @@ class PHPUnit_Util_Configuration
             );
         }
 
+<<<<<<< HEAD
+=======
+        if ($root->hasAttribute('convertDeprecationsToExceptions')) {
+            $result['convertDeprecationsToExceptions'] = $this->getBoolean(
+                (string) $root->getAttribute('convertDeprecationsToExceptions'),
+                true
+            );
+        }
+
+>>>>>>> dev
         if ($root->hasAttribute('convertErrorsToExceptions')) {
             $result['convertErrorsToExceptions'] = $this->getBoolean(
                 (string) $root->getAttribute('convertErrorsToExceptions'),
@@ -640,9 +1016,15 @@ class PHPUnit_Util_Configuration
             );
         }
 
+<<<<<<< HEAD
         if ($root->hasAttribute('mapTestClassNameToCoveredClassName')) {
             $result['mapTestClassNameToCoveredClassName'] = $this->getBoolean(
                 (string) $root->getAttribute('mapTestClassNameToCoveredClassName'),
+=======
+        if ($root->hasAttribute('disableCodeCoverageIgnore')) {
+            $result['disableCodeCoverageIgnore'] = $this->getBoolean(
+                (string) $root->getAttribute('disableCodeCoverageIgnore'),
+>>>>>>> dev
                 false
             );
         }
@@ -668,6 +1050,16 @@ class PHPUnit_Util_Configuration
             );
         }
 
+<<<<<<< HEAD
+=======
+        if ($root->hasAttribute('stopOnWarning')) {
+            $result['stopOnWarning'] = $this->getBoolean(
+                (string) $root->getAttribute('stopOnWarning'),
+                false
+            );
+        }
+
+>>>>>>> dev
         if ($root->hasAttribute('stopOnIncomplete')) {
             $result['stopOnIncomplete'] = $this->getBoolean(
                 (string) $root->getAttribute('stopOnIncomplete'),
@@ -689,12 +1081,38 @@ class PHPUnit_Util_Configuration
             );
         }
 
+<<<<<<< HEAD
+=======
+        if ($root->hasAttribute('failOnWarning')) {
+            $result['failOnWarning'] = $this->getBoolean(
+                (string) $root->getAttribute('failOnWarning'),
+                false
+            );
+        }
+
+        if ($root->hasAttribute('failOnRisky')) {
+            $result['failOnRisky'] = $this->getBoolean(
+                (string) $root->getAttribute('failOnRisky'),
+                false
+            );
+        }
+
+>>>>>>> dev
         if ($root->hasAttribute('testSuiteLoaderClass')) {
             $result['testSuiteLoaderClass'] = (string) $root->getAttribute(
                 'testSuiteLoaderClass'
             );
         }
 
+<<<<<<< HEAD
+=======
+        if ($root->hasAttribute('defaultTestSuite')) {
+            $result['defaultTestSuite'] = (string) $root->getAttribute(
+                'defaultTestSuite'
+            );
+        }
+
+>>>>>>> dev
         if ($root->getAttribute('testSuiteLoaderFile')) {
             $result['testSuiteLoaderFile'] = $this->toAbsolutePath(
                 (string) $root->getAttribute('testSuiteLoaderFile')
@@ -713,6 +1131,7 @@ class PHPUnit_Util_Configuration
             );
         }
 
+<<<<<<< HEAD
         if ($root->hasAttribute('timeoutForSmallTests')) {
             $result['timeoutForSmallTests'] = $this->getInteger(
                 (string) $root->getAttribute('timeoutForSmallTests'),
@@ -731,19 +1150,10 @@ class PHPUnit_Util_Configuration
             $result['timeoutForLargeTests'] = $this->getInteger(
                 (string) $root->getAttribute('timeoutForLargeTests'),
                 60
-            );
-        }
-
-        if ($root->hasAttribute('beStrictAboutTestsThatDoNotTestAnything')) {
-            $result['reportUselessTests'] = $this->getBoolean(
-                (string) $root->getAttribute('beStrictAboutTestsThatDoNotTestAnything'),
-                false
-            );
-        }
-
-        if ($root->hasAttribute('checkForUnintentionallyCoveredCode')) {
-            $result['strictCoverage'] = $this->getBoolean(
-                (string) $root->getAttribute('checkForUnintentionallyCoveredCode'),
+=======
+        if ($root->hasAttribute('beStrictAboutChangesToGlobalState')) {
+            $result['beStrictAboutChangesToGlobalState'] = $this->getBoolean(
+                (string) $root->getAttribute('beStrictAboutChangesToGlobalState'),
                 false
             );
         }
@@ -755,13 +1165,71 @@ class PHPUnit_Util_Configuration
             );
         }
 
-        if ($root->hasAttribute('beStrictAboutChangesToGlobalState')) {
-            $result['disallowChangesToGlobalState'] = $this->getBoolean(
-                (string) $root->getAttribute('beStrictAboutChangesToGlobalState'),
+        if ($root->hasAttribute('beStrictAboutResourceUsageDuringSmallTests')) {
+            $result['beStrictAboutResourceUsageDuringSmallTests'] = $this->getBoolean(
+                (string) $root->getAttribute('beStrictAboutResourceUsageDuringSmallTests'),
+                false
+>>>>>>> dev
+            );
+        }
+
+        if ($root->hasAttribute('beStrictAboutTestsThatDoNotTestAnything')) {
+            $result['reportUselessTests'] = $this->getBoolean(
+                (string) $root->getAttribute('beStrictAboutTestsThatDoNotTestAnything'),
+<<<<<<< HEAD
+=======
+                true
+            );
+        }
+
+        if ($root->hasAttribute('beStrictAboutTodoAnnotatedTests')) {
+            $result['disallowTodoAnnotatedTests'] = $this->getBoolean(
+                (string) $root->getAttribute('beStrictAboutTodoAnnotatedTests'),
+>>>>>>> dev
                 false
             );
         }
 
+<<<<<<< HEAD
+        if ($root->hasAttribute('checkForUnintentionallyCoveredCode')) {
+            $result['strictCoverage'] = $this->getBoolean(
+                (string) $root->getAttribute('checkForUnintentionallyCoveredCode'),
+=======
+        if ($root->hasAttribute('beStrictAboutCoversAnnotation')) {
+            $result['strictCoverage'] = $this->getBoolean(
+                (string) $root->getAttribute('beStrictAboutCoversAnnotation'),
+>>>>>>> dev
+                false
+            );
+        }
+
+<<<<<<< HEAD
+        if ($root->hasAttribute('beStrictAboutOutputDuringTests')) {
+            $result['disallowTestOutput'] = $this->getBoolean(
+                (string) $root->getAttribute('beStrictAboutOutputDuringTests'),
+=======
+        if ($root->hasAttribute('enforceTimeLimit')) {
+            $result['enforceTimeLimit'] = $this->getBoolean(
+                (string) $root->getAttribute('enforceTimeLimit'),
+>>>>>>> dev
+                false
+            );
+        }
+
+<<<<<<< HEAD
+        if ($root->hasAttribute('beStrictAboutChangesToGlobalState')) {
+            $result['disallowChangesToGlobalState'] = $this->getBoolean(
+                (string) $root->getAttribute('beStrictAboutChangesToGlobalState'),
+=======
+        if ($root->hasAttribute('ignoreDeprecatedCodeUnitsFromCodeCoverage')) {
+            $result['ignoreDeprecatedCodeUnitsFromCodeCoverage'] = $this->getBoolean(
+                (string) $root->getAttribute('ignoreDeprecatedCodeUnitsFromCodeCoverage'),
+>>>>>>> dev
+                false
+            );
+        }
+
+<<<<<<< HEAD
         if ($root->hasAttribute('beStrictAboutTestSize')) {
             $result['enforceTimeLimit'] = $this->getBoolean(
                 (string) $root->getAttribute('beStrictAboutTestSize'),
@@ -788,6 +1256,34 @@ class PHPUnit_Util_Configuration
             $result['enforceTimeLimit']            = $flag;
             $result['disallowTodoAnnotatedTests']  = $flag;
             $result['deprecatedStrictModeSetting'] = true;
+=======
+        if ($root->hasAttribute('timeoutForSmallTests')) {
+            $result['timeoutForSmallTests'] = $this->getInteger(
+                (string) $root->getAttribute('timeoutForSmallTests'),
+                1
+            );
+        }
+
+        if ($root->hasAttribute('timeoutForMediumTests')) {
+            $result['timeoutForMediumTests'] = $this->getInteger(
+                (string) $root->getAttribute('timeoutForMediumTests'),
+                10
+            );
+        }
+
+        if ($root->hasAttribute('timeoutForLargeTests')) {
+            $result['timeoutForLargeTests'] = $this->getInteger(
+                (string) $root->getAttribute('timeoutForLargeTests'),
+                60
+            );
+        }
+
+        if ($root->hasAttribute('reverseDefectList')) {
+            $result['reverseDefectList'] = $this->getBoolean(
+                (string) $root->getAttribute('reverseDefectList'),
+                false
+            );
+>>>>>>> dev
         }
 
         if ($root->hasAttribute('verbose')) {
@@ -797,6 +1293,7 @@ class PHPUnit_Util_Configuration
             );
         }
 
+<<<<<<< HEAD
         return $result;
     }
 
@@ -845,6 +1342,20 @@ class PHPUnit_Util_Configuration
               'host'    => $host,
               'port'    => $port,
               'timeout' => $timeout
+=======
+        if ($root->hasAttribute('registerMockObjectsFromTestArgumentsRecursively')) {
+            $result['registerMockObjectsFromTestArgumentsRecursively'] = $this->getBoolean(
+                (string) $root->getAttribute('registerMockObjectsFromTestArgumentsRecursively'),
+                false
+            );
+        }
+
+        if ($root->hasAttribute('extensionsDirectory')) {
+            $result['extensionsDirectory'] = $this->toAbsolutePath(
+                (string) $root->getAttribute(
+                    'extensionsDirectory'
+                )
+>>>>>>> dev
             );
         }
 
@@ -854,9 +1365,15 @@ class PHPUnit_Util_Configuration
     /**
      * Returns the test suite configuration.
      *
+<<<<<<< HEAD
      * @return PHPUnit_Framework_TestSuite
      *
      * @since  Method available since Release 3.2.1
+=======
+     * @param string|null $testSuiteFilter
+     *
+     * @return TestSuite
+>>>>>>> dev
      */
     public function getTestSuiteConfiguration($testSuiteFilter = null)
     {
@@ -870,6 +1387,7 @@ class PHPUnit_Util_Configuration
             return $this->getTestSuite($testSuiteNodes->item(0), $testSuiteFilter);
         }
 
+<<<<<<< HEAD
         if ($testSuiteNodes->length > 1) {
             $suite = new PHPUnit_Framework_TestSuite;
 
@@ -889,10 +1407,46 @@ class PHPUnit_Util_Configuration
      * @return PHPUnit_Framework_TestSuite
      *
      * @since  Method available since Release 3.4.0
+=======
+        //if ($testSuiteNodes->length > 1) { there cannot be a negative number of Nodes
+        $suite = new TestSuite;
+
+        foreach ($testSuiteNodes as $testSuiteNode) {
+            $suite->addTestSuite(
+                $this->getTestSuite($testSuiteNode, $testSuiteFilter)
+            );
+        }
+
+        return $suite;
+    }
+
+    /**
+     * Returns the test suite names from the configuration.
+     *
+     * @return array
+     */
+    public function getTestSuiteNames()
+    {
+        $names = [];
+        $nodes = $this->xpath->query('*/testsuite');
+        foreach ($nodes as $node) {
+            $names[] = $node->getAttribute('name');
+        }
+
+        return $names;
+    }
+
+    /**
+     * @param DOMElement  $testSuiteNode
+     * @param string|null $testSuiteFilter
+     *
+     * @return TestSuite
+>>>>>>> dev
      */
     protected function getTestSuite(DOMElement $testSuiteNode, $testSuiteFilter = null)
     {
         if ($testSuiteNode->hasAttribute('name')) {
+<<<<<<< HEAD
             $suite = new PHPUnit_Framework_TestSuite(
                 (string) $testSuiteNode->getAttribute('name')
             );
@@ -901,6 +1455,16 @@ class PHPUnit_Util_Configuration
         }
 
         $exclude = array();
+=======
+            $suite = new TestSuite(
+                (string) $testSuiteNode->getAttribute('name')
+            );
+        } else {
+            $suite = new TestSuite;
+        }
+
+        $exclude = [];
+>>>>>>> dev
 
         foreach ($testSuiteNode->getElementsByTagName('exclude') as $excludeNode) {
             $excludeFile = (string) $excludeNode->textContent;
@@ -910,9 +1474,16 @@ class PHPUnit_Util_Configuration
         }
 
         $fileIteratorFacade = new File_Iterator_Facade;
+<<<<<<< HEAD
 
         foreach ($testSuiteNode->getElementsByTagName('directory') as $directoryNode) {
             if ($testSuiteFilter && $directoryNode->parentNode->getAttribute('name') != $testSuiteFilter) {
+=======
+        $testSuiteFilter    = $testSuiteFilter ? \explode(self::TEST_SUITE_FILTER_SEPARATOR, $testSuiteFilter) : [];
+
+        foreach ($testSuiteNode->getElementsByTagName('directory') as $directoryNode) {
+            if (!empty($testSuiteFilter) && !\in_array($directoryNode->parentNode->getAttribute('name'), $testSuiteFilter)) {
+>>>>>>> dev
                 continue;
             }
 
@@ -934,7 +1505,11 @@ class PHPUnit_Util_Configuration
                 $phpVersionOperator = '>=';
             }
 
+<<<<<<< HEAD
             if (!version_compare(PHP_VERSION, $phpVersion, $phpVersionOperator)) {
+=======
+            if (!\version_compare(PHP_VERSION, $phpVersion, $phpVersionOperator)) {
+>>>>>>> dev
                 continue;
             }
 
@@ -960,7 +1535,11 @@ class PHPUnit_Util_Configuration
         }
 
         foreach ($testSuiteNode->getElementsByTagName('file') as $fileNode) {
+<<<<<<< HEAD
             if ($testSuiteFilter && $fileNode->parentNode->getAttribute('name') != $testSuiteFilter) {
+=======
+            if (!empty($testSuiteFilter) && !\in_array($fileNode->parentNode->getAttribute('name'), $testSuiteFilter)) {
+>>>>>>> dev
                 continue;
             }
 
@@ -993,7 +1572,11 @@ class PHPUnit_Util_Configuration
                 $phpVersionOperator = '>=';
             }
 
+<<<<<<< HEAD
             if (!version_compare(PHP_VERSION, $phpVersion, $phpVersionOperator)) {
+=======
+            if (!\version_compare(PHP_VERSION, $phpVersion, $phpVersionOperator)) {
+>>>>>>> dev
                 continue;
             }
 
@@ -1004,6 +1587,7 @@ class PHPUnit_Util_Configuration
     }
 
     /**
+<<<<<<< HEAD
      * @param string $value
      * @param bool   $default
      *
@@ -1016,6 +1600,24 @@ class PHPUnit_Util_Configuration
         if (strtolower($value) == 'false') {
             return false;
         } elseif (strtolower($value) == 'true') {
+=======
+     * if $value is 'false' or 'true', this returns the value that $value represents.
+     * Otherwise, returns $default, which may be a string in rare cases.
+     * See PHPUnit\Util\ConfigurationTest::testPHPConfigurationIsReadCorrectly
+     *
+     * @param string      $value
+     * @param string|bool $default
+     *
+     * @return string|bool
+     */
+    protected function getBoolean($value, $default)
+    {
+        if (\strtolower($value) == 'false') {
+            return false;
+        }
+
+        if (\strtolower($value) == 'true') {
+>>>>>>> dev
             return true;
         }
 
@@ -1024,6 +1626,7 @@ class PHPUnit_Util_Configuration
 
     /**
      * @param string $value
+<<<<<<< HEAD
      * @param bool   $default
      *
      * @return bool
@@ -1033,6 +1636,15 @@ class PHPUnit_Util_Configuration
     protected function getInteger($value, $default)
     {
         if (is_numeric($value)) {
+=======
+     * @param int    $default
+     *
+     * @return int
+     */
+    protected function getInteger($value, $default)
+    {
+        if (\is_numeric($value)) {
+>>>>>>> dev
             return (int) $value;
         }
 
@@ -1043,12 +1655,19 @@ class PHPUnit_Util_Configuration
      * @param string $query
      *
      * @return array
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.2.3
      */
     protected function readFilterDirectories($query)
     {
         $directories = array();
+=======
+     */
+    protected function readFilterDirectories($query)
+    {
+        $directories = [];
+>>>>>>> dev
 
         foreach ($this->xpath->query($query) as $directory) {
             $directoryPath = (string) $directory->textContent;
@@ -1075,12 +1694,21 @@ class PHPUnit_Util_Configuration
                 $group = 'DEFAULT';
             }
 
+<<<<<<< HEAD
             $directories[] = array(
               'path'   => $this->toAbsolutePath($directoryPath),
               'prefix' => $prefix,
               'suffix' => $suffix,
               'group'  => $group
             );
+=======
+            $directories[] = [
+                'path'   => $this->toAbsolutePath($directoryPath),
+                'prefix' => $prefix,
+                'suffix' => $suffix,
+                'group'  => $group
+            ];
+>>>>>>> dev
         }
 
         return $directories;
@@ -1090,12 +1718,19 @@ class PHPUnit_Util_Configuration
      * @param string $query
      *
      * @return array
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.2.3
      */
     protected function readFilterFiles($query)
     {
         $files = array();
+=======
+     */
+    protected function readFilterFiles($query)
+    {
+        $files = [];
+>>>>>>> dev
 
         foreach ($this->xpath->query($query) as $file) {
             $filePath = (string) $file->textContent;
@@ -1113,12 +1748,19 @@ class PHPUnit_Util_Configuration
      * @param bool   $useIncludePath
      *
      * @return string
+<<<<<<< HEAD
      *
      * @since  Method available since Release 3.5.0
      */
     protected function toAbsolutePath($path, $useIncludePath = false)
     {
         $path = trim($path);
+=======
+     */
+    protected function toAbsolutePath($path, $useIncludePath = false)
+    {
+        $path = \trim($path);
+>>>>>>> dev
 
         if ($path[0] === '/') {
             return $path;
@@ -1132,13 +1774,19 @@ class PHPUnit_Util_Configuration
         //  - C:\windows
         //  - C:/windows
         //  - c:/windows
+<<<<<<< HEAD
         if (defined('PHP_WINDOWS_VERSION_BUILD') &&
             ($path[0] === '\\' ||
             (strlen($path) >= 3 && preg_match('#^[A-Z]\:[/\\\]#i', substr($path, 0, 3))))) {
+=======
+        if (\defined('PHP_WINDOWS_VERSION_BUILD') &&
+            ($path[0] === '\\' || (\strlen($path) >= 3 && \preg_match('#^[A-Z]\:[/\\\]#i', \substr($path, 0, 3))))) {
+>>>>>>> dev
             return $path;
         }
 
         // Stream
+<<<<<<< HEAD
         if (strpos($path, '://') !== false) {
             return $path;
         }
@@ -1147,6 +1795,16 @@ class PHPUnit_Util_Configuration
 
         if ($useIncludePath && !file_exists($file)) {
             $includePathFile = stream_resolve_include_path($path);
+=======
+        if (\strpos($path, '://') !== false) {
+            return $path;
+        }
+
+        $file = \dirname($this->filename) . DIRECTORY_SEPARATOR . $path;
+
+        if ($useIncludePath && !\file_exists($file)) {
+            $includePathFile = \stream_resolve_include_path($path);
+>>>>>>> dev
 
             if ($includePathFile) {
                 $file = $includePathFile;

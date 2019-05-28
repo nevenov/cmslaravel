@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Debug;
 
+<<<<<<< HEAD
 use Psr\Log\LogLevel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Debug\Exception\ContextErrorException;
@@ -21,6 +22,19 @@ use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler
 use Symfony\Component\Debug\FatalErrorHandler\UndefinedMethodFatalErrorHandler;
 use Symfony\Component\Debug\FatalErrorHandler\ClassNotFoundFatalErrorHandler;
 use Symfony\Component\Debug\FatalErrorHandler\FatalErrorHandlerInterface;
+=======
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+use Symfony\Component\Debug\Exception\FatalErrorException;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Symfony\Component\Debug\Exception\FlattenException;
+use Symfony\Component\Debug\Exception\OutOfMemoryException;
+use Symfony\Component\Debug\Exception\SilencedErrorContext;
+use Symfony\Component\Debug\FatalErrorHandler\ClassNotFoundFatalErrorHandler;
+use Symfony\Component\Debug\FatalErrorHandler\FatalErrorHandlerInterface;
+use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler;
+use Symfony\Component\Debug\FatalErrorHandler\UndefinedMethodFatalErrorHandler;
+>>>>>>> dev
 
 /**
  * A generic ErrorHandler for the PHP engine.
@@ -29,7 +43,11 @@ use Symfony\Component\Debug\FatalErrorHandler\FatalErrorHandlerInterface;
  * - thrownErrors: errors thrown as \ErrorException
  * - loggedErrors: logged errors, when not @-silenced
  * - scopedErrors: errors thrown or logged with their local context
+<<<<<<< HEAD
  * - tracedErrors: errors logged with their stack trace, only once for repeated errors
+=======
+ * - tracedErrors: errors logged with their stack trace
+>>>>>>> dev
  * - screamedErrors: never @-silenced errors
  *
  * Each error level can be logged by a dedicated PSR-3 logger object.
@@ -43,10 +61,18 @@ use Symfony\Component\Debug\FatalErrorHandler\FatalErrorHandlerInterface;
  * can see them and weight them as more important to fix than others of the same level.
  *
  * @author Nicolas Grekas <p@tchwork.com>
+<<<<<<< HEAD
  */
 class ErrorHandler
 {
     private $levels = array(
+=======
+ * @author Grégoire Pineau <lyrixx@lyrixx.info>
+ */
+class ErrorHandler
+{
+    private $levels = [
+>>>>>>> dev
         E_DEPRECATED => 'Deprecated',
         E_USER_DEPRECATED => 'User Deprecated',
         E_NOTICE => 'Notice',
@@ -62,6 +88,7 @@ class ErrorHandler
         E_PARSE => 'Parse Error',
         E_ERROR => 'Error',
         E_CORE_ERROR => 'Core Error',
+<<<<<<< HEAD
     );
 
     private $loggers = array(
@@ -81,23 +108,56 @@ class ErrorHandler
         E_ERROR => array(null, LogLevel::CRITICAL),
         E_CORE_ERROR => array(null, LogLevel::CRITICAL),
     );
+=======
+    ];
+
+    private $loggers = [
+        E_DEPRECATED => [null, LogLevel::INFO],
+        E_USER_DEPRECATED => [null, LogLevel::INFO],
+        E_NOTICE => [null, LogLevel::WARNING],
+        E_USER_NOTICE => [null, LogLevel::WARNING],
+        E_STRICT => [null, LogLevel::WARNING],
+        E_WARNING => [null, LogLevel::WARNING],
+        E_USER_WARNING => [null, LogLevel::WARNING],
+        E_COMPILE_WARNING => [null, LogLevel::WARNING],
+        E_CORE_WARNING => [null, LogLevel::WARNING],
+        E_USER_ERROR => [null, LogLevel::CRITICAL],
+        E_RECOVERABLE_ERROR => [null, LogLevel::CRITICAL],
+        E_COMPILE_ERROR => [null, LogLevel::CRITICAL],
+        E_PARSE => [null, LogLevel::CRITICAL],
+        E_ERROR => [null, LogLevel::CRITICAL],
+        E_CORE_ERROR => [null, LogLevel::CRITICAL],
+    ];
+>>>>>>> dev
 
     private $thrownErrors = 0x1FFF; // E_ALL - E_DEPRECATED - E_USER_DEPRECATED
     private $scopedErrors = 0x1FFF; // E_ALL - E_DEPRECATED - E_USER_DEPRECATED
     private $tracedErrors = 0x77FB; // E_ALL - E_STRICT - E_PARSE
     private $screamedErrors = 0x55; // E_ERROR + E_CORE_ERROR + E_COMPILE_ERROR + E_PARSE
     private $loggedErrors = 0;
+<<<<<<< HEAD
 
     private $loggedTraces = array();
+=======
+    private $traceReflector;
+
+>>>>>>> dev
     private $isRecursive = 0;
     private $isRoot = false;
     private $exceptionHandler;
     private $bootstrappingLogger;
 
     private static $reservedMemory;
+<<<<<<< HEAD
     private static $stackedErrors = array();
     private static $stackedErrorLevels = array();
     private static $toStringException = null;
+=======
+    private static $toStringException = null;
+    private static $silencedErrorCache = [];
+    private static $silencedErrorCount = 0;
+    private static $exitCode = 0;
+>>>>>>> dev
 
     /**
      * Registers the error handler.
@@ -118,6 +178,7 @@ class ErrorHandler
             $handler = new static();
         }
 
+<<<<<<< HEAD
         if (null === $prev = set_error_handler(array($handler, 'handleError'))) {
             restore_error_handler();
             // Specifying the error types earlier would expose us to https://bugs.php.net/63206
@@ -133,6 +194,37 @@ class ErrorHandler
             $handler->setExceptionHandler(set_exception_handler(array($handler, 'handleException')));
         } else {
             restore_error_handler();
+=======
+        if (null === $prev = set_error_handler([$handler, 'handleError'])) {
+            restore_error_handler();
+            // Specifying the error types earlier would expose us to https://bugs.php.net/63206
+            set_error_handler([$handler, 'handleError'], $handler->thrownErrors | $handler->loggedErrors);
+            $handler->isRoot = true;
+        }
+
+        if ($handlerIsNew && \is_array($prev) && $prev[0] instanceof self) {
+            $handler = $prev[0];
+            $replace = false;
+        }
+        if (!$replace && $prev) {
+            restore_error_handler();
+            $handlerIsRegistered = \is_array($prev) && $handler === $prev[0];
+        } else {
+            $handlerIsRegistered = true;
+        }
+        if (\is_array($prev = set_exception_handler([$handler, 'handleException'])) && $prev[0] instanceof self) {
+            restore_exception_handler();
+            if (!$handlerIsRegistered) {
+                $handler = $prev[0];
+            } elseif ($handler !== $prev[0] && $replace) {
+                set_exception_handler([$handler, 'handleException']);
+                $p = $prev[0]->setExceptionHandler(null);
+                $handler->setExceptionHandler($p);
+                $prev[0]->setExceptionHandler($p);
+            }
+        } else {
+            $handler->setExceptionHandler($prev);
+>>>>>>> dev
         }
 
         $handler->throwAt(E_ALL & $handler->thrownErrors, true);
@@ -146,6 +238,11 @@ class ErrorHandler
             $this->bootstrappingLogger = $bootstrappingLogger;
             $this->setDefaultLogger($bootstrappingLogger);
         }
+<<<<<<< HEAD
+=======
+        $this->traceReflector = new \ReflectionProperty('Exception', 'trace');
+        $this->traceReflector->setAccessible(true);
+>>>>>>> dev
     }
 
     /**
@@ -157,12 +254,21 @@ class ErrorHandler
      */
     public function setDefaultLogger(LoggerInterface $logger, $levels = E_ALL, $replace = false)
     {
+<<<<<<< HEAD
         $loggers = array();
 
         if (is_array($levels)) {
             foreach ($levels as $type => $logLevel) {
                 if (empty($this->loggers[$type][0]) || $replace || $this->loggers[$type][0] === $this->bootstrappingLogger) {
                     $loggers[$type] = array($logger, $logLevel);
+=======
+        $loggers = [];
+
+        if (\is_array($levels)) {
+            foreach ($levels as $type => $logLevel) {
+                if (empty($this->loggers[$type][0]) || $replace || $this->loggers[$type][0] === $this->bootstrappingLogger) {
+                    $loggers[$type] = [$logger, $logLevel];
+>>>>>>> dev
                 }
             }
         } else {
@@ -193,15 +299,25 @@ class ErrorHandler
     {
         $prevLogged = $this->loggedErrors;
         $prev = $this->loggers;
+<<<<<<< HEAD
         $flush = array();
+=======
+        $flush = [];
+>>>>>>> dev
 
         foreach ($loggers as $type => $log) {
             if (!isset($prev[$type])) {
                 throw new \InvalidArgumentException('Unknown error type: '.$type);
             }
+<<<<<<< HEAD
             if (!is_array($log)) {
                 $log = array($log);
             } elseif (!array_key_exists(0, $log)) {
+=======
+            if (!\is_array($log)) {
+                $log = [$log];
+            } elseif (!\array_key_exists(0, $log)) {
+>>>>>>> dev
                 throw new \InvalidArgumentException('No logger provided');
             }
             if (null === $log[0]) {
@@ -221,7 +337,11 @@ class ErrorHandler
 
         if ($flush) {
             foreach ($this->bootstrappingLogger->cleanLogs() as $log) {
+<<<<<<< HEAD
                 $type = $log[2]['type'];
+=======
+                $type = $log[2]['exception'] instanceof \ErrorException ? $log[2]['exception']->getSeverity() : E_ERROR;
+>>>>>>> dev
                 if (!isset($flush[$type])) {
                     $this->bootstrappingLogger->log($log[0], $log[1], $log[2]);
                 } elseif ($this->loggers[$type][0]) {
@@ -332,14 +452,24 @@ class ErrorHandler
     {
         if ($prev !== $this->thrownErrors | $this->loggedErrors) {
             $handler = set_error_handler('var_dump');
+<<<<<<< HEAD
             $handler = is_array($handler) ? $handler[0] : null;
+=======
+            $handler = \is_array($handler) ? $handler[0] : null;
+>>>>>>> dev
             restore_error_handler();
             if ($handler === $this) {
                 restore_error_handler();
                 if ($this->isRoot) {
+<<<<<<< HEAD
                     set_error_handler(array($this, 'handleError'), $this->thrownErrors | $this->loggedErrors);
                 } else {
                     set_error_handler(array($this, 'handleError'));
+=======
+                    set_error_handler([$this, 'handleError'], $this->thrownErrors | $this->loggedErrors);
+                } else {
+                    set_error_handler([$this, 'handleError']);
+>>>>>>> dev
                 }
             }
         }
@@ -349,9 +479,15 @@ class ErrorHandler
      * Handles errors by filtering then logging them according to the configured bit fields.
      *
      * @param int    $type    One of the E_* constants
+<<<<<<< HEAD
      * @param string $file
      * @param int    $line
      * @param array  $context
+=======
+     * @param string $message
+     * @param string $file
+     * @param int    $line
+>>>>>>> dev
      *
      * @return bool Returns false when no handling happens so that the PHP engine can handle the error itself
      *
@@ -359,14 +495,25 @@ class ErrorHandler
      *
      * @internal
      */
+<<<<<<< HEAD
     public function handleError($type, $message, $file, $line, array $context, array $backtrace = null)
     {
         $level = error_reporting() | E_RECOVERABLE_ERROR | E_USER_ERROR | E_DEPRECATED | E_USER_DEPRECATED;
+=======
+    public function handleError($type, $message, $file, $line)
+    {
+        // Level is the current error reporting level to manage silent error.
+        $level = error_reporting();
+        $silenced = 0 === ($level & $type);
+        // Strong errors are not authorized to be silenced.
+        $level |= E_RECOVERABLE_ERROR | E_USER_ERROR | E_DEPRECATED | E_USER_DEPRECATED;
+>>>>>>> dev
         $log = $this->loggedErrors & $type;
         $throw = $this->thrownErrors & $type & $level;
         $type &= $level | $this->screamedErrors;
 
         if (!$type || (!$log && !$throw)) {
+<<<<<<< HEAD
             return $type && $log;
         }
 
@@ -392,6 +539,71 @@ class ErrorHandler
             if (E_USER_ERROR & $type) {
                 $backtrace = $backtrace ?: $throw->getTrace();
 
+=======
+            return !$silenced && $type && $log;
+        }
+        $scope = $this->scopedErrors & $type;
+
+        if (4 < $numArgs = \func_num_args()) {
+            $context = $scope ? (func_get_arg(4) ?: []) : [];
+        } else {
+            $context = [];
+        }
+
+        if (isset($context['GLOBALS']) && $scope) {
+            $e = $context;                  // Whatever the signature of the method,
+            unset($e['GLOBALS'], $context); // $context is always a reference in 5.3
+            $context = $e;
+        }
+
+        if (false !== strpos($message, "class@anonymous\0")) {
+            $logMessage = $this->levels[$type].': '.(new FlattenException())->setMessage($message)->getMessage();
+        } else {
+            $logMessage = $this->levels[$type].': '.$message;
+        }
+
+        if (null !== self::$toStringException) {
+            $errorAsException = self::$toStringException;
+            self::$toStringException = null;
+        } elseif (!$throw && !($type & $level)) {
+            if (!isset(self::$silencedErrorCache[$id = $file.':'.$line])) {
+                $lightTrace = $this->tracedErrors & $type ? $this->cleanTrace(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 5), $type, $file, $line, false) : [];
+                $errorAsException = new SilencedErrorContext($type, $file, $line, isset($lightTrace[1]) ? [$lightTrace[0]] : $lightTrace);
+            } elseif (isset(self::$silencedErrorCache[$id][$message])) {
+                $lightTrace = null;
+                $errorAsException = self::$silencedErrorCache[$id][$message];
+                ++$errorAsException->count;
+            } else {
+                $lightTrace = [];
+                $errorAsException = null;
+            }
+
+            if (100 < ++self::$silencedErrorCount) {
+                self::$silencedErrorCache = $lightTrace = [];
+                self::$silencedErrorCount = 1;
+            }
+            if ($errorAsException) {
+                self::$silencedErrorCache[$id][$message] = $errorAsException;
+            }
+            if (null === $lightTrace) {
+                return;
+            }
+        } else {
+            $errorAsException = new \ErrorException($logMessage, 0, $type, $file, $line);
+
+            if ($throw || $this->tracedErrors & $type) {
+                $backtrace = $errorAsException->getTrace();
+                $lightTrace = $this->cleanTrace($backtrace, $type, $file, $line, $throw);
+                $this->traceReflector->setValue($errorAsException, $lightTrace);
+            } else {
+                $this->traceReflector->setValue($errorAsException, []);
+                $backtrace = [];
+            }
+        }
+
+        if ($throw) {
+            if (E_USER_ERROR & $type) {
+>>>>>>> dev
                 for ($i = 1; isset($backtrace[$i]); ++$i) {
                     if (isset($backtrace[$i]['function'], $backtrace[$i]['type'], $backtrace[$i - 1]['function'])
                         && '__toString' === $backtrace[$i]['function']
@@ -400,25 +612,34 @@ class ErrorHandler
                         && ('trigger_error' === $backtrace[$i - 1]['function'] || 'user_error' === $backtrace[$i - 1]['function'])
                     ) {
                         // Here, we know trigger_error() has been called from __toString().
+<<<<<<< HEAD
                         // HHVM is fine with throwing from __toString() but PHP triggers a fatal error instead.
+=======
+                        // PHP triggers a fatal error when throwing from __toString().
+>>>>>>> dev
                         // A small convention allows working around the limitation:
                         // given a caught $e exception in __toString(), quitting the method with
                         // `return trigger_error($e, E_USER_ERROR);` allows this error handler
                         // to make $e get through the __toString() barrier.
 
                         foreach ($context as $e) {
+<<<<<<< HEAD
                             if (($e instanceof \Exception || $e instanceof \Throwable) && $e->__toString() === $message) {
                                 if (1 === $i) {
                                     // On HHVM
                                     $throw = $e;
                                     break;
                                 }
+=======
+                            if ($e instanceof \Throwable && $e->__toString() === $message) {
+>>>>>>> dev
                                 self::$toStringException = $e;
 
                                 return true;
                             }
                         }
 
+<<<<<<< HEAD
                         if (1 < $i) {
                             // On PHP (not on HHVM), display the original error message instead of the default one.
                             $this->handleException($throw);
@@ -426,10 +647,18 @@ class ErrorHandler
                             // Stop the process by giving back the error to the native handler.
                             return false;
                         }
+=======
+                        // Display the original error message instead of the default one.
+                        $this->handleException($errorAsException);
+
+                        // Stop the process by giving back the error to the native handler.
+                        return false;
+>>>>>>> dev
                     }
                 }
             }
 
+<<<<<<< HEAD
             throw $throw;
         }
 
@@ -461,10 +690,14 @@ class ErrorHandler
                     $e['stack'] = $backtrace;
                 }
             }
+=======
+            throw $errorAsException;
+>>>>>>> dev
         }
 
         if ($this->isRecursive) {
             $log = 0;
+<<<<<<< HEAD
         } elseif (self::$stackedErrorLevels) {
             self::$stackedErrors[] = array($this->loggers[$type][0], ($type & $level) ? $this->loggers[$type][1] : LogLevel::DEBUG, $message, $e);
         } else {
@@ -477,6 +710,28 @@ class ErrorHandler
         }
 
         return $type && $log;
+=======
+        } else {
+            if (!\defined('HHVM_VERSION')) {
+                $currentErrorHandler = set_error_handler('var_dump');
+                restore_error_handler();
+            }
+
+            try {
+                $this->isRecursive = true;
+                $level = ($type & $level) ? $this->loggers[$type][1] : LogLevel::DEBUG;
+                $this->loggers[$type][0]->log($level, $logMessage, $errorAsException ? ['exception' => $errorAsException] : []);
+            } finally {
+                $this->isRecursive = false;
+
+                if (!\defined('HHVM_VERSION')) {
+                    set_error_handler($currentErrorHandler);
+                }
+            }
+        }
+
+        return !$silenced && $type && $log;
+>>>>>>> dev
     }
 
     /**
@@ -489,10 +744,17 @@ class ErrorHandler
      */
     public function handleException($exception, array $error = null)
     {
+<<<<<<< HEAD
+=======
+        if (null === $error) {
+            self::$exitCode = 255;
+        }
+>>>>>>> dev
         if (!$exception instanceof \Exception) {
             $exception = new FatalThrowableError($exception);
         }
         $type = $exception instanceof FatalErrorException ? $exception->getSeverity() : E_ERROR;
+<<<<<<< HEAD
 
         if (($this->loggedErrors & $type) || $exception instanceof FatalThrowableError) {
             $e = array(
@@ -524,6 +786,36 @@ class ErrorHandler
         }
         if ($this->loggedErrors & $type) {
             $this->loggers[$type][0]->log($this->loggers[$type][1], $message, $e);
+=======
+        $handlerException = null;
+
+        if (($this->loggedErrors & $type) || $exception instanceof FatalThrowableError) {
+            if (false !== strpos($message = $exception->getMessage(), "class@anonymous\0")) {
+                $message = (new FlattenException())->setMessage($message)->getMessage();
+            }
+            if ($exception instanceof FatalErrorException) {
+                if ($exception instanceof FatalThrowableError) {
+                    $error = [
+                        'type' => $type,
+                        'message' => $message,
+                        'file' => $exception->getFile(),
+                        'line' => $exception->getLine(),
+                    ];
+                } else {
+                    $message = 'Fatal '.$message;
+                }
+            } elseif ($exception instanceof \ErrorException) {
+                $message = 'Uncaught '.$message;
+            } else {
+                $message = 'Uncaught Exception: '.$message;
+            }
+        }
+        if ($this->loggedErrors & $type) {
+            try {
+                $this->loggers[$type][0]->log($this->loggers[$type][1], $message, ['exception' => $exception]);
+            } catch (\Throwable $handlerException) {
+            }
+>>>>>>> dev
         }
         if ($exception instanceof FatalErrorException && !$exception instanceof OutOfMemoryException && $error) {
             foreach ($this->getFatalErrorHandlers() as $handler) {
@@ -533,6 +825,7 @@ class ErrorHandler
                 }
             }
         }
+<<<<<<< HEAD
         if (empty($this->exceptionHandler)) {
             throw $exception; // Give back $exception to the native handler
         }
@@ -545,6 +838,22 @@ class ErrorHandler
             $this->exceptionHandler = null;
             $this->handleException($handlerException);
         }
+=======
+        $exceptionHandler = $this->exceptionHandler;
+        $this->exceptionHandler = null;
+        try {
+            if (null !== $exceptionHandler) {
+                return $exceptionHandler($exception);
+            }
+            $handlerException = $handlerException ?: $exception;
+        } catch (\Throwable $handlerException) {
+        }
+        if ($exception === $handlerException) {
+            self::$reservedMemory = null; // Disable the fatal error handler
+            throw $exception; // Give back $exception to the native handler
+        }
+        $this->handleException($handlerException);
+>>>>>>> dev
     }
 
     /**
@@ -560,6 +869,7 @@ class ErrorHandler
             return;
         }
 
+<<<<<<< HEAD
         self::$reservedMemory = null;
 
         $handler = set_error_handler('var_dump');
@@ -582,6 +892,44 @@ class ErrorHandler
             // Handled below
         } catch (\Throwable $exception) {
             // Handled below
+=======
+        $handler = self::$reservedMemory = null;
+        $handlers = [];
+        $previousHandler = null;
+        $sameHandlerLimit = 10;
+
+        while (!\is_array($handler) || !$handler[0] instanceof self) {
+            $handler = set_exception_handler('var_dump');
+            restore_exception_handler();
+
+            if (!$handler) {
+                break;
+            }
+            restore_exception_handler();
+
+            if ($handler !== $previousHandler) {
+                array_unshift($handlers, $handler);
+                $previousHandler = $handler;
+            } elseif (0 === --$sameHandlerLimit) {
+                $handler = null;
+                break;
+            }
+        }
+        foreach ($handlers as $h) {
+            set_exception_handler($h);
+        }
+        if (!$handler) {
+            return;
+        }
+        if ($handler !== $h) {
+            $handler[0]->setExceptionHandler($h);
+        }
+        $handler = $handler[0];
+        $handlers = [];
+
+        if ($exit = null === $error) {
+            $error = error_get_last();
+>>>>>>> dev
         }
 
         if ($error && $error['type'] &= E_PARSE | E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR) {
@@ -594,6 +942,7 @@ class ErrorHandler
             } else {
                 $exception = new FatalErrorException($handler->levels[$error['type']].': '.$error['message'], 0, $error['type'], $error['file'], $error['line'], 2, true, $trace);
             }
+<<<<<<< HEAD
         } elseif (!isset($exception)) {
             return;
         }
@@ -660,5 +1009,69 @@ class ErrorHandler
             new UndefinedMethodFatalErrorHandler(),
             new ClassNotFoundFatalErrorHandler(),
         );
+=======
+        } else {
+            $exception = null;
+        }
+
+        try {
+            if (null !== $exception) {
+                self::$exitCode = 255;
+                $handler->handleException($exception, $error);
+            }
+        } catch (FatalErrorException $e) {
+            // Ignore this re-throw
+        }
+
+        if ($exit && self::$exitCode) {
+            $exitCode = self::$exitCode;
+            register_shutdown_function('register_shutdown_function', function () use ($exitCode) { exit($exitCode); });
+        }
+    }
+
+    /**
+     * Gets the fatal error handlers.
+     *
+     * Override this method if you want to define more fatal error handlers.
+     *
+     * @return FatalErrorHandlerInterface[] An array of FatalErrorHandlerInterface
+     */
+    protected function getFatalErrorHandlers()
+    {
+        return [
+            new UndefinedFunctionFatalErrorHandler(),
+            new UndefinedMethodFatalErrorHandler(),
+            new ClassNotFoundFatalErrorHandler(),
+        ];
+    }
+
+    /**
+     * Cleans the trace by removing function arguments and the frames added by the error handler and DebugClassLoader.
+     */
+    private function cleanTrace($backtrace, $type, $file, $line, $throw)
+    {
+        $lightTrace = $backtrace;
+
+        for ($i = 0; isset($backtrace[$i]); ++$i) {
+            if (isset($backtrace[$i]['file'], $backtrace[$i]['line']) && $backtrace[$i]['line'] === $line && $backtrace[$i]['file'] === $file) {
+                $lightTrace = \array_slice($lightTrace, 1 + $i);
+                break;
+            }
+        }
+        if (class_exists(DebugClassLoader::class, false)) {
+            for ($i = \count($lightTrace) - 2; 0 < $i; --$i) {
+                if (DebugClassLoader::class === ($lightTrace[$i]['class'] ?? null)) {
+                    array_splice($lightTrace, --$i, 2);
+                }
+            }
+        }
+        if (!($throw || $this->scopedErrors & $type)) {
+            for ($i = 0; isset($lightTrace[$i]); ++$i) {
+                unset($lightTrace[$i]['args'], $lightTrace[$i]['object']);
+            }
+        }
+
+        return $lightTrace;
+>>>>>>> dev
     }
 }

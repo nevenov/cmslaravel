@@ -1,6 +1,10 @@
 [![Build Status](https://travis-ci.org/sebastianbergmann/php-token-stream.svg?branch=master)](https://travis-ci.org/sebastianbergmann/php-token-stream)
 
+<<<<<<< HEAD
 # PHP_TokenStream
+=======
+# php-token-stream
+>>>>>>> dev
 
 ## Installation
 

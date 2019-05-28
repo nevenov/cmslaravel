@@ -11,9 +11,19 @@
 
 namespace Symfony\Component\Translation\Tests;
 
+<<<<<<< HEAD
 use Symfony\Component\Translation\MessageSelector;
 
 class MessageSelectorTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Translation\MessageSelector;
+
+/**
+ * @group legacy
+ */
+class MessageSelectorTest extends TestCase
+>>>>>>> dev
 {
     /**
      * @dataProvider getChooseTests
@@ -34,7 +44,11 @@ class MessageSelectorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getNonMatchingMessages
+<<<<<<< HEAD
      * @expectedException \InvalidArgumentException
+=======
+     * @expectedException \Symfony\Component\Translation\Exception\InvalidArgumentException
+>>>>>>> dev
      */
     public function testThrowExceptionIfMatchingMessageCannotBeFound($id, $number)
     {
@@ -45,16 +59,26 @@ class MessageSelectorTest extends \PHPUnit_Framework_TestCase
 
     public function getNonMatchingMessages()
     {
+<<<<<<< HEAD
         return array(
             array('{0} There are no apples|{1} There is one apple', 2),
             array('{1} There is one apple|]1,Inf] There are %count% apples', 0),
             array('{1} There is one apple|]2,Inf] There are %count% apples', 2),
             array('{0} There are no apples|There is one apple', 2),
         );
+=======
+        return [
+            ['{0} There are no apples|{1} There is one apple', 2],
+            ['{1} There is one apple|]1,Inf] There are %count% apples', 0],
+            ['{1} There is one apple|]2,Inf] There are %count% apples', 2],
+            ['{0} There are no apples|There is one apple', 2],
+        ];
+>>>>>>> dev
     }
 
     public function getChooseTests()
     {
+<<<<<<< HEAD
         return array(
             array('There are no apples', '{0} There are no apples|{1} There is one apple|]1,Inf] There are %count% apples', 0),
             array('There are no apples', '{0}     There are no apples|{1} There is one apple|]1,Inf] There are %count% apples', 0),
@@ -126,5 +150,84 @@ class MessageSelectorTest extends \PHPUnit_Framework_TestCase
             // with double-quotes and id split accros lines
             array("This is a text with a\nnew-line in it. Selector = 1.", "{0}This is a text with a\nnew-line in it. Selector = 0.|{1}This is a text with a\nnew-line in it. Selector = 1.|[1,Inf]This is a text with a\nnew-line in it. Selector > 1.", 1),
         );
+=======
+        return [
+            ['There are no apples', '{0} There are no apples|{1} There is one apple|]1,Inf] There are %count% apples', 0],
+            ['There are no apples', '{0}     There are no apples|{1} There is one apple|]1,Inf] There are %count% apples', 0],
+            ['There are no apples', '{0}There are no apples|{1} There is one apple|]1,Inf] There are %count% apples', 0],
+
+            ['There is one apple', '{0} There are no apples|{1} There is one apple|]1,Inf] There are %count% apples', 1],
+
+            ['There are %count% apples', '{0} There are no apples|{1} There is one apple|]1,Inf] There are %count% apples', 10],
+            ['There are %count% apples', '{0} There are no apples|{1} There is one apple|]1,Inf]There are %count% apples', 10],
+            ['There are %count% apples', '{0} There are no apples|{1} There is one apple|]1,Inf]     There are %count% apples', 10],
+
+            ['There are %count% apples', 'There is one apple|There are %count% apples', 0],
+            ['There is one apple', 'There is one apple|There are %count% apples', 1],
+            ['There are %count% apples', 'There is one apple|There are %count% apples', 10],
+
+            ['There are %count% apples', 'one: There is one apple|more: There are %count% apples', 0],
+            ['There is one apple', 'one: There is one apple|more: There are %count% apples', 1],
+            ['There are %count% apples', 'one: There is one apple|more: There are %count% apples', 10],
+
+            ['There are no apples', '{0} There are no apples|one: There is one apple|more: There are %count% apples', 0],
+            ['There is one apple', '{0} There are no apples|one: There is one apple|more: There are %count% apples', 1],
+            ['There are %count% apples', '{0} There are no apples|one: There is one apple|more: There are %count% apples', 10],
+
+            ['', '{0}|{1} There is one apple|]1,Inf] There are %count% apples', 0],
+            ['', '{0} There are no apples|{1}|]1,Inf] There are %count% apples', 1],
+
+            // Indexed only tests which are Gettext PoFile* compatible strings.
+            ['There are %count% apples', 'There is one apple|There are %count% apples', 0],
+            ['There is one apple', 'There is one apple|There are %count% apples', 1],
+            ['There are %count% apples', 'There is one apple|There are %count% apples', 2],
+
+            // Tests for float numbers
+            ['There is almost one apple', '{0} There are no apples|]0,1[ There is almost one apple|{1} There is one apple|[1,Inf] There is more than one apple', 0.7],
+            ['There is one apple', '{0} There are no apples|]0,1[There are %count% apples|{1} There is one apple|[1,Inf] There is more than one apple', 1],
+            ['There is more than one apple', '{0} There are no apples|]0,1[There are %count% apples|{1} There is one apple|[1,Inf] There is more than one apple', 1.7],
+            ['There are no apples', '{0} There are no apples|]0,1[There are %count% apples|{1} There is one apple|[1,Inf] There is more than one apple', 0],
+            ['There are no apples', '{0} There are no apples|]0,1[There are %count% apples|{1} There is one apple|[1,Inf] There is more than one apple', 0.0],
+            ['There are no apples', '{0.0} There are no apples|]0,1[There are %count% apples|{1} There is one apple|[1,Inf] There is more than one apple', 0],
+
+            // Test texts with new-lines
+            // with double-quotes and \n in id & double-quotes and actual newlines in text
+            ["This is a text with a\n            new-line in it. Selector = 0.", '{0}This is a text with a
+            new-line in it. Selector = 0.|{1}This is a text with a
+            new-line in it. Selector = 1.|[1,Inf]This is a text with a
+            new-line in it. Selector > 1.', 0],
+            // with double-quotes and \n in id and single-quotes and actual newlines in text
+            ["This is a text with a\n            new-line in it. Selector = 1.", '{0}This is a text with a
+            new-line in it. Selector = 0.|{1}This is a text with a
+            new-line in it. Selector = 1.|[1,Inf]This is a text with a
+            new-line in it. Selector > 1.', 1],
+            ["This is a text with a\n            new-line in it. Selector > 1.", '{0}This is a text with a
+            new-line in it. Selector = 0.|{1}This is a text with a
+            new-line in it. Selector = 1.|[1,Inf]This is a text with a
+            new-line in it. Selector > 1.', 5],
+            // with double-quotes and id split accros lines
+            ['This is a text with a
+            new-line in it. Selector = 1.', '{0}This is a text with a
+            new-line in it. Selector = 0.|{1}This is a text with a
+            new-line in it. Selector = 1.|[1,Inf]This is a text with a
+            new-line in it. Selector > 1.', 1],
+            // with single-quotes and id split accros lines
+            ['This is a text with a
+            new-line in it. Selector > 1.', '{0}This is a text with a
+            new-line in it. Selector = 0.|{1}This is a text with a
+            new-line in it. Selector = 1.|[1,Inf]This is a text with a
+            new-line in it. Selector > 1.', 5],
+            // with single-quotes and \n in text
+            ['This is a text with a\nnew-line in it. Selector = 0.', '{0}This is a text with a\nnew-line in it. Selector = 0.|{1}This is a text with a\nnew-line in it. Selector = 1.|[1,Inf]This is a text with a\nnew-line in it. Selector > 1.', 0],
+            // with double-quotes and id split accros lines
+            ["This is a text with a\nnew-line in it. Selector = 1.", "{0}This is a text with a\nnew-line in it. Selector = 0.|{1}This is a text with a\nnew-line in it. Selector = 1.|[1,Inf]This is a text with a\nnew-line in it. Selector > 1.", 1],
+            // esacape pipe
+            ['This is a text with | in it. Selector = 0.', '{0}This is a text with || in it. Selector = 0.|{1}This is a text with || in it. Selector = 1.', 0],
+            // Empty plural set (2 plural forms) from a .PO file
+            ['', '|', 1],
+            // Empty plural set (3 plural forms) from a .PO file
+            ['', '||', 1],
+        ];
+>>>>>>> dev
     }
 }

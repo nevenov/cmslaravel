@@ -2,6 +2,15 @@
 
 namespace Illuminate\Database\Eloquent;
 
+<<<<<<< HEAD
+=======
+/**
+ * @method static static|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder withTrashed()
+ * @method static static|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder onlyTrashed()
+ * @method static static|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder withoutTrashed()
+ * @method bool restore()
+ */
+>>>>>>> dev
 trait SoftDeletes
 {
     /**
@@ -22,6 +31,19 @@ trait SoftDeletes
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Initialize the soft deleting trait for an instance.
+     *
+     * @return void
+     */
+    public function initializeSoftDeletes()
+    {
+        $this->dates[] = $this->getDeletedAtColumn();
+    }
+
+    /**
+>>>>>>> dev
      * Force a hard delete on a soft deleted model.
      *
      * @return bool|null
@@ -30,11 +52,21 @@ trait SoftDeletes
     {
         $this->forceDeleting = true;
 
+<<<<<<< HEAD
         $deleted = $this->delete();
 
         $this->forceDeleting = false;
 
         return $deleted;
+=======
+        return tap($this->delete(), function ($deleted) {
+            $this->forceDeleting = false;
+
+            if ($deleted) {
+                $this->fireModelEvent('forceDeleted', false);
+            }
+        });
+>>>>>>> dev
     }
 
     /**
@@ -45,7 +77,13 @@ trait SoftDeletes
     protected function performDeleteOnModel()
     {
         if ($this->forceDeleting) {
+<<<<<<< HEAD
             return $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey())->forceDelete();
+=======
+            $this->exists = false;
+
+            return $this->setKeysForSaveQuery($this->newModelQuery())->forceDelete();
+>>>>>>> dev
         }
 
         return $this->runSoftDelete();
@@ -58,11 +96,29 @@ trait SoftDeletes
      */
     protected function runSoftDelete()
     {
+<<<<<<< HEAD
         $query = $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey());
 
         $this->{$this->getDeletedAtColumn()} = $time = $this->freshTimestamp();
 
         $query->update([$this->getDeletedAtColumn() => $this->fromDateTime($time)]);
+=======
+        $query = $this->setKeysForSaveQuery($this->newModelQuery());
+
+        $time = $this->freshTimestamp();
+
+        $columns = [$this->getDeletedAtColumn() => $this->fromDateTime($time)];
+
+        $this->{$this->getDeletedAtColumn()} = $time;
+
+        if ($this->timestamps && ! is_null($this->getUpdatedAtColumn())) {
+            $this->{$this->getUpdatedAtColumn()} = $time;
+
+            $columns[$this->getUpdatedAtColumn()] = $this->fromDateTime($time);
+        }
+
+        $query->update($columns);
+>>>>>>> dev
     }
 
     /**
@@ -126,6 +182,19 @@ trait SoftDeletes
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Determine if the model is currently force deleting.
+     *
+     * @return bool
+     */
+    public function isForceDeleting()
+    {
+        return $this->forceDeleting;
+    }
+
+    /**
+>>>>>>> dev
      * Get the name of the "deleted at" column.
      *
      * @return string
@@ -142,6 +211,10 @@ trait SoftDeletes
      */
     public function getQualifiedDeletedAtColumn()
     {
+<<<<<<< HEAD
         return $this->getTable().'.'.$this->getDeletedAtColumn();
+=======
+        return $this->qualifyColumn($this->getDeletedAtColumn());
+>>>>>>> dev
     }
 }

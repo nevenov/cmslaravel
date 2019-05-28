@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 PHPUnit_MockObject
 
 Copyright (c) 2002-2015, Sebastian Bergmann <sebastian@phpunit.de>.
+=======
+phpunit-mock-objects
+
+Copyright (c) 2002-2017, Sebastian Bergmann <sebastian@phpunit.de>.
+>>>>>>> dev
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

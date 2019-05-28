@@ -12,17 +12,26 @@
 namespace Symfony\Component\Console\Formatter;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException;
+<<<<<<< HEAD
+=======
+use Symfony\Contracts\Service\ResetInterface;
+>>>>>>> dev
 
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
+<<<<<<< HEAD
 class OutputFormatterStyleStack
+=======
+class OutputFormatterStyleStack implements ResetInterface
+>>>>>>> dev
 {
     /**
      * @var OutputFormatterStyleInterface[]
      */
     private $styles;
 
+<<<<<<< HEAD
     /**
      * @var OutputFormatterStyleInterface
      */
@@ -33,6 +42,10 @@ class OutputFormatterStyleStack
      *
      * @param OutputFormatterStyleInterface|null $emptyStyle
      */
+=======
+    private $emptyStyle;
+
+>>>>>>> dev
     public function __construct(OutputFormatterStyleInterface $emptyStyle = null)
     {
         $this->emptyStyle = $emptyStyle ?: new OutputFormatterStyle();
@@ -44,13 +57,20 @@ class OutputFormatterStyleStack
      */
     public function reset()
     {
+<<<<<<< HEAD
         $this->styles = array();
+=======
+        $this->styles = [];
+>>>>>>> dev
     }
 
     /**
      * Pushes a style in the stack.
+<<<<<<< HEAD
      *
      * @param OutputFormatterStyleInterface $style
+=======
+>>>>>>> dev
      */
     public function push(OutputFormatterStyleInterface $style)
     {
@@ -60,8 +80,11 @@ class OutputFormatterStyleStack
     /**
      * Pops a style from the stack.
      *
+<<<<<<< HEAD
      * @param OutputFormatterStyleInterface|null $style
      *
+=======
+>>>>>>> dev
      * @return OutputFormatterStyleInterface
      *
      * @throws InvalidArgumentException When style tags incorrectly nested
@@ -78,7 +101,11 @@ class OutputFormatterStyleStack
 
         foreach (array_reverse($this->styles, true) as $index => $stackedStyle) {
             if ($style->apply('') === $stackedStyle->apply('')) {
+<<<<<<< HEAD
                 $this->styles = array_slice($this->styles, 0, $index);
+=======
+                $this->styles = \array_slice($this->styles, 0, $index);
+>>>>>>> dev
 
                 return $stackedStyle;
             }
@@ -98,6 +125,7 @@ class OutputFormatterStyleStack
             return $this->emptyStyle;
         }
 
+<<<<<<< HEAD
         return $this->styles[count($this->styles) - 1];
     }
 
@@ -105,6 +133,13 @@ class OutputFormatterStyleStack
      * @param OutputFormatterStyleInterface $emptyStyle
      *
      * @return OutputFormatterStyleStack
+=======
+        return $this->styles[\count($this->styles) - 1];
+    }
+
+    /**
+     * @return $this
+>>>>>>> dev
      */
     public function setEmptyStyle(OutputFormatterStyleInterface $emptyStyle)
     {

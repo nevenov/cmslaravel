@@ -2,6 +2,10 @@
 
 namespace Illuminate\Auth;
 
+<<<<<<< HEAD
+=======
+use Illuminate\Contracts\Auth\UserProvider;
+>>>>>>> dev
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
 /**
@@ -24,7 +28,11 @@ trait GuardHelpers
     protected $provider;
 
     /**
+<<<<<<< HEAD
      * Determine if the current user is authenticated.
+=======
+     * Determine if current user is authenticated. If not, throw an exception.
+>>>>>>> dev
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable
      *
@@ -36,7 +44,21 @@ trait GuardHelpers
             return $user;
         }
 
+<<<<<<< HEAD
         throw new AuthenticationException($this);
+=======
+        throw new AuthenticationException;
+    }
+
+    /**
+     * Determine if the guard has a user instance.
+     *
+     * @return bool
+     */
+    public function hasUser()
+    {
+        return ! is_null($this->user);
+>>>>>>> dev
     }
 
     /**
@@ -83,4 +105,28 @@ trait GuardHelpers
 
         return $this;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Get the user provider used by the guard.
+     *
+     * @return \Illuminate\Contracts\Auth\UserProvider
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * Set the user provider used by the guard.
+     *
+     * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
+     * @return void
+     */
+    public function setProvider(UserProvider $provider)
+    {
+        $this->provider = $provider;
+    }
+>>>>>>> dev
 }

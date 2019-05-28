@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 /**
  * A warning.
@@ -77,5 +78,22 @@ class PHPUnit_Framework_Warning extends PHPUnit_Framework_TestCase
     public function toString()
     {
         return 'Warning';
+=======
+namespace PHPUnit\Framework;
+
+/**
+ * Thrown when there is a warning.
+ */
+class Warning extends Exception implements SelfDescribing
+{
+    /**
+     * Wrapper for getMessage() which is declared as final.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->getMessage();
+>>>>>>> dev
     }
 }

@@ -3,6 +3,10 @@
 namespace Illuminate\Database\Query\Processors;
 
 use Exception;
+<<<<<<< HEAD
+=======
+use Illuminate\Database\Connection;
+>>>>>>> dev
 use Illuminate\Database\Query\Builder;
 
 class SqlServerProcessor extends Processor
@@ -36,10 +40,21 @@ class SqlServerProcessor extends Processor
      *
      * @param  \Illuminate\Database\Connection  $connection
      * @return int
+<<<<<<< HEAD
      */
     protected function processInsertGetIdForOdbc($connection)
     {
         $result = $connection->selectFromWriteConnection('SELECT CAST(COALESCE(SCOPE_IDENTITY(), @@IDENTITY) AS int) AS insertid');
+=======
+     *
+     * @throws \Exception
+     */
+    protected function processInsertGetIdForOdbc(Connection $connection)
+    {
+        $result = $connection->selectFromWriteConnection(
+            'SELECT CAST(COALESCE(SCOPE_IDENTITY(), @@IDENTITY) AS int) AS insertid'
+        );
+>>>>>>> dev
 
         if (! $result) {
             throw new Exception('Unable to retrieve lastInsertID for ODBC.');
@@ -58,6 +73,7 @@ class SqlServerProcessor extends Processor
      */
     public function processColumnListing($results)
     {
+<<<<<<< HEAD
         $mapping = function ($r) {
             $r = (object) $r;
 
@@ -65,5 +81,10 @@ class SqlServerProcessor extends Processor
         };
 
         return array_map($mapping, $results);
+=======
+        return array_map(function ($result) {
+            return ((object) $result)->name;
+        }, $results);
+>>>>>>> dev
     }
 }

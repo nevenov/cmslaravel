@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 /build/coverage
 /composer.lock
 /composer.phar
 /phpunit.xml
 /.idea
+=======
+/.idea
+/.php_cs.cache
+/composer.lock
+>>>>>>> dev
 /vendor

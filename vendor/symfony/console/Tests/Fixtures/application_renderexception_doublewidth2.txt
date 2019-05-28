@@ -1,6 +1,11 @@
 
+<<<<<<< HEAD
                               
   [Exception]                 
+=======
+In ApplicationTest.php line %d:
+                              
+>>>>>>> dev
   コマンドの実行中にエラーが  
   発生しました。              
                               

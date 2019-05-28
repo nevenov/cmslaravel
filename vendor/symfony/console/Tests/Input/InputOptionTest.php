@@ -11,9 +11,16 @@
 
 namespace Symfony\Component\Console\Tests\Input;
 
+<<<<<<< HEAD
 use Symfony\Component\Console\Input\InputOption;
 
 class InputOptionTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Input\InputOption;
+
+class InputOptionTest extends TestCase
+>>>>>>> dev
 {
     public function testConstructor()
     {
@@ -38,7 +45,11 @@ class InputOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('f', $option->getShortcut(), '__construct() can take a shortcut as its second argument');
         $option = new InputOption('foo', '-f|-ff|fff');
         $this->assertEquals('f|ff|fff', $option->getShortcut(), '__construct() removes the leading - of the shortcuts');
+<<<<<<< HEAD
         $option = new InputOption('foo', array('f', 'ff', '-fff'));
+=======
+        $option = new InputOption('foo', ['f', 'ff', '-fff']);
+>>>>>>> dev
         $this->assertEquals('f|ff|fff', $option->getShortcut(), '__construct() removes the leading - of the shortcuts');
         $option = new InputOption('foo');
         $this->assertNull($option->getShortcut(), '__construct() makes the shortcut null by default');
@@ -73,6 +84,7 @@ class InputOptionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+<<<<<<< HEAD
      * @dataProvider provideInvalidModes
      */
     public function testInvalidModes($mode)
@@ -88,6 +100,14 @@ class InputOptionTest extends \PHPUnit_Framework_TestCase
             array('ANOTHER_ONE'),
             array(-1),
         );
+=======
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Option mode "-1" is not valid.
+     */
+    public function testInvalidModes()
+    {
+        new InputOption('foo', 'f', '-1');
+>>>>>>> dev
     }
 
     /**
@@ -140,7 +160,11 @@ class InputOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($option->getDefault(), '->getDefault() returns null if no default value is configured');
 
         $option = new InputOption('foo', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY);
+<<<<<<< HEAD
         $this->assertEquals(array(), $option->getDefault(), '->getDefault() returns an empty array if option is an array');
+=======
+        $this->assertEquals([], $option->getDefault(), '->getDefault() returns an empty array if option is an array');
+>>>>>>> dev
 
         $option = new InputOption('foo', null, InputOption::VALUE_NONE);
         $this->assertFalse($option->getDefault(), '->getDefault() returns false if the option does not take a value');
@@ -155,8 +179,13 @@ class InputOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('another', $option->getDefault(), '->setDefault() changes the default value');
 
         $option = new InputOption('foo', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY);
+<<<<<<< HEAD
         $option->setDefault(array(1, 2));
         $this->assertEquals(array(1, 2), $option->getDefault(), '->setDefault() changes the default value');
+=======
+        $option->setDefault([1, 2]);
+        $this->assertEquals([1, 2], $option->getDefault(), '->setDefault() changes the default value');
+>>>>>>> dev
     }
 
     /**

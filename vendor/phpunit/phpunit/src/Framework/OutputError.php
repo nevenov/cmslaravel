@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 
 /**
  * Extension to PHPUnit_Framework_AssertionFailedError to mark the special
@@ -15,5 +16,10 @@
  * @since Class available since Release 3.6.0
  */
 class PHPUnit_Framework_OutputError extends PHPUnit_Framework_AssertionFailedError
+=======
+namespace PHPUnit\Framework;
+
+class OutputError extends AssertionFailedError
+>>>>>>> dev
 {
 }

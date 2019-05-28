@@ -21,4 +21,14 @@ interface View extends Renderable
      * @return $this
      */
     public function with($key, $value = null);
+<<<<<<< HEAD
+=======
+
+    /**
+     * Get the array of view data.
+     *
+     * @return array
+     */
+    public function getData();
+>>>>>>> dev
 }

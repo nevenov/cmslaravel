@@ -4,6 +4,7 @@ namespace Illuminate\Database;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Migrations\Migrator;
+<<<<<<< HEAD
 use Illuminate\Database\Migrations\MigrationCreator;
 use Illuminate\Database\Console\Migrations\ResetCommand;
 use Illuminate\Database\Console\Migrations\StatusCommand;
@@ -24,6 +25,15 @@ class MigrationServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
+=======
+use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Database\Migrations\MigrationCreator;
+use Illuminate\Database\Migrations\DatabaseMigrationRepository;
+
+class MigrationServiceProvider extends ServiceProvider implements DeferrableProvider
+{
+    /**
+>>>>>>> dev
      * Register the service provider.
      *
      * @return void
@@ -32,6 +42,7 @@ class MigrationServiceProvider extends ServiceProvider
     {
         $this->registerRepository();
 
+<<<<<<< HEAD
         // Once we have registered the migrator instance we will go ahead and register
         // all of the migration related commands that are used by the "Artisan" CLI
         // so that they may be easily accessed for registering with the consoles.
@@ -40,6 +51,11 @@ class MigrationServiceProvider extends ServiceProvider
         $this->registerCreator();
 
         $this->registerCommands();
+=======
+        $this->registerMigrator();
+
+        $this->registerCreator();
+>>>>>>> dev
     }
 
     /**
@@ -69,7 +85,11 @@ class MigrationServiceProvider extends ServiceProvider
         $this->app->singleton('migrator', function ($app) {
             $repository = $app['migration.repository'];
 
+<<<<<<< HEAD
             return new Migrator($repository, $app['db'], $app['files']);
+=======
+            return new Migrator($repository, $app['db'], $app['files'], $app['events']);
+>>>>>>> dev
         });
     }
 
@@ -86,6 +106,7 @@ class MigrationServiceProvider extends ServiceProvider
     }
 
     /**
+<<<<<<< HEAD
      * Register all of the migration commands.
      *
      * @return void
@@ -204,6 +225,8 @@ class MigrationServiceProvider extends ServiceProvider
     }
 
     /**
+=======
+>>>>>>> dev
      * Get the services provided by the provider.
      *
      * @return array
@@ -211,11 +234,15 @@ class MigrationServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
+<<<<<<< HEAD
             'migrator', 'migration.repository', 'command.migrate',
             'command.migrate.rollback', 'command.migrate.reset',
             'command.migrate.refresh', 'command.migrate.install',
             'command.migrate.status', 'migration.creator',
             'command.migrate.make',
+=======
+            'migrator', 'migration.repository', 'migration.creator',
+>>>>>>> dev
         ];
     }
 }

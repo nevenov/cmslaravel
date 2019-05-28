@@ -7,16 +7,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
+=======
+namespace PHPUnit\Framework\Constraint;
+>>>>>>> dev
 
 /**
  * Constraint that asserts that the value it is evaluated for is of a
  * specified type.
  *
  * The expected value is passed in the constructor.
+<<<<<<< HEAD
  *
  * @since Class available since Release 3.0.0
  */
 class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
+=======
+ */
+class IsType extends Constraint
+>>>>>>> dev
 {
     const TYPE_ARRAY    = 'array';
     const TYPE_BOOL     = 'bool';
@@ -33,7 +42,11 @@ class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
     /**
      * @var array
      */
+<<<<<<< HEAD
     protected $types = array(
+=======
+    protected $types = [
+>>>>>>> dev
         'array'    => true,
         'boolean'  => true,
         'bool'     => true,
@@ -49,7 +62,11 @@ class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
         'string'   => true,
         'scalar'   => true,
         'callable' => true
+<<<<<<< HEAD
     );
+=======
+    ];
+>>>>>>> dev
 
     /**
      * @var string
@@ -59,16 +76,26 @@ class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
     /**
      * @param string $type
      *
+<<<<<<< HEAD
      * @throws PHPUnit_Framework_Exception
+=======
+     * @throws \PHPUnit\Framework\Exception
+>>>>>>> dev
      */
     public function __construct($type)
     {
         parent::__construct();
 
         if (!isset($this->types[$type])) {
+<<<<<<< HEAD
             throw new PHPUnit_Framework_Exception(
                 sprintf(
                     'Type specified for PHPUnit_Framework_Constraint_IsType <%s> ' .
+=======
+            throw new \PHPUnit\Framework\Exception(
+                \sprintf(
+                    'Type specified for PHPUnit\Framework\Constraint\IsType <%s> ' .
+>>>>>>> dev
                     'is not a valid type.',
                     $type
                 )
@@ -90,15 +117,24 @@ class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
     {
         switch ($this->type) {
             case 'numeric':
+<<<<<<< HEAD
                 return is_numeric($other);
 
             case 'integer':
             case 'int':
                 return is_integer($other);
+=======
+                return \is_numeric($other);
+
+            case 'integer':
+            case 'int':
+                return \is_int($other);
+>>>>>>> dev
 
             case 'double':
             case 'float':
             case 'real':
+<<<<<<< HEAD
                 return is_float($other);
 
             case 'string':
@@ -125,6 +161,34 @@ class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
 
             case 'callable':
                 return is_callable($other);
+=======
+                return \is_float($other);
+
+            case 'string':
+                return \is_string($other);
+
+            case 'boolean':
+            case 'bool':
+                return \is_bool($other);
+
+            case 'null':
+                return null === $other;
+
+            case 'array':
+                return \is_array($other);
+
+            case 'object':
+                return \is_object($other);
+
+            case 'resource':
+                return \is_resource($other) || \is_string(@\get_resource_type($other));
+
+            case 'scalar':
+                return \is_scalar($other);
+
+            case 'callable':
+                return \is_callable($other);
+>>>>>>> dev
         }
     }
 
@@ -135,7 +199,11 @@ class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
      */
     public function toString()
     {
+<<<<<<< HEAD
         return sprintf(
+=======
+        return \sprintf(
+>>>>>>> dev
             'is of type "%s"',
             $this->type
         );

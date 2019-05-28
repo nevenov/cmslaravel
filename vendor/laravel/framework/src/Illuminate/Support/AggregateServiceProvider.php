@@ -42,7 +42,11 @@ class AggregateServiceProvider extends ServiceProvider
         $provides = [];
 
         foreach ($this->providers as $provider) {
+<<<<<<< HEAD
             $instance = $this->app->resolveProviderClass($provider);
+=======
+            $instance = $this->app->resolveProvider($provider);
+>>>>>>> dev
 
             $provides = array_merge($provides, $instance->provides());
         }

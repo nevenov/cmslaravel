@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Translation\Tests;
 
+<<<<<<< HEAD
 use Symfony\Component\Intl\Util\IntlTestHelper;
 use Symfony\Component\Translation\IdentityTranslator;
 
@@ -91,5 +92,15 @@ class IdentityTranslatorTest extends \PHPUnit_Framework_TestCase
             // custom validation messages may be coded with a fixed value
             array('There are 2 apples', 'There are 2 apples', 2, array('%count%' => 2)),
         );
+=======
+use Symfony\Component\Translation\IdentityTranslator;
+use Symfony\Contracts\Tests\Translation\TranslatorTest;
+
+class IdentityTranslatorTest extends TranslatorTest
+{
+    public function getTranslator()
+    {
+        return new IdentityTranslator();
+>>>>>>> dev
     }
 }

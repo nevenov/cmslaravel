@@ -14,6 +14,12 @@
         <source>baz</source>
         <target>foo</target>
       </trans-unit>
+<<<<<<< HEAD
+=======
+      <trans-unit id="4" resname="qux">
+        <source>qux source</source>
+      </trans-unit>
+>>>>>>> dev
     </body>
   </file>
 </xliff>

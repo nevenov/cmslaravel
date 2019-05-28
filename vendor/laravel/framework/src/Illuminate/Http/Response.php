@@ -2,15 +2,24 @@
 
 namespace Illuminate\Http;
 
+<<<<<<< HEAD
 use Exception;
 use ArrayObject;
 use JsonSerializable;
 use Illuminate\Contracts\Support\Jsonable;
+=======
+use ArrayObject;
+use JsonSerializable;
+use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
+>>>>>>> dev
 use Illuminate\Contracts\Support\Renderable;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 class Response extends BaseResponse
 {
+<<<<<<< HEAD
     use ResponseTrait;
 
     /**
@@ -26,6 +35,11 @@ class Response extends BaseResponse
      * @var \Exception
      */
     public $exception;
+=======
+    use ResponseTrait, Macroable {
+        Macroable::__call as macroCall;
+    }
+>>>>>>> dev
 
     /**
      * Set the content on the response.
@@ -53,6 +67,7 @@ class Response extends BaseResponse
             $content = $content->render();
         }
 
+<<<<<<< HEAD
         return parent::setContent($content);
     }
 
@@ -69,6 +84,11 @@ class Response extends BaseResponse
         }
 
         return json_encode($content);
+=======
+        parent::setContent($content);
+
+        return $this;
+>>>>>>> dev
     }
 
     /**
@@ -79,13 +99,19 @@ class Response extends BaseResponse
      */
     protected function shouldBeJson($content)
     {
+<<<<<<< HEAD
         return $content instanceof Jsonable ||
+=======
+        return $content instanceof Arrayable ||
+               $content instanceof Jsonable ||
+>>>>>>> dev
                $content instanceof ArrayObject ||
                $content instanceof JsonSerializable ||
                is_array($content);
     }
 
     /**
+<<<<<<< HEAD
      * Get the original response content.
      *
      * @return mixed
@@ -106,5 +132,21 @@ class Response extends BaseResponse
         $this->exception = $e;
 
         return $this;
+=======
+     * Morph the given content into JSON.
+     *
+     * @param  mixed   $content
+     * @return string
+     */
+    protected function morphToJson($content)
+    {
+        if ($content instanceof Jsonable) {
+            return $content->toJson();
+        } elseif ($content instanceof Arrayable) {
+            return json_encode($content->toArray());
+        }
+
+        return json_encode($content);
+>>>>>>> dev
     }
 }

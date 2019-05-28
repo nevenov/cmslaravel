@@ -16,6 +16,7 @@ namespace Symfony\Component\Finder\Iterator;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
+<<<<<<< HEAD
 class ExcludeDirectoryFilterIterator extends FilterIterator implements \RecursiveIterator
 {
     private $iterator;
@@ -26,6 +27,16 @@ class ExcludeDirectoryFilterIterator extends FilterIterator implements \Recursiv
     /**
      * Constructor.
      *
+=======
+class ExcludeDirectoryFilterIterator extends \FilterIterator implements \RecursiveIterator
+{
+    private $iterator;
+    private $isRecursive;
+    private $excludedDirs = [];
+    private $excludedPattern;
+
+    /**
+>>>>>>> dev
      * @param \Iterator $iterator    The Iterator to filter
      * @param array     $directories An array of directories to exclude
      */
@@ -33,8 +44,14 @@ class ExcludeDirectoryFilterIterator extends FilterIterator implements \Recursiv
     {
         $this->iterator = $iterator;
         $this->isRecursive = $iterator instanceof \RecursiveIterator;
+<<<<<<< HEAD
         $patterns = array();
         foreach ($directories as $directory) {
+=======
+        $patterns = [];
+        foreach ($directories as $directory) {
+            $directory = rtrim($directory, '/');
+>>>>>>> dev
             if (!$this->isRecursive || false !== strpos($directory, '/')) {
                 $patterns[] = preg_quote($directory, '#');
             } else {
@@ -51,7 +68,11 @@ class ExcludeDirectoryFilterIterator extends FilterIterator implements \Recursiv
     /**
      * Filters the iterator values.
      *
+<<<<<<< HEAD
      * @return bool true if the value should be kept, false otherwise
+=======
+     * @return bool True if the value should be kept, false otherwise
+>>>>>>> dev
      */
     public function accept()
     {
@@ -76,7 +97,11 @@ class ExcludeDirectoryFilterIterator extends FilterIterator implements \Recursiv
 
     public function getChildren()
     {
+<<<<<<< HEAD
         $children = new self($this->iterator->getChildren(), array());
+=======
+        $children = new self($this->iterator->getChildren(), []);
+>>>>>>> dev
         $children->excludedDirs = $this->excludedDirs;
         $children->excludedPattern = $this->excludedPattern;
 

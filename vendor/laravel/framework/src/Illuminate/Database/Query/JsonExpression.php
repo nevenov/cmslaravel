@@ -7,6 +7,7 @@ use InvalidArgumentException;
 class JsonExpression extends Expression
 {
     /**
+<<<<<<< HEAD
      * The value of the expression.
      *
      * @var mixed
@@ -14,6 +15,8 @@ class JsonExpression extends Expression
     protected $value;
 
     /**
+=======
+>>>>>>> dev
      * Create a new raw query expression.
      *
      * @param  mixed  $value
@@ -21,7 +24,13 @@ class JsonExpression extends Expression
      */
     public function __construct($value)
     {
+<<<<<<< HEAD
         $this->value = $this->getJsonBindingParameter($value);
+=======
+        parent::__construct(
+            $this->getJsonBindingParameter($value)
+        );
+>>>>>>> dev
     }
 
     /**
@@ -29,6 +38,7 @@ class JsonExpression extends Expression
      *
      * @param  mixed  $value
      * @return string
+<<<<<<< HEAD
      */
     protected function getJsonBindingParameter($value)
     {
@@ -38,6 +48,23 @@ class JsonExpression extends Expression
             case 'integer':
             case 'double':
                 return $value;
+=======
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function getJsonBindingParameter($value)
+    {
+        if ($value instanceof Expression) {
+            return $value->getValue();
+        }
+
+        switch ($type = gettype($value)) {
+            case 'boolean':
+                return $value ? 'true' : 'false';
+            case 'NULL':
+            case 'integer':
+            case 'double':
+>>>>>>> dev
             case 'string':
                 return '?';
             case 'object':
@@ -45,6 +72,7 @@ class JsonExpression extends Expression
                 return '?';
         }
 
+<<<<<<< HEAD
         throw new InvalidArgumentException('JSON value is of illegal type: '.$type);
     }
 
@@ -66,5 +94,8 @@ class JsonExpression extends Expression
     public function __toString()
     {
         return (string) $this->getValue();
+=======
+        throw new InvalidArgumentException("JSON value is of illegal type: {$type}");
+>>>>>>> dev
     }
 }

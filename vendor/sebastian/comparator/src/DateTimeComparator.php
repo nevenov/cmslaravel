@@ -1,6 +1,10 @@
 <?php
 /*
+<<<<<<< HEAD
  * This file is part of the Comparator package.
+=======
+ * This file is part of sebastian/comparator.
+>>>>>>> dev
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -18,8 +22,14 @@ class DateTimeComparator extends ObjectComparator
     /**
      * Returns whether the comparator can compare two values.
      *
+<<<<<<< HEAD
      * @param  mixed $expected The first value to compare
      * @param  mixed $actual   The second value to compare
+=======
+     * @param mixed $expected The first value to compare
+     * @param mixed $actual   The second value to compare
+     *
+>>>>>>> dev
      * @return bool
      */
     public function accepts($expected, $actual)
@@ -40,6 +50,7 @@ class DateTimeComparator extends ObjectComparator
      *
      * @throws ComparisonFailure
      */
+<<<<<<< HEAD
     public function assertEquals($expected, $actual, $delta = 0.0, $canonicalize = false, $ignoreCase = false, array &$processed = array())
     {
         $delta = new \DateInterval(sprintf('PT%sS', abs($delta)));
@@ -49,6 +60,26 @@ class DateTimeComparator extends ObjectComparator
 
         if ($actual < $expectedLower->sub($delta) ||
             $actual > $expectedUpper->add($delta)) {
+=======
+    public function assertEquals($expected, $actual, $delta = 0.0, $canonicalize = false, $ignoreCase = false, array &$processed = [])
+    {
+        /** @var \DateTimeInterface $expected */
+        /** @var \DateTimeInterface $actual */
+        $delta = new \DateInterval(\sprintf('PT%dS', \abs($delta)));
+
+        $actualClone = (clone $actual)
+            ->setTimezone(new \DateTimeZone('UTC'));
+
+        $expectedLower = (clone $expected)
+            ->setTimezone(new \DateTimeZone('UTC'))
+            ->sub($delta);
+
+        $expectedUpper = (clone $expected)
+            ->setTimezone(new \DateTimeZone('UTC'))
+            ->add($delta);
+
+        if ($actualClone < $expectedLower || $actualClone > $expectedUpper) {
+>>>>>>> dev
             throw new ComparisonFailure(
                 $expected,
                 $actual,
@@ -64,6 +95,7 @@ class DateTimeComparator extends ObjectComparator
      * Returns an ISO 8601 formatted string representation of a datetime or
      * 'Invalid DateTimeInterface object' if the provided DateTimeInterface was not properly
      * initialized.
+<<<<<<< HEAD
      *
      * @param  \DateTimeInterface $datetime
      * @return string
@@ -73,5 +105,13 @@ class DateTimeComparator extends ObjectComparator
         $string = $datetime->format('Y-m-d\TH:i:s.uO');
 
         return $string ? $string : 'Invalid DateTimeInterface object';
+=======
+     */
+    private function dateTimeToString(\DateTimeInterface $datetime): string
+    {
+        $string = $datetime->format('Y-m-d\TH:i:s.uO');
+
+        return $string ?: 'Invalid DateTimeInterface object';
+>>>>>>> dev
     }
 }

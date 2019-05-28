@@ -12,25 +12,40 @@
 namespace Symfony\Component\HttpKernel\Exception;
 
 /**
+<<<<<<< HEAD
  * ServiceUnavailableHttpException.
  *
+=======
+>>>>>>> dev
  * @author Ben Ramsey <ben@benramsey.com>
  */
 class ServiceUnavailableHttpException extends HttpException
 {
     /**
+<<<<<<< HEAD
      * Constructor.
      *
+=======
+>>>>>>> dev
      * @param int|string $retryAfter The number of seconds or HTTP-date after which the request may be retried
      * @param string     $message    The internal exception message
      * @param \Exception $previous   The previous exception
      * @param int        $code       The internal exception code
+<<<<<<< HEAD
      */
     public function __construct($retryAfter = null, $message = null, \Exception $previous = null, $code = 0)
     {
         $headers = array();
         if ($retryAfter) {
             $headers = array('Retry-After' => $retryAfter);
+=======
+     * @param array      $headers
+     */
+    public function __construct($retryAfter = null, string $message = null, \Exception $previous = null, ?int $code = 0, array $headers = [])
+    {
+        if ($retryAfter) {
+            $headers['Retry-After'] = $retryAfter;
+>>>>>>> dev
         }
 
         parent::__construct(503, $message, $previous, $headers, $code);

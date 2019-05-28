@@ -2,6 +2,7 @@
 
 namespace Illuminate\Cache\Events;
 
+<<<<<<< HEAD
 class CacheHit
 {
     /**
@@ -12,6 +13,11 @@ class CacheHit
     public $key;
 
     /**
+=======
+class CacheHit extends CacheEvent
+{
+    /**
+>>>>>>> dev
      * The value that was retrieved.
      *
      * @var mixed
@@ -19,6 +25,7 @@ class CacheHit
     public $value;
 
     /**
+<<<<<<< HEAD
      * The tags that were assigned to the key.
      *
      * @var array
@@ -26,6 +33,8 @@ class CacheHit
     public $tags;
 
     /**
+=======
+>>>>>>> dev
      * Create a new event instance.
      *
      * @param  string  $key
@@ -35,8 +44,13 @@ class CacheHit
      */
     public function __construct($key, $value, array $tags = [])
     {
+<<<<<<< HEAD
         $this->key = $key;
         $this->tags = $tags;
+=======
+        parent::__construct($key, $tags);
+
+>>>>>>> dev
         $this->value = $value;
     }
 }

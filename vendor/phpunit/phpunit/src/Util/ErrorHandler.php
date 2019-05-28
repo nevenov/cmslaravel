@@ -8,6 +8,7 @@
  * file that was distributed with this source code.
  */
 
+<<<<<<< HEAD
 // Workaround for http://bugs.php.net/bug.php?id=47987,
 // see https://github.com/sebastianbergmann/phpunit/issues#issue/125 for details
 // Use dirname(__DIR__) instead of using /../ because of https://github.com/facebook/hhvm/issues/5215
@@ -24,6 +25,21 @@ require_once dirname(__DIR__) . '/Framework/Error/Deprecated.php';
 class PHPUnit_Util_ErrorHandler
 {
     protected static $errorStack = array();
+=======
+namespace PHPUnit\Util;
+
+use PHPUnit\Framework\Error\Deprecated;
+use PHPUnit\Framework\Error\Error;
+use PHPUnit\Framework\Error\Notice;
+use PHPUnit\Framework\Error\Warning;
+
+/**
+ * Error handler that converts PHP errors and warnings to exceptions.
+ */
+class ErrorHandler
+{
+    protected static $errorStack = [];
+>>>>>>> dev
 
     /**
      * Returns the error stack.
@@ -41,6 +57,7 @@ class PHPUnit_Util_ErrorHandler
      * @param string $errfile
      * @param int    $errline
      *
+<<<<<<< HEAD
      * @throws PHPUnit_Framework_Error
      */
     public static function handleError($errno, $errstr, $errfile, $errline)
@@ -53,6 +70,22 @@ class PHPUnit_Util_ErrorHandler
 
         $trace = debug_backtrace(false);
         array_shift($trace);
+=======
+     * @return false
+     *
+     * @throws Error
+     */
+    public static function handleError($errno, $errstr, $errfile, $errline)
+    {
+        if (!($errno & \error_reporting())) {
+            return false;
+        }
+
+        self::$errorStack[] = [$errno, $errstr, $errfile, $errline];
+
+        $trace = \debug_backtrace();
+        \array_shift($trace);
+>>>>>>> dev
 
         foreach ($trace as $frame) {
             if ($frame['function'] == '__toString') {
@@ -61,6 +94,7 @@ class PHPUnit_Util_ErrorHandler
         }
 
         if ($errno == E_NOTICE || $errno == E_USER_NOTICE || $errno == E_STRICT) {
+<<<<<<< HEAD
             if (PHPUnit_Framework_Error_Notice::$enabled !== true) {
                 return false;
             }
@@ -80,6 +114,27 @@ class PHPUnit_Util_ErrorHandler
             $exception = 'PHPUnit_Framework_Error_Deprecated';
         } else {
             $exception = 'PHPUnit_Framework_Error';
+=======
+            if (Notice::$enabled !== true) {
+                return false;
+            }
+
+            $exception = Notice::class;
+        } elseif ($errno == E_WARNING || $errno == E_USER_WARNING) {
+            if (Warning::$enabled !== true) {
+                return false;
+            }
+
+            $exception = Warning::class;
+        } elseif ($errno == E_DEPRECATED || $errno == E_USER_DEPRECATED) {
+            if (Deprecated::$enabled !== true) {
+                return false;
+            }
+
+            $exception = Deprecated::class;
+        } else {
+            $exception = Error::class;
+>>>>>>> dev
         }
 
         throw new $exception($errstr, $errno, $errfile, $errline);
@@ -91,7 +146,13 @@ class PHPUnit_Util_ErrorHandler
      *
      * @param int $severity PHP predefined error constant
      *
+<<<<<<< HEAD
      * @throws Exception if event of specified severity is emitted
+=======
+     * @return \Closure
+     *
+     * @throws \Exception if event of specified severity is emitted
+>>>>>>> dev
      */
     public static function handleErrorOnce($severity = E_WARNING)
     {
@@ -100,11 +161,19 @@ class PHPUnit_Util_ErrorHandler
             if (!$expired) {
                 $expired = true;
                 // cleans temporary error handler
+<<<<<<< HEAD
                 return restore_error_handler();
             }
         };
 
         set_error_handler(function ($errno, $errstr) use ($severity) {
+=======
+                return \restore_error_handler();
+            }
+        };
+
+        \set_error_handler(function ($errno, $errstr) use ($severity) {
+>>>>>>> dev
             if ($errno === $severity) {
                 return;
             }

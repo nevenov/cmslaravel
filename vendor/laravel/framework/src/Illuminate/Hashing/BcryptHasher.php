@@ -5,16 +5,45 @@ namespace Illuminate\Hashing;
 use RuntimeException;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 
+<<<<<<< HEAD
 class BcryptHasher implements HasherContract
 {
     /**
      * Default crypt cost factor.
+=======
+class BcryptHasher extends AbstractHasher implements HasherContract
+{
+    /**
+     * The default cost factor.
+>>>>>>> dev
      *
      * @var int
      */
     protected $rounds = 10;
 
     /**
+<<<<<<< HEAD
+=======
+     * Indicates whether to perform an algorithm check.
+     *
+     * @var bool
+     */
+    protected $verifyAlgorithm = false;
+
+    /**
+     * Create a new hasher instance.
+     *
+     * @param  array  $options
+     * @return void
+     */
+    public function __construct(array $options = [])
+    {
+        $this->rounds = $options['rounds'] ?? $this->rounds;
+        $this->verifyAlgorithm = $options['verify'] ?? $this->verifyAlgorithm;
+    }
+
+    /**
+>>>>>>> dev
      * Hash the given value.
      *
      * @param  string  $value
@@ -25,9 +54,15 @@ class BcryptHasher implements HasherContract
      */
     public function make($value, array $options = [])
     {
+<<<<<<< HEAD
         $cost = isset($options['rounds']) ? $options['rounds'] : $this->rounds;
 
         $hash = password_hash($value, PASSWORD_BCRYPT, ['cost' => $cost]);
+=======
+        $hash = password_hash($value, PASSWORD_BCRYPT, [
+            'cost' => $this->cost($options),
+        ]);
+>>>>>>> dev
 
         if ($hash === false) {
             throw new RuntimeException('Bcrypt hashing not supported.');
@@ -41,6 +76,7 @@ class BcryptHasher implements HasherContract
      *
      * @param  string  $value
      * @param  string  $hashedValue
+<<<<<<< HEAD
      * @param  array   $options
      * @return bool
      */
@@ -51,6 +87,20 @@ class BcryptHasher implements HasherContract
         }
 
         return password_verify($value, $hashedValue);
+=======
+     * @param  array  $options
+     * @return bool
+     *
+     * @throws \RuntimeException
+     */
+    public function check($value, $hashedValue, array $options = [])
+    {
+        if ($this->verifyAlgorithm && $this->info($hashedValue)['algoName'] !== 'bcrypt') {
+            throw new RuntimeException('This password does not use the Bcrypt algorithm.');
+        }
+
+        return parent::check($value, $hashedValue, $options);
+>>>>>>> dev
     }
 
     /**
@@ -62,9 +112,15 @@ class BcryptHasher implements HasherContract
      */
     public function needsRehash($hashedValue, array $options = [])
     {
+<<<<<<< HEAD
         $cost = isset($options['rounds']) ? $options['rounds'] : $this->rounds;
 
         return password_needs_rehash($hashedValue, PASSWORD_BCRYPT, ['cost' => $cost]);
+=======
+        return password_needs_rehash($hashedValue, PASSWORD_BCRYPT, [
+            'cost' => $this->cost($options),
+        ]);
+>>>>>>> dev
     }
 
     /**
@@ -79,4 +135,18 @@ class BcryptHasher implements HasherContract
 
         return $this;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Extract the cost value from the options array.
+     *
+     * @param  array  $options
+     * @return int
+     */
+    protected function cost(array $options = [])
+    {
+        return $options['rounds'] ?? $this->rounds;
+    }
+>>>>>>> dev
 }

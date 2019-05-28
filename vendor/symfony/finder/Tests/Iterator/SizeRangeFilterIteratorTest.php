@@ -11,8 +11,13 @@
 
 namespace Symfony\Component\Finder\Tests\Iterator;
 
+<<<<<<< HEAD
 use Symfony\Component\Finder\Iterator\SizeRangeFilterIterator;
 use Symfony\Component\Finder\Comparator\NumberComparator;
+=======
+use Symfony\Component\Finder\Comparator\NumberComparator;
+use Symfony\Component\Finder\Iterator\SizeRangeFilterIterator;
+>>>>>>> dev
 
 class SizeRangeFilterIteratorTest extends RealIteratorTestCase
 {
@@ -30,6 +35,7 @@ class SizeRangeFilterIteratorTest extends RealIteratorTestCase
 
     public function getAcceptData()
     {
+<<<<<<< HEAD
         $lessThan1KGreaterThan05K = array(
             '.foo',
             '.git',
@@ -42,6 +48,21 @@ class SizeRangeFilterIteratorTest extends RealIteratorTestCase
         return array(
             array(array(new NumberComparator('< 1K'), new NumberComparator('> 0.5K')), $this->toAbsolute($lessThan1KGreaterThan05K)),
         );
+=======
+        $lessThan1KGreaterThan05K = [
+            '.foo',
+            '.git',
+            'foo',
+            'qux',
+            'test.php',
+            'toto',
+            'toto/.git',
+        ];
+
+        return [
+            [[new NumberComparator('< 1K'), new NumberComparator('> 0.5K')], $this->toAbsolute($lessThan1KGreaterThan05K)],
+        ];
+>>>>>>> dev
     }
 }
 

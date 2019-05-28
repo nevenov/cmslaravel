@@ -11,12 +11,21 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Bundle;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionNotValidBundle\ExtensionNotValidBundle;
 use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionPresentBundle\ExtensionPresentBundle;
 use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionAbsentBundle\ExtensionAbsentBundle;
 use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionPresentBundle\Command\FooCommand;
 
 class BundleTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionNotValidBundle\ExtensionNotValidBundle;
+use Symfony\Component\HttpKernel\Tests\Fixtures\ExtensionPresentBundle\ExtensionPresentBundle;
+
+class BundleTest extends TestCase
+>>>>>>> dev
 {
     public function testGetContainerExtension()
     {
@@ -28,6 +37,7 @@ class BundleTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+<<<<<<< HEAD
     public function testRegisterCommands()
     {
         $cmd = new FooCommand();
@@ -42,6 +52,8 @@ class BundleTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($bundle2->registerCommands($app));
     }
 
+=======
+>>>>>>> dev
     /**
      * @expectedException \LogicException
      * @expectedExceptionMessage must implement Symfony\Component\DependencyInjection\Extension\ExtensionInterface
@@ -51,4 +63,36 @@ class BundleTest extends \PHPUnit_Framework_TestCase
         $bundle = new ExtensionNotValidBundle();
         $bundle->getContainerExtension();
     }
+<<<<<<< HEAD
+=======
+
+    public function testBundleNameIsGuessedFromClass()
+    {
+        $bundle = new GuessedNameBundle();
+
+        $this->assertSame('Symfony\Component\HttpKernel\Tests\Bundle', $bundle->getNamespace());
+        $this->assertSame('GuessedNameBundle', $bundle->getName());
+    }
+
+    public function testBundleNameCanBeExplicitlyProvided()
+    {
+        $bundle = new NamedBundle();
+
+        $this->assertSame('ExplicitlyNamedBundle', $bundle->getName());
+        $this->assertSame('Symfony\Component\HttpKernel\Tests\Bundle', $bundle->getNamespace());
+        $this->assertSame('ExplicitlyNamedBundle', $bundle->getName());
+    }
+}
+
+class NamedBundle extends Bundle
+{
+    public function __construct()
+    {
+        $this->name = 'ExplicitlyNamedBundle';
+    }
+}
+
+class GuessedNameBundle extends Bundle
+{
+>>>>>>> dev
 }

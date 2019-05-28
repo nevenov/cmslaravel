@@ -14,12 +14,17 @@ class Pluralizer
     public static $uncountable = [
         'audio',
         'bison',
+<<<<<<< HEAD
+=======
+        'cattle',
+>>>>>>> dev
         'chassis',
         'compensation',
         'coreopsis',
         'data',
         'deer',
         'education',
+<<<<<<< HEAD
         'equipment',
         'fish',
         'gold',
@@ -29,17 +34,49 @@ class Pluralizer
         'rain',
         'money',
         'moose',
+=======
+        'emoji',
+        'equipment',
+        'evidence',
+        'feedback',
+        'firmware',
+        'fish',
+        'furniture',
+        'gold',
+        'hardware',
+        'information',
+        'jedi',
+        'kin',
+        'knowledge',
+        'love',
+        'metadata',
+        'money',
+        'moose',
+        'news',
+>>>>>>> dev
         'nutrition',
         'offspring',
         'plankton',
         'pokemon',
         'police',
+<<<<<<< HEAD
         'rice',
         'series',
         'sheep',
         'species',
         'swine',
         'traffic',
+=======
+        'rain',
+        'rice',
+        'series',
+        'sheep',
+        'software',
+        'species',
+        'swine',
+        'traffic',
+        'wheat',
+>>>>>>> dev
     ];
 
     /**
@@ -51,7 +88,11 @@ class Pluralizer
      */
     public static function plural($value, $count = 2)
     {
+<<<<<<< HEAD
         if ((int) $count === 1 || static::uncountable($value)) {
+=======
+        if ((int) abs($count) === 1 || static::uncountable($value)) {
+>>>>>>> dev
             return $value;
         }
 

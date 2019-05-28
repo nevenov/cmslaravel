@@ -11,10 +11,17 @@
 
 namespace Symfony\Component\Routing\Loader;
 
+<<<<<<< HEAD
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Config\Loader\FileLoader;
 use Symfony\Component\Config\FileLocatorInterface;
+=======
+use Symfony\Component\Config\FileLocatorInterface;
+use Symfony\Component\Config\Loader\FileLoader;
+use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Routing\RouteCollection;
+>>>>>>> dev
 
 /**
  * AnnotationFileLoader loads routing information from annotations set
@@ -27,17 +34,25 @@ class AnnotationFileLoader extends FileLoader
     protected $loader;
 
     /**
+<<<<<<< HEAD
      * Constructor.
      *
      * @param FileLocatorInterface  $locator A FileLocator instance
      * @param AnnotationClassLoader $loader  An AnnotationClassLoader instance
      *
+=======
+>>>>>>> dev
      * @throws \RuntimeException
      */
     public function __construct(FileLocatorInterface $locator, AnnotationClassLoader $loader)
     {
+<<<<<<< HEAD
         if (!function_exists('token_get_all')) {
             throw new \RuntimeException('The Tokenizer extension is required for the routing annotation loaders.');
+=======
+        if (!\function_exists('token_get_all')) {
+            throw new \LogicException('The Tokenizer extension is required for the routing annotation loaders.');
+>>>>>>> dev
         }
 
         parent::__construct($locator);
@@ -61,6 +76,7 @@ class AnnotationFileLoader extends FileLoader
 
         $collection = new RouteCollection();
         if ($class = $this->findClass($path)) {
+<<<<<<< HEAD
             $collection->addResource(new FileResource($path));
             $collection->addCollection($this->loader->load($class, $type));
         }
@@ -68,6 +84,19 @@ class AnnotationFileLoader extends FileLoader
             // PHP 7 memory manager will not release after token_get_all(), see https://bugs.php.net/70098
             gc_mem_caches();
         }
+=======
+            $refl = new \ReflectionClass($class);
+            if ($refl->isAbstract()) {
+                return;
+            }
+
+            $collection->addResource(new FileResource($path));
+            $collection->addCollection($this->loader->load($class, $type));
+        }
+
+        // PHP 7 memory manager will not release after token_get_all(), see https://bugs.php.net/70098
+        gc_mem_caches();
+>>>>>>> dev
 
         return $collection;
     }
@@ -77,7 +106,11 @@ class AnnotationFileLoader extends FileLoader
      */
     public function supports($resource, $type = null)
     {
+<<<<<<< HEAD
         return is_string($resource) && 'php' === pathinfo($resource, PATHINFO_EXTENSION) && (!$type || 'annotation' === $type);
+=======
+        return \is_string($resource) && 'php' === pathinfo($resource, PATHINFO_EXTENSION) && (!$type || 'annotation' === $type);
+>>>>>>> dev
     }
 
     /**
@@ -92,6 +125,14 @@ class AnnotationFileLoader extends FileLoader
         $class = false;
         $namespace = false;
         $tokens = token_get_all(file_get_contents($file));
+<<<<<<< HEAD
+=======
+
+        if (1 === \count($tokens) && T_INLINE_HTML === $tokens[0][0]) {
+            throw new \InvalidArgumentException(sprintf('The file "%s" does not contain PHP code. Did you forgot to add the "<?php" start tag at the beginning of the file?', $file));
+        }
+
+>>>>>>> dev
         for ($i = 0; isset($tokens[$i]); ++$i) {
             $token = $tokens[$i];
 
@@ -105,29 +146,49 @@ class AnnotationFileLoader extends FileLoader
 
             if (true === $namespace && T_STRING === $token[0]) {
                 $namespace = $token[1];
+<<<<<<< HEAD
                 while (isset($tokens[++$i][1]) && in_array($tokens[$i][0], array(T_NS_SEPARATOR, T_STRING))) {
+=======
+                while (isset($tokens[++$i][1]) && \in_array($tokens[$i][0], [T_NS_SEPARATOR, T_STRING])) {
+>>>>>>> dev
                     $namespace .= $tokens[$i][1];
                 }
                 $token = $tokens[$i];
             }
 
             if (T_CLASS === $token[0]) {
+<<<<<<< HEAD
                 // Skip usage of ::class constant
                 $isClassConstant = false;
+=======
+                // Skip usage of ::class constant and anonymous classes
+                $skipClassToken = false;
+>>>>>>> dev
                 for ($j = $i - 1; $j > 0; --$j) {
                     if (!isset($tokens[$j][1])) {
                         break;
                     }
 
+<<<<<<< HEAD
                     if (T_DOUBLE_COLON === $tokens[$j][0]) {
                         $isClassConstant = true;
                         break;
                     } elseif (!in_array($tokens[$j][0], array(T_WHITESPACE, T_DOC_COMMENT, T_COMMENT))) {
+=======
+                    if (T_DOUBLE_COLON === $tokens[$j][0] || T_NEW === $tokens[$j][0]) {
+                        $skipClassToken = true;
+                        break;
+                    } elseif (!\in_array($tokens[$j][0], [T_WHITESPACE, T_DOC_COMMENT, T_COMMENT])) {
+>>>>>>> dev
                         break;
                     }
                 }
 
+<<<<<<< HEAD
                 if (!$isClassConstant) {
+=======
+                if (!$skipClassToken) {
+>>>>>>> dev
                     $class = true;
                 }
             }

@@ -11,11 +11,22 @@
 
 namespace Symfony\Component\Console\Tests\Tester;
 
+<<<<<<< HEAD
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
 
 class ApplicationTesterTest extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Tester\ApplicationTester;
+
+class ApplicationTesterTest extends TestCase
+>>>>>>> dev
 {
     protected $application;
     protected $tester;
@@ -26,11 +37,21 @@ class ApplicationTesterTest extends \PHPUnit_Framework_TestCase
         $this->application->setAutoExit(false);
         $this->application->register('foo')
             ->addArgument('foo')
+<<<<<<< HEAD
             ->setCode(function ($input, $output) { $output->writeln('foo'); })
         ;
 
         $this->tester = new ApplicationTester($this->application);
         $this->tester->run(array('command' => 'foo', 'foo' => 'bar'), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
+=======
+            ->setCode(function ($input, $output) {
+                $output->writeln('foo');
+            })
+        ;
+
+        $this->tester = new ApplicationTester($this->application);
+        $this->tester->run(['command' => 'foo', 'foo' => 'bar'], ['interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE]);
+>>>>>>> dev
     }
 
     protected function tearDown()
@@ -62,8 +83,53 @@ class ApplicationTesterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo'.PHP_EOL, $this->tester->getDisplay(), '->getDisplay() returns the display of the last execution');
     }
 
+<<<<<<< HEAD
+=======
+    public function testSetInputs()
+    {
+        $application = new Application();
+        $application->setAutoExit(false);
+        $application->register('foo')->setCode(function ($input, $output) {
+            $helper = new QuestionHelper();
+            $helper->ask($input, $output, new Question('Q1'));
+            $helper->ask($input, $output, new Question('Q2'));
+            $helper->ask($input, $output, new Question('Q3'));
+        });
+        $tester = new ApplicationTester($application);
+
+        $tester->setInputs(['I1', 'I2', 'I3']);
+        $tester->run(['command' => 'foo']);
+
+        $this->assertSame(0, $tester->getStatusCode());
+        $this->assertEquals('Q1Q2Q3', $tester->getDisplay(true));
+    }
+
+>>>>>>> dev
     public function testGetStatusCode()
     {
         $this->assertSame(0, $this->tester->getStatusCode(), '->getStatusCode() returns the status code');
     }
+<<<<<<< HEAD
+=======
+
+    public function testErrorOutput()
+    {
+        $application = new Application();
+        $application->setAutoExit(false);
+        $application->register('foo')
+            ->addArgument('foo')
+            ->setCode(function ($input, $output) {
+                $output->getErrorOutput()->write('foo');
+            })
+        ;
+
+        $tester = new ApplicationTester($application);
+        $tester->run(
+            ['command' => 'foo', 'foo' => 'bar'],
+            ['capture_stderr_separately' => true]
+        );
+
+        $this->assertSame('foo', $tester->getErrorOutput());
+    }
+>>>>>>> dev
 }

@@ -11,6 +11,11 @@
 
 namespace Symfony\Component\Translation\Catalogue;
 
+<<<<<<< HEAD
+=======
+use Symfony\Component\Translation\MessageCatalogueInterface;
+
+>>>>>>> dev
 /**
  * Merge operation between two catalogues as follows:
  * all = source ∪ target = {x: x ∈ source ∨ x ∈ target}
@@ -27,6 +32,7 @@ class MergeOperation extends AbstractOperation
      */
     protected function processDomain($domain)
     {
+<<<<<<< HEAD
         $this->messages[$domain] = array(
             'all' => array(),
             'new' => array(),
@@ -36,6 +42,18 @@ class MergeOperation extends AbstractOperation
         foreach ($this->source->all($domain) as $id => $message) {
             $this->messages[$domain]['all'][$id] = $message;
             $this->result->add(array($id => $message), $domain);
+=======
+        $this->messages[$domain] = [
+            'all' => [],
+            'new' => [],
+            'obsolete' => [],
+        ];
+        $intlDomain = $domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX;
+
+        foreach ($this->source->all($domain) as $id => $message) {
+            $this->messages[$domain]['all'][$id] = $message;
+            $this->result->add([$id => $message], $this->source->defines($id, $intlDomain) ? $intlDomain : $domain);
+>>>>>>> dev
             if (null !== $keyMetadata = $this->source->getMetadata($id, $domain)) {
                 $this->result->setMetadata($id, $keyMetadata, $domain);
             }
@@ -45,7 +63,11 @@ class MergeOperation extends AbstractOperation
             if (!$this->source->has($id, $domain)) {
                 $this->messages[$domain]['all'][$id] = $message;
                 $this->messages[$domain]['new'][$id] = $message;
+<<<<<<< HEAD
                 $this->result->add(array($id => $message), $domain);
+=======
+                $this->result->add([$id => $message], $this->target->defines($id, $intlDomain) ? $intlDomain : $domain);
+>>>>>>> dev
                 if (null !== $keyMetadata = $this->target->getMetadata($id, $domain)) {
                     $this->result->setMetadata($id, $keyMetadata, $domain);
                 }

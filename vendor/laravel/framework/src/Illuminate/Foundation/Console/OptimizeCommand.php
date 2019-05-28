@@ -2,11 +2,15 @@
 
 namespace Illuminate\Foundation\Console;
 
+<<<<<<< HEAD
 use ClassPreloader\Factory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 use Symfony\Component\Console\Input\InputOption;
 use ClassPreloader\Exceptions\VisitorExceptionInterface;
+=======
+use Illuminate\Console\Command;
+>>>>>>> dev
 
 class OptimizeCommand extends Command
 {
@@ -22,6 +26,7 @@ class OptimizeCommand extends Command
      *
      * @var string
      */
+<<<<<<< HEAD
     protected $description = 'Optimize the framework for better performance';
 
     /**
@@ -43,12 +48,16 @@ class OptimizeCommand extends Command
 
         $this->composer = $composer;
     }
+=======
+    protected $description = 'Cache the framework bootstrap files';
+>>>>>>> dev
 
     /**
      * Execute the console command.
      *
      * @return void
      */
+<<<<<<< HEAD
     public function fire()
     {
         $this->info('Generating optimized class loader');
@@ -121,5 +130,13 @@ class OptimizeCommand extends Command
 
             ['psr', null, InputOption::VALUE_NONE, 'Do not optimize Composer dump-autoload.'],
         ];
+=======
+    public function handle()
+    {
+        $this->call('config:cache');
+        $this->call('route:cache');
+
+        $this->info('Files cached successfully!');
+>>>>>>> dev
     }
 }

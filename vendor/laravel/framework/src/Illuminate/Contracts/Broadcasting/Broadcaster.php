@@ -5,6 +5,26 @@ namespace Illuminate\Contracts\Broadcasting;
 interface Broadcaster
 {
     /**
+<<<<<<< HEAD
+=======
+     * Authenticate the incoming request for a given channel.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    public function auth($request);
+
+    /**
+     * Return the valid authentication response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $result
+     * @return mixed
+     */
+    public function validAuthenticationResponse($request, $result);
+
+    /**
+>>>>>>> dev
      * Broadcast the given event.
      *
      * @param  array  $channels

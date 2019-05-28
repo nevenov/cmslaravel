@@ -11,6 +11,11 @@
 
 namespace Symfony\Component\Routing\Generator\Dumper;
 
+<<<<<<< HEAD
+=======
+use Symfony\Component\Routing\Matcher\Dumper\PhpMatcherDumper;
+
+>>>>>>> dev
 /**
  * PhpGeneratorDumper creates a PHP class able to generate URLs for a given set of routes.
  *
@@ -31,12 +36,21 @@ class PhpGeneratorDumper extends GeneratorDumper
      *
      * @return string A PHP class representing the generator class
      */
+<<<<<<< HEAD
     public function dump(array $options = array())
     {
         $options = array_merge(array(
             'class' => 'ProjectUrlGenerator',
             'base_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator',
         ), $options);
+=======
+    public function dump(array $options = [])
+    {
+        $options = array_merge([
+            'class' => 'ProjectUrlGenerator',
+            'base_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator',
+        ], $options);
+>>>>>>> dev
 
         return <<<EOF
 <?php
@@ -46,14 +60,18 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Psr\Log\LoggerInterface;
 
 /**
+<<<<<<< HEAD
  * {$options['class']}
  *
+=======
+>>>>>>> dev
  * This class has been auto-generated
  * by the Symfony Routing Component.
  */
 class {$options['class']} extends {$options['base_class']}
 {
     private static \$declaredRoutes;
+<<<<<<< HEAD
 
     /**
      * Constructor.
@@ -62,6 +80,15 @@ class {$options['class']} extends {$options['base_class']}
     {
         \$this->context = \$context;
         \$this->logger = \$logger;
+=======
+    private \$defaultLocale;
+
+    public function __construct(RequestContext \$context, LoggerInterface \$logger = null, string \$defaultLocale = null)
+    {
+        \$this->context = \$context;
+        \$this->logger = \$logger;
+        \$this->defaultLocale = \$defaultLocale;
+>>>>>>> dev
         if (null === self::\$declaredRoutes) {
             self::\$declaredRoutes = {$this->generateDeclaredRoutes()};
         }
@@ -81,11 +108,19 @@ EOF;
      */
     private function generateDeclaredRoutes()
     {
+<<<<<<< HEAD
         $routes = "array(\n";
         foreach ($this->getRoutes()->all() as $name => $route) {
             $compiledRoute = $route->compile();
 
             $properties = array();
+=======
+        $routes = "[\n";
+        foreach ($this->getRoutes()->all() as $name => $route) {
+            $compiledRoute = $route->compile();
+
+            $properties = [];
+>>>>>>> dev
             $properties[] = $compiledRoute->getVariables();
             $properties[] = $route->getDefaults();
             $properties[] = $route->getRequirements();
@@ -93,9 +128,15 @@ EOF;
             $properties[] = $compiledRoute->getHostTokens();
             $properties[] = $route->getSchemes();
 
+<<<<<<< HEAD
             $routes .= sprintf("        '%s' => %s,\n", $name, str_replace("\n", '', var_export($properties, true)));
         }
         $routes .= '    )';
+=======
+            $routes .= sprintf("        '%s' => %s,\n", $name, PhpMatcherDumper::export($properties));
+        }
+        $routes .= '    ]';
+>>>>>>> dev
 
         return $routes;
     }
@@ -108,8 +149,27 @@ EOF;
     private function generateGenerateMethod()
     {
         return <<<'EOF'
+<<<<<<< HEAD
     public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH)
     {
+=======
+    public function generate($name, $parameters = [], $referenceType = self::ABSOLUTE_PATH)
+    {
+        $locale = $parameters['_locale']
+            ?? $this->context->getParameter('_locale')
+            ?: $this->defaultLocale;
+
+        if (null !== $locale && null !== $name) {
+            do {
+                if ((self::$declaredRoutes[$name.'.'.$locale][1]['_canonical_route'] ?? null) === $name) {
+                    unset($parameters['_locale']);
+                    $name .= '.'.$locale;
+                    break;
+                }
+            } while (false !== $locale = strstr($locale, '_', true));
+        }
+
+>>>>>>> dev
         if (!isset(self::$declaredRoutes[$name])) {
             throw new RouteNotFoundException(sprintf('Unable to generate a URL for the named route "%s" as such route does not exist.', $name));
         }

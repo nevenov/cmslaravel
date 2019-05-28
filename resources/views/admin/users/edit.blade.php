@@ -5,14 +5,23 @@
 @section('content')
 
     <div class="row">
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> dev
         <div class="col-sm-3">
 
             <img src="{{$user->photo ? $user->photo->file : 'http://placehold.it/400'}}" alt="" class="img-responsive img-rounded">
 
         </div>
+<<<<<<< HEAD
 
 
+=======
+    
+    
+>>>>>>> dev
         <div class="col-sm-9">
 
             <h1>Edit User</h1>

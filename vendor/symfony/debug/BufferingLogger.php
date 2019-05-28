@@ -20,17 +20,29 @@ use Psr\Log\AbstractLogger;
  */
 class BufferingLogger extends AbstractLogger
 {
+<<<<<<< HEAD
     private $logs = array();
 
     public function log($level, $message, array $context = array())
     {
         $this->logs[] = array($level, $message, $context);
+=======
+    private $logs = [];
+
+    public function log($level, $message, array $context = [])
+    {
+        $this->logs[] = [$level, $message, $context];
+>>>>>>> dev
     }
 
     public function cleanLogs()
     {
         $logs = $this->logs;
+<<<<<<< HEAD
         $this->logs = array();
+=======
+        $this->logs = [];
+>>>>>>> dev
 
         return $logs;
     }

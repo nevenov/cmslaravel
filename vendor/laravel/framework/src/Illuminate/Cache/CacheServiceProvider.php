@@ -3,6 +3,7 @@
 namespace Illuminate\Cache;
 
 use Illuminate\Support\ServiceProvider;
+<<<<<<< HEAD
 use Illuminate\Cache\Console\ClearCommand;
 
 class CacheServiceProvider extends ServiceProvider
@@ -15,6 +16,13 @@ class CacheServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
+=======
+use Illuminate\Contracts\Support\DeferrableProvider;
+
+class CacheServiceProvider extends ServiceProvider implements DeferrableProvider
+{
+    /**
+>>>>>>> dev
      * Register the service provider.
      *
      * @return void
@@ -32,6 +40,7 @@ class CacheServiceProvider extends ServiceProvider
         $this->app->singleton('memcached.connector', function () {
             return new MemcachedConnector;
         });
+<<<<<<< HEAD
 
         $this->registerCommands();
     }
@@ -48,6 +57,8 @@ class CacheServiceProvider extends ServiceProvider
         });
 
         $this->commands('command.cache.clear');
+=======
+>>>>>>> dev
     }
 
     /**
@@ -58,7 +69,11 @@ class CacheServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
+<<<<<<< HEAD
             'cache', 'cache.store', 'memcached.connector', 'command.cache.clear',
+=======
+            'cache', 'cache.store', 'memcached.connector',
+>>>>>>> dev
         ];
     }
 }

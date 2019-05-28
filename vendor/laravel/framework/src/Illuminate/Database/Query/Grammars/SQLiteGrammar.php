@@ -2,22 +2,54 @@
 
 namespace Illuminate\Database\Query\Grammars;
 
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+>>>>>>> dev
 use Illuminate\Database\Query\Builder;
 
 class SQLiteGrammar extends Grammar
 {
     /**
+<<<<<<< HEAD
+=======
+     * The components that make up a select clause.
+     *
+     * @var array
+     */
+    protected $selectComponents = [
+        'aggregate',
+        'columns',
+        'from',
+        'joins',
+        'wheres',
+        'groups',
+        'havings',
+        'orders',
+        'limit',
+        'offset',
+        'lock',
+    ];
+
+    /**
+>>>>>>> dev
      * All of the available clause operators.
      *
      * @var array
      */
     protected $operators = [
         '=', '<', '>', '<=', '>=', '<>', '!=',
+<<<<<<< HEAD
         'like', 'not like', 'between', 'ilike',
+=======
+        'like', 'not like', 'ilike',
+>>>>>>> dev
         '&', '|', '<<', '>>',
     ];
 
     /**
+<<<<<<< HEAD
      * Compile an insert statement into SQL.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
@@ -71,6 +103,39 @@ class SQLiteGrammar extends Grammar
         $sql['delete from '.$this->wrapTable($query->from)] = [];
 
         return $sql;
+=======
+     * Compile a select query into SQL.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return string
+     */
+    public function compileSelect(Builder $query)
+    {
+        if ($query->unions && $query->aggregate) {
+            return $this->compileUnionAggregate($query);
+        }
+
+        $sql = parent::compileSelect($query);
+
+        if ($query->unions) {
+            $sql = 'select * from ('.$sql.') '.$this->compileUnions($query);
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Compile a single union statement.
+     *
+     * @param  array  $union
+     * @return string
+     */
+    protected function compileUnion(array $union)
+    {
+        $conjunction = $union['all'] ? ' union all ' : ' union ';
+
+        return $conjunction.'select * from ('.$union['query']->toSql().')';
+>>>>>>> dev
     }
 
     /**
@@ -122,6 +187,21 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Compile a "where time" clause.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param  array  $where
+     * @return string
+     */
+    protected function whereTime(Builder $query, $where)
+    {
+        return $this->dateBasedWhere('%H:%M:%S', $query, $where);
+    }
+
+    /**
+>>>>>>> dev
      * Compile a date based where clause.
      *
      * @param  string  $type
@@ -131,10 +211,148 @@ class SQLiteGrammar extends Grammar
      */
     protected function dateBasedWhere($type, Builder $query, $where)
     {
+<<<<<<< HEAD
         $value = str_pad($where['value'], 2, '0', STR_PAD_LEFT);
 
         $value = $this->parameter($value);
 
         return 'strftime(\''.$type.'\', '.$this->wrap($where['column']).') '.$where['operator'].' '.$value;
+=======
+        $value = $this->parameter($where['value']);
+
+        return "strftime('{$type}', {$this->wrap($where['column'])}) {$where['operator']} cast({$value} as text)";
+    }
+
+    /**
+     * Compile a "JSON length" statement into SQL.
+     *
+     * @param  string  $column
+     * @param  string  $operator
+     * @param  string  $value
+     * @return string
+     */
+    protected function compileJsonLength($column, $operator, $value)
+    {
+        [$field, $path] = $this->wrapJsonFieldAndPath($column);
+
+        return 'json_array_length('.$field.$path.') '.$operator.' '.$value;
+    }
+
+    /**
+     * Compile an insert statement into SQL.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param  array  $values
+     * @return string
+     */
+    public function compileInsert(Builder $query, array $values)
+    {
+        $table = $this->wrapTable($query->from);
+
+        return empty($values)
+                ? "insert into {$table} DEFAULT VALUES"
+                : parent::compileInsert($query, $values);
+    }
+
+    /**
+     * Compile an update statement into SQL.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param  array  $values
+     * @return string
+     */
+    public function compileUpdate(Builder $query, $values)
+    {
+        $table = $this->wrapTable($query->from);
+
+        $columns = collect($values)->map(function ($value, $key) use ($query) {
+            return $this->wrap(Str::after($key, $query->from.'.')).' = '.$this->parameter($value);
+        })->implode(', ');
+
+        if (isset($query->joins) || isset($query->limit)) {
+            $selectSql = parent::compileSelect($query->select("{$query->from}.rowid"));
+
+            return "update {$table} set $columns where {$this->wrap('rowid')} in ({$selectSql})";
+        }
+
+        return trim("update {$table} set {$columns} {$this->compileWheres($query)}");
+    }
+
+    /**
+     * Prepare the bindings for an update statement.
+     *
+     * @param  array  $bindings
+     * @param  array  $values
+     * @return array
+     */
+    public function prepareBindingsForUpdate(array $bindings, array $values)
+    {
+        $cleanBindings = Arr::except($bindings, ['select', 'join']);
+
+        return array_values(
+            array_merge($values, $bindings['join'], Arr::flatten($cleanBindings))
+        );
+    }
+
+    /**
+     * Compile a delete statement into SQL.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return string
+     */
+    public function compileDelete(Builder $query)
+    {
+        if (isset($query->joins) || isset($query->limit)) {
+            $selectSql = parent::compileSelect($query->select("{$query->from}.rowid"));
+
+            return "delete from {$this->wrapTable($query->from)} where {$this->wrap('rowid')} in ({$selectSql})";
+        }
+
+        $wheres = is_array($query->wheres) ? $this->compileWheres($query) : '';
+
+        return trim("delete from {$this->wrapTable($query->from)} $wheres");
+    }
+
+    /**
+     * Prepare the bindings for a delete statement.
+     *
+     * @param  array  $bindings
+     * @return array
+     */
+    public function prepareBindingsForDelete(array $bindings)
+    {
+        $cleanBindings = Arr::except($bindings, ['select', 'join']);
+
+        return array_values(
+            array_merge($bindings['join'], Arr::flatten($cleanBindings))
+        );
+    }
+
+    /**
+     * Compile a truncate table statement into SQL.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return array
+     */
+    public function compileTruncate(Builder $query)
+    {
+        return [
+            'delete from sqlite_sequence where name = ?' => [$query->from],
+            'delete from '.$this->wrapTable($query->from) => [],
+        ];
+    }
+
+    /**
+     * Wrap the given JSON selector.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    protected function wrapJsonSelector($value)
+    {
+        [$field, $path] = $this->wrapJsonFieldAndPath($value);
+
+        return 'json_extract('.$field.$path.')';
+>>>>>>> dev
     }
 }

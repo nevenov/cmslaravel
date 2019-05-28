@@ -1,6 +1,10 @@
 <?php
 /*
+<<<<<<< HEAD
  * This file is part of the Comparator package.
+=======
+ * This file is part of sebastian/comparator.
+>>>>>>> dev
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -11,6 +15,10 @@
 namespace SebastianBergmann\Comparator;
 
 use SebastianBergmann\Diff\Differ;
+<<<<<<< HEAD
+=======
+use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+>>>>>>> dev
 
 /**
  * Thrown when an assertion for string equality failed.
@@ -19,24 +27,40 @@ class ComparisonFailure extends \RuntimeException
 {
     /**
      * Expected value of the retrieval which does not match $actual.
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> dev
      * @var mixed
      */
     protected $expected;
 
     /**
      * Actually retrieved value which does not match $expected.
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> dev
      * @var mixed
      */
     protected $actual;
 
     /**
      * The string representation of the expected value
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> dev
      * @var string
      */
     protected $expectedAsString;
 
     /**
      * The string representation of the actual value
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> dev
      * @var string
      */
     protected $actualAsString;
@@ -49,6 +73,10 @@ class ComparisonFailure extends \RuntimeException
     /**
      * Optional message which is placed in front of the first line
      * returned by toString().
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> dev
      * @var string
      */
     protected $message;
@@ -114,7 +142,11 @@ class ComparisonFailure extends \RuntimeException
             return '';
         }
 
+<<<<<<< HEAD
         $differ = new Differ("\n--- Expected\n+++ Actual\n");
+=======
+        $differ = new Differ(new UnifiedDiffOutputBuilder("\n--- Expected\n+++ Actual\n"));
+>>>>>>> dev
 
         return $differ->diff($this->expectedAsString, $this->actualAsString);
     }

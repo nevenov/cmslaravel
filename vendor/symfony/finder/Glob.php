@@ -14,6 +14,7 @@ namespace Symfony\Component\Finder;
 /**
  * Glob matches globbing patterns against text.
  *
+<<<<<<< HEAD
  *   if match_glob("foo.*", "foo.bar") echo "matched\n";
  *
  * // prints foo.bar and foo.baz
@@ -22,6 +23,16 @@ namespace Symfony\Component\Finder;
  * {
  *   if (/$regex/) echo "matched: $car\n";
  * }
+=======
+ *     if match_glob("foo.*", "foo.bar") echo "matched\n";
+ *
+ *     // prints foo.bar and foo.baz
+ *     $regex = glob_to_regex("foo.*");
+ *     for (['foo.bar', 'foo.baz', 'foo', 'bar'] as $t)
+ *     {
+ *         if (/$regex/) echo "matched: $car\n";
+ *     }
+>>>>>>> dev
  *
  * Glob implements glob(3) style matching that can be used to match
  * against text, rather than fetching names from a filesystem.
@@ -51,6 +62,7 @@ class Glob
         $escaping = false;
         $inCurlies = 0;
         $regex = '';
+<<<<<<< HEAD
         $sizeGlob = strlen($glob);
         for ($i = 0; $i < $sizeGlob; ++$i) {
             $car = $glob[$i];
@@ -64,6 +76,33 @@ class Glob
 
             if ('/' === $car) {
                 $firstByte = true;
+=======
+        $sizeGlob = \strlen($glob);
+        for ($i = 0; $i < $sizeGlob; ++$i) {
+            $car = $glob[$i];
+            if ($firstByte && $strictLeadingDot && '.' !== $car) {
+                $regex .= '(?=[^\.])';
+            }
+
+            $firstByte = '/' === $car;
+
+            if ($firstByte && $strictWildcardSlash && isset($glob[$i + 2]) && '**' === $glob[$i + 1].$glob[$i + 2] && (!isset($glob[$i + 3]) || '/' === $glob[$i + 3])) {
+                $car = '[^/]++/';
+                if (!isset($glob[$i + 3])) {
+                    $car .= '?';
+                }
+
+                if ($strictLeadingDot) {
+                    $car = '(?=[^\.])'.$car;
+                }
+
+                $car = '/(?:'.$car.')*';
+                $i += 2 + isset($glob[$i + 3]);
+
+                if ('/' === $delimiter) {
+                    $car = str_replace('/', '\\/', $car);
+                }
+>>>>>>> dev
             }
 
             if ($delimiter === $car || '.' === $car || '(' === $car || ')' === $car || '|' === $car || '+' === $car || '^' === $car || '$' === $car) {

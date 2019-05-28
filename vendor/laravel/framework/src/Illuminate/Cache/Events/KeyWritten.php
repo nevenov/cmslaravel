@@ -2,6 +2,7 @@
 
 namespace Illuminate\Cache\Events;
 
+<<<<<<< HEAD
 class KeyWritten
 {
     /**
@@ -12,6 +13,11 @@ class KeyWritten
     public $key;
 
     /**
+=======
+class KeyWritten extends CacheEvent
+{
+    /**
+>>>>>>> dev
      * The value that was written.
      *
      * @var mixed
@@ -19,6 +25,7 @@ class KeyWritten
     public $value;
 
     /**
+<<<<<<< HEAD
      * The number of minutes the key should be valid.
      *
      * @var int
@@ -31,12 +38,20 @@ class KeyWritten
      * @var array
      */
     public $tags;
+=======
+     * The number of seconds the key should be valid.
+     *
+     * @var int|null
+     */
+    public $seconds;
+>>>>>>> dev
 
     /**
      * Create a new event instance.
      *
      * @param  string  $key
      * @param  mixed  $value
+<<<<<<< HEAD
      * @param  int  $minutes
      * @param  array  $tags
      * @return void
@@ -47,5 +62,17 @@ class KeyWritten
         $this->tags = $tags;
         $this->value = $value;
         $this->minutes = $minutes;
+=======
+     * @param  int|null  $seconds
+     * @param  array  $tags
+     * @return void
+     */
+    public function __construct($key, $value, $seconds = null, $tags = [])
+    {
+        parent::__construct($key, $tags);
+
+        $this->value = $value;
+        $this->seconds = $seconds;
+>>>>>>> dev
     }
 }

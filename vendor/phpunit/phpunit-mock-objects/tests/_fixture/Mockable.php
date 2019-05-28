@@ -6,7 +6,11 @@ class Mockable
 
     public function __construct($arg1 = null, $arg2 = null)
     {
+<<<<<<< HEAD
         $this->constructorArgs = array($arg1, $arg2);
+=======
+        $this->constructorArgs = [$arg1, $arg2];
+>>>>>>> dev
     }
 
     public function mockableMethod()

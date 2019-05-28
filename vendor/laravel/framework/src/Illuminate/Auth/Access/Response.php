@@ -15,6 +15,10 @@ class Response
      * Create a new response.
      *
      * @param  string|null  $message
+<<<<<<< HEAD
+=======
+     * @return void
+>>>>>>> dev
      */
     public function __construct($message = null)
     {
@@ -38,6 +42,10 @@ class Response
      */
     public function __toString()
     {
+<<<<<<< HEAD
         return $this->message();
+=======
+        return (string) $this->message();
+>>>>>>> dev
     }
 }

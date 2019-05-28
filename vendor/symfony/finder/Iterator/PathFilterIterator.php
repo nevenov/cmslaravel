@@ -28,7 +28,11 @@ class PathFilterIterator extends MultiplePcreFilterIterator
     {
         $filename = $this->current()->getRelativePathname();
 
+<<<<<<< HEAD
         if ('\\' === DIRECTORY_SEPARATOR) {
+=======
+        if ('\\' === \DIRECTORY_SEPARATOR) {
+>>>>>>> dev
             $filename = str_replace('\\', '/', $filename);
         }
 

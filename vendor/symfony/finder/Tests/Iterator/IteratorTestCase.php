@@ -11,15 +11,27 @@
 
 namespace Symfony\Component\Finder\Tests\Iterator;
 
+<<<<<<< HEAD
 abstract class IteratorTestCase extends \PHPUnit_Framework_TestCase
+=======
+use PHPUnit\Framework\TestCase;
+
+abstract class IteratorTestCase extends TestCase
+>>>>>>> dev
 {
     protected function assertIterator($expected, \Traversable $iterator)
     {
         // set iterator_to_array $use_key to false to avoid values merge
         // this made FinderTest::testAppendWithAnArray() fail with GnuFinderAdapter
+<<<<<<< HEAD
         $values = array_map(function (\SplFileInfo $fileinfo) { return str_replace('/', DIRECTORY_SEPARATOR, $fileinfo->getPathname()); }, iterator_to_array($iterator, false));
 
         $expected = array_map(function ($path) { return str_replace('/', DIRECTORY_SEPARATOR, $path); }, $expected);
+=======
+        $values = array_map(function (\SplFileInfo $fileinfo) { return str_replace('/', \DIRECTORY_SEPARATOR, $fileinfo->getPathname()); }, iterator_to_array($iterator, false));
+
+        $expected = array_map(function ($path) { return str_replace('/', \DIRECTORY_SEPARATOR, $path); }, $expected);
+>>>>>>> dev
 
         sort($values);
         sort($expected);
@@ -49,8 +61,13 @@ abstract class IteratorTestCase extends \PHPUnit_Framework_TestCase
         $values = array_values(array_map(function (\SplFileInfo $fileinfo) { return $fileinfo->getPathname(); }, iterator_to_array($iterator)));
 
         foreach ($expected as $subarray) {
+<<<<<<< HEAD
             $temp = array();
             while (count($values) && count($temp) < count($subarray)) {
+=======
+            $temp = [];
+            while (\count($values) && \count($temp) < \count($subarray)) {
+>>>>>>> dev
                 $temp[] = array_shift($values);
             }
             sort($temp);
@@ -67,7 +84,11 @@ abstract class IteratorTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function assertIteratorInForeach($expected, \Traversable $iterator)
     {
+<<<<<<< HEAD
         $values = array();
+=======
+        $values = [];
+>>>>>>> dev
         foreach ($iterator as $file) {
             $this->assertInstanceOf('Symfony\\Component\\Finder\\SplFileInfo', $file);
             $values[] = $file->getPathname();
@@ -87,7 +108,11 @@ abstract class IteratorTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function assertOrderedIteratorInForeach($expected, \Traversable $iterator)
     {
+<<<<<<< HEAD
         $values = array();
+=======
+        $values = [];
+>>>>>>> dev
         foreach ($iterator as $file) {
             $this->assertInstanceOf('Symfony\\Component\\Finder\\SplFileInfo', $file);
             $values[] = $file->getPathname();
